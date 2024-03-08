@@ -5,3 +5,4 @@
 - Sahil - Back End, Database, Front End & Github Caretaker
 - Ayesha (Co-Leader, Front End)
 - Emily (Front-end)
+- Oscar (200lb)
