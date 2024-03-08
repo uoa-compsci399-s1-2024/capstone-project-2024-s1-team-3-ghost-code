@@ -2,6 +2,5 @@
 
 ## Contributors
 
-## Sahil - Back End, Database, Front End & Github Caretaker
-
+- Sahil - Back End, Database, Front End & Github Caretaker
 - Ayesha (Co-Leader, Front End)
