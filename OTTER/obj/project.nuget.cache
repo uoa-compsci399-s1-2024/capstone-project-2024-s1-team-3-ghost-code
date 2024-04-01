@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "SGyWaPu1vpsgDfqKpxw3z6lY1ZkEBiP4rFbfHXOn/u4DEH/LIUgJ9DrOk1pJWN0E1x8MA685XzYTY/1eUmpoHQ==",
+  "dgSpecHash": "x1IWj51k6uvanYy9wmtBuoym5HxZ1wpZ+t1WNze98RCJtjRO0bFGJPdYbylcQqgFK4TcoQPEYY9dip95jeqZYQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\baile\\OneDrive\\Documents\\Auckland Uni\\CompSci 399\\OTTER\\OTTER.csproj",
+  "projectFilePath": "C:\\Users\\baile\\OneDrive\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\OTTER.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\baile\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\baile\\.nuget\\packages\\microsoft.aspnetcore.openapi\\8.0.2\\microsoft.aspnetcore.openapi.8.0.2.nupkg.sha512",

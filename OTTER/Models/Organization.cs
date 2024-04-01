@@ -6,6 +6,8 @@ namespace OTTER.Models
     {
         [Key]
         [Required]
+        public int ID { get; set; }
+        [Required]
         public string OrganizationName { get; set; }
     }
 }

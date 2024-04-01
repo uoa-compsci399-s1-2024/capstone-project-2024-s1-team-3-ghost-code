@@ -3027,11 +3027,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\baile\\OneDrive\\Documents\\Auckland Uni\\CompSci 399\\OTTER\\OTTER.csproj",
+      "projectUniqueName": "C:\\Users\\baile\\OneDrive\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\OTTER.csproj",
       "projectName": "OTTER",
-      "projectPath": "C:\\Users\\baile\\OneDrive\\Documents\\Auckland Uni\\CompSci 399\\OTTER\\OTTER.csproj",
+      "projectPath": "C:\\Users\\baile\\OneDrive\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\OTTER.csproj",
       "packagesPath": "C:\\Users\\baile\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\baile\\OneDrive\\Documents\\Auckland Uni\\CompSci 399\\OTTER\\obj\\",
+      "outputPath": "C:\\Users\\baile\\OneDrive\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\baile\\AppData\\Roaming\\NuGet\\NuGet.Config",
