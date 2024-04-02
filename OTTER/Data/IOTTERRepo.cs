@@ -9,11 +9,11 @@ namespace OTTER.Data
         Quiz GetQuizByID(int id);
         Question GetQuestionByID(int id);
         Question AddQuestion(Question question);
-        Question DeleteQuestion(int id);
+        void DeleteQuestion(int id);
         Question EditQuestion(Question question);
         Answer GetAnswerByID(int id);
         Answer AddAnswer(Answer answer);
-        Answer DeleteAnswer(Answer answer);
+        void DeleteAnswer(Answer answer);
         Answer EditAnswer(Answer answer);
         Attempt GetAttemptByID(int id);
         Attempt AddAttempt(Attempt attempt);
@@ -24,7 +24,7 @@ namespace OTTER.Data
         IEnumerable<User> GetUsers();
         User GetUserByEmail(string email);
         User AddUser(User user);
-        User DeleteUser(string email);
+        void DeleteUser(string email);
         User EditUser(User user);
         Certification GetCertificationByID(int id);
         Certification AddCertification(Certification certification);
@@ -32,9 +32,9 @@ namespace OTTER.Data
         IEnumerable<Organization> GetOrganizations();
         Organization GetOrganizationByID(int id);
         Organization AddOrganization(Organization organization);
-        Organization DeleteOrganization(Organization organization);
+        void DeleteOrganization(Organization organization);
         Organization EditOrganization(Organization organization);
-        bool validAdmin(string username, string password);
+        bool validAdmin(string email, string password);
 
 
     }
