@@ -172,6 +172,37 @@ namespace OTTER.Data
             return u;
         }
 
+        
+        //stuff i've added (test)
+        public IEnumerable<Attempt> GetAttemptsByUserEmail(string userEmail)
+        {
+            User user = _dbContext.Users.FirstOrDefault(u => u.UserEmail == userEmail);
+            if (user != null)
+            {
+                return _dbContext.Attempts.Where(a => a.UserID == user.UserID).ToList();
+            }
+            return null; 
+        }
+
+        public IEnumerable<Certification> GetCertificationsByUserEmail(string userEmail)
+        {
+            User user = _dbContext.Users.FirstOrDefault(u => u.UserEmail == userEmail);
+            if (user != null)
+            {
+                return _dbContext.Certifications.Where(c => c.UserID == user.UserID).ToList();
+            }
+            return null; 
+        }
+
+        public IEnumerable<Attempt> GetAttemptsByQuizID(int quizID)
+        {
+            return _dbContext.Attempts.Where(a => a.QuizID == quizID).ToList();
+        }
+        
+        //stuff i've added ends
+
+
+
         public Certification GetCertificationByID(int id)
         {
             return _dbContext.Certifications.FirstOrDefault(e => e.CertificationID == id);
