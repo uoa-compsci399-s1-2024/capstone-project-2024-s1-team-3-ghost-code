@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AdminLogin } from "./pages/AdminLogin";
+import { AdminLoginComponents } from "./pages/AdminLogin";
 import Landing from "./pages/Landing";
 
 function App() {
@@ -10,6 +10,7 @@ function App() {
         <Routes>
           <Route index element={<Landing />} />
           <Route path="/home" element={<Landing />} />
+          <Route path="/adminlogin" element={<AdminLoginComponents />} />
         </Routes>
       </BrowserRouter>
     </div>
