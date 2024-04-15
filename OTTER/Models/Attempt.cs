@@ -5,13 +5,12 @@ namespace OTTER.Models
     public class Attempt
     {
         [Key]
-        [Required]
         public int AttemptID { get; set; }
         [Required]
         public int QuizID { get; set; }
         [Required]
-        public string UserEmail { get; set; }
+        public int UserID { get; set; }
         [Required]
-        public string DateTime { get; set; }
+        public DateTime DateTime { get; set; }
     }
 }

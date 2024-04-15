@@ -5,7 +5,6 @@ namespace OTTER.Models
     public class AttemptQuestion
     {
         [Key]
-        [Required]
         public int AttemptQID { get; set; }
         [Required]
         public int Attempt { get; set; }

@@ -5,7 +5,6 @@ namespace OTTER.Models
     public class Admin
     {
         [Key]
-        [Required]
         public int AdminID { get; set; }
         [Required]
         public string FirstName { get; set; }

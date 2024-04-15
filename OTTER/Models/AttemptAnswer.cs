@@ -5,10 +5,9 @@ namespace OTTER.Models
 {
     public class AttemptAnswer
     {
-        [Key]
-        [Required]
+        [Key, Column(Order = 0)]
         public int Question { get; set; }
-        [Required]
+        [Key, Column(Order = 1)]
         public int Answer { get; set; }
     }
 }

@@ -5,7 +5,6 @@ namespace OTTER.Models
     public class Module
     {
         [Key]
-        [Required]
         public int ModuleID { get; set; }
         [Required]
         public string Name { get; set; }

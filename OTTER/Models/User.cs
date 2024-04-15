@@ -5,6 +5,7 @@ namespace OTTER.Models
     public class User
     {
         [Key]
+        public int UserID { get; set; }
         [Required]
         public string UserEmail { get; set; }
         [Required]
@@ -12,6 +13,6 @@ namespace OTTER.Models
         [Required]
         public string? LastName { get; set; }
         [Required]
-        public string? Organization { get; set; }
+        public int Organization { get; set; }
     }
 }

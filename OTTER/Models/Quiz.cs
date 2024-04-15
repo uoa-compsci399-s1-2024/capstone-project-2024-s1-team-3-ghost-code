@@ -5,7 +5,6 @@ namespace OTTER.Models
     public class Quiz
     {
         [Key]
-        [Required]
         public int QuizID { get; set; }
         [Required]
         public string Name { get; set;}
