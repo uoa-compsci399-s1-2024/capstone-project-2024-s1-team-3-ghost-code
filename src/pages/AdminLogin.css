@@ -11,12 +11,6 @@
 }
 body{
     background: white;
-   
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    padding: 20px;
 }
 .container{
     justify-content: center; /* Vertically center items */
@@ -256,3 +250,5 @@ i{
     align-items: center;
     text-align: center;
   }
+
+  

@@ -1,12 +1,15 @@
 import "./AdminLogin.css";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 function BackToHomeLink() {
   return (
     <>
       <div className="back-to-home">
         <i className="fa-solid fa-arrow-left" id="back-arrow"></i>
-        <div className="back-to-home-text">Back to Home</div>
+        <Link style={{ textDecoration: "none" }} to="/home">
+          <div className="back-to-home-text">Back to Home</div>
+        </Link>
       </div>
     </>
   );
