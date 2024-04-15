@@ -1,7 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AdminLogin } from "./pages/AdminLogin";
+import { AdminLoginComponents } from "./pages/AdminLogin";
+import { AdminClinicianSearch } from "./pages/AClinicianSearch";
 import Landing from "./pages/Landing";
-import {AdminClinicianSearch} from "./pages/AClinicianSearch"
+
 
 function App() {
   console.log("Rendering App component");
@@ -11,6 +12,8 @@ function App() {
         <Routes>
           <Route index element={<Landing />} />
           <Route path="/home" element={<Landing />} />
+          <Route path="/adminlogin" element={<AdminLoginComponents />} />
+          <Route path="/AClinicianSearch" element={<AdminClinicianSearch />} />
         </Routes>
       </BrowserRouter>
     </div>
