@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AdminLoginComponents } from "./pages/AdminLogin";
-import { AdminClinicianSearch } from "./pages/AClinicianSearch";
+import AdminClinicianSearch from "./pages/AClinicianSearch";
 import Landing from "./pages/Landing";
 
 
