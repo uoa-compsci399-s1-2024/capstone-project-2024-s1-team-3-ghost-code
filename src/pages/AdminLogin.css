@@ -19,7 +19,7 @@ body{
     flex-direction: column;
     min-height: 100vh;
     padding-bottom: 50px;
-    padding-left: 100px;
+    padding-left: 60px;
 }
 .box{
     display: flex;
@@ -27,7 +27,7 @@ body{
     position: relative;
     padding: 60px 20px 30px 20px;
     height: 450px;
-    width: 350px;
+    width: 515px;;
     border-radius: 30px;
     background-color: #BDDEDE;
     -webkit-backdrop-filter: blur(15px);

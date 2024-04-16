@@ -26,7 +26,9 @@ function Landing() {
           being certified to use TMS in your workplace, click the button below
           to begin the quiz.
         </p>
-        <button className="start-quiz">Start The Quiz</button>
+        <Link to="/presurvey">
+          <button className="start-quiz">Start The Quiz</button>
+        </Link>
       </div>
     </>
   );

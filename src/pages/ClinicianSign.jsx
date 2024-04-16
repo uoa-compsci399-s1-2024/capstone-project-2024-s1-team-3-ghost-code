@@ -1,4 +1,5 @@
 import "./AdminLogin.css";
+import "./ClinicianSign.css";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -24,11 +25,11 @@ export function AdminLoginForm() {
 
   return (
     <>
-      <div className="container split left">
-        <div className="box">
-          <div className="box-login" id="login">
+      <div className="container-clincian split left">
+        <div className="box-clinician">
+          <div className="box-clincian-details" id="login">
             <div className="top-header">
-              <h3>Admin Login</h3>
+              <h3>Welcome Back!</h3>
               <div className="divider"></div>
             </div>
             <div className="input-group">
@@ -39,36 +40,15 @@ export function AdminLoginForm() {
                   id="logEmail"
                   required
                 />
-                <label htmlFor="logEmail">Email address</label>
-              </div>
-              <div className="input-field">
-                <input
-                  type={passwordVisible ? "text" : "password"}
-                  className="input-box"
-                  id="logPassword"
-                  required
-                />
-                <label htmlFor="logPassword">Password</label>
-                <div className="eye-area">
-                  <div className="eye-box" onClick={togglePasswordVisibility}>
-                    {passwordVisible ? (
-                      <i className="fa-regular fa-eye-slash" id="eye-slash"></i> //show when false
-                    ) : (
-                      <i className="fa-regular fa-eye" id="eye"></i> //show when true
-                    )}
-                  </div>
-                </div>
+                <label htmlFor="logEmail">Email Address</label>
               </div>
               <div className="input-field">
                 <input
                   type="submit"
                   className="input-submit"
-                  value="Sign In"
+                  value="Continue"
                   required
                 />
-              </div>
-              <div className="forgot">
-                <a href="#">Forgot password?</a>
               </div>
             </div>
           </div>
@@ -100,7 +80,7 @@ export function AdminLoginInfo() {
   );
 }
 
-export function AdminLoginComponents() {
+export function ClinicianSignComponents() {
   return (
     <>
       <div className="container">
