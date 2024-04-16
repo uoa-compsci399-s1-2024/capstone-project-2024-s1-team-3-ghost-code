@@ -204,7 +204,7 @@ namespace OTTER.Data
 
         public Organization GetOrganizationByID(int id)
         {
-            return _dbContext.Organizations.FirstOrDefault(e => e.ID == id);
+            return _dbContext.Organizations.FirstOrDefault(e => e.OrgID == id);
         }
 
         public Organization AddOrganization(Organization organization)
@@ -216,7 +216,7 @@ namespace OTTER.Data
 
         public void DeleteOrganization(Organization organization)
         {
-            Organization o = _dbContext.Organizations.FirstOrDefault(o => o.ID == organization.ID);
+            Organization o = _dbContext.Organizations.FirstOrDefault(o => o.OrgID == organization.OrgID);
             if (o != null)
             {
                 _dbContext.Organizations.Remove(o);
@@ -226,12 +226,12 @@ namespace OTTER.Data
 
         public Organization EditOrganization(Organization organization)
         {
-            Organization o = _dbContext.Organizations.FirstOrDefault(e => e.ID == organization.ID);
+            Organization o = _dbContext.Organizations.FirstOrDefault(e => e.OrgID == organization.OrgID);
             if (o != null)
             {
-                o.OrganizationName = organization.OrganizationName;
+                o.OrgName = organization.OrgName;
                 _dbContext.SaveChanges();
-                o = _dbContext.Organizations.FirstOrDefault(e => e.ID == organization.ID);
+                o = _dbContext.Organizations.FirstOrDefault(e => e.OrgID == organization.OrgID);
             }
             return o;
         }
