@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using OTTER.Models;
 using OTTER.Data;
+using System.Security.Claims;
 
 namespace OTTER.Controllers
 {
@@ -15,6 +17,12 @@ namespace OTTER.Controllers
             _repo = repo;
         }
 
+        [Authorize(AuthenticationSchemes = "Authentication")]
+        [Authorize(Policy = "Admin")]
         [HttpGet("Login")]
+        public ActionResult TryLogin()
+        {
+            return Ok();
+        }
     }
 }

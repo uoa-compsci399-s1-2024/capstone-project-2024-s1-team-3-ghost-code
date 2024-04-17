@@ -1,4 +1,4 @@
-using OTTER.Handler
+using OTTER.Handler;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using OTTER.Data;
