@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\baile\\OneDrive\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\baile\\onedrive\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\data\\dbotterrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:data\\dbotterrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\baile\\onedrive\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\handler\\adminhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:handler\\adminhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\baile\\onedrive\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\baile\\onedrive\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\data\\dbotterrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:data\\dbotterrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\baile\\onedrive\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\models\\admin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -82,11 +82,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "AdminHandler.cs",
               "DocumentMoniker": "C:\\Users\\baile\\OneDrive\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Handler\\AdminHandler.cs",
               "RelativeDocumentMoniker": "Handler\\AdminHandler.cs",
@@ -94,18 +94,17 @@
               "RelativeToolTip": "Handler\\AdminHandler.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAACwAAAA+AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-12T02:48:40.109Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-12T02:48:40.109Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "DBOTTERRepo.cs",
               "DocumentMoniker": "C:\\Users\\baile\\OneDrive\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Data\\DBOTTERRepo.cs",
               "RelativeDocumentMoniker": "Data\\DBOTTERRepo.cs",
               "ToolTip": "C:\\Users\\baile\\OneDrive\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Data\\DBOTTERRepo.cs",
               "RelativeToolTip": "Data\\DBOTTERRepo.cs",
-              "ViewState": "AQIAAMQAAAAAAAAAAAAwwPQAAAAcAAAA",
+              "ViewState": "AQIAAMQAAAAAAAAAAAAwwPAAAAAcAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-29T21:56:27.008Z",
               "EditorCaption": ""
@@ -268,7 +267,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\baile\\OneDrive\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -276,8 +275,7 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABkAAAAqAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-29T04:23:21.309Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-29T04:23:21.309Z"
             },
             {
               "$type": "Document",

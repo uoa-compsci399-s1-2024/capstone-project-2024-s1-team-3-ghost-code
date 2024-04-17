@@ -13,7 +13,7 @@ namespace OTTER.Data
         Question EditQuestion(Question question);
         Answer GetAnswerByID(int id);
         Answer AddAnswer(Answer answer);
-        void DeleteAnswer(Answer answer);
+        void DeleteAnswer(int id);
         Answer EditAnswer(Answer answer);
         Attempt GetAttemptByID(int id);
         Attempt AddAttempt(Attempt attempt);
@@ -32,10 +32,13 @@ namespace OTTER.Data
         IEnumerable<Organization> GetOrganizations();
         Organization GetOrganizationByID(int id);
         Organization AddOrganization(Organization organization);
-        void DeleteOrganization(Organization organization);
+        void DeleteOrganization(int id);
         Organization EditOrganization(Organization organization);
         bool validAdmin(string email, string password);
-
+        Admin GetAdminByEmail(string email);
+        Admin AddAdmin(Admin admin);
+        void DeleteAdmin(string email);
+        Admin EditAdmin(Admin admin);
 
     }
 }
