@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OTTER.Data;
 
@@ -10,9 +11,11 @@ using OTTER.Data;
 namespace OTTER.Migrations
 {
     [DbContext(typeof(OTTERDBContext))]
-    partial class OTTERDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240416025717_AngusEdits")]
+    partial class AngusEdits
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.3");
@@ -94,13 +97,18 @@ namespace OTTER.Migrations
 
             modelBuilder.Entity("OTTER.Models.AttemptAnswer", b =>
                 {
-                    b.Property<int>("Question")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("AttemptAID")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Answer")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("INTEGER")
+                        .HasColumnOrder(1);
 
-                    b.HasKey("Question", "Answer");
+                    b.Property<int>("Question")
+                        .HasColumnType("INTEGER")
+                        .HasColumnOrder(0);
+
+                    b.HasKey("AttemptAID");
 
                     b.ToTable("AttemptAnswers");
                 });

@@ -1,14 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OTTER.Models
 {
+    [PrimaryKey(nameof(Question), nameof(Answer))]
     public class AttemptAnswer
     {
-        [Key]
-        [Required]
         public int Question { get; set; }
-        [Required]
         public int Answer { get; set; }
     }
 }
