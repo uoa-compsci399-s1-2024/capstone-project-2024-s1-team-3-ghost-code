@@ -1,20 +1,22 @@
 import React from "react";
-import styles from "./AdminDashboard.module.css"; // Import the CSS module
+import "./ADashboard.css";
 
 function AdminDashboard() {
   return (
-    <div className={styles.dashboardContainer}>
-      <img
-        className={styles.logo}
-        loading="lazy"
-        src="/components/VERIGYLogo.jpg" // Add your logo URL here
-        alt="DashboardLogo"
-      />
-      <button className={styles.button}>Dashboard</button>
-      <button className={styles.button}>Edit Quiz</button>
-      <button className={styles.button}>Clinicians</button>
-      <button className={styles.button}>Statistics</button>
-      <button className={styles.button}>Settings</button>
+    <div className="dashboard-container">
+      <div className="logo-container">
+        <img
+          className="logo"
+          loading="lazy"
+          src="src/components/VERIFYLogo.jpg"
+          alt="DashboardLogo" 
+        />
+      </div>
+      <button className="button">Dashboard</button>
+      <button className="button">Edit Quiz</button>
+      <button className="button">Clinicians</button>
+      <button className="button">Statistics</button>
+      <button className="button">Settings</button>
     </div>
   );
 }

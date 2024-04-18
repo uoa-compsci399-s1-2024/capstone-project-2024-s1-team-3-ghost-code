@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from 'redaxios';
 import "./AClinicianSearch.css";
 import { Link } from "react-router-dom";
-import AdminDashboard from "src/components/Dashboards/AdminDashboard"; // Make sure the path is correct
+import AdminDashboard from "../components/Dashboards/ADashboard";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 function AClinicianSearch() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [adminName, setAdminName] = useState("");
 
   // Function to fetch search results from backend API
   useEffect(() => {
@@ -24,32 +27,48 @@ function AClinicianSearch() {
     }
   }, [searchQuery]);
 
+  // Function to fetch admin information from backend API
+  useEffect(() => {
+    axios.get('/api/admin/details') /* May have to replace this to suit Back-end */
+      .then(response => {
+        setAdminName(response.data.name);
+      })
+      .catch(error => {
+        console.error("Error fetching admin information:", error);
+      });
+  }, []);
+
   const handleSearchInputChange = (event) => {
     setSearchQuery(event.target.value);
   };
 
   return (
     <div className="flex">
-      <div className="w-1/4"> {/* Adjust width as needed */}
+      <div className="dashboard-container">
         <AdminDashboard />
       </div>
-      <div className="flex flex-col grow pt-5 pb-20 mt-7 w-full text-black rounded-3xl bg-slate-300 leading-[135%] max-md:mt-10 max-md:max-w-full w-3/4"> {/* Adjust width as needed */}
-        <div className="flex gap-5 self-end mr-16 text-3xl text-center max-md:mr-2.5">
+      <div className="search-container">
+        <div className="admin-info">
+          <span className="admin-name">{adminName}</span>
+          <div className="admin-icon"></div>
+        </div>
+        <div className="search-input">
           <input
             type="text"
             value={searchQuery}
             onChange={handleSearchInputChange}
             placeholder="Search..."
-            className="rounded-md px-3 py-1 border border-gray-400"
           />
+          <FontAwesomeIcon icon={faSearch} className="search-icon" />
         </div>
-        {/* Render search results */}
-        {searchResults.map(result => (
-          <div key={result.id} className="flex gap-5 px-8 py-8 mt-5 max-w-full bg-white rounded-3xl w-[870px] max-md:flex-wrap max-md:px-5">
-            <div className="flex-auto text-3xl">{result.name}</div>
-            <div className="flex-auto self-start text-2xl">{result.email}</div>
-          </div>
-        ))}
+        <div className="search-results">
+          {searchResults.map(result => (
+            <div key={result.id} className="result-item">
+              <div className="result-name">{result.name}</div>
+              <div className="result-email">{result.email}</div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

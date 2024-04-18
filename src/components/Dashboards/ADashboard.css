@@ -1,18 +1,32 @@
-.dashboardContainer {
+.dashboard-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px 5px;
     width: 100%;
-    background-color: #008080; /* Teal color for the dashboard */
-    color: white; /* Text color */
+    background-color: #008080;
+    color: white;
     text-align: center;
+    border-top-right-radius: 50px; /* Adjust the value as needed for the curve */
+    border-bottom-right-radius: 0; /* Make the bottom-right corner straight */
+  }
+  
+  .logo-container {
+    width: 200px;
+    height: 150px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    border-top-left-radius: 20px; /* Adjust the border radius for the curved sides */
+    border-top-right-radius: 20px; /* Adjust the border radius for the curved sides */
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
   }
   
   .logo {
     width: 100%;
-    aspect-ratio: 2; /* Keeps the image's aspect ratio */
-    object-fit: cover; /* Ensures the image covers the space without distortion */
+    height: 100%;
+    object-fit: contain;
+
   }
   
   .button {
@@ -21,14 +35,15 @@
     width: 185px;
     padding: 15px;
     margin-top: 20px;
-    background-color: #008080; /* Teal background for the buttons */
+    background-color: #008080;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    color: white;
   }
   
   .button:hover {
-    background-color: #006666; /* Slightly darker teal on hover */
+    background-color: #006666;
   }
   

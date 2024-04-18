@@ -1,47 +1,58 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-
-/* General reset and font setup */
-* {
+html,
+body {
+  height: 100%;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
 }
 
-/* Main container styling */
 .flex {
+  display: flex;
+  height: 100%; /* Ensure the flex container covers the entire height */
+  padding: 0; /* Remove padding to ensure full height */
+}
+
+.dashboard-container {
+  flex: 0.5; /* Change how much of the screen it covers */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 100%;
-  background: linear-gradient(to right, #f8f9fa, #e9ecef);
-  min-height: 100vh;
   padding-top: 5rem;
   padding-bottom: 2rem;
+  margin: 0; /* Remove margin */
 }
 
-/* Search input styling */
-input[type="text"] {
-  width: 100%;
-  max-width: 500px;
+.search-container {
+  flex: 2; /* Adjust the width of the search section */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 5rem;
+  padding-bottom: 2rem;
+  margin: 0; /* Remove margin */
+  background-color: #BDDEDE;    
+  border-left: 15px solid white;
+}
+
+.search-input input[type="text"] {
+  width: 600px;
+  max-width: 800px;
   padding: 0.5rem 1rem;
   border: 2px solid #ddd;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   font-size: 1rem;
   background: #ffffff;
   transition: border-color 0.3s;
+  padding-left: 40px;
 }
 
-input[type="text"]:focus {
+.search-input input[type="text"]:focus {
   border-color: #0056b3;
   outline: none;
 }
 
-/* Search results styling */
-.search-result-container {
-  display: flex;
-  flex-direction: column;
+.search-results {
   width: 100%;
   max-width: 870px;
   margin-top: 1rem;
@@ -62,7 +73,8 @@ input[type="text"]:focus {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-.result-name, .result-email {
+.result-name,
+.result-email {
   font-size: 1.2rem;
 }
 
@@ -70,22 +82,41 @@ input[type="text"]:focus {
   color: #555;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .flex {
-    padding: 1rem;
+.search-input {
+    position: relative;
   }
-
-  input[type="text"] {
-    width: calc(100% - 2rem);
+  
+  .search-icon {
+    position: absolute;
+    top: 50%;
+    left: -50px; /* Adjust the left position as needed */
+    transform: translateY(-40%);
+    color: #555; /* Adjust the color of the icon */
+    font-size: 1.5rem;
+  
   }
-
-  .result-item {
-    flex-direction: column;
-    text-align: center;
+  
+  .search-input input[type="text"] {
+    padding-left: 30px; /* Adjust padding to make space for the icon */
   }
-
-  .result-name, .result-email {
-    margin: 0.5rem 0;
+  
+  .admin-info {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    color: #333;
   }
-}
+  
+  .admin-name {
+    margin-right: 10px;
+  }
+  
+  .admin-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ccc;
+    /* Additional styles for the circle icon */
+  }
