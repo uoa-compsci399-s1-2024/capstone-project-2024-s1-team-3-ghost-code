@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* General reset and font setup */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Main container styling */
+.flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  background: linear-gradient(to right, #f8f9fa, #e9ecef);
+  min-height: 100vh;
+  padding-top: 5rem;
+  padding-bottom: 2rem;
+}
+
+/* Search input styling */
+input[type="text"] {
+  width: 100%;
+  max-width: 500px;
+  padding: 0.5rem 1rem;
+  border: 2px solid #ddd;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  background: #ffffff;
+  transition: border-color 0.3s;
+}
+
+input[type="text"]:focus {
+  border-color: #0056b3;
+  outline: none;
+}
+
+/* Search results styling */
+.search-result-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 870px;
+  margin-top: 1rem;
+}
+
+.result-item {
+  background: #ffffff;
+  margin: 0.5rem 0;
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.result-item:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.result-name, .result-email {
+  font-size: 1.2rem;
+}
+
+.result-email {
+  color: #555;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .flex {
+    padding: 1rem;
+  }
+
+  input[type="text"] {
+    width: calc(100% - 2rem);
+  }
+
+  .result-item {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .result-name, .result-email {
+    margin: 0.5rem 0;
+  }
+}

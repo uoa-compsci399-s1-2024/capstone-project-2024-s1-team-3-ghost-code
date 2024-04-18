@@ -1,8 +1,10 @@
+import React from 'react'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AdminLoginComponents } from "./pages/AdminLogin";
 import Landing from "./pages/Landing";
 import Presurvey from "./pages/PreSurvey";
 import { ClinicianSignComponents } from "./pages/ClinicianSign";
+import  AClinicianSearch from './pages/AClinicianSearch';
 
 function App() {
   console.log("Rendering App component");
@@ -15,6 +17,7 @@ function App() {
           <Route path="/adminlogin" element={<AdminLoginComponents />} />
           <Route path="/presurvey" element={<Presurvey />} />
           <Route path="/cliniciansign" element={<ClinicianSignComponents />} />
+          <Route path="/adminsearch" element={<AClinicianSearch />} /> 
         </Routes>
       </BrowserRouter>
     </div>
