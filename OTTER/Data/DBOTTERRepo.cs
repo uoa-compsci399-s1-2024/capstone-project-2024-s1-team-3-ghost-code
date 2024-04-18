@@ -245,9 +245,19 @@ namespace OTTER.Data
                 return true;
         }
 
-        public Admin GetAdminByEmail(string email)
+        public IEnumerable<Admin> GetAdmins()
         {
-            return _dbContext.Admins.FirstOrDefault(e => e.Email== email);
+            return _dbContext.Admins.ToList<Admin>();
+        }
+
+        public IEnumerable<Admin> GetAdminByEmail(string email)
+        {
+            return _dbContext.Admins.Where(e => e.Email == email);
+        }
+
+        public Admin GetAdminByID(int id)
+        {
+            return _dbContext.Admins.FirstOrDefault(e => e.AdminID == id);
         }
 
         public Admin AddAdmin(Admin admin)
@@ -257,9 +267,9 @@ namespace OTTER.Data
             return a.Entity;
         }
 
-        public void DeleteAdmin(string email)
+        public void DeleteAdmin(int id)
         {
-            Admin admin = _dbContext.Admins.FirstOrDefault(e => e.Email== email);
+            Admin admin = _dbContext.Admins.FirstOrDefault(e => e.AdminID == id);
             if (admin != null)
             {
                 _dbContext.Admins.Remove(admin);
@@ -269,7 +279,7 @@ namespace OTTER.Data
 
         public Admin EditAdmin(Admin admin)
         {
-            Admin a = _dbContext.Admins.FirstOrDefault(e => e.Email == admin.Email);
+            Admin a = _dbContext.Admins.FirstOrDefault(e => e.AdminID == admin.AdminID);
             if (a != null)
             {
                 a.FirstName = admin.FirstName;
@@ -277,7 +287,7 @@ namespace OTTER.Data
                 a.Email = admin.Email;
                 a.Password = admin.Password;
                 _dbContext.SaveChanges();
-                a = _dbContext.Admins.FirstOrDefault(e => e.Email == admin.Email);
+                a = _dbContext.Admins.FirstOrDefault(e => e.AdminID == admin.AdminID);
             }
             return a;
         }

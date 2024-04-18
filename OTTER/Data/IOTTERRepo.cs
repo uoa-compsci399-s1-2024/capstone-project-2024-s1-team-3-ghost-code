@@ -35,9 +35,11 @@ namespace OTTER.Data
         void DeleteOrganization(int id);
         Organization EditOrganization(Organization organization);
         bool validAdmin(string email, string password);
-        Admin GetAdminByEmail(string email);
+        IEnumerable<Admin> GetAdmins();
+        IEnumerable<Admin> GetAdminByEmail(string email);
+        Admin GetAdminByID(int id);
         Admin AddAdmin(Admin admin);
-        void DeleteAdmin(string email);
+        void DeleteAdmin(int id);
         Admin EditAdmin(Admin admin);
 
     }
