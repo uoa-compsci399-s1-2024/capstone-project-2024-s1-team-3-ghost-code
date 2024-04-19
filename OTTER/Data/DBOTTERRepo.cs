@@ -70,9 +70,9 @@ namespace OTTER.Data
             return a.Entity;
         }
 
-        public void DeleteAnswer(Answer answer)
+        public void DeleteAnswer(int id)
         {
-            Answer a = _dbContext.Answers.FirstOrDefault(e => e.AnswerID == answer.AnswerID);
+            Answer a = _dbContext.Answers.FirstOrDefault(e => e.AnswerID == id);
             if (a != null)
             {
                 _dbContext.Answers.Remove(a);
@@ -214,9 +214,9 @@ namespace OTTER.Data
             return o.Entity;
         }
 
-        public void DeleteOrganization(Organization organization)
+        public void DeleteOrganization(int id)
         {
-            Organization o = _dbContext.Organizations.FirstOrDefault(o => o.OrgID == organization.OrgID);
+            Organization o = _dbContext.Organizations.FirstOrDefault(o => o.OrgID == id);
             if (o != null)
             {
                 _dbContext.Organizations.Remove(o);
@@ -238,11 +238,58 @@ namespace OTTER.Data
 
         public bool validAdmin(string email, string password)
         {
-            Admin admin = _dbContext.Admins.FirstOrDefault(e => e.Email == email);
+            Admin admin = _dbContext.Admins.FirstOrDefault(e => e.Email == email && e.Password == password);
             if (admin == null)
                 return false;
             else
                 return true;
+        }
+
+        public IEnumerable<Admin> GetAdmins()
+        {
+            return _dbContext.Admins.ToList<Admin>();
+        }
+
+        public IEnumerable<Admin> GetAdminByEmail(string email)
+        {
+            return _dbContext.Admins.Where(e => e.Email == email);
+        }
+
+        public Admin GetAdminByID(int id)
+        {
+            return _dbContext.Admins.FirstOrDefault(e => e.AdminID == id);
+        }
+
+        public Admin AddAdmin(Admin admin)
+        {
+            EntityEntry<Admin> a = _dbContext.Admins.Add(admin);
+            _dbContext.SaveChanges();
+            return a.Entity;
+        }
+
+        public void DeleteAdmin(int id)
+        {
+            Admin admin = _dbContext.Admins.FirstOrDefault(e => e.AdminID == id);
+            if (admin != null)
+            {
+                _dbContext.Admins.Remove(admin);
+                _dbContext.SaveChanges();
+            }
+        }
+
+        public Admin EditAdmin(Admin admin)
+        {
+            Admin a = _dbContext.Admins.FirstOrDefault(e => e.AdminID == admin.AdminID);
+            if (a != null)
+            {
+                a.FirstName = admin.FirstName;
+                a.LastName = admin.LastName;
+                a.Email = admin.Email;
+                a.Password = admin.Password;
+                _dbContext.SaveChanges();
+                a = _dbContext.Admins.FirstOrDefault(e => e.AdminID == admin.AdminID);
+            }
+            return a;
         }
     }
 }
