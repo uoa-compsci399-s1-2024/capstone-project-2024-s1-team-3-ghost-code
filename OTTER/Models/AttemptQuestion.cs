@@ -7,10 +7,12 @@ namespace OTTER.Models
         [Key]
         public int AttemptQID { get; set; }
         [Required]
-        public int Attempt { get; set; }
+        public Attempt Attempt { get; set; }
         [Required]
-        public int Question { get; set; }
+        public Question Question { get; set; }
         [Required]
         public int Sequence { get; set; }
+        [Required]
+        public ICollection<Answer> Answers { get; set; }
     }
 }

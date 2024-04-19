@@ -119,7 +119,7 @@ namespace OTTER.Data
             return atQ.Entity;
         }
 
-        public AttemptAnswer GetAttemptAnswerByID(int id)
+        /*public AttemptAnswer GetAttemptAnswerByID(int id)
         {
             return _dbContext.AttemptAnswers.FirstOrDefault(e => e.Question == id);
         }
@@ -129,7 +129,7 @@ namespace OTTER.Data
             EntityEntry<AttemptAnswer> atA = _dbContext.AttemptAnswers.Add(attemptA);
             _dbContext.SaveChanges();
             return atA.Entity;
-        }
+        }*/
 
         public IEnumerable<User> GetUsers()
         {

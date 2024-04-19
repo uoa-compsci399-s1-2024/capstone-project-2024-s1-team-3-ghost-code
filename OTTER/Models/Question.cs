@@ -7,7 +7,7 @@ namespace OTTER.Models
         [Key]
         public int QuestionID { get; set; }
         [Required]
-        public int Module { get; set; }
+        public Module Module { get; set; }
         [Required]
         public string Title { get; set; }
         public string? Description { get; set; }

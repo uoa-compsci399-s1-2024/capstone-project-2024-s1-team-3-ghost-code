@@ -7,9 +7,9 @@ namespace OTTER.Models
         [Key]
         public int AttemptID { get; set; }
         [Required]
-        public int QuizID { get; set; }
+        public Quiz Quiz { get; set; }
         [Required]
-        public int UserID { get; set; }
+        public User User { get; set; }
         [Required]
         public DateTime DateTime { get; set; }
     }

@@ -13,9 +13,10 @@ namespace OTTER.Models
         [Required]
         public bool Visible { get; set; }
         [Required]
-        public int Module { get; set;}
+        public Module Module { get; set;}
         [Required]
         public string Stage { get; set;}
-        //ADD LENGTH AS A LATER THING
+        [Required]
+        public int Length { get; set;}
     }
 }

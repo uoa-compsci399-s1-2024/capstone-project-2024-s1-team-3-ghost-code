@@ -19,8 +19,8 @@ namespace OTTER.Data
         Attempt AddAttempt(Attempt attempt);
         AttemptQuestion GetAttemptQuestionByID(int id);
         AttemptQuestion AddAttemptQuestion(AttemptQuestion attemptQ);
-        AttemptAnswer GetAttemptAnswerByID(int id);
-        AttemptAnswer AddAttemptAnswer(AttemptAnswer attemptA);
+        /*AttemptAnswer GetAttemptAnswerByID(int id);
+        AttemptAnswer AddAttemptAnswer(AttemptAnswer attemptA);*/
         IEnumerable<User> GetUsers();
         User GetUserByEmail(string email);
         User AddUser(User user);

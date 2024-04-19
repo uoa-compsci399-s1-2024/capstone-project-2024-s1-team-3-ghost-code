@@ -9,7 +9,6 @@ namespace OTTER.Data
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Attempt> Attempts { get; set; }
-        public DbSet<AttemptAnswer> AttemptAnswers { get; set; }
         public DbSet<AttemptQuestion> AttemptQuestions { get; set; }
         public DbSet<Certification> Certifications { get; set; }
         public DbSet<Module> Modules { get; set; }

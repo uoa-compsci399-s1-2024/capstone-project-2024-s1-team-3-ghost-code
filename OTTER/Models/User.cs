@@ -9,10 +9,12 @@ namespace OTTER.Models
         [Required]
         public string UserEmail { get; set; }
         [Required]
-        public string? FirstName { get; set; }
+        public string FirstName { get; set; }
         [Required]
-        public string? LastName { get; set; }
+        public string LastName { get; set; }
         [Required]
-        public int Organization { get; set; }
+        public string Role { get; set; }
+        [Required]
+        public Organization Organization { get; set; }
     }
 }
