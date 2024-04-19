@@ -16,5 +16,6 @@ namespace OTTER.Models
         [Required]
         public bool CorrectAnswer { get; set; }
         public string? Feedback { get; set; }
+        public ICollection<AttemptQuestion> Attempts { get; set; }
     }
 }
