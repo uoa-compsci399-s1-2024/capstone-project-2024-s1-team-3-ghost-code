@@ -43,8 +43,8 @@ namespace OTTER.Controllers
             return Ok(_repo.GetAdminByEmail(email));
         }
 
-        [Authorize(AuthenticationSchemes = "Authentication")]
-        [Authorize(Policy = "Admin")]
+        //[Authorize(AuthenticationSchemes = "Authentication")]
+        //[Authorize(Policy = "Admin")]
         [HttpPost("AddAdmin")]
         public ActionResult<Admin> AddAdmin(AdminInputDto newadmin)
         {
