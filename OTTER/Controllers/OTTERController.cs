@@ -26,8 +26,8 @@ namespace OTTER.Controllers
             return Ok();
         }
 
-        [Authorize(AuthenticationSchemes = "Authentication")]
-        [Authorize(Policy = "Admin")]
+        //[Authorize(AuthenticationSchemes = "Authentication")]
+        //[Authorize(Policy = "Admin")]
         [HttpGet("GetAdmins")]
         public ActionResult<IEnumerable<Admin>> GetAdmins()
         {
