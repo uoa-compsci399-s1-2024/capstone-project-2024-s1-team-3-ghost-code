@@ -19,7 +19,7 @@ function App() {
           <Route path="/presurvey" element={<Presurvey />} />
           <Route path="/cliniciansign" element={<ClinicianSignComponents />} />
           <Route path="/adminsearch" element={<AClinicianSearch />} /> 
-          <Route path="/quizDashboard" element={<QuizDashboard />} /> 
+          <Route path="/quizDashboard" element={<QuizDashboard />} />
 
         </Routes>
       </BrowserRouter>
