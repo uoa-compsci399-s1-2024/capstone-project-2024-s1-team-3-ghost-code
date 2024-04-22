@@ -17,9 +17,9 @@ function QuizDashboard() {
             <div className="justify-center px-6 py-5 mt-7 max-w-full bg-cyan-700 rounded-md w-[185px] max-md:px-5">
               Dashboard
             </div>
-            <div className="justify-center px-10 py-4 mt-96 max-w-full bg-cyan-700 rounded-md w-[185px] max-md:px-5 max-md:mt-10">
-              Settings
-            </div>
+            <button className="justify-center px-10 py-4 mt-96 max-w-full bg-cyan-700 rounded-md w-[185px] max-md:px-5 max-md:mt-10 text-white">
+              Start Quiz
+            </button>
           </div>
         </div>
         <div className="flex flex-col ml-5 w-[49%] max-md:ml-0 max-md:w-full">
@@ -36,9 +36,9 @@ function QuizDashboard() {
                         to continue to the Final Quiz
                       </div>
                     </div>
-                    <div className="justify-center items-center px-5 mt-6 text-3xl leading-10 text-center whitespace-nowrap bg-amber-200 rounded-full h-[51px] w-[51px]">
+                    <button className="justify-center items-center px-5 mt-6 text-3xl leading-10 text-center whitespace-nowrap bg-amber-200 rounded-full h-[51px] w-[51px] text-white">
                       &lt;
-                    </div>
+                    </button>
                   </div>
                 </div>
                 <div className="flex flex-col ml-5 w-[43%] max-md:ml-0 max-md:w-full">
@@ -48,28 +48,28 @@ function QuizDashboard() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col pt-9 pr-5 pb-5 pl-12 mt-8 text-3xl leading-10 text-black bg-white rounded-3xl shadow-sm max-md:pl-5 max-md:max-w-full">
+            <button className="flex flex-col pt-9 pr-5 pb-5 pl-12 mt-8 text-3xl leading-10 text-black bg-white rounded-3xl shadow-sm max-md:pl-5 max-md:max-w-full">
               <div className="max-md:max-w-full">Module 2</div>
               <div className="mt-8 text-base leading-5 max-md:max-w-full">
                 To provide information on the mechanisms and physiology of
                 transcranial magnetic stimulation (TMS), and its potential side
                 effects.
               </div>
-              <div className="justify-center items-center self-end px-5 mt-4 text-center whitespace-nowrap bg-amber-200 rounded-full h-[51px] w-[51px]">
+              <button className="justify-center items-center self-end px-5 mt-4 text-center whitespace-nowrap bg-amber-200 rounded-full h-[51px] w-[51px] text-white">
                 &gt;
-              </div>
-            </div>
-            <div className="flex flex-col pt-9 pr-5 pb-5 pl-12 mt-8 text-3xl leading-10 text-black bg-white rounded-3xl shadow-sm max-md:pl-5 max-md:max-w-full">
+              </button>
+            </button>
+            <button className="flex flex-col pt-9 pr-5 pb-5 pl-12 mt-8 text-3xl leading-10 text-black bg-white rounded-3xl shadow-sm max-md:pl-5 max-md:max-w-full">
               <div className="max-md:max-w-full">Module 3</div>
               <div className="mt-8 text-base leading-5 max-md:max-w-full">
                 To provide information on the mechanisms and physiology of
                 transcranial magnetic stimulation (TMS), and its potential side
                 effects.
               </div>
-              <div className="justify-center items-center self-end px-5 mt-4 text-center whitespace-nowrap bg-amber-200 rounded-full h-[51px] w-[51px]">
+              <button className="justify-center items-center self-end px-5 mt-4 text-center whitespace-nowrap bg-amber-200 rounded-full h-[51px] w-[51px] text-white">
                 &gt;
-              </div>
-            </div>
+              </button>
+            </button>
           </div>
         </div>
         <div className="flex flex-col ml-5 w-[27%] max-md:ml-0 max-md:w-full">
@@ -134,3 +134,4 @@ function QuizDashboard() {
   );
 }
 
+export default QuizDashboard;

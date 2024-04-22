@@ -5,6 +5,7 @@ import Landing from "./pages/Landing";
 import Presurvey from "./pages/PreSurvey";
 import { ClinicianSignComponents } from "./pages/ClinicianSign";
 import  AClinicianSearch from './pages/AClinicianSearch';
+import   QuizDashboard  from './pages/QuizDashboard';
 
 function App() {
   console.log("Rendering App component");
@@ -18,6 +19,8 @@ function App() {
           <Route path="/presurvey" element={<Presurvey />} />
           <Route path="/cliniciansign" element={<ClinicianSignComponents />} />
           <Route path="/adminsearch" element={<AClinicianSearch />} /> 
+          <Route path="/quizDashboard" element={<QuizDashboard />} /> 
+
         </Routes>
       </BrowserRouter>
     </div>

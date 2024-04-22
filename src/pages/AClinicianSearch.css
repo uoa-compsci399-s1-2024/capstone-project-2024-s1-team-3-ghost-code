@@ -11,16 +11,6 @@ body {
   padding: 0; /* Remove padding to ensure full height */
 }
 
-.dashboard-container {
-  flex: 0.5; /* Change how much of the screen it covers */
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  padding-top: 5rem;
-  padding-bottom: 2rem;
-  margin: 0; /* Remove margin */
-}
 
 .search-container {
   flex: 2; /* Adjust the width of the search section */

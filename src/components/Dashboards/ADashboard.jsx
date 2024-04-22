@@ -16,6 +16,8 @@ function AdminDashboard() {
       <button className="button">Edit Quiz</button>
       <button className="button">Clinicians</button>
       <button className="button">Statistics</button>
+      <br></br>
+      
       <button className="button">Settings</button>
     </div>
   );
