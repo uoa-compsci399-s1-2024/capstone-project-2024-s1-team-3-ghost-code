@@ -1,0 +1,59 @@
+.flex {
+    display: flex;
+    height: 100vh; /* Full viewport height */
+    padding: 0;
+    margin: 0;
+}
+
+.module-container {
+    flex: 3; /* Increased space for modules */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding: 20px;
+    background-color: #ffffff; /* White background */
+}
+
+.progress-container {
+    flex: 2; /* Adjusted space for the progress indicators */
+    background-color: #FFFACD; /* Light yellow background */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.certify-button {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Green background */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.module-item {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+}
+
+.module-title, .module-description {
+    margin: 5px 0;
+}
+
+.module-progress {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.progress-item {
+    margin: 10px 0;
+}
+
+.progress-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
