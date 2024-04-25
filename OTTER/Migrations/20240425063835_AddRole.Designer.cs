@@ -11,8 +11,8 @@ using OTTER.Data;
 namespace OTTER.Migrations
 {
     [DbContext(typeof(OTTERDBContext))]
-    [Migration("20240425013127_AddRoleModel")]
-    partial class AddRoleModel
+    [Migration("20240425063835_AddRole")]
+    partial class AddRole
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -224,6 +224,10 @@ namespace OTTER.Migrations
                     b.Property<int>("QuestionType")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Stage")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -300,9 +304,8 @@ namespace OTTER.Migrations
                     b.Property<int>("OrganizationOrgID")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("RoleID")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("UserEmail")
                         .IsRequired()
@@ -311,6 +314,8 @@ namespace OTTER.Migrations
                     b.HasKey("UserID");
 
                     b.HasIndex("OrganizationOrgID");
+
+                    b.HasIndex("RoleID");
 
                     b.ToTable("Users");
                 });
@@ -428,7 +433,15 @@ namespace OTTER.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("OTTER.Models.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Organization");
+
+                    b.Navigation("Role");
                 });
 #pragma warning restore 612, 618
         }

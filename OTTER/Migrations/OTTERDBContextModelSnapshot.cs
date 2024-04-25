@@ -221,6 +221,10 @@ namespace OTTER.Migrations
                     b.Property<int>("QuestionType")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Stage")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -265,6 +269,21 @@ namespace OTTER.Migrations
                     b.ToTable("Quizzes");
                 });
 
+            modelBuilder.Entity("OTTER.Models.Role", b =>
+                {
+                    b.Property<int>("RoleID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("RoleID");
+
+                    b.ToTable("Roles");
+                });
+
             modelBuilder.Entity("OTTER.Models.User", b =>
                 {
                     b.Property<int>("UserID")
@@ -282,9 +301,8 @@ namespace OTTER.Migrations
                     b.Property<int>("OrganizationOrgID")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("RoleID")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("UserEmail")
                         .IsRequired()
@@ -293,6 +311,8 @@ namespace OTTER.Migrations
                     b.HasKey("UserID");
 
                     b.HasIndex("OrganizationOrgID");
+
+                    b.HasIndex("RoleID");
 
                     b.ToTable("Users");
                 });
@@ -410,7 +430,15 @@ namespace OTTER.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("OTTER.Models.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Organization");
+
+                    b.Navigation("Role");
                 });
 #pragma warning restore 612, 618
         }

@@ -5,7 +5,7 @@
 namespace OTTER.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateUserWithRole : Migration
+    public partial class AddRole : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -20,6 +20,26 @@ namespace OTTER.Migrations
                 type: "INTEGER",
                 nullable: false,
                 defaultValue: 0);
+
+            migrationBuilder.AddColumn<string>(
+                name: "Stage",
+                table: "Questions",
+                type: "TEXT",
+                nullable: false,
+                defaultValue: "");
+
+            migrationBuilder.CreateTable(
+                name: "Roles",
+                columns: table => new
+                {
+                    RoleID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    RoleName = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Roles", x => x.RoleID);
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_RoleID",
@@ -42,6 +62,9 @@ namespace OTTER.Migrations
                 name: "FK_Users_Roles_RoleID",
                 table: "Users");
 
+            migrationBuilder.DropTable(
+                name: "Roles");
+
             migrationBuilder.DropIndex(
                 name: "IX_Users_RoleID",
                 table: "Users");
@@ -49,6 +72,10 @@ namespace OTTER.Migrations
             migrationBuilder.DropColumn(
                 name: "RoleID",
                 table: "Users");
+
+            migrationBuilder.DropColumn(
+                name: "Stage",
+                table: "Questions");
 
             migrationBuilder.AddColumn<string>(
                 name: "Role",
