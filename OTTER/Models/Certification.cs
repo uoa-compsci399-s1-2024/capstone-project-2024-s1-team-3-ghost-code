@@ -5,15 +5,14 @@ namespace OTTER.Models
     public class Certification
     {
         [Key]
-        [Required]
         public int CertificationID { get; set; }
         [Required]
-        public int Module { get; set; }
+        public Module Module { get; set; }
         [Required]
-        public string UserEmail { get; set; }
+        public User User { get; set; }
         [Required]
-        public string DateTime { get; set; }
+        public DateTime DateTime { get; set; }
         [Required]
-        public string ExpiryDateTime { get; set; }
+        public DateTime ExpiryDateTime { get; set; }
     }
 }

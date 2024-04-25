@@ -3,6 +3,10 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  background-color: #BDDEDE;  
+  
+
+  
 }
 
 .flex {
@@ -22,7 +26,11 @@ body {
   padding-bottom: 2rem;
   margin: 0; /* Remove margin */
   background-color: #BDDEDE;    
-  border-left: 15px solid white;
+  border-left: 15px solid #BDDEDE;
+  
+  margin-bottom: 1080px;
+
+ 
 }
 
 .search-input input[type="text"] {
@@ -35,17 +43,20 @@ body {
   background: #ffffff;
   transition: border-color 0.3s;
   padding-left: 40px;
+    
 }
 
 .search-input input[type="text"]:focus {
   border-color: #0056b3;
   outline: none;
+  
 }
 
 .search-results {
   width: 100%;
   max-width: 870px;
   margin-top: 1rem;
+  
 }
 
 .result-item {

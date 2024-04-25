@@ -12,6 +12,11 @@ namespace OTTER.Data
             _dbContext = dbContext;
         }
 
+
+        public IEnumerable<Module> GetModules()
+        {
+            return _dbContext.Modules.ToList<Module>();
+        }
         public Module GetModuleByID(int id)
         {
             return _dbContext.Modules.FirstOrDefault(e => e.ModuleID == id);
@@ -25,6 +30,11 @@ namespace OTTER.Data
         public Question GetQuestionByID(int id)
         {
             return _dbContext.Questions.FirstOrDefault(e => e.QuestionID == id);
+        }
+
+        public IEnumerable<Question> GetQuestionsByModule(int id)
+        {
+            return _dbContext.Questions.Where(e => e.Module.ModuleID == id).ToList<Question>();
         }
 
         public Question AddQuestion(Question question)
@@ -70,9 +80,9 @@ namespace OTTER.Data
             return a.Entity;
         }
 
-        public void DeleteAnswer(Answer answer)
+        public void DeleteAnswer(int id)
         {
-            Answer a = _dbContext.Answers.FirstOrDefault(e => e.AnswerID == answer.AnswerID);
+            Answer a = _dbContext.Answers.FirstOrDefault(e => e.AnswerID == id);
             if (a != null)
             {
                 _dbContext.Answers.Remove(a);
@@ -119,7 +129,7 @@ namespace OTTER.Data
             return atQ.Entity;
         }
 
-        public AttemptAnswer GetAttemptAnswerByID(int id)
+        /*public AttemptAnswer GetAttemptAnswerByID(int id)
         {
             return _dbContext.AttemptAnswers.FirstOrDefault(e => e.Question == id);
         }
@@ -129,7 +139,7 @@ namespace OTTER.Data
             EntityEntry<AttemptAnswer> atA = _dbContext.AttemptAnswers.Add(attemptA);
             _dbContext.SaveChanges();
             return atA.Entity;
-        }
+        }*/
 
         public IEnumerable<User> GetUsers()
         {
@@ -139,6 +149,10 @@ namespace OTTER.Data
         public User GetUserByEmail(string email)
         {
             return _dbContext.Users.FirstOrDefault(e => e.UserEmail == email);
+        }
+        public IEnumerable<User> GetUserBySearch(string search)
+        {
+            return _dbContext.Users.Where(e => e.UserEmail.ToLower().Contains(search) || e.FirstName.ToLower().Contains(search) || e.LastName.ToLower().Contains(search) || e.Role.ToLower().Contains(search) || e.Organization.OrgName.ToLower().Contains(search));
         }
 
         public User AddUser(User user)
@@ -172,37 +186,6 @@ namespace OTTER.Data
             return u;
         }
 
-        
-        //stuff i've added (test)
-        public IEnumerable<Attempt> GetAttemptsByUserEmail(string userEmail)
-        {
-            User user = _dbContext.Users.FirstOrDefault(u => u.UserEmail == userEmail);
-            if (user != null)
-            {
-                return _dbContext.Attempts.Where(a => a.UserID == user.UserID).ToList();
-            }
-            return null; 
-        }
-
-        public IEnumerable<Certification> GetCertificationsByUserEmail(string userEmail)
-        {
-            User user = _dbContext.Users.FirstOrDefault(u => u.UserEmail == userEmail);
-            if (user != null)
-            {
-                return _dbContext.Certifications.Where(c => c.UserID == user.UserID).ToList();
-            }
-            return null; 
-        }
-
-        public IEnumerable<Attempt> GetAttemptsByQuizID(int quizID)
-        {
-            return _dbContext.Attempts.Where(a => a.QuizID == quizID).ToList();
-        }
-        
-        //stuff i've added ends
-
-
-
         public Certification GetCertificationByID(int id)
         {
             return _dbContext.Certifications.FirstOrDefault(e => e.CertificationID == id);
@@ -235,7 +218,7 @@ namespace OTTER.Data
 
         public Organization GetOrganizationByID(int id)
         {
-            return _dbContext.Organizations.FirstOrDefault(e => e.ID == id);
+            return _dbContext.Organizations.FirstOrDefault(e => e.OrgID == id);
         }
 
         public Organization AddOrganization(Organization organization)
@@ -245,9 +228,9 @@ namespace OTTER.Data
             return o.Entity;
         }
 
-        public void DeleteOrganization(Organization organization)
+        public void DeleteOrganization(int id)
         {
-            Organization o = _dbContext.Organizations.FirstOrDefault(o => o.ID == organization.ID);
+            Organization o = _dbContext.Organizations.FirstOrDefault(o => o.OrgID == id);
             if (o != null)
             {
                 _dbContext.Organizations.Remove(o);
@@ -257,23 +240,100 @@ namespace OTTER.Data
 
         public Organization EditOrganization(Organization organization)
         {
-            Organization o = _dbContext.Organizations.FirstOrDefault(e => e.ID == organization.ID);
+            Organization o = _dbContext.Organizations.FirstOrDefault(e => e.OrgID == organization.OrgID);
             if (o != null)
             {
-                o.OrganizationName = organization.OrganizationName;
+                o.OrgName = organization.OrgName;
                 _dbContext.SaveChanges();
-                o = _dbContext.Organizations.FirstOrDefault(e => e.ID == organization.ID);
+                o = _dbContext.Organizations.FirstOrDefault(e => e.OrgID == organization.OrgID);
             }
             return o;
         }
 
         public bool validAdmin(string email, string password)
         {
-            Admin admin = _dbContext.Admins.FirstOrDefault(e => e.Email == email);
+            Admin admin = _dbContext.Admins.FirstOrDefault(e => e.Email == email && e.Password == password);
             if (admin == null)
                 return false;
             else
                 return true;
         }
+
+        public IEnumerable<Admin> GetAdmins()
+        {
+            return _dbContext.Admins.ToList<Admin>();
+        }
+
+        public IEnumerable<Admin> GetAdminByEmail(string email)
+        {
+            return _dbContext.Admins.Where(e => e.Email == email);
+        }
+
+        public Admin GetAdminByID(int id)
+        {
+            return _dbContext.Admins.FirstOrDefault(e => e.AdminID == id);
+        }
+
+        public Admin AddAdmin(Admin admin)
+        {
+            EntityEntry<Admin> a = _dbContext.Admins.Add(admin);
+            _dbContext.SaveChanges();
+            return a.Entity;
+        }
+
+        public void DeleteAdmin(int id)
+        {
+            Admin admin = _dbContext.Admins.FirstOrDefault(e => e.AdminID == id);
+            if (admin != null)
+            {
+                _dbContext.Admins.Remove(admin);
+                _dbContext.SaveChanges();
+            }
+        }
+
+        public Admin EditAdmin(Admin admin)
+        {
+            Admin a = _dbContext.Admins.FirstOrDefault(e => e.AdminID == admin.AdminID);
+            if (a != null)
+            {
+                a.FirstName = admin.FirstName;
+                a.LastName = admin.LastName;
+                a.Email = admin.Email;
+                a.Password = admin.Password;
+                _dbContext.SaveChanges();
+                a = _dbContext.Admins.FirstOrDefault(e => e.AdminID == admin.AdminID);
+            }
+            return a;
+        }
+
+        /*
+        public IEnumerable<Attempt> GetAttemptsByUserEmail(string userEmail)
+        {
+            User user = _dbContext.Users.FirstOrDefault(u => u.UserEmail == userEmail);
+            if (user != null)
+            {
+                return _dbContext.Attempts.Where(a => a.UserID == user.UserID).ToList();
+            }
+            return null; 
+        }
+
+        public IEnumerable<Certification> GetCertificationsByUserEmail(string userEmail)
+        {
+            User user = _dbContext.Users.FirstOrDefault(u => u.UserEmail == userEmail);
+            if (user != null)
+            {
+                return _dbContext.Certifications.Where(c => c.UserID == user.UserID).ToList();
+            }
+            return null; 
+        }
+
+        public IEnumerable<Attempt> GetAttemptsByQuizID(int quizID)
+        {
+            return _dbContext.Attempts.Where(a => a.QuizID == quizID).ToList();
+        }
+        */
+        
+
+
     }
 }
