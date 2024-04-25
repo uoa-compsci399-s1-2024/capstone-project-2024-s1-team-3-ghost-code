@@ -11,6 +11,10 @@
     border-top-right-radius: 50px; /* Adjust the value as needed for the curve */
     border-bottom-right-radius: 0; /* Make the bottom-right corner straight */
     flex: 0.5; /* Change how much of the screen it covers */
+    
+    
+
+    
   }
   
   .logo-container {
