@@ -106,7 +106,6 @@ export function AdminLoginComponents() {
       <div className="container">
         <div className="login-wrapper">
           <div className="login-column">
-            <BackToHomeLink />
             <AdminLoginForm />
           </div>
           <div className="info-column">
