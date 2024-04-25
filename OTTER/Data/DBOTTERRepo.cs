@@ -12,6 +12,11 @@ namespace OTTER.Data
             _dbContext = dbContext;
         }
 
+
+        public IEnumerable<Module> GetModules()
+        {
+            return _dbContext.Modules.ToList<Module>();
+        }
         public Module GetModuleByID(int id)
         {
             return _dbContext.Modules.FirstOrDefault(e => e.ModuleID == id);
@@ -27,6 +32,14 @@ namespace OTTER.Data
             return _dbContext.Questions.FirstOrDefault(e => e.QuestionID == id);
         }
 
+<<<<<<< Updated upstream
+=======
+        public IEnumerable<Question> GetQuestionsByModule(int id)
+        {
+            return _dbContext.Questions.Where(e => e.Module.ModuleID == id).ToList<Question>();
+        }
+
+>>>>>>> Stashed changes
         public Question AddQuestion(Question question)
         {
             EntityEntry<Question> e = _dbContext.Questions.Add(question);
@@ -139,6 +152,10 @@ namespace OTTER.Data
         public User GetUserByEmail(string email)
         {
             return _dbContext.Users.FirstOrDefault(e => e.UserEmail == email);
+        }
+        public IEnumerable<User> GetUserBySearch(string search)
+        {
+            return _dbContext.Users.Where(e => e.UserEmail.ToLower().Contains(search) || e.FirstName.ToLower().Contains(search) || e.LastName.ToLower().Contains(search) || e.Role.ToLower().Contains(search) || e.Organization.OrgName.ToLower().Contains(search));
         }
 
         public User AddUser(User user)

@@ -5,6 +5,7 @@ namespace OTTER.Data
 {
     public interface IOTTERRepo
     {
+        IEnumerable<Module> GetModules();
         Module GetModuleByID(int id);
         Quiz GetQuizByID(int id);
         Question GetQuestionByID(int id);
@@ -23,6 +24,7 @@ namespace OTTER.Data
         AttemptAnswer AddAttemptAnswer(AttemptAnswer attemptA);*/
         IEnumerable<User> GetUsers();
         User GetUserByEmail(string email);
+        IEnumerable<User> GetUserBySearch(string search);
         User AddUser(User user);
         void DeleteUser(string email);
         User EditUser(User user);

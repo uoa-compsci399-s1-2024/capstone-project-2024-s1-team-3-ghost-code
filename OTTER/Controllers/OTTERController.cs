@@ -82,5 +82,40 @@ namespace OTTER.Controllers
         {
             return Ok(_repo.EditAdmin(updatedAdmin));
         }
+<<<<<<< Updated upstream
+=======
+
+        [Authorize(AuthenticationSchemes = "Authentication")]
+        [Authorize(Policy = "Admin")]
+        [HttpGet("GetQuestions/{module}")]
+        public ActionResult<IEnumerable<Question>> GetQuestionsByModule(int module)
+        {
+            return Ok(_repo.GetQuestionsByModule(module));
+        }
+
+        [HttpGet("GetModules")]
+        public ActionResult<IEnumerable<Module>> GetModules()
+        {
+            return Ok(_repo.GetModules());
+        }
+
+        [HttpGet("GetModuleByID/{id}")]
+        public ActionResult<Module> GetModuleByID(int id)
+        {
+            return Ok(_repo.GetModuleByID(id));
+        }
+
+        [HttpGet("ClinicianSearch/{term}")]
+        public ActionResult<IEnumerable<User>> SearchUsers(string term)
+        {
+            return Ok(_repo.GetUserBySearch(term));
+        }
+
+        //[HttpPost("Question")]
+        //public ActionResult<User> CreateQuestion(QuestionInputDto newQuestion, AnswerInputDto newAnswer)
+        //{
+        //    Question q = new Question;
+        //}
+>>>>>>> Stashed changes
     }
 }
