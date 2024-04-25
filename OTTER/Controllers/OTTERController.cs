@@ -26,8 +26,8 @@ namespace OTTER.Controllers
             return Ok();
         }
 
-        //[Authorize(AuthenticationSchemes = "Authentication")]
-        //[Authorize(Policy = "Admin")]
+        [Authorize(AuthenticationSchemes = "Authentication")]
+        [Authorize(Policy = "Admin")]
         [HttpGet("GetAdmins")]
         public ActionResult<IEnumerable<Admin>> GetAdmins()
         {
@@ -43,8 +43,8 @@ namespace OTTER.Controllers
             return Ok(_repo.GetAdminByEmail(email));
         }
 
-        //[Authorize(AuthenticationSchemes = "Authentication")]
-        //[Authorize(Policy = "Admin")]
+        [Authorize(AuthenticationSchemes = "Authentication")]
+        [Authorize(Policy = "Admin")]
         [HttpPost("AddAdmin")]
         public ActionResult<Admin> AddAdmin(AdminInputDto newadmin)
         {
@@ -109,10 +109,17 @@ namespace OTTER.Controllers
             return Ok(_repo.GetUserBySearch(term));
         }
 
-        //[HttpPost("Question")]
-        //public ActionResult<User> CreateQuestion(QuestionInputDto newQuestion, AnswerInputDto newAnswer)
-        //{
-        //    Question q = new Question;
-        //}
+        [HttpPost("AddQuestion")]
+        public ActionResult<User> CreateQuestion(QuestionInputDto newQuestion)
+        {
+            Question q = new Question { Module = _repo.GetModuleByID(newQuestion.ModID), Title = newQuestion.Title, Description = newQuestion.Description, ImageURL = newQuestion.ImageURL, QuestionType = newQuestion.QuestionType};
+            _repo.AddQuestion(q);
+            foreach (AnswerInputDto newAnswer in newQuestion.Answers)
+            {
+                Answer a = new Answer { Question = _repo.GetQuestionByID(q.QuestionID), AnswerType = newAnswer.AnswerType, AnswerText = newAnswer.AnswerText, AnswerCoordinates = newAnswer.AnswerCoordinates, CorrectAnswer = newAnswer.CorrectAnswer, Feedback = newAnswer.Feedback, Attempts = new List<AttemptQuestion>() };
+                _repo.AddAnswer(a);            
+            }
+            return Ok("Question Created Successfully");
+        }
     }
 }

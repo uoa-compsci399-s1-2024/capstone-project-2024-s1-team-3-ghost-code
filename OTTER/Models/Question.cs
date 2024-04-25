@@ -14,6 +14,8 @@ namespace OTTER.Models
         public string? ImageURL { get; set; }
         [Required]
         public int QuestionType { get; set; }
+        [Required]
+        public string Stage {  get; set; }
 
     }
 }

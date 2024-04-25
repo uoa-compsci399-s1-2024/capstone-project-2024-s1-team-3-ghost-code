@@ -13,7 +13,7 @@ namespace OTTER.Models
         [Required]
         public string LastName { get; set; }
         [Required]
-        public string Role { get; set; }
+        public Role Role { get; set; }
         [Required]
         public Organization Organization { get; set; }
     }

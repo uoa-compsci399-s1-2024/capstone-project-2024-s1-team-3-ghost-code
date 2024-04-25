@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
 using OTTER.Models;
 
 namespace OTTER.Dtos
@@ -14,6 +13,7 @@ namespace OTTER.Dtos
         public string? ImageURL { get; set; }
         [Required]
         public int QuestionType { get; set; }
-
+        [Required]
+        public IEnumerable<AnswerInputDto> Answers { get; set; }
     }
 }

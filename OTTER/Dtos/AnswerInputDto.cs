@@ -1,13 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-
 using OTTER.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace OTTER.Dtos
 {
     public class AnswerInputDto
     {
-        [Required]
-        public Question Question { get; set; }
         [Required]
         public int AnswerType { get; set; }
         [Required]
@@ -16,6 +13,5 @@ namespace OTTER.Dtos
         [Required]
         public bool CorrectAnswer { get; set; }
         public string? Feedback { get; set; }
-        public ICollection<AttemptQuestion> Attempts { get; set; }
     }
 }
