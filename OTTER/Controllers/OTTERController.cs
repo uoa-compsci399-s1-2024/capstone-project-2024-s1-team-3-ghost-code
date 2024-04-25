@@ -26,8 +26,8 @@ namespace OTTER.Controllers
             return Ok();
         }
 
-        //[Authorize(AuthenticationSchemes = "Authentication")]
-        //[Authorize(Policy = "Admin")]
+        [Authorize(AuthenticationSchemes = "Authentication")]
+        [Authorize(Policy = "Admin")]
         [HttpGet("GetAdmins")]
         public ActionResult<IEnumerable<Admin>> GetAdmins()
         {
@@ -43,8 +43,8 @@ namespace OTTER.Controllers
             return Ok(_repo.GetAdminByEmail(email));
         }
 
-        //[Authorize(AuthenticationSchemes = "Authentication")]
-        //[Authorize(Policy = "Admin")]
+        [Authorize(AuthenticationSchemes = "Authentication")]
+        [Authorize(Policy = "Admin")]
         [HttpPost("AddAdmin")]
         public ActionResult<Admin> AddAdmin(AdminInputDto newadmin)
         {
@@ -81,6 +81,12 @@ namespace OTTER.Controllers
         public ActionResult<Admin> EditAdmin(Admin updatedAdmin)
         {
             return Ok(_repo.EditAdmin(updatedAdmin));
+        }
+
+        [HttpGet("GetQuestions/{module}")]
+        public ActionResult<IEnumerable<Question>> GetQuestionsByModule(int module)
+        {
+            return Ok(_repo.GetQuestionsByModule(module));
         }
     }
 }

@@ -27,6 +27,11 @@ namespace OTTER.Data
             return _dbContext.Questions.FirstOrDefault(e => e.QuestionID == id);
         }
 
+        public IEnumerable<Question> GetQuestionsByModule(int id)
+        {
+            return _dbContext.Questions.Where(e => e.Module.ModuleID == id);
+        }
+
         public Question AddQuestion(Question question)
         {
             EntityEntry<Question> e = _dbContext.Questions.Add(question);
