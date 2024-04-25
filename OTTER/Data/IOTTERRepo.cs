@@ -1,5 +1,6 @@
 ﻿using OTTER.Models;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using OTTER.Dtos;
 
 namespace OTTER.Data
 {
@@ -12,11 +13,11 @@ namespace OTTER.Data
         IEnumerable<Question> GetQuestionsByModule(int id);
         Question AddQuestion(Question question);
         void DeleteQuestion(int id);
-        Question EditQuestion(Question question);
+        Question EditQuestion(EditQuestionInputDto question);
         Answer GetAnswerByID(int id);
         Answer AddAnswer(Answer answer);
         void DeleteAnswer(int id);
-        Answer EditAnswer(Answer answer);
+        Answer EditAnswer(EditAnswerInputDto answer);
         Attempt GetAttemptByID(int id);
         Attempt AddAttempt(Attempt attempt);
         AttemptQuestion GetAttemptQuestionByID(int id);
@@ -39,7 +40,7 @@ namespace OTTER.Data
         Organization EditOrganization(Organization organization);
         bool validAdmin(string email, string password);
         IEnumerable<Admin> GetAdmins();
-        IEnumerable<Admin> GetAdminByEmail(string email);
+        IEnumerable<Admin> SearchAdmins(string search);
         Admin GetAdminByID(int id);
         Admin AddAdmin(Admin admin);
         void DeleteAdmin(int id);

@@ -1,6 +1,7 @@
 ﻿using OTTER.Models;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Security.Cryptography.X509Certificates;
+using OTTER.Dtos;
 
 namespace OTTER.Data
 {
@@ -54,7 +55,7 @@ namespace OTTER.Data
             }
         }
 
-        public Question EditQuestion(Question question)
+        public Question EditQuestion(EditQuestionInputDto question)
         {
             Question q = _dbContext.Questions.FirstOrDefault(e => e.QuestionID == question.QuestionID);
             if (q != null)
@@ -62,7 +63,12 @@ namespace OTTER.Data
                 q.Title = question.Title;
                 q.Description = question.Description;
                 q.ImageURL = question.ImageURL;
+                q.Stage = question.Stage;
                 _dbContext.SaveChanges();
+                foreach(EditAnswerInputDto answer in question.Answers)
+                {
+                    EditAnswer(answer);
+                }
                 q = _dbContext.Questions.FirstOrDefault(e => e.QuestionID == question.QuestionID);
             }
             return q;
@@ -90,7 +96,7 @@ namespace OTTER.Data
             }
         }
 
-        public Answer EditAnswer(Answer answer)
+        public Answer EditAnswer(EditAnswerInputDto answer)
         {
             Answer a = _dbContext.Answers.FirstOrDefault(e => e.AnswerID == answer.AnswerID);
             if (a != null)
@@ -264,9 +270,9 @@ namespace OTTER.Data
             return _dbContext.Admins.ToList<Admin>();
         }
 
-        public IEnumerable<Admin> GetAdminByEmail(string email)
+        public IEnumerable<Admin> SearchAdmins(string search)
         {
-            return _dbContext.Admins.Where(e => e.Email == email);
+            return _dbContext.Admins.Where(e => e.FirstName.ToLower().Contains(search.ToLower()) || e.LastName.ToLower().Contains(search.ToLower()) || e.Email.ToLower().Contains(search.ToLower()));
         }
 
         public Admin GetAdminByID(int id)

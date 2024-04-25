@@ -29,18 +29,43 @@ namespace OTTER.Controllers
         [Authorize(AuthenticationSchemes = "Authentication")]
         [Authorize(Policy = "Admin")]
         [HttpGet("GetAdmins")]
-        public ActionResult<IEnumerable<Admin>> GetAdmins()
+        public ActionResult<IEnumerable<AdminOutputDto>> GetAdmins()
         {
-            IEnumerable<Admin> admins = _repo.GetAdmins();
+            List<AdminOutputDto> admins = new List<AdminOutputDto>();
+            foreach (Admin admin in _repo.GetAdmins())
+            {
+                admins.Add(new AdminOutputDto { AdminID = admin.AdminID, FirstName = admin.FirstName, LastName = admin.LastName, Email = admin.Email });
+            }
             return Ok(admins);
         }
 
         [Authorize(AuthenticationSchemes = "Authentication")]
         [Authorize(Policy = "Admin")]
-        [HttpGet("GetAdminByEmail/{email}")]
-        public ActionResult<IEnumerable<Admin>> GetAdminByEmail(string email)
+        [HttpGet("GetAdminByID/{id}")]
+        public ActionResult<AdminOutputDto> GetAdminByID(int id)
         {
-            return Ok(_repo.GetAdminByEmail(email));
+            Admin admin = _repo.GetAdminByID(id);
+            if (admin != null) {
+                return Ok(new AdminOutputDto { AdminID = admin.AdminID, FirstName = admin.FirstName, LastName = admin.LastName, Email = admin.Email });
+            }
+            else
+            {
+                return NotFound("There is no Admin with ID " + id +".");
+            }
+
+        }
+
+        [Authorize(AuthenticationSchemes = "Authentication")]
+        [Authorize(Policy = "Admin")]
+        [HttpGet("SearchAdmins/{search}")]
+        public ActionResult<IEnumerable<Admin>> GetAdminByEmail(string search)
+        {
+            List<AdminOutputDto> admins = new List<AdminOutputDto>();
+            foreach (Admin admin in _repo.SearchAdmins(search))
+            {
+                admins.Add(new AdminOutputDto { AdminID = admin.AdminID, FirstName = admin.FirstName, LastName = admin.LastName, Email = admin.Email });
+            }
+            return Ok(admins);
         }
 
         [Authorize(AuthenticationSchemes = "Authentication")]
@@ -52,7 +77,8 @@ namespace OTTER.Controllers
             {
                 Admin a = new Admin { FirstName = newadmin.FirstName, LastName = newadmin.LastName, Email = newadmin.Email, Password = newadmin.Password };
                 _repo.AddAdmin(a);
-                return CreatedAtAction(nameof(GetAdminByEmail), new { email = a.Email }, a);
+                AdminOutputDto aOut = new AdminOutputDto { AdminID = a.AdminID, FirstName = a.FirstName, LastName = a.LastName, Email = a.Email };
+                return CreatedAtAction(nameof(GetAdminByID), new { id = aOut.AdminID}, aOut);
             }
             else
             {
@@ -80,7 +106,14 @@ namespace OTTER.Controllers
         [HttpPut("EditAdmin")]
         public ActionResult<Admin> EditAdmin(Admin updatedAdmin)
         {
-            return Ok(_repo.EditAdmin(updatedAdmin));
+            Admin edited = _repo.EditAdmin(updatedAdmin);
+            if (edited != null)
+            {
+                return Ok(new AdminOutputDto { AdminID = edited.AdminID, FirstName = edited.FirstName, LastName = edited.LastName, Email = edited.Email });
+            } else
+            {
+                return NotFound("No Admin could be found with the ID of " + updatedAdmin.AdminID + ".");
+            }
         }
 
         [Authorize(AuthenticationSchemes = "Authentication")]
@@ -103,23 +136,71 @@ namespace OTTER.Controllers
             return Ok(_repo.GetModuleByID(id));
         }
 
+        [Authorize(AuthenticationSchemes = "Authentication")]
+        [Authorize(Policy = "Admin")]
         [HttpGet("ClinicianSearch/{term}")]
         public ActionResult<IEnumerable<User>> SearchUsers(string term)
         {
             return Ok(_repo.GetUserBySearch(term));
         }
 
+        [Authorize(AuthenticationSchemes = "Authentication")]
+        [Authorize(Policy = "Admin")]
         [HttpPost("AddQuestion")]
         public ActionResult<User> CreateQuestion(QuestionInputDto newQuestion)
         {
-            Question q = new Question { Module = _repo.GetModuleByID(newQuestion.ModID), Title = newQuestion.Title, Description = newQuestion.Description, ImageURL = newQuestion.ImageURL, QuestionType = newQuestion.QuestionType};
+            Question q = new Question { Module = _repo.GetModuleByID(newQuestion.ModID), Title = newQuestion.Title, Description = newQuestion.Description, ImageURL = newQuestion.ImageURL, QuestionType = newQuestion.QuestionType, Stage = newQuestion.Stage};
             _repo.AddQuestion(q);
             foreach (AnswerInputDto newAnswer in newQuestion.Answers)
             {
                 Answer a = new Answer { Question = _repo.GetQuestionByID(q.QuestionID), AnswerType = newAnswer.AnswerType, AnswerText = newAnswer.AnswerText, AnswerCoordinates = newAnswer.AnswerCoordinates, CorrectAnswer = newAnswer.CorrectAnswer, Feedback = newAnswer.Feedback, Attempts = new List<AttemptQuestion>() };
                 _repo.AddAnswer(a);            
             }
-            return Ok("Question Created Successfully");
+            return Ok(q);
+        }
+
+        [Authorize(AuthenticationSchemes = "Authentication")]
+        [Authorize(Policy = "Admin")]
+        [HttpDelete("DeleteQuestion/{id}")]
+        public ActionResult DeleteQuestion(int id)
+        {
+            Question q = _repo.GetQuestionByID(id);
+            if (q != null)
+            {
+                _repo.DeleteQuestion(id);
+                return Ok("Question Deleted Successfully");
+            } else
+            {
+                return NotFound("A question with ID " + id + " could not be found.");
+            }
+        }
+
+        [Authorize(AuthenticationSchemes = "Authentication")]
+        [Authorize(Policy = "Admin")]
+        [HttpPut("EditQuestion")]
+        public ActionResult<Question> EditQuestion(EditQuestionInputDto updatedQuestion)
+        {
+            Question q = _repo.GetQuestionByID(updatedQuestion.QuestionID);
+            if (q != null)
+            {
+                return Ok(_repo.EditQuestion(updatedQuestion));
+            }
+            else
+            {
+                return NotFound("A question with ID " + updatedQuestion.QuestionID + " could not be found.");
+            }
+        }
+
+        [HttpGet("ClinicianLogin/{email}")]
+        public ActionResult ClinicianLogin(string email)
+        {
+            if(_repo.GetUserByEmail(email) != null)
+            {
+                return Ok("Success");
+            } else
+            {
+                return NotFound("No user with email " + email + " exists.");
+            }
         }
     }
 }
