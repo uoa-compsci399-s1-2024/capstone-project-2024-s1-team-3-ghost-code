@@ -32,14 +32,11 @@ namespace OTTER.Data
             return _dbContext.Questions.FirstOrDefault(e => e.QuestionID == id);
         }
 
-<<<<<<< Updated upstream
-=======
         public IEnumerable<Question> GetQuestionsByModule(int id)
         {
             return _dbContext.Questions.Where(e => e.Module.ModuleID == id).ToList<Question>();
         }
 
->>>>>>> Stashed changes
         public Question AddQuestion(Question question)
         {
             EntityEntry<Question> e = _dbContext.Questions.Add(question);

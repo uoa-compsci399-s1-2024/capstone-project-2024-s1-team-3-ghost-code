@@ -9,6 +9,7 @@ namespace OTTER.Data
         Module GetModuleByID(int id);
         Quiz GetQuizByID(int id);
         Question GetQuestionByID(int id);
+        IEnumerable<Question> GetQuestionsByModule(int id);
         Question AddQuestion(Question question);
         void DeleteQuestion(int id);
         Question EditQuestion(Question question);
