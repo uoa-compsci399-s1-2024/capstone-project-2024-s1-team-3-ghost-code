@@ -7,6 +7,7 @@ import { ClinicianSignComponents } from "./pages/ClinicianSign";
 import AClinicianSearch from "./pages/AClinicianSearch";
 import QuizDashboard from "./pages/QuizDashboard";
 import CreatingQuiz from "./pages/CreatingQuiz";
+import AdminSetting from "./pages/AdminSettings";
 
 function App() {
   console.log("Rendering App component");
@@ -22,6 +23,7 @@ function App() {
           <Route path="/adminsearch" element={<AClinicianSearch />} />
           <Route path="/quizDashboard" element={<QuizDashboard />} />
           <Route path="/creatingquiz" element={<CreatingQuiz />} />
+          <Route path="/adminSettings" element={<AdminSetting />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -12,6 +12,7 @@
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@ionic/react": "^8.0.1",
     "fortawesome": "^0.0.1-security",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

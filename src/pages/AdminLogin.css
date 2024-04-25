@@ -9,9 +9,9 @@
     font-family: 'poppins',sans-serif;
     max-height:100vh;
 }
-body{
+/* body{
     background: white;
-}
+} */
 .container{
     justify-content: center; /* Vertically center items */
     align-items: flex-start;
