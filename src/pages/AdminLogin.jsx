@@ -2,18 +2,7 @@ import "./AdminLogin.css";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-export function BackToHomeLink() {
-  return (
-    <>
-      <div className="back-to-home">
-        <i className="fa-solid fa-arrow-left" id="back-arrow"></i>
-        <Link style={{ textDecoration: "none" }} to="/home">
-          <div className="back-to-home-text">Back to Home</div>
-        </Link>
-      </div>
-    </>
-  );
-}
+export function BackToHomeLink() {}
 
 export function AdminLoginForm() {
   const [passwordVisible, setPasswordVisible] = useState(false); // Set initial state to true
@@ -24,6 +13,17 @@ export function AdminLoginForm() {
 
   return (
     <>
+      <div className="back-to-home">
+        <i className="fa-solid fa-arrow-left" id="back-arrow"></i>
+        <Link style={{ textDecoration: "none" }} to="/home">
+          <div
+            className="back-to-home-text"
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            Back to Home
+          </div>
+        </Link>
+      </div>
       <div className="container split left">
         <div className="box">
           <div className="box-login" id="login">
