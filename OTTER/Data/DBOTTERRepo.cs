@@ -32,14 +32,11 @@ namespace OTTER.Data
             return _dbContext.Questions.FirstOrDefault(e => e.QuestionID == id);
         }
 
-<<<<<<< Updated upstream
-=======
         public IEnumerable<Question> GetQuestionsByModule(int id)
         {
             return _dbContext.Questions.Where(e => e.Module.ModuleID == id).ToList<Question>();
         }
 
->>>>>>> Stashed changes
         public Question AddQuestion(Question question)
         {
             EntityEntry<Question> e = _dbContext.Questions.Add(question);
@@ -308,5 +305,35 @@ namespace OTTER.Data
             }
             return a;
         }
+
+        /*
+        public IEnumerable<Attempt> GetAttemptsByUserEmail(string userEmail)
+        {
+            User user = _dbContext.Users.FirstOrDefault(u => u.UserEmail == userEmail);
+            if (user != null)
+            {
+                return _dbContext.Attempts.Where(a => a.UserID == user.UserID).ToList();
+            }
+            return null; 
+        }
+
+        public IEnumerable<Certification> GetCertificationsByUserEmail(string userEmail)
+        {
+            User user = _dbContext.Users.FirstOrDefault(u => u.UserEmail == userEmail);
+            if (user != null)
+            {
+                return _dbContext.Certifications.Where(c => c.UserID == user.UserID).ToList();
+            }
+            return null; 
+        }
+
+        public IEnumerable<Attempt> GetAttemptsByQuizID(int quizID)
+        {
+            return _dbContext.Attempts.Where(a => a.QuizID == quizID).ToList();
+        }
+        */
+        
+
+
     }
 }

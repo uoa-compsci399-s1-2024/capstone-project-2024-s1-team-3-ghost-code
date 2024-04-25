@@ -384,3 +384,14 @@ C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-cod
 C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\obj\Debug\net8.0\OTTER.pdb
 C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\obj\Debug\net8.0\OTTER.genruntimeconfig.cache
 C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\obj\Debug\net8.0\ref\OTTER.dll
+C:\Users\sahil\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\obj\Debug\net8.0\OTTER.csproj.AssemblyReference.cache
+C:\Users\sahil\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\obj\Debug\net8.0\OTTER.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\sahil\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\obj\Debug\net8.0\OTTER.AssemblyInfoInputs.cache
+C:\Users\sahil\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\obj\Debug\net8.0\OTTER.AssemblyInfo.cs
+C:\Users\sahil\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\obj\Debug\net8.0\OTTER.csproj.CoreCompileInputs.cache
+C:\Users\sahil\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\obj\Debug\net8.0\OTTER.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\sahil\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\obj\Debug\net8.0\OTTER.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\sahil\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\obj\Debug\net8.0\OTTER.sourcelink.json
+C:\Users\sahil\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\obj\Debug\net8.0\OTTER.dll
+C:\Users\sahil\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\obj\Debug\net8.0\refint\OTTER.dll
+C:\Users\sahil\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\obj\Debug\net8.0\OTTER.pdb

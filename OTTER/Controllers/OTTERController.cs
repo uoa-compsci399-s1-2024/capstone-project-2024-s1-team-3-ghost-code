@@ -82,8 +82,6 @@ namespace OTTER.Controllers
         {
             return Ok(_repo.EditAdmin(updatedAdmin));
         }
-<<<<<<< Updated upstream
-=======
 
         [Authorize(AuthenticationSchemes = "Authentication")]
         [Authorize(Policy = "Admin")]
@@ -116,6 +114,5 @@ namespace OTTER.Controllers
         //{
         //    Question q = new Question;
         //}
->>>>>>> Stashed changes
     }
 }
