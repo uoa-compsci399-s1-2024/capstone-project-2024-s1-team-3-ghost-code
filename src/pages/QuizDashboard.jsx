@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'redaxios';
-import AdminDashboard from '../components/Dashboards/ADashboard'; // Assuming this sidebar is appropriate
+import ClientDashboard from '../components/Dashboards/CDashboard'; // Assuming this sidebar is appropriate
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'; // Icon for module completion
+import "./QuizDashboard.css";
 
 function QuizDashboard() {
     const [modules, setModules] = useState([]);
 
     useEffect(() => {
-        axios.get('https://your-api-url.com/modules')
+        axios.get('http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/GetModules')
             .then(response => {
                 setModules(response.data);
             })
@@ -20,14 +21,15 @@ function QuizDashboard() {
     return (
         <div className="flex">
             <div className="dashboard-container">
-                <AdminDashboard />
+                <ClientDashboard />
             </div>
-            <div className="search-container" style={{ flex: 3 }}> {/* Adjusted for module display */}
-                <div className="search-results" style={{ paddingTop: '20px' }}>
+            <div className="quizModuleContainer">
+                <div className="quizModuleresults">
                     {modules.map(module => (
-                        <div key={module.id} className="result-item" onClick={() => navigate(`/module/${module.id}`)}>
-                            <div className="result-name">{module.title}</div>
-                            <div className="result-email">{module.description}</div>
+                        <div key={module.moduleID} className="module-item" onClick={() => navigate(`/module/${module.moduleID}`)}>
+                            <div className="moduleId">{"Module " + module.sequence}</div>
+                            <div className="moduleName">{module.name}</div>
+                            <div className="moduleDescription">{module.description}</div>
                             <FontAwesomeIcon icon={faCircleCheck} style={{ color: module.completion === 100 ? '#4CAF50' : '#ccc' }} />
                         </div>
                     ))}

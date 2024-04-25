@@ -3,7 +3,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: #BDDEDE;  
+
   
 
   
@@ -13,10 +13,11 @@ body {
   display: flex;
   height: 100%; /* Ensure the flex container covers the entire height */
   padding: 0; /* Remove padding to ensure full height */
+  background-color: #BDDEDE;  
 }
 
 
-.search-container {
+.AdminClientSearchContainer {
   flex: 2; /* Adjust the width of the search section */
   display: flex;
   flex-direction: column;
@@ -33,7 +34,7 @@ body {
  
 }
 
-.search-input input[type="text"] {
+.AdminClientSearchInput input[type="text"] {
   width: 600px;
   max-width: 800px;
   padding: 0.5rem 1rem;
@@ -46,13 +47,13 @@ body {
     
 }
 
-.search-input input[type="text"]:focus {
+.AdminClientSearchInput input[type="text"]:focus {
   border-color: #0056b3;
   outline: none;
   
 }
 
-.search-results {
+.AdminClientSearchResults {
   width: 100%;
   max-width: 870px;
   margin-top: 1rem;
@@ -74,7 +75,7 @@ body {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-.result-name,
+.AdminClientSearchResultName,
 .result-email {
   font-size: 1.2rem;
 }
@@ -83,7 +84,7 @@ body {
   color: #555;
 }
 
-.search-input {
+.AdminClientSearchInput {
     position: relative;
   }
   
@@ -97,7 +98,7 @@ body {
   
   }
   
-  .search-input input[type="text"] {
+  .AdminClientSearchInput input[type="text"] {
     padding-left: 30px; /* Adjust padding to make space for the icon */
   }
   

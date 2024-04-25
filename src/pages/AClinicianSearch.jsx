@@ -58,12 +58,12 @@ function AClinicianSearch() {
       <div className="dashboard-container">
         <AdminDashboard />
       </div>
-      <div className="search-container">
+      <div className="AdminClientSearchContainer">
         <div className="admin-info">
           <span className="admin-name">{adminName}</span>
           <div className="admin-icon"></div>
         </div>
-        <div className="search-input">
+        <div className="AdminClientSearchInput">
           <input
             type="text"
             value={searchQuery}
@@ -72,11 +72,11 @@ function AClinicianSearch() {
           />
           <FontAwesomeIcon icon={faSearch} className="search-icon" />
         </div>
-        <div className="search-results">
+        <div className="AdminClientSearchResults">
           {searchResults.map(result => (
             <div key={result.UserID} className="result-item">
-              <div className="result-name">{result.firstName}</div>
-              <div className="result-email">{result.userEmail}</div>
+              <div className="AdminClientSearchResultName">{result.firstName}</div>
+              <div className="AdminClientSearchResultEmail">{result.userEmail}</div>
             </div>
           ))}
         </div>
