@@ -1,4 +1,6 @@
-﻿using OTTER.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+using OTTER.Models;
 
 namespace OTTER.Dtos
 {
