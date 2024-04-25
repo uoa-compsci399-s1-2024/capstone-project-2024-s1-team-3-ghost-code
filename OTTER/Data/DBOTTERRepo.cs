@@ -152,7 +152,7 @@ namespace OTTER.Data
         }
         public IEnumerable<User> GetUserBySearch(string search)
         {
-            return _dbContext.Users.Where(e => e.UserEmail.ToLower().Contains(search) || e.FirstName.ToLower().Contains(search) || e.LastName.ToLower().Contains(search) || e.Role.ToLower().Contains(search) || e.Organization.OrgName.ToLower().Contains(search));
+            return _dbContext.Users.Where(e => e.UserEmail.ToLower().Contains(search) || e.FirstName.ToLower().Contains(search) || e.LastName.ToLower().Contains(search) || e.Role.RoleName.ToLower().Contains(search) || e.Organization.OrgName.ToLower().Contains(search));
         }
 
         public User AddUser(User user)
