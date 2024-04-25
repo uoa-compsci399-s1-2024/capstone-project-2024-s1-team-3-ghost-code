@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from 'redaxios';
 import "./AClinicianSearch.css";
 import { Link } from "react-router-dom";
 import AdminDashboard from "../components/Dashboards/ADashboard";
@@ -15,9 +14,15 @@ function AClinicianSearch() {
   useEffect(() => {
     if (searchQuery.trim() !== "") {
       // Make HTTP request to backend API with search query
-      axios.get(`/api/search?query=${searchQuery}`)
+      fetch(`http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/ClinicianSearch/${searchQuery}`)
         .then(response => {
-          setSearchResults(response.data);
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          setSearchResults(data);
         })
         .catch(error => {
           console.error("Error fetching search results:", error);
@@ -29,9 +34,15 @@ function AClinicianSearch() {
 
   // Function to fetch admin information from backend API
   useEffect(() => {
-    axios.get('/api/admin/details') /* May have to replace this to suit Back-end */
+    fetch('/api/admin/details')
       .then(response => {
-        setAdminName(response.data.name);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        setAdminName(data.name);
       })
       .catch(error => {
         console.error("Error fetching admin information:", error);
@@ -63,9 +74,9 @@ function AClinicianSearch() {
         </div>
         <div className="search-results">
           {searchResults.map(result => (
-            <div key={result.id} className="result-item">
-              <div className="result-name">{result.name}</div>
-              <div className="result-email">{result.email}</div>
+            <div key={result.UserID} className="result-item">
+              <div className="result-name">{result.firstName}</div>
+              <div className="result-email">{result.userEmail}</div>
             </div>
           ))}
         </div>
