@@ -11,13 +11,13 @@ function Landing() {
         <div class="wave"></div>
       </div>
       <div className="to-admin-login">
+        <i className="fa-solid fa-arrow-right" id="forward-arrow"></i>
         <Link
           style={{ textDecoration: "none", color: "white" }}
           to="/adminlogin"
         >
           <div className="admin-login-text">Admin Login</div>
         </Link>
-        <i className="fa-solid fa-arrow-right" id="forward-arrow"></i>
       </div>
       <div className="welcome-page">
         <h2>Welcome To The Verify Study</h2>
