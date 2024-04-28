@@ -3,22 +3,22 @@ import "./ADashboard.css";
 
 function AdminDashboard() {
   return (
-    <div className="dashboard-container">
-      <div className="logo-container">
+    <div className="Admindashboard-container">
+      <div className="Adminlogo-container">
         <img
-          className="logo"
+          className="Adminlogo"
           loading="lazy"
           src="src/components/VERIFYLogo.jpg"
           alt="DashboardLogo" 
         />
       </div>
-      <button className="button">Dashboard</button>
-      <button className="button">Edit Quiz</button>
-      <button className="button">Clinicians</button>
-      <button className="button">Statistics</button>
+      <button className="Adminbutton">Dashboard</button>
+      <button className="Adminbutton">Edit Quiz</button>
+      <button className="Adminbutton">Clinicians</button>
+      <button className="Adminbutton">Statistics</button>
       <br></br>
       
-      <button className="button">Settings</button>
+      <button className="Adminbutton">Settings</button>
     </div>
   );
 }
