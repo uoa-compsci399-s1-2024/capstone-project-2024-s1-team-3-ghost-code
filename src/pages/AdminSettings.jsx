@@ -3,9 +3,21 @@ import AdminDashboard from "../components/Dashboards/ADashboard";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
+export function AdminName() {
+  return (
+    <>
+      <div className="admin">
+        <div className="admin-image"></div>
+        <div className="admin-name">John Smith</div>
+      </div>
+    </>
+  );
+}
+
 export default function AdminSetting() {
   return (
     <>
+      <AdminName />
       {/* <div className="dashboard-container">
         <AdminDashboard />
       </div> */}
