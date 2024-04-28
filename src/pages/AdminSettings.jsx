@@ -18,9 +18,9 @@ export default function AdminSetting() {
   return (
     <>
       <AdminName />
-      {/* <div className="dashboard-container">
+      <div className="dashboard-container">
         <AdminDashboard />
-      </div> */}
+      </div>
       <section className="settings">
         <div className="container-settings">
           <div className="accordion">
