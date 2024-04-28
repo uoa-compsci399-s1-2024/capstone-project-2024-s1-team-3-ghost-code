@@ -5,6 +5,7 @@ using OTTER.Data;
 using OTTER.Dtos;
 using System.Security.Claims;
 using System.Runtime;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace OTTER.Controllers
 {
@@ -19,6 +20,13 @@ namespace OTTER.Controllers
             _repo = repo;
         }
 
+        [SwaggerOperation(
+            Summary = "Check Admin login",
+            Description = "Requires admin privileges",
+            Tags = new[] { "Admins" }
+        )]
+        [SwaggerResponse(200, "Admin login was successful")]
+        [SwaggerResponse(401, "Admin login email or password is incorrect")]
         [Authorize(AuthenticationSchemes = "Authentication")]
         [Authorize(Policy = "Admin")]
         [HttpGet("Login")]
@@ -27,6 +35,13 @@ namespace OTTER.Controllers
             return Ok();
         }
 
+        [SwaggerOperation(
+            Summary = "Gets a list of current admins",
+            Description = "Requires admin privileges",
+            Tags = new[] { "Admins" }
+        )]
+        [SwaggerResponse(200, "Query for Admins was successful", typeof(AdminOutputDto))]
+        [SwaggerResponse(401, "Admin login email or password is incorrect")]
         [Authorize(AuthenticationSchemes = "Authentication")]
         [Authorize(Policy = "Admin")]
         [HttpGet("GetAdmins")]
@@ -40,6 +55,13 @@ namespace OTTER.Controllers
             return Ok(admins);
         }
 
+        [SwaggerOperation(
+            Summary = "Gets an admin by their ID",
+            Description = "Requires admin privileges",
+            Tags = new[] { "Admins" }
+        )]
+        [SwaggerResponse(200, "Query for Admin was successful", typeof(AdminOutputDto))]
+        [SwaggerResponse(401, "Admin login email or password is incorrect")]
         [Authorize(AuthenticationSchemes = "Authentication")]
         [Authorize(Policy = "Admin")]
         [HttpGet("GetAdminByID/{id}")]
@@ -56,6 +78,13 @@ namespace OTTER.Controllers
 
         }
 
+        [SwaggerOperation(
+            Summary = "Gets a list of current admins filtered by a search term",
+            Description = "Requires admin privileges",
+            Tags = new[] { "Admins" }
+        )]
+        [SwaggerResponse(200, "Query for Admins was successful", typeof(AdminOutputDto))]
+        [SwaggerResponse(401, "Admin login email or password is incorrect")]
         [Authorize(AuthenticationSchemes = "Authentication")]
         [Authorize(Policy = "Admin")]
         [HttpGet("SearchAdmins/{search}")]
@@ -69,6 +98,14 @@ namespace OTTER.Controllers
             return Ok(admins);
         }
 
+        [SwaggerOperation(
+            Summary = "Creates a new admin",
+            Description = "Requires admin privileges",
+            Tags = new[] { "Admins" }
+        )]
+        [SwaggerResponse(201, "New admin created", typeof(AdminInputDto))]
+        [SwaggerResponse(401, "Admin login email or password is incorrect")]
+        [SwaggerResponse(409, "Admin with submitted email already exists")]
         [Authorize(AuthenticationSchemes = "Authentication")]
         [Authorize(Policy = "Admin")]
         [HttpPost("AddAdmin")]
@@ -87,6 +124,14 @@ namespace OTTER.Controllers
             }
         }
 
+        [SwaggerOperation(
+            Summary = "Deletes an admin",
+            Description = "Requires admin privileges. Admin ID can be found using GetAdmins or SearchAdmins.",
+            Tags = new[] { "Admins" }
+        )]
+        [SwaggerResponse(200, "Admin deleted")]
+        [SwaggerResponse(401, "Admin login email or password is incorrect")]
+        [SwaggerResponse(404, "Admin with submitted ID does not exist")]
         [Authorize(AuthenticationSchemes = "Authentication")]
         [Authorize(Policy = "Admin")]
         [HttpDelete("DeleteAdmin/{id}")]
@@ -102,6 +147,14 @@ namespace OTTER.Controllers
             }
         }
 
+        [SwaggerOperation(
+            Summary = "Edits an admin",
+            Description = "Requires admin privileges",
+            Tags = new[] { "Admins" }
+        )]
+        [SwaggerResponse(200, "Admin edited", typeof(AdminOutputDto))]
+        [SwaggerResponse(401, "Admin login email or password is incorrect")]
+        [SwaggerResponse(404, "Admin with submitted ID does not exist")]
         [Authorize(AuthenticationSchemes = "Authentication")]
         [Authorize(Policy = "Admin")]
         [HttpPut("EditAdmin")]

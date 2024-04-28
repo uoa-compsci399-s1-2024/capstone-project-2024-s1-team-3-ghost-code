@@ -2,6 +2,7 @@ using OTTER.Handler;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using OTTER.Data;
+using Microsoft.OpenApi.Models;
 
 namespace OTTER;
 
@@ -27,7 +28,16 @@ public class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
 
-        builder.Services.AddSwaggerGen();
+        builder.Services.AddSwaggerGen(options =>
+        {
+            options.EnableAnnotations();
+            options.SwaggerDoc("v1", new OpenApiInfo
+            {
+                Version = "v1",
+                Title = "OTTER Backend APIs",
+                Description = "APIs to support the OTTER project. Developed by Ghost Code."
+            });
+        });
 
         builder.Services.AddAuthentication().AddScheme<AuthenticationSchemeOptions, AdminHandler>("Authentication", null);
 
@@ -48,7 +58,10 @@ public class Program
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
-            app.UseSwaggerUI();
+            app.UseSwaggerUI(c =>
+            {
+                c.DocumentTitle = "OTTER Swagger UI";
+            });
         }
 
         app.UseHttpsRedirection();
