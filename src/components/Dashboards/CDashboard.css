@@ -1,4 +1,4 @@
-.dashboard-container {
+.clientDashboardContainer {
   position: fixed;
   top: 0;
   left: 0;
@@ -16,7 +16,7 @@
   border-bottom-right-radius: 0; /* Make the bottom-right corner straight */
 }
 
-.logo-container {
+.clientLogoContainer {
 
   overflow: hidden;
   margin-bottom: 200px;
@@ -27,20 +27,20 @@
 
 }
 
-.logo {
+.clientLogo {
   width: 100%;
   
   object-fit: contain;
 }
 
-img.logo {
+img.clientLogo {
   border-top-left-radius: 50px;
   border-top-right-radius: 50px;
   border-bottom-left-radius: 50px;
   border-bottom-right-radius: 50px;
 }
 
-.button {
+.clientButton {
   display: flex;
   justify-content: center;
   width: 285px;
@@ -56,6 +56,6 @@ img.logo {
   font-size: 1.6rem;
 }
 
-.button:hover {
+.clientButton:hover {
   background-color: #006666;
 }

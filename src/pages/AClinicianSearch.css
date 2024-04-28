@@ -3,6 +3,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  
 
   
 
@@ -18,7 +19,7 @@ body {
 
 
 .AdminClientSearchContainer {
-  flex: 2; /* Adjust the width of the search section */
+  flex: 1; /* Adjust the width of the search section */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -28,19 +29,19 @@ body {
   margin: 0; /* Remove margin */
   background-color: #BDDEDE;    
   border-left: 15px solid #BDDEDE;
+  margin-left: 20%;
   
   margin-bottom: 1080px;
-
  
 }
 
 .AdminClientSearchInput input[type="text"] {
-  width: 600px;
-  max-width: 800px;
-  padding: 0.5rem 1rem;
+  width: 950px;
+  max-width: 950px;
+  padding: 1rem 1rem;
   border: 2px solid #ddd;
   border-radius: 1rem;
-  font-size: 1rem;
+  font-size: 1.5rem;
   background: #ffffff;
   transition: border-color 0.3s;
   padding-left: 40px;
@@ -54,16 +55,19 @@ body {
 }
 
 .AdminClientSearchResults {
-  width: 100%;
-  max-width: 870px;
+  width: 900px;
+  max-width: 950px;
   margin-top: 1rem;
+  padding-top: 20px;
+ 
+ 
   
 }
 
-.result-item {
+.adminClientSearchResultItem {
   background: #ffffff;
   margin: 0.5rem 0;
-  padding: 1rem;
+  padding: 1.3rem;
   border-radius: 1rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -71,13 +75,14 @@ body {
   align-items: center;
 }
 
-.result-item:hover {
+.adminClientSearchResultItem:hover {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
 }
 
 .AdminClientSearchResultName,
 .result-email {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
 }
 
 .result-email {
@@ -94,7 +99,7 @@ body {
     left: -50px; /* Adjust the left position as needed */
     transform: translateY(-40%);
     color: #555; /* Adjust the color of the icon */
-    font-size: 1.5rem;
+    font-size: 2rem;
   
   }
   

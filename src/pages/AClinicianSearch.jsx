@@ -74,7 +74,7 @@ function AClinicianSearch() {
         </div>
         <div className="AdminClientSearchResults">
           {searchResults.map(result => (
-            <div key={result.UserID} className="result-item">
+            <div key={result.UserID} className="adminClientSearchResultItem">
               <div className="AdminClientSearchResultName">{result.firstName}</div>
               <div className="AdminClientSearchResultEmail">{result.userEmail}</div>
             </div>

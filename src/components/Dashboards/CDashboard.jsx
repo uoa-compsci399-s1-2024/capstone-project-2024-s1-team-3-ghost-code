@@ -3,17 +3,17 @@ import "./CDashboard.css";
 
 function ClientDashboard() {
   return (
-    <div className="dashboard-container">
-      <div className="logo-container">
+    <div className="clientDashboardContainer">
+      <div className="clientLogoContainer">
         <img
-          className="logo"
+          className="clientLogo"
           loading="lazy"
           src="src/components/VERIFYLogo.jpg"
           alt="DashboardLogo" 
         />
       </div>
-      <button className="button">Resources</button>
-      <button className="button">Dashboard</button>
+      <button className="clientButton">Resources</button>
+      <button className="clientButton">Dashboard</button>
 
       <br></br>
       <br></br>
@@ -22,7 +22,7 @@ function ClientDashboard() {
       <br></br>
       <br></br>
       <br></br>
-      <button className="button">Settings</button>
+      <button className="clientButton">Settings</button>
     </div>
   );
 }

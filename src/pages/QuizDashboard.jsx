@@ -26,7 +26,7 @@ function QuizDashboard() {
             <div className="quizModuleContainer">
                 <div className="quizModuleresults">
                     {modules.map(module => (
-                        <div key={module.moduleID} className="module-item" onClick={() => navigate(`/module/${module.moduleID}`)}>
+                        <div key={module.moduleID} className="module-item" onClick={() => navigate(`http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/GetModuleByID/${module.sequence}`)}>
                             <div className="moduleId">{"Module " + module.sequence}</div>
                             <div className="moduleName">{module.name}</div>
                             <div className="moduleDescription">{module.description}</div>
