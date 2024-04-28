@@ -225,6 +225,32 @@
   },
   {
     "ContainingType": "OTTER.Controllers.OTTERController",
+    "Method": "GetClinicianCertificationStatus",
+    "RelativePath": "webapi/GetClinicianCertificationStatus/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "OTTER.Models.Certification",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "OTTER.Controllers.OTTERController",
     "Method": "GetModuleByID",
     "RelativePath": "webapi/GetModuleByID/{id}",
     "HttpMethod": "GET",
@@ -297,6 +323,84 @@
   },
   {
     "ContainingType": "OTTER.Controllers.OTTERController",
+    "Method": "GetQuizByID",
+    "RelativePath": "webapi/GetQuizByID/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "OTTER.Models.Quiz",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "OTTER.Controllers.OTTERController",
+    "Method": "GetQuizQs",
+    "RelativePath": "webapi/GetQuizQs",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "quizInput",
+        "Type": "OTTER.Dtos.QuizInputDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[OTTER.Models.Question, OTTER, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "OTTER.Controllers.OTTERController",
+    "Method": "GetQuizzesByID",
+    "RelativePath": "webapi/GetQuizzesByModID/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[OTTER.Models.Quiz, OTTER, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "OTTER.Controllers.OTTERController",
     "Method": "TryLogin",
     "RelativePath": "webapi/Login",
     "HttpMethod": "GET",
@@ -322,6 +426,32 @@
     "ReturnTypes": [
       {
         "Type": "System.Collections.Generic.IEnumerable\u00601[[OTTER.Models.Admin, OTTER, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "OTTER.Controllers.OTTERController",
+    "Method": "SetClinicianCertificationStatus",
+    "RelativePath": "webapi/SetClinicianCertificationStatus",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "newCert",
+        "Type": "OTTER.Dtos.CertificationInputDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "OTTER.Models.Certification",
         "MediaTypes": [
           "text/plain",
           "application/json",

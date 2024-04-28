@@ -8,9 +8,11 @@ namespace OTTER.Data
     {
         IEnumerable<Module> GetModules();
         Module GetModuleByID(int id);
+        IEnumerable<Quiz> GetQuizzesByID(int id);
         Quiz GetQuizByID(int id);
         Question GetQuestionByID(int id);
         IEnumerable<Question> GetQuestionsByModule(int id);
+        IEnumerable<QuestionOutputDto> GetQuizQs(QuizInputDto quizInput);
         Question AddQuestion(Question question);
         void DeleteQuestion(int id);
         Question EditQuestion(EditQuestionInputDto question);
@@ -26,11 +28,12 @@ namespace OTTER.Data
         AttemptAnswer AddAttemptAnswer(AttemptAnswer attemptA);*/
         IEnumerable<User> GetUsers();
         User GetUserByEmail(string email);
+        User GetUserByID(int id);
         IEnumerable<User> GetUserBySearch(string search);
         User AddUser(User user);
         void DeleteUser(string email);
         User EditUser(User user);
-        Certification GetCertificationByID(int id);
+        IEnumerable<Certification> GetCertificationByID(int id);
         Certification AddCertification(Certification certification);
         Certification EditCertification(Certification certification);
         IEnumerable<Organization> GetOrganizations();

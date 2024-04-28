@@ -4,6 +4,7 @@ using OTTER.Models;
 using OTTER.Data;
 using OTTER.Dtos;
 using System.Security.Claims;
+using System.Runtime;
 
 namespace OTTER.Controllers
 {
@@ -196,11 +197,61 @@ namespace OTTER.Controllers
         {
             if(_repo.GetUserByEmail(email) != null)
             {
-                return Ok("Success");
+                return Ok(_repo.GetUserByEmail(email));
             } else
             {
                 return NotFound("No user with email " + email + " exists.");
             }
+        }
+        [Authorize(AuthenticationSchemes = "Authentication")]
+        [Authorize(Policy = "Admin")]
+        [HttpGet("GetClinicianCertificationStatus/{id}")]
+        public ActionResult<Certification> GetClinicianCertificationStatus(int id)
+        {
+            IEnumerable<Certification> cert = _repo.GetCertificationByID(id);
+            if (cert.Count() != 0)
+            {
+                return Ok(cert);
+            } else
+            {
+                return NotFound("This user is not certified.");
+            }
+        }
+
+        [Authorize(AuthenticationSchemes = "Authentication")]
+        [Authorize(Policy = "Admin")]
+        [HttpPost("SetClinicianCertificationStatus")]
+        public ActionResult<Certification> SetClinicianCertificationStatus(CertificationInputDto newCert)
+        {
+            
+            if (_repo.GetUserByID(newCert.UserID) != null)
+            {
+                Certification cert = new Certification { User = _repo.GetUserByID(newCert.UserID), DateTime = DateTime.UtcNow, ExpiryDateTime = DateTime.UtcNow.AddYears(1), Type = newCert.Type };
+                _repo.AddCertification(cert);
+                return Ok(cert); 
+            }
+            else
+            {
+                return NotFound("A user with ID " + newCert.UserID + " could not be found.");
+            }
+        }
+
+        [HttpGet("GetQuizzesByModID/{id}")]
+        public ActionResult<IEnumerable<Quiz>> GetQuizzesByID(int id)
+        {
+            return Ok(_repo.GetQuizzesByID(id));
+        }
+
+        [HttpGet("GetQuizByID/{id}")]
+        public ActionResult<Quiz> GetQuizByID(int id)
+        {
+            return Ok(_repo.GetQuizByID(id));
+        }
+
+        [HttpPost("GetQuizQs")]
+        public ActionResult<IEnumerable<Question>> GetQuizQs(QuizInputDto quizInput)
+        {
+            return Ok(_repo.GetQuizQs(quizInput));
         }
     }
 }

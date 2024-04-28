@@ -23,6 +23,10 @@ namespace OTTER.Data
             return _dbContext.Modules.FirstOrDefault(e => e.ModuleID == id);
         }
 
+        public IEnumerable<Quiz> GetQuizzesByID(int id)
+        {
+            return _dbContext.Quizzes.Where(e => e.Module.ModuleID == id);
+        }
         public Quiz GetQuizByID(int id)
         {
             return _dbContext.Quizzes.FirstOrDefault(e => e.QuizID == id);
@@ -36,6 +40,37 @@ namespace OTTER.Data
         public IEnumerable<Question> GetQuestionsByModule(int id)
         {
             return _dbContext.Questions.Where(e => e.Module.ModuleID == id).ToList<Question>();
+        }
+
+        public IEnumerable<QuestionOutputDto> GetQuizQs(QuizInputDto quizInput)
+        {
+            Attempt attempt = AddAttempt(new Attempt { Quiz = GetQuizByID(quizInput.QuizID), User = GetUserByID(quizInput.UserID), DateTime = DateTime.UtcNow, Completed = "INCOMPLETE" });
+            Random random = new Random();
+            IEnumerable<Question> validMod = GetQuestionsByModule(quizInput.ModuleID);
+            IEnumerable<Question> validStage = validMod.Where(e => e.Stage == quizInput.Stage);
+            List<QuestionOutputDto> output = new List<QuestionOutputDto>();
+            for (int i = 0; i < quizInput.Length; i++)
+            {
+                int randnum = random.Next(0,validStage.Count());
+                Question randq = validStage.ElementAt(randnum);
+                if (output.FirstOrDefault(e => e.QuestionID == randq.QuestionID) != null)
+                {
+                    i--;
+                    continue;
+                }
+                QuestionOutputDto qOutputDto = new QuestionOutputDto { QuestionID = randq.QuestionID, Title = randq.Title, Description = randq.Description, ImageURL = randq.ImageURL, QuestionType = randq.QuestionType, Stage = randq.Stage };
+                List<AnswerOutputDto> aOutputDto = new List<AnswerOutputDto>();
+                foreach (Answer answer in _dbContext.Answers.Where(e => e.Question.QuestionID == randq.QuestionID))
+                {
+                    AnswerOutputDto a = new AnswerOutputDto { AnswerID = answer.AnswerID, QuestionID = answer.Question.QuestionID, AnswerType = answer.AnswerType, AnswerText = answer.AnswerText, AnswerCoordinates = answer.AnswerCoordinates, Feedback = answer.Feedback };
+                    aOutputDto.Add(a);
+                }
+                qOutputDto.Answers = aOutputDto;
+                AttemptQuestion attemptq = new AttemptQuestion { Attempt = GetAttemptByID(attempt.AttemptID), Question = GetQuestionByID(randq.QuestionID), Sequence = i + 1, Answers = _dbContext.Answers.Where(e => e.Question.QuestionID == randq.QuestionID).ToList<Answer>() };
+                AddAttemptQuestion(attemptq);
+                output.Add(qOutputDto);
+            }
+            return output;
         }
 
         public Question AddQuestion(Question question)
@@ -156,6 +191,11 @@ namespace OTTER.Data
         {
             return _dbContext.Users.FirstOrDefault(e => e.UserEmail == email);
         }
+
+        public User GetUserByID(int id)
+        {
+            return _dbContext.Users.FirstOrDefault(e => e.UserID == id);
+        }
         public IEnumerable<User> GetUserBySearch(string search)
         {
             return _dbContext.Users.Where(e => e.UserEmail.ToLower().Contains(search.ToLower()) || e.FirstName.ToLower().Contains(search.ToLower()) || e.LastName.ToLower().Contains(search.ToLower()) || e.Role.RoleName.ToLower().Contains(search.ToLower()) || e.Organization.OrgName.ToLower().Contains(search.ToLower()));
@@ -192,9 +232,9 @@ namespace OTTER.Data
             return u;
         }
 
-        public Certification GetCertificationByID(int id)
+        public IEnumerable<Certification> GetCertificationByID(int id)
         {
-            return _dbContext.Certifications.FirstOrDefault(e => e.CertificationID == id);
+            return _dbContext.Certifications.Where(e => e.User.UserID == id && (e.Type == "PRACTICAL" || e.Type == "RECERT"));
         }
 
         public Certification AddCertification(Certification certification)

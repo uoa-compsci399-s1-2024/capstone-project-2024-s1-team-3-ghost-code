@@ -7,9 +7,9 @@ namespace OTTER.Models
         [Key]
         public int CertificationID { get; set; }
         [Required]
-        public Module Module { get; set; }
-        [Required]
         public User User { get; set; }
+        [Required]
+        public string Type { get; set; }
         [Required]
         public DateTime DateTime { get; set; }
         [Required]

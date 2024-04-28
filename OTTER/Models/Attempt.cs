@@ -12,5 +12,7 @@ namespace OTTER.Models
         public User User { get; set; }
         [Required]
         public DateTime DateTime { get; set; }
+        [Required]
+        public string Completed { get; set; }
     }
 }
