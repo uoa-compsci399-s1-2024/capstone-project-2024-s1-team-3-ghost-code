@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AdminLoginComponents } from "./pages/AdminLogin";
 import Landing from "./pages/Landing";
@@ -9,7 +9,22 @@ import QuizDashboard from "./pages/QuizDashboard";
 import CreatingQuiz from "./pages/CreatingQuiz";
 import AdminSetting from "./pages/AdminSettings";
 
+// function setToken(userToken) {
+//   sessionStorage.setItem("token", JSON.stringify(userToken));
+// }
+
+// function getToken() {
+//   const tokenString = sessionStorage.getItem("token");
+//   const userToken = JSON.parse(tokenString);
+//   return userToken?.token;
+// }
+
 function App() {
+  // const token = getToken();
+
+  // if (!token) {
+  //   return <AdminLoginComponents setToken={setToken} />;
+  // }
   console.log("Rendering App component");
   return (
     <div>

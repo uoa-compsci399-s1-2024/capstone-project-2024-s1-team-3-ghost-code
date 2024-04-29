@@ -16,18 +16,12 @@ export function BackToHomeLink() {
   );
 }
 
-export function AdminLoginForm() {
-  const [passwordVisible, setPasswordVisible] = useState(false); // Set initial state to true
-
-  const togglePasswordVisibility = () => {
-    setPasswordVisible((prevVisible) => !prevVisible);
-  };
-
+export function ClinicianLoginForm() {
   return (
     <>
       <div className="container-clincian split left">
         <div className="box-clinician">
-          <div className="box-clincian-details" id="login">
+          <form className="box-clincian-details" id="clinician-login-form">
             <div className="top-header">
               <h3>Welcome Back!</h3>
               <div className="divider"></div>
@@ -51,19 +45,24 @@ export function AdminLoginForm() {
                 />
               </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </>
   );
 }
 
-export function AdminLoginInfo() {
+export function ClinicianLoginInfo() {
   return (
     <>
       <div className="admin-login-info split right">
         <div className="info-content">
-          <img src="#" alt="" className="verify-logo" />
+          <img
+            loading="lazy"
+            // src="src/components/VERIFYLogo.jpg"
+            // alt="DashboardLogo"
+            className="verify-logo"
+          />
           <p className="info-text">
             This is the login for admins only. Please return to the home page if
             you are not a staff member.
@@ -87,10 +86,10 @@ export function ClinicianSignComponents() {
         <div className="login-wrapper">
           <div className="login-column">
             <BackToHomeLink />
-            <AdminLoginForm />
+            <ClinicianLoginForm />
           </div>
           <div className="info-column">
-            <AdminLoginInfo />
+            <ClinicianLoginInfo />
           </div>
         </div>
       </div>
