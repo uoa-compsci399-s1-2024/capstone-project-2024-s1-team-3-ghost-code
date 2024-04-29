@@ -10,27 +10,31 @@ function AClinicianSearch() {
   const [searchResults, setSearchResults] = useState([]);
   const [adminName, setAdminName] = useState("");
 
-  // Function to fetch search results from backend API
-  useEffect(() => {
-    if (searchQuery.trim() !== "") {
-      // Make HTTP request to backend API with search query
-      fetch(`http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/ClinicianSearch/${searchQuery}`)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json();
-        })
-        .then(data => {
-          setSearchResults(data);
-        })
-        .catch(error => {
-          console.error("Error fetching search results:", error);
-        });
-    } else {
-      setSearchResults([]);
-    }
-  }, [searchQuery]);
+// Function to fetch search results from backend API
+useEffect(() => {
+  if (searchQuery.trim() !== "") {
+    // Make HTTP request to backend API with search query
+    fetch(`http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/ClinicianSearch/${searchQuery}`, {
+      headers: {
+        "Authorization": "Basic " + btoa("sahil:sahil24") // Encoding username and password
+      }
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      setSearchResults(data);
+    })
+    .catch(error => {
+      console.error("Error fetching search results:", error);
+    });
+  } else {
+    setSearchResults([]);
+  }
+}, [searchQuery]);
 
   // Function to fetch admin information from backend API
   useEffect(() => {
@@ -74,15 +78,16 @@ function AClinicianSearch() {
         </div>
         <div className="AdminClientSearchResults">
           {searchResults.map(result => (
-            <div key={result.UserID} className="adminClientSearchResultItem">
-              <div className="AdminClientSearchResultName">{result.firstName}</div>
-              <div className="AdminClientSearchResultEmail">{result.userEmail}</div>
-            </div>
+            <Link key={result.userID} to={`/clinician/${result.userEmail}`} className="link">
+              <div className="adminClientSearchResultItem">
+                <div className="AdminClientSearchResultName">{result.firstName}</div>
+                <div className="AdminClientSearchResultEmail">{result.userEmail}</div>
+              </div>
+            </Link>
           ))}
         </div>
       </div>
     </div>
   );
 }
-
 export default AClinicianSearch;
