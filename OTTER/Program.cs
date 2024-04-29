@@ -21,7 +21,10 @@ public class Program
             options.AddPolicy(name: MyAllowSpecificOrigins,
                               policy =>
                               {
-                                  policy.WithOrigins("http://localhost:5173");
+                                  policy.WithOrigins("http://localhost:5173") // Specify the allowed origin
+                                        .AllowAnyMethod() // Allow all methods, or use .WithMethods("GET", "POST") to specify
+                                        .AllowAnyHeader() // Allow all headers, or specify like .WithHeaders("Authorization")
+                                        .AllowCredentials(); // Necessary if your front-end needs to send credentials like cookies or auth headers
                               });
         });
 
