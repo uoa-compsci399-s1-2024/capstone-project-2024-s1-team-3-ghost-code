@@ -16,6 +16,8 @@ namespace OTTER.Models
         public int QuestionType { get; set; }
         [Required]
         public string Stage {  get; set; }
+        [Required]
+        public bool Deleted { get; set; }
 
     }
 }

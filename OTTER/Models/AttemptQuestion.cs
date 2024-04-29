@@ -13,6 +13,6 @@ namespace OTTER.Models
         [Required]
         public int Sequence { get; set; }
         [Required]
-        public ICollection<Answer> Answers { get; set; }
+        public List<Answer> Answers { get; set; } = [];
     }
 }

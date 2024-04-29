@@ -203,11 +203,11 @@ namespace OTTER.Controllers
         [HttpPost("AddQuestion")]
         public ActionResult<User> CreateQuestion(QuestionInputDto newQuestion)
         {
-            Question q = new Question { Module = _repo.GetModuleByID(newQuestion.ModID), Title = newQuestion.Title, Description = newQuestion.Description, ImageURL = newQuestion.ImageURL, QuestionType = newQuestion.QuestionType, Stage = newQuestion.Stage};
+            Question q = new Question { Module = _repo.GetModuleByID(newQuestion.ModID), Title = newQuestion.Title, Description = newQuestion.Description, ImageURL = newQuestion.ImageURL, QuestionType = newQuestion.QuestionType, Stage = newQuestion.Stage, Deleted = false};
             _repo.AddQuestion(q);
             foreach (AnswerInputDto newAnswer in newQuestion.Answers)
             {
-                Answer a = new Answer { Question = _repo.GetQuestionByID(q.QuestionID), AnswerType = newAnswer.AnswerType, AnswerText = newAnswer.AnswerText, AnswerCoordinates = newAnswer.AnswerCoordinates, CorrectAnswer = newAnswer.CorrectAnswer, Feedback = newAnswer.Feedback, Attempts = new List<AttemptQuestion>() };
+                Answer a = new Answer { Question = _repo.GetQuestionByID(q.QuestionID), AnswerType = newAnswer.AnswerType, AnswerText = newAnswer.AnswerText, AnswerCoordinates = newAnswer.AnswerCoordinates, CorrectAnswer = newAnswer.CorrectAnswer, Feedback = newAnswer.Feedback, Attempts = new List<AttemptQuestion>(), Deleted = false };
                 _repo.AddAnswer(a);            
             }
             return Ok(q);
@@ -302,9 +302,15 @@ namespace OTTER.Controllers
         }
 
         [HttpPost("GetQuizQs")]
-        public ActionResult<IEnumerable<Question>> GetQuizQs(QuizInputDto quizInput)
+        public ActionResult<IEnumerable<QuestionOutputDto>> GetQuizQs(QuizInputDto quizInput)
         {
             return Ok(_repo.GetQuizQs(quizInput));
+        }
+
+        [HttpPost("QuizSubmission")]
+        public ActionResult<QuizSubMarksDto> SubmitQuiz(QuizSubmissionDto submission)
+        {
+            return Ok(_repo.MarkQuiz(submission));
         }
     }
 }

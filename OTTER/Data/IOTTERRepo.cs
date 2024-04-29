@@ -22,10 +22,9 @@ namespace OTTER.Data
         Answer EditAnswer(EditAnswerInputDto answer);
         Attempt GetAttemptByID(int id);
         Attempt AddAttempt(Attempt attempt);
-        AttemptQuestion GetAttemptQuestionByID(int id);
+        AttemptQuestion GetAttemptQuestionBySequenceAndUser(int s, int u);
         AttemptQuestion AddAttemptQuestion(AttemptQuestion attemptQ);
-        /*AttemptAnswer GetAttemptAnswerByID(int id);
-        AttemptAnswer AddAttemptAnswer(AttemptAnswer attemptA);*/
+        QuizSubMarksDto MarkQuiz(QuizSubmissionDto submission);
         IEnumerable<User> GetUsers();
         User GetUserByEmail(string email);
         User GetUserByID(int id);

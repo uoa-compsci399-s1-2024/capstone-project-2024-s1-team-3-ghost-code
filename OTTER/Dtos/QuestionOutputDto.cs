@@ -16,5 +16,7 @@ namespace OTTER.Dtos
         public string Stage { get; set; }
         [Required]
         public IEnumerable<AnswerOutputDto> Answers { get; set; }
+        [Required]
+        public int AttemptID { get; set; }
     }
 }

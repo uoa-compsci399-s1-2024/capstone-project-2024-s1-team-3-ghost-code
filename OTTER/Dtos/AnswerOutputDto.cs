@@ -14,6 +14,5 @@ namespace OTTER.Dtos
         [Required]
         public string AnswerText { get; set; }
         public string? AnswerCoordinates { get; set; }
-        public string? Feedback { get; set; }
     }
 }

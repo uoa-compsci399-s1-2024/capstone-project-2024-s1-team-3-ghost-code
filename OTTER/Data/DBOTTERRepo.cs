@@ -47,7 +47,7 @@ namespace OTTER.Data
             Attempt attempt = AddAttempt(new Attempt { Quiz = GetQuizByID(quizInput.QuizID), User = GetUserByID(quizInput.UserID), DateTime = DateTime.UtcNow, Completed = "INCOMPLETE" });
             Random random = new Random();
             IEnumerable<Question> validMod = GetQuestionsByModule(quizInput.ModuleID);
-            IEnumerable<Question> validStage = validMod.Where(e => e.Stage == quizInput.Stage);
+            IEnumerable<Question> validStage = validMod.Where(e => e.Stage == quizInput.Stage && e.Deleted == false);
             List<QuestionOutputDto> output = new List<QuestionOutputDto>();
             for (int i = 0; i < quizInput.Length; i++)
             {
@@ -62,12 +62,13 @@ namespace OTTER.Data
                 List<AnswerOutputDto> aOutputDto = new List<AnswerOutputDto>();
                 foreach (Answer answer in _dbContext.Answers.Where(e => e.Question.QuestionID == randq.QuestionID))
                 {
-                    AnswerOutputDto a = new AnswerOutputDto { AnswerID = answer.AnswerID, QuestionID = answer.Question.QuestionID, AnswerType = answer.AnswerType, AnswerText = answer.AnswerText, AnswerCoordinates = answer.AnswerCoordinates, Feedback = answer.Feedback };
+                    AnswerOutputDto a = new AnswerOutputDto { AnswerID = answer.AnswerID, QuestionID = answer.Question.QuestionID, AnswerType = answer.AnswerType, AnswerText = answer.AnswerText, AnswerCoordinates = answer.AnswerCoordinates };
                     aOutputDto.Add(a);
                 }
                 qOutputDto.Answers = aOutputDto;
-                AttemptQuestion attemptq = new AttemptQuestion { Attempt = GetAttemptByID(attempt.AttemptID), Question = GetQuestionByID(randq.QuestionID), Sequence = i + 1, Answers = _dbContext.Answers.Where(e => e.Question.QuestionID == randq.QuestionID).ToList<Answer>() };
+                AttemptQuestion attemptq = new AttemptQuestion { Attempt = GetAttemptByID(attempt.AttemptID), Question = GetQuestionByID(randq.QuestionID), Sequence = i + 1, Answers = new List<Answer>() };
                 AddAttemptQuestion(attemptq);
+                qOutputDto.AttemptID = attempt.AttemptID;
                 output.Add(qOutputDto);
             }
             return output;
@@ -85,7 +86,11 @@ namespace OTTER.Data
             Question q = _dbContext.Questions.FirstOrDefault(e => e.QuestionID == id);
             if (q != null)
             {
-                _dbContext.Questions.Remove(q);
+                q.Deleted = true;
+                foreach (Answer a in _dbContext.Answers.Where(e => e.Question.QuestionID == q.QuestionID))
+                {
+                    a.Deleted = true;
+                }
                 _dbContext.SaveChanges();
             }
         }
@@ -158,9 +163,9 @@ namespace OTTER.Data
             return at.Entity;
         }
 
-        public AttemptQuestion GetAttemptQuestionByID(int id)
+        public AttemptQuestion GetAttemptQuestionBySequenceAndUser(int s, int u)
         {
-            return _dbContext.AttemptQuestions.FirstOrDefault(e => e.AttemptQID == id);
+            return _dbContext.AttemptQuestions.FirstOrDefault(e => e.Attempt.User.UserID == u && e.Sequence == s);
         }
 
         public AttemptQuestion AddAttemptQuestion(AttemptQuestion attemptQ)
@@ -170,17 +175,29 @@ namespace OTTER.Data
             return atQ.Entity;
         }
 
-        /*public AttemptAnswer GetAttemptAnswerByID(int id)
+        public QuizSubMarksDto MarkQuiz(QuizSubmissionDto submission)
         {
-            return _dbContext.AttemptAnswers.FirstOrDefault(e => e.Question == id);
-        }
-
-        public AttemptAnswer AddAttemptAnswer(AttemptAnswer attemptA)
-        {
-            EntityEntry<AttemptAnswer> atA = _dbContext.AttemptAnswers.Add(attemptA);
+            QuizSubMarksDto output = new QuizSubMarksDto { Sequence = new List<int>(), Correct = new List<List<bool>>(), Feedback = new List<List<string>>() };
+            foreach (int sequence in submission.Sequence)
+            {
+                List<bool> correct = new List<bool>();
+                List<string> feedback = new List<string>();
+                foreach (int AID in submission.AnswerID.ElementAt(sequence - 1))
+                {
+                    AttemptQuestion aQ = GetAttemptQuestionBySequenceAndUser(sequence, submission.UserID);
+                    aQ.Answers.ToList().Add(GetAnswerByID(AID));
+                    GetAnswerByID(AID).Attempts.ToList().Add(aQ);
+                    correct.Add(GetAnswerByID(AID).CorrectAnswer);
+                    feedback.Add(GetAnswerByID(AID).Feedback);
+                }
+                output.Correct.Add(correct);
+                output.Feedback.Add(feedback);
+                output.Sequence.Add(sequence);
+            }
+            _dbContext.Attempts.FirstOrDefault(e => e.AttemptID == submission.AttemptID).Completed = "COMPLETE";
             _dbContext.SaveChanges();
-            return atA.Entity;
-        }*/
+            return output;
+        }
 
         public IEnumerable<User> GetUsers()
         {
