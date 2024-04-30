@@ -17,6 +17,29 @@ export function BackToHomeLink() {
 }
 
 export function ClinicianLoginForm() {
+  const [email, setemail] = useState();
+  function login(e) {
+    e.preventDefault();
+    const url =
+      "http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/ClinicianLogin";
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+      }),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        localStorage.setItem("token", data);
+        console.log(localStorage);
+      });
+  }
+
   return (
     <>
       <div className="container-clincian split left">
@@ -31,6 +54,10 @@ export function ClinicianLoginForm() {
                 <input
                   type="text"
                   className="input-box"
+                  value={email}
+                  // onChange={(e) => {
+                  //   setemail(e.target.value);
+                  // }}
                   id="logEmail"
                   required
                 />

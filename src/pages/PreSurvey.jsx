@@ -1,9 +1,24 @@
 import "./PreSurvey.css";
-import React, { useState, useEffect } from "react";
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useLocation,
+  useNavigate,
+} from "react";
 import { Link } from "react-router-dom";
 
 function Presurvey() {
-  // document.getElementById("login-form").addEventListener();
+  // const [loggedIn, setLoggedIn] = useContext(LoginContext);
+  // const [firstname, setfirstname] = useState();
+  // const [lastname, setlastname] = useState();
+  // const [email, setemail] = useState();
+  // const [position, setposition] = useState();
+  // const [organisation, setorgnisation] = useState();
+
+  // const location = useLocation();
+  // const navigate = useNavigate();
+
   return (
     <>
       <div class="split-survey left-survey">

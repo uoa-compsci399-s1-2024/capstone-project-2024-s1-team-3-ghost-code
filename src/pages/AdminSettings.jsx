@@ -2,6 +2,8 @@ import "./AdminSetting.css";
 import AdminDashboard from "../components/Dashboards/ADashboard";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 export function AdminName() {
   return (
@@ -107,12 +109,15 @@ export default function AdminSetting() {
                 <i className="fa-solid fa-caret-up"></i>
               </a>
               <div className="information">
-                <p>
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Mollitia cupiditate autem quam temporibus, quaerat magni
-                  voluptas, architecto blanditiis numquam illum at alias. Rem,
-                  quibusdam maxime et dolores ab laborum voluptates?
-                </p>
+                <div className="AdminSearchInput">
+                  <input
+                    type="text"
+                    // value={searchQuery}
+                    // onChange={handleSearchInputChange}
+                    placeholder="Search..."
+                  />
+                  <FontAwesomeIcon icon={faSearch} className="search-icon" />
+                </div>
               </div>
             </div>
           </div>

@@ -1,11 +1,11 @@
 import "./AdminLogin.css";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, BrowserRouter, Router, Route, Routes } from "react-router-dom";
 import PropTypes from "prop-types";
 
 async function loginUser(credentials) {
   return fetch(
-    "http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/Login",
+    "http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/auth/Login",
     {
       method: "POST",
       headers: {
@@ -104,7 +104,7 @@ export function AdminLoginForm({ setToken }) {
   );
 }
 AdminLoginForm.propTypes = {
-  setToken: PropTypes.func.isRequired,
+  setToken: PropTypes.func,
 };
 
 export function AdminLoginInfo() {
