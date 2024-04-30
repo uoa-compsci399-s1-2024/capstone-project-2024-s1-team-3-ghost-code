@@ -9,6 +9,7 @@ function AClinicianSearch() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [adminName, setAdminName] = useState("");
+  const token = sessionStorage.getItem('token');
 
 // Function to fetch search results from backend API
 useEffect(() => {
@@ -16,7 +17,7 @@ useEffect(() => {
     // Make HTTP request to backend API with search query
     fetch(`http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/ClinicianSearch/${searchQuery}`, {
       headers: {
-        "Authorization": "Basic " + btoa("sahil:sahil24") // Encoding username and password
+        "Authorization": `Bearer ${token}` // Include token in headers
       }
     })
     .then(response => {
@@ -34,11 +35,16 @@ useEffect(() => {
   } else {
     setSearchResults([]);
   }
-}, [searchQuery]);
+}, [searchQuery, token]);
 
   // Function to fetch admin information from backend API
   useEffect(() => {
-    fetch('/api/admin/details')
+    fetch('http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/auth/GetCurrentAdmin', {
+      headers: {
+        "Authorization": `Bearer ${token}` // Include token in headers
+
+      }
+    })
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -46,7 +52,8 @@ useEffect(() => {
         return response.json();
       })
       .then(data => {
-        setAdminName(data.name);
+        setAdminName(data.firstName);
+    
       })
       .catch(error => {
         console.error("Error fetching admin information:", error);

@@ -10,12 +10,13 @@ function AClinicianProfile() {
     const [clinic, setClinic] = useState("");
     const [position, setPosition] = useState("");
     const [status, setStatus] = useState("");
+    const token = sessionStorage.getItem('token');
 
     useEffect(() => {
         const requestOptions = {
             method: 'GET',
             headers: {
-                'Authorization': 'Basic ' + btoa('sahil:sahil24') // Replace with your credentials
+                "Authorization": `Bearer ${token}` // Include token in headers
             }
         };
 

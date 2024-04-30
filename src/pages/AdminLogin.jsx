@@ -1,6 +1,6 @@
 import "./AdminLogin.css";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 
 export function BackToHomeLink() {
   return (
@@ -16,14 +16,45 @@ export function BackToHomeLink() {
 }
 
 export function AdminLoginForm() {
-  const [passwordVisible, setPasswordVisible] = useState(false); // Set initial state to true
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const navigate = useNavigate(); // Use the useNavigate hook for redirection
 
   const togglePasswordVisibility = () => {
-    setPasswordVisible((prevVisible) => !prevVisible);
+    setPasswordVisible(prevVisible => !prevVisible);
+  };
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    };
+
+    try {
+      const response = await fetch('http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/auth/Login', requestOptions);
+      const text = await response.text();  // Get response as text
+    
+      
+      // Example handling of the response text
+      if (!text.includes('Email or Password invalid.')) {
+        sessionStorage.setItem('token', text); // Store token (or whatever the response indicates)
+        navigate('/adminsearch'); // Redirect using navigate instead of updating state
+      } else {
+        alert('Login failed!');
+      }
+    } catch (error) {
+      console.error('Login Error:', error);
+      alert('An error occurred during login.');
+    }
+    
   };
 
   return (
-    <>
+    <form onSubmit={handleLogin}>
       <div className="container split left">
         <div className="box">
           <div className="box-login" id="login">
@@ -37,26 +68,28 @@ export function AdminLoginForm() {
                   type="text"
                   className="input-box"
                   id="logEmail"
+                  placeholder="Email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                 />
-                <label htmlFor="logEmail">Email address</label>
               </div>
               <div className="input-field">
                 <input
                   type={passwordVisible ? "text" : "password"}
                   className="input-box"
                   id="logPassword"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                 />
-                <label htmlFor="logPassword">Password</label>
-                <div className="eye-area">
-                  <div className="eye-box" onClick={togglePasswordVisibility}>
-                    {passwordVisible ? (
-                      <i className="fa-regular fa-eye-slash" id="eye-slash"></i> //show when false
-                    ) : (
-                      <i className="fa-regular fa-eye" id="eye"></i> //show when true
-                    )}
-                  </div>
+                <div className="eye-area" onClick={togglePasswordVisibility}>
+                  {passwordVisible ? (
+                    <i className="fa-regular fa-eye-slash" id="eye-slash"></i>
+                  ) : (
+                    <i className="fa-regular fa-eye" id="eye"></i>
+                  )}
                 </div>
               </div>
               <div className="input-field">
@@ -64,7 +97,6 @@ export function AdminLoginForm() {
                   type="submit"
                   className="input-submit"
                   value="Sign In"
-                  required
                 />
               </div>
               <div className="forgot">
@@ -74,7 +106,7 @@ export function AdminLoginForm() {
           </div>
         </div>
       </div>
-    </>
+    </form>
   );
 }
 
