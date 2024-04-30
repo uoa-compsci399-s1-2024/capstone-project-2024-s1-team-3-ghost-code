@@ -6,6 +6,7 @@ namespace OTTER.Data
 {
     public interface IOTTERRepo
     {
+        void SendEmail(string email, string subject, string body);
         IEnumerable<Module> GetModules();
         Module GetModuleByID(int id);
         IEnumerable<Quiz> GetQuizzesByID(int id);

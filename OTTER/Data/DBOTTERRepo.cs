@@ -4,17 +4,35 @@ using System.Security.Cryptography.X509Certificates;
 using OTTER.Dtos;
 using System.Security.Cryptography;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace OTTER.Data
 {
     public class DBOTTERRepo : IOTTERRepo
     {
         private readonly OTTERDBContext _dbContext;
+        private readonly string _emailApiUri = "https://script.google.com/macros/s/AKfycbzvev_v7GVvporKeNujKD5ndYEcQa-Xv93tu5FHhwyea_TC_-7PqW2qk1Jv63uSfQ1F/exec";
         public DBOTTERRepo(OTTERDBContext dbContext)
         {
             _dbContext = dbContext;
         }
 
+        public void SendEmail(string requestEmail, string requestSubject, string requestBody)
+        {
+            var client = new HttpClient();
+            var endpoint = new Uri(_emailApiUri);
+            var newEmail = new EmailContentDto()
+            {
+                email = requestEmail,
+                subject = requestSubject,
+                body = requestBody
+            };
+            var newEmailJson = JsonConvert.SerializeObject(newEmail);
+            var payload = new StringContent(newEmailJson, Encoding.UTF8, "application/json");
+
+            client.PostAsync(endpoint, payload);
+        }
 
         public IEnumerable<Module> GetModules()
         {
@@ -386,7 +404,9 @@ namespace OTTER.Data
                 a.ResetTokenExpires = DateTime.Now.AddMinutes(30);
                 _dbContext.SaveChanges();
 
-                // send a.PasswordResetToken via email
+                SendEmail(a.Email, "Password reset request",
+                    $"Hi {a.FirstName},<br><br>We have received a request to reset your password.<br><br>Reset code: {a.PasswordResetToken}" +
+                    $"<br><br>This code is valid for 30 minutes.<br><br>Thanks<br>The VERIFY Team");
             }
         }
 
