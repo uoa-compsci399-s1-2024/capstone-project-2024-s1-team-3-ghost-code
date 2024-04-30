@@ -3,6 +3,11 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using OTTER.Data;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Swashbuckle.AspNetCore.Filters;
+using Amazon;
 
 namespace OTTER;
 
@@ -13,6 +18,8 @@ public class Program
         var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
         var builder = WebApplication.CreateBuilder(args);
+
+        var appName = builder.Environment.ApplicationName;
 
         // Add services to the container.
 
@@ -40,9 +47,30 @@ public class Program
                 Title = "OTTER Backend APIs",
                 Description = "APIs to support the OTTER project. Developed by Ghost Code."
             });
+
+            options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+            {
+                Description = "Admin authorisation header using the Bearer scheme (\"Bearer {token}\")",
+                In = ParameterLocation.Header,
+                Name = "Authorization",
+                Type = SecuritySchemeType.ApiKey
+            });
+            options.OperationFilter<SecurityRequirementsOperationFilter>();
         });
 
-        builder.Services.AddAuthentication().AddScheme<AuthenticationSchemeOptions, AdminHandler>("Authentication", null);
+        if (!builder.Environment.IsDevelopment()) {
+            builder.Configuration.AddSecretsManager(region: RegionEndpoint.APSoutheast2,
+            configurator: options =>
+            {
+                options.SecretFilter = entry => entry.Name.StartsWith($"{appName}_");
+                options.KeyGenerator = (entry, s) => s
+                    .Replace($"{appName}_", string.Empty)
+                    .Replace("__", ":");
+                options.PollingInterval = TimeSpan.FromSeconds(10);
+            });
+        }
+
+        /*builder.Services.AddAuthentication().AddScheme<AuthenticationSchemeOptions, AdminHandler>("Authentication", null);*/
 
         builder.Services.AddDbContext<OTTERDBContext>(options => options.UseSqlite(builder.Configuration["OTTERConnection"]));
 
@@ -50,9 +78,20 @@ public class Program
 
         builder.Services.AddScoped<IOTTERRepo, DBOTTERRepo>();
 
-        builder.Services.AddAuthorization(options =>
+        /*builder.Services.AddAuthorization(options =>
         {
             options.AddPolicy("Admin", policy => policy.RequireClaim("Admin"));
+        });*/
+        builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+        {
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("AppSettings:AuthToken").Value)),
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ClockSkew = TimeSpan.Zero
+            };
         });
 
         var app = builder.Build();

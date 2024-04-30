@@ -44,6 +44,7 @@ namespace OTTER.Data
         IEnumerable<Admin> GetAdmins();
         IEnumerable<Admin> SearchAdmins(string search);
         Admin GetAdminByID(int id);
+        Admin GetAdminByEmail(string email);
         Admin AddAdmin(Admin admin);
         void DeleteAdmin(int id);
         Admin EditAdmin(Admin admin);

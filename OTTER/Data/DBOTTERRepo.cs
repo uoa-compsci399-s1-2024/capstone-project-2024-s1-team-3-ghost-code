@@ -337,6 +337,11 @@ namespace OTTER.Data
             return _dbContext.Admins.FirstOrDefault(e => e.AdminID == id);
         }
 
+        public Admin GetAdminByEmail(string email)
+        {
+            return _dbContext.Admins.FirstOrDefault(e => e.Email == email);
+        }
+
         public Admin AddAdmin(Admin admin)
         {
             EntityEntry<Admin> a = _dbContext.Admins.Add(admin);

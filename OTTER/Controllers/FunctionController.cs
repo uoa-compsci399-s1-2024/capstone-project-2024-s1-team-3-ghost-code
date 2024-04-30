@@ -6,33 +6,20 @@ using OTTER.Dtos;
 using System.Security.Claims;
 using System.Runtime;
 using Swashbuckle.AspNetCore.Annotations;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace OTTER.Controllers
 {
     [Route("webapi")]
     [ApiController]
-    public class OTTERController : Controller
+    public class FunctionController : Controller
     {
         private readonly IOTTERRepo _repo;
 
-        public OTTERController(IOTTERRepo repo)
+        public FunctionController(IOTTERRepo repo)
         {
             _repo = repo;
-        }
-
-        [SwaggerOperation(
-            Summary = "Check Admin login",
-            Description = "Requires admin privileges",
-            Tags = new[] { "Admins" }
-        )]
-        [SwaggerResponse(200, "Admin login was successful")]
-        [SwaggerResponse(401, "Admin login email or password is incorrect")]
-        [Authorize(AuthenticationSchemes = "Authentication")]
-        [Authorize(Policy = "Admin")]
-        [HttpGet("Login")]
-        public ActionResult TryLogin()
-        {
-            return Ok();
         }
 
         [SwaggerOperation(
@@ -41,9 +28,9 @@ namespace OTTER.Controllers
             Tags = new[] { "Admins" }
         )]
         [SwaggerResponse(200, "Query for Admins was successful", typeof(AdminOutputDto))]
-        [SwaggerResponse(401, "Admin login email or password is incorrect")]
-        [Authorize(AuthenticationSchemes = "Authentication")]
-        [Authorize(Policy = "Admin")]
+        [SwaggerResponse(401, "Admin token is invalid")]
+        [SwaggerResponse(403, "Token is not authorized to view resource")]
+        [Authorize(Roles = "Admin")]
         [HttpGet("GetAdmins")]
         public ActionResult<IEnumerable<AdminOutputDto>> GetAdmins()
         {
@@ -62,8 +49,7 @@ namespace OTTER.Controllers
         )]
         [SwaggerResponse(200, "Query for Admin was successful", typeof(AdminOutputDto))]
         [SwaggerResponse(401, "Admin login email or password is incorrect")]
-        [Authorize(AuthenticationSchemes = "Authentication")]
-        [Authorize(Policy = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpGet("GetAdminByID/{id}")]
         public ActionResult<AdminOutputDto> GetAdminByID(int id)
         {
@@ -85,8 +71,7 @@ namespace OTTER.Controllers
         )]
         [SwaggerResponse(200, "Query for Admins was successful", typeof(AdminOutputDto))]
         [SwaggerResponse(401, "Admin login email or password is incorrect")]
-        [Authorize(AuthenticationSchemes = "Authentication")]
-        [Authorize(Policy = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpGet("SearchAdmins/{search}")]
         public ActionResult<IEnumerable<Admin>> GetAdminByEmail(string search)
         {
@@ -106,8 +91,7 @@ namespace OTTER.Controllers
         [SwaggerResponse(201, "New admin created", typeof(AdminInputDto))]
         [SwaggerResponse(401, "Admin login email or password is incorrect")]
         [SwaggerResponse(409, "Admin with submitted email already exists")]
-        [Authorize(AuthenticationSchemes = "Authentication")]
-        [Authorize(Policy = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost("AddAdmin")]
         public ActionResult<Admin> AddAdmin(AdminInputDto newadmin)
         {
@@ -132,8 +116,7 @@ namespace OTTER.Controllers
         [SwaggerResponse(200, "Admin deleted")]
         [SwaggerResponse(401, "Admin login email or password is incorrect")]
         [SwaggerResponse(404, "Admin with submitted ID does not exist")]
-        [Authorize(AuthenticationSchemes = "Authentication")]
-        [Authorize(Policy = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("DeleteAdmin/{id}")]
         public ActionResult DeleteAdmin(int id)
         {
@@ -155,8 +138,7 @@ namespace OTTER.Controllers
         [SwaggerResponse(200, "Admin edited", typeof(AdminOutputDto))]
         [SwaggerResponse(401, "Admin login email or password is incorrect")]
         [SwaggerResponse(404, "Admin with submitted ID does not exist")]
-        [Authorize(AuthenticationSchemes = "Authentication")]
-        [Authorize(Policy = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPut("EditAdmin")]
         public ActionResult<Admin> EditAdmin(Admin updatedAdmin)
         {
@@ -170,8 +152,7 @@ namespace OTTER.Controllers
             }
         }
 
-        [Authorize(AuthenticationSchemes = "Authentication")]
-        [Authorize(Policy = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpGet("GetQuestions/{module}")]
         public ActionResult<IEnumerable<Question>> GetQuestionsByModule(int module)
         {
@@ -190,16 +171,14 @@ namespace OTTER.Controllers
             return Ok(_repo.GetModuleByID(id));
         }
 
-        [Authorize(AuthenticationSchemes = "Authentication")]
-        [Authorize(Policy = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpGet("ClinicianSearch/{term}")]
         public ActionResult<IEnumerable<User>> SearchUsers(string term)
         {
             return Ok(_repo.GetUserBySearch(term));
         }
 
-        [Authorize(AuthenticationSchemes = "Authentication")]
-        [Authorize(Policy = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost("AddQuestion")]
         public ActionResult<User> CreateQuestion(QuestionInputDto newQuestion)
         {
@@ -213,8 +192,7 @@ namespace OTTER.Controllers
             return Ok(q);
         }
 
-        [Authorize(AuthenticationSchemes = "Authentication")]
-        [Authorize(Policy = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("DeleteQuestion/{id}")]
         public ActionResult DeleteQuestion(int id)
         {
@@ -229,8 +207,7 @@ namespace OTTER.Controllers
             }
         }
 
-        [Authorize(AuthenticationSchemes = "Authentication")]
-        [Authorize(Policy = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPut("EditQuestion")]
         public ActionResult<Question> EditQuestion(EditQuestionInputDto updatedQuestion)
         {
@@ -256,8 +233,7 @@ namespace OTTER.Controllers
                 return NotFound("No user with email " + email + " exists.");
             }
         }
-        [Authorize(AuthenticationSchemes = "Authentication")]
-        [Authorize(Policy = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpGet("GetClinicianCertificationStatus/{id}")]
         public ActionResult<Certification> GetClinicianCertificationStatus(int id)
         {
@@ -271,8 +247,7 @@ namespace OTTER.Controllers
             }
         }
 
-        [Authorize(AuthenticationSchemes = "Authentication")]
-        [Authorize(Policy = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost("SetClinicianCertificationStatus")]
         public ActionResult<Certification> SetClinicianCertificationStatus(CertificationInputDto newCert)
         {
