@@ -151,6 +151,9 @@ namespace OTTER.Controllers
             }
         }
 
+        [SwaggerOperation(
+            Tags = new[] { "AdminQuizFunctions" }
+        )]
         [Authorize(Roles = "Admin")]
         [HttpGet("GetQuestions/{module}")]
         public ActionResult<IEnumerable<Question>> GetQuestionsByModule(int module)
@@ -158,18 +161,29 @@ namespace OTTER.Controllers
             return Ok(_repo.GetQuestionsByModule(module));
         }
 
+        [SwaggerOperation(
+            Tags = new[] { "ClinicianFunctions" }
+        )]
+        [Authorize(Roles = "User")]
         [HttpGet("GetModules")]
         public ActionResult<IEnumerable<Module>> GetModules()
         {
             return Ok(_repo.GetModules());
         }
 
+        [SwaggerOperation(
+            Tags = new[] { "ClinicianFunctions" }
+        )]
+        [Authorize(Roles = "User")]
         [HttpGet("GetModuleByID/{id}")]
         public ActionResult<Module> GetModuleByID(int id)
         {
             return Ok(_repo.GetModuleByID(id));
         }
 
+        [SwaggerOperation(
+            Tags = new[] { "AdminUserFunctions" }
+        )]
         [Authorize(Roles = "Admin")]
         [HttpGet("ClinicianSearch/{term}")]
         public ActionResult<IEnumerable<User>> SearchUsers(string term)
@@ -177,6 +191,9 @@ namespace OTTER.Controllers
             return Ok(_repo.GetUserBySearch(term));
         }
 
+        [SwaggerOperation(
+            Tags = new[] { "AdminQuizFunctions" }
+        )]
         [Authorize(Roles = "Admin")]
         [HttpPost("AddQuestion")]
         public ActionResult<User> CreateQuestion(QuestionInputDto newQuestion)
@@ -191,6 +208,9 @@ namespace OTTER.Controllers
             return Ok(q);
         }
 
+        [SwaggerOperation(
+            Tags = new[] { "AdminQuizFunctions" }
+        )]
         [Authorize(Roles = "Admin")]
         [HttpDelete("DeleteQuestion/{id}")]
         public ActionResult DeleteQuestion(int id)
@@ -206,6 +226,9 @@ namespace OTTER.Controllers
             }
         }
 
+        [SwaggerOperation(
+            Tags = new[] { "AdminQuizFunctions" }
+        )]
         [Authorize(Roles = "Admin")]
         [HttpPut("EditQuestion")]
         public ActionResult<Question> EditQuestion(EditQuestionInputDto updatedQuestion)
@@ -221,7 +244,7 @@ namespace OTTER.Controllers
             }
         }
 
-        [HttpGet("ClinicianLogin/{email}")]
+        /*[HttpGet("ClinicianLogin/{email}")]
         public ActionResult ClinicianLogin(string email)
         {
             if(_repo.GetUserByEmail(email) != null)
@@ -231,7 +254,11 @@ namespace OTTER.Controllers
             {
                 return NotFound("No user with email " + email + " exists.");
             }
-        }
+        }*/
+
+        [SwaggerOperation(
+            Tags = new[] { "AdminUserFunctions" }
+        )]
         [Authorize(Roles = "Admin")]
         [HttpGet("GetClinicianCertificationStatus/{id}")]
         public ActionResult<Certification> GetClinicianCertificationStatus(int id)
@@ -246,6 +273,9 @@ namespace OTTER.Controllers
             }
         }
 
+        [SwaggerOperation(
+            Tags = new[] { "AdminUserFunctions" }
+        )]
         [Authorize(Roles = "Admin")]
         [HttpPost("SetClinicianCertificationStatus")]
         public ActionResult<Certification> SetClinicianCertificationStatus(CertificationInputDto newCert)
@@ -263,24 +293,40 @@ namespace OTTER.Controllers
             }
         }
 
+        [SwaggerOperation(
+            Tags = new[] { "ClinicianFunctions" }
+        )]
+        [Authorize(Roles = "User")]
         [HttpGet("GetQuizzesByModID/{id}")]
         public ActionResult<IEnumerable<Quiz>> GetQuizzesByID(int id)
         {
             return Ok(_repo.GetQuizzesByID(id));
         }
 
+        [SwaggerOperation(
+            Tags = new[] { "ClinicianFunctions" }
+        )]
+        [Authorize(Roles = "User")]
         [HttpGet("GetQuizByID/{id}")]
         public ActionResult<Quiz> GetQuizByID(int id)
         {
             return Ok(_repo.GetQuizByID(id));
         }
 
+        [SwaggerOperation(
+            Tags = new[] { "ClinicianFunctions" }
+        )]
+        [Authorize(Roles = "User")]
         [HttpPost("GetQuizQs")]
         public ActionResult<IEnumerable<QuestionOutputDto>> GetQuizQs(QuizInputDto quizInput)
         {
             return Ok(_repo.GetQuizQs(quizInput));
         }
 
+        [SwaggerOperation(
+            Tags = new[] { "ClinicianFunctions" }
+        )]
+        [Authorize(Roles = "User")]
         [HttpPost("QuizSubmission")]
         public ActionResult<QuizSubMarksDto> SubmitQuiz(QuizSubmissionDto submission)
         {

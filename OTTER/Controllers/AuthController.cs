@@ -27,7 +27,8 @@ namespace OTTER.Controllers
         }
 
         [SwaggerOperation(
-            Summary = "Gets token from Admin login"
+            Summary = "Gets token from Admin login",
+            Tags = new[] { "AdminAuth" }
         )]
         [SwaggerResponse(200, "Admin login was successful and token returned")]
         [SwaggerResponse(401, "Admin login email or password is incorrect")]
@@ -42,11 +43,11 @@ namespace OTTER.Controllers
 
             _repo.SetLastAdminLogin(admin.AdminID);
 
-            string token = CreateToken(admin);
+            string token = CreateAdminToken(admin);
             return Ok(token);
         }
 
-        private string CreateToken(Admin admin)
+        private string CreateAdminToken(Admin admin)
         {
             List<Claim> claims = new List<Claim>
             {
@@ -71,7 +72,8 @@ namespace OTTER.Controllers
         }
 
         [SwaggerOperation(
-            Summary = "Sends password reset code to user email"
+            Summary = "Sends password reset code to user email",
+            Tags = new[] { "AdminAuth" }
         )]
         [SwaggerResponse(200, "Reset request submitted")]
         [HttpPost("ResetPassword")]
@@ -82,7 +84,8 @@ namespace OTTER.Controllers
         }
 
         [SwaggerOperation(
-            Summary = "Checks if password reset token is valid"
+            Summary = "Checks if password reset token is valid",
+            Tags = new[] { "AdminAuth" }
         )]
         [SwaggerResponse(200, "Password reset token valid")]
         [SwaggerResponse(400, "Password reset token not valid")]
@@ -95,7 +98,8 @@ namespace OTTER.Controllers
         }
 
         [SwaggerOperation(
-            Summary = "Resets password if reset token is valid"
+            Summary = "Resets password if reset token is valid",
+            Tags = new[] { "AdminAuth" }
         )]
         [SwaggerResponse(200, "Password succesfully reset")]
         [SwaggerResponse(400, "Password reset token not valid")]
@@ -109,9 +113,10 @@ namespace OTTER.Controllers
 
         [SwaggerOperation(
             Summary = "Gets Admin details based on current token",
-            Description = "Requires admin privileges"
+            Description = "Requires admin privileges",
+            Tags = new[] { "AdminAuth" }
         )]
-        [SwaggerResponse(200, "Query for Admins was successful", typeof(AdminOutputDto))]
+        [SwaggerResponse(200, "Query for Admin was successful", typeof(AdminOutputDto))]
         [SwaggerResponse(401, "Token is invalid")]
         [SwaggerResponse(403, "Token is not authorized to view resource")]
         [Authorize(Roles = "Admin")]
@@ -120,6 +125,65 @@ namespace OTTER.Controllers
         {
             Admin admin = _repo.GetAdminByID(int.Parse(User.FindFirstValue(ClaimTypes.SerialNumber)));
             return Ok(new AdminOutputDto { AdminID = admin.AdminID, FirstName = admin.FirstName, LastName = admin.LastName, Email = admin.Email });
+        }
+
+        [SwaggerOperation(
+            Summary = "Gets token from Clinician login",
+            Tags = new[] { "ClinicianAuth" }
+        )]
+        [SwaggerResponse(200, "Clinician login was successful and token returned")]
+        [SwaggerResponse(401, "Clinician email does not exist")]
+        [HttpPost("ClinicianLogin")]
+        public async Task<ActionResult<string>> ClinicianLogin(string email)
+        {
+            User user = _repo.GetUserByEmail(email);
+            if (user == null)
+            {
+                return Unauthorized("Email does not exist.");
+            }
+
+            string token = CreateUserToken(user);
+            return Ok(token);
+        }
+
+        private string CreateUserToken(User user)
+        {
+            List<Claim> claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Email, user.UserEmail),
+                new Claim(ClaimTypes.Role, "User")
+            };
+
+            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
+                _configuration.GetSection("AppSettings:AuthToken").Value));
+
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+            var token = new JwtSecurityToken(
+                claims: claims,
+                expires: DateTime.Now.AddDays(1),
+                signingCredentials: creds
+                );
+
+            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+
+            return jwt;
+        }
+
+        [SwaggerOperation(
+            Summary = "Gets Clinician details based on current token",
+            Description = "Requires clinician privileges",
+            Tags = new[] { "ClinicianAuth" }
+        )]
+        [SwaggerResponse(200, "Query for Clinician was successful", typeof(AdminOutputDto))]
+        [SwaggerResponse(401, "Token is invalid")]
+        [SwaggerResponse(403, "Token is not authorized to view resource")]
+        [Authorize(Roles = "User")]
+        [HttpGet("GetCurrentClinician")]
+        public ActionResult<AdminOutputDto> GetCurrentUser()
+        {
+            User user = _repo.GetUserByEmail(User.FindFirstValue(ClaimTypes.Email));
+            return Ok(user);
         }
     }
 }
