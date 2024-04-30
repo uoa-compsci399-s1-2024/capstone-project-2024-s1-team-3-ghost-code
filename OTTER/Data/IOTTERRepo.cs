@@ -48,6 +48,10 @@ namespace OTTER.Data
         Admin AddAdmin(Admin admin);
         void DeleteAdmin(int id);
         Admin EditAdmin(Admin admin);
+        void ResetPassword(string email);
+        bool CheckPasswordReset(string token);
+        bool SubmitPasswordReset(PasswordResetDto passwordResetDto);
+        void SetLastAdminLogin(int id);
 
     }
 }

@@ -29,7 +29,6 @@ namespace OTTER.Controllers
         )]
         [SwaggerResponse(200, "Query for Admins was successful", typeof(AdminOutputDto))]
         [SwaggerResponse(401, "Admin token is invalid")]
-        [SwaggerResponse(403, "Token is not authorized to view resource")]
         [Authorize(Roles = "Admin")]
         [HttpGet("GetAdmins")]
         public ActionResult<IEnumerable<AdminOutputDto>> GetAdmins()

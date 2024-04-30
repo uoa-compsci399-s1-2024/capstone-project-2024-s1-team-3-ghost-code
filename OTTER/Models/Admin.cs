@@ -14,5 +14,8 @@ namespace OTTER.Models
         public string Email { get; set; }
         [Required]
         public string Password { get; set; }
+        public DateTime? LastLogin { get; set; }
+        public string? PasswordResetToken { get; set; }
+        public DateTime? ResetTokenExpires { get; set; }
     }
 }

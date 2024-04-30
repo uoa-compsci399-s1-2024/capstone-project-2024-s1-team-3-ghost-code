@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Security.Cryptography.X509Certificates;
 using OTTER.Dtos;
+using System.Security.Cryptography;
+using Newtonsoft.Json.Linq;
 
 namespace OTTER.Data
 {
@@ -372,6 +374,55 @@ namespace OTTER.Data
                 a = _dbContext.Admins.FirstOrDefault(e => e.AdminID == admin.AdminID);
             }
             return a;
+        }
+
+        public void ResetPassword(string email)
+        {
+            Admin a = _dbContext.Admins.FirstOrDefault(e => e.Email == email);
+            if (a != null)
+            {
+                Random rnd = new Random();
+                a.PasswordResetToken = Convert.ToString(rnd.Next(112233,998877));
+                a.ResetTokenExpires = DateTime.Now.AddMinutes(30);
+                _dbContext.SaveChanges();
+
+                // send a.PasswordResetToken via email
+            }
+        }
+
+        public bool CheckPasswordReset(string token)
+        {
+            Admin a = _dbContext.Admins.FirstOrDefault(e => e.PasswordResetToken == token);
+            if (a != null)
+            {
+                if (a.ResetTokenExpires > DateTime.Now) { return true; }
+                else { return false; }
+            }
+            else { return false; }
+        }
+
+        public bool SubmitPasswordReset(PasswordResetDto passwordResetDto)
+        {
+            Admin a = _dbContext.Admins.FirstOrDefault(e => e.PasswordResetToken == passwordResetDto.Token);
+            if (a != null)
+            {
+                if (a.ResetTokenExpires > DateTime.Now) { 
+                    a.Password = passwordResetDto.Password;
+                    a.PasswordResetToken = null;
+                    a.ResetTokenExpires = null;
+                    _dbContext.SaveChanges();
+                    return true;
+                }
+                else { return false; }
+            }
+            else { return false; }
+        }
+
+        public void SetLastAdminLogin(int id)
+        {
+            Admin a = _dbContext.Admins.FirstOrDefault(e => e.AdminID == id);
+            a.LastLogin = DateTime.Now;
+            _dbContext.SaveChanges();
         }
     }
 }
