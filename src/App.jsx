@@ -1,30 +1,29 @@
-import React, { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React from 'react'
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AdminLoginComponents } from "./pages/AdminLogin";
 import Landing from "./pages/Landing";
 import Presurvey from "./pages/PreSurvey";
 import { ClinicianSignComponents } from "./pages/ClinicianSign";
-import AClinicianSearch from "./pages/AClinicianSearch";
-import QuizDashboard from "./pages/QuizDashboard";
-import CreatingQuiz from "./pages/CreatingQuiz";
-import AdminSetting from "./pages/AdminSettings";
+import  AClinicianSearch from './pages/AClinicianSearch';
+import   QuizDashboard  from './pages/QuizDashboard';
+import AClinicianProfile from './pages/AClinicianProfile';
 
-// function setToken(userToken) {
-//   sessionStorage.setItem("token", JSON.stringify(userToken));
-// }
+const getAdminToken = () => sessionStorage.getItem('adminToken');
 
-// function getToken() {
-//   const tokenString = sessionStorage.getItem("token");
-//   const userToken = JSON.parse(tokenString);
-//   return userToken?.token;
-// }
+// ProtectedRoute component to protect admin-only routes
+const ProtectedRoute = ({ element, ...props }) => {
+  // Check if token exists
+  const adminToken = getAdminToken();
+  if (!adminToken) {
+    // Redirect to admin login page if token is not present
+    return <Navigate to="/adminlogin" />;
+  }
+  // Render the provided element if token exists
+  return React.cloneElement(element, props);
+};
+
 
 function App() {
-  // const token = getToken();
-
-  // if (!token) {
-  //   return <AdminLoginComponents setToken={setToken} />;
-  // }
   console.log("Rendering App component");
   return (
     <div>
@@ -35,10 +34,19 @@ function App() {
           <Route path="/adminlogin" element={<AdminLoginComponents />} />
           <Route path="/presurvey" element={<Presurvey />} />
           <Route path="/cliniciansign" element={<ClinicianSignComponents />} />
-          <Route path="/adminsearch" element={<AClinicianSearch />} />
           <Route path="/quizDashboard" element={<QuizDashboard />} />
-          <Route path="/creatingquiz" element={<CreatingQuiz />} />
-          <Route path="/adminSettings" element={<AdminSetting />} />
+
+
+          <Route 
+            path="/adminsearch" 
+            element={<ProtectedRoute element={<AClinicianSearch />} />}
+            />
+          
+          <Route 
+          path="/clinician/:clinicianId" 
+          element={<ProtectedRoute element={<AClinicianProfile />} />}
+          />
+
         </Routes>
       </BrowserRouter>
     </div>
