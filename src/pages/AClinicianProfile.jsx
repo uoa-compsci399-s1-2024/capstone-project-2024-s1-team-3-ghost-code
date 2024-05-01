@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import AdminDashboard from "../components/Dashboards/ADashboard";
+import AdminInfo from "../components/AdminComponent/adminInfo";
 import './AClinicianProfile.css';
+
 
 function AClinicianProfile() {
     const { clinicianId } = useParams();
@@ -66,6 +68,8 @@ function AClinicianProfile() {
             <div className="dashboard-container">
                 <AdminDashboard />
             </div>
+            <div className="AdminClientSearchContainer">
+                <AdminInfo />
             <div className="clinician-profile-container">
                 {clinicianDetails && (
                     <div className="clinician-details">
@@ -86,7 +90,9 @@ function AClinicianProfile() {
                         </div>
                     </div>
                 )}
+                </div>
             </div>
+            
         </div>
     );
 }

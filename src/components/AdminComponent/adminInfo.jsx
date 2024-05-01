@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from 'react-router-dom';
+import "./adminInfo.css";
 
 function AdminInfo() {
 const [adminName, setAdminName] = useState("");
