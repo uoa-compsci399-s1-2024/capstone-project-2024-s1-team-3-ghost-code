@@ -37,15 +37,20 @@
   right: 0;
   top: 100%;
   border-radius: 10px;
+  
 }
+
+
 
 .Admindropdown-item {
   padding: 10px;
   display: block;
   color: #333;
   text-decoration: none;
+  border-radius: 10px; /* Rounded edges */
 }
 
 .Admindropdown-item:hover {
   background-color: #f1f1f1;
+  
 }
