@@ -26,17 +26,20 @@ function AClinicianProfile() {
                 throw new Error('Network response was not ok');
             }
             return response.json(); // Parse response as JSON
+        
         })
         .then(data => {
-            setClinicianDetails(data); // Set state with parsed JSON data
-            setEmail(data.userEmail || "None");
-            setClinic(data.organization || "None");
-            setPosition(data.roleName || "None");
-            setStatus(data.status || "Not Certified");
+            setClinicianDetails(data[0]); // Set state with parsed JSON data
+            setEmail(data[0].userEmail || "None");
+            setClinic(data[0].organization || "None");
+            setPosition(data[0].roleName || "None");
+            setStatus(data[0].status || "Not Certified");
+            
+            
         })
         .catch(error => console.error('Failed to fetch clinician details:', error));
     
-    }, [clinicianId]);
+    }, [clinicianId, adminToken]);
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);

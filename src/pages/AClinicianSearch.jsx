@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./AClinicianSearch.css";
 import { Link } from "react-router-dom";
 import AdminDashboard from "../components/Dashboards/ADashboard";
@@ -9,6 +9,9 @@ function AClinicianSearch() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [adminName, setAdminName] = useState("");
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+  const dropdownRef = useRef(null); // Reference to the admin info box
+
   const adminToken = sessionStorage.getItem('adminToken');
 
 // Function to fetch search results from backend API
@@ -52,7 +55,7 @@ useEffect(() => {
         return response.json();
       })
       .then(data => {
-        setAdminName(data.firstName);
+        setAdminName(data.firstName + " " + data.lastName);
     
       })
       .catch(error => {
@@ -64,15 +67,48 @@ useEffect(() => {
     setSearchQuery(event.target.value);
   };
 
+
+  //function to check if someone clicked outside the admin info box
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownVisible(false);
+      }
+    }
+
+    // Adding click event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Cleanup the event listener
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const toggleDropdown = () => {
+    setIsDropdownVisible(!isDropdownVisible);
+  };
+
+  const handleSignOut = () => {
+    sessionStorage.removeItem('adminToken');
+  }
+
+
+
   return (
     <div className="flex">
       <div className="dashboard-container">
         <AdminDashboard />
       </div>
       <div className="AdminClientSearchContainer">
-        <div className="admin-info">
+        <div className="admin-info" ref={dropdownRef} onClick={toggleDropdown}>
           <span className="admin-name">{adminName}</span>
-          <div className="admin-icon"></div>
+          {isDropdownVisible && (
+            <div className="admin-dropdown">
+              <Link to="/adminlogin" className="Admindropdown-item" onClick={handleSignOut}>
+                Sign Out
+              </Link>
+            </div>
+          )}
         </div>
         <div className="AdminClientSearchInput">
           <input
@@ -81,7 +117,7 @@ useEffect(() => {
             onChange={handleSearchInputChange}
             placeholder="Search..."
           />
-          <FontAwesomeIcon icon={faSearch} className="search-icon" />
+           <FontAwesomeIcon icon={faSearch} className="search-icon" />
         </div>
         <div className="AdminClientSearchResults">
           {searchResults.map(result => (
@@ -97,4 +133,5 @@ useEffect(() => {
     </div>
   );
 }
+
 export default AClinicianSearch;
