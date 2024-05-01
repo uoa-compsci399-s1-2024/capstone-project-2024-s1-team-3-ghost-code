@@ -3,36 +3,11 @@ import React, { useState } from "react";
 import { Link, BrowserRouter, Router, Route, Routes } from "react-router-dom";
 import PropTypes from "prop-types";
 
-async function loginUser(credentials) {
-  return fetch(
-    "http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/auth/Login",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(credentials),
-    }
-  ).then((data) => data.json());
-}
-
 export function AdminLoginForm({ setToken }) {
   const [passwordVisible, setPasswordVisible] = useState(false); // Set initial state to true
 
   const togglePasswordVisibility = () => {
     setPasswordVisible((prevVisible) => !prevVisible);
-  };
-
-  const [username, setUserName] = useState();
-  const [password, setPassword] = useState();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const token = await loginUser({
-      username,
-      password,
-    });
-    setToken(token);
   };
 
   return (
@@ -50,7 +25,7 @@ export function AdminLoginForm({ setToken }) {
       </div>
       <div className="container split left">
         <div className="box">
-          <form onSubmit={handleSubmit} className="box-login" id="login-form">
+          <form className="box-login" id="login-form">
             <div className="top-header">
               <h3>Admin Login</h3>
               <div className="divider"></div>
@@ -59,7 +34,6 @@ export function AdminLoginForm({ setToken }) {
               <div className="input-field">
                 <input
                   type="text"
-                  onChange={(e) => setUserName(e.target.value)}
                   className="input-box"
                   id="logEmail"
                   required
@@ -69,7 +43,6 @@ export function AdminLoginForm({ setToken }) {
               <div className="input-field">
                 <input
                   type={passwordVisible ? "text" : "password"}
-                  onChange={(e) => setPassword(e.target.value)}
                   className="input-box"
                   id="logPassword"
                   required
