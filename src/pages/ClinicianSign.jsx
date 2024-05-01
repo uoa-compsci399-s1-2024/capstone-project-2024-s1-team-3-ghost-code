@@ -1,7 +1,7 @@
 import "./AdminLogin.css";
 import "./ClinicianSign.css";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export function BackToHomeLink() {
   return (
@@ -18,63 +18,73 @@ export function BackToHomeLink() {
 
 export function ClinicianLoginForm() {
   const [email, setemail] = useState();
-  function login(e) {
-    e.preventDefault();
-    const url =
-      "http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/ClinicianLogin";
-    fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-      }),
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        localStorage.setItem("token", data);
-        console.log(localStorage);
-      });
-  }
+  const navigate = useNavigate();
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
+
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "text/plain" },
+      body: JSON.stringify({ email }),
+    };
+    try {
+      const response = await fetch(
+        "http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/auth/ClinicianLogin?email=bob@anguswright.com",
+        requestOptions
+      );
+      const text = await response.text(); // Get response as text
+
+      // Example handling of the response text
+      if (!text.includes("Email is not registerd.")) {
+        sessionStorage.setItem("cliniciantoken", text); // Store token (or whatever the response indicates)
+        navigate("/quizDashboard"); // Redirect using navigate instead of updating state
+      } else {
+        alert("Login failed!");
+      }
+    } catch (error) {
+      console.error("Login Error:", error);
+      alert("An error occurred during login.");
+    }
+  };
 
   return (
     <>
-      <div className="container-clincian split left">
-        <div className="box-clinician">
-          <form className="box-clincian-details" id="clinician-login-form">
-            <div className="top-header">
-              <h3>Welcome Back!</h3>
-              <div className="divider"></div>
-            </div>
-            <div className="input-group">
-              <div className="input-field">
-                <input
-                  type="text"
-                  className="input-box"
-                  value={email}
-                  // onChange={(e) => {
-                  //   setemail(e.target.value);
-                  // }}
-                  id="logEmail"
-                  required
-                />
-                <label htmlFor="logEmail">Email Address</label>
+      <form onSubmit={handleLogin}>
+        <div className="container-clincian split left">
+          <div className="box-clinician">
+            <div className="box-clincian-details" id="clinician-login-form">
+              <div className="top-header">
+                <h3>Welcome Back!</h3>
+                <div className="divider"></div>
               </div>
-              <div className="input-field">
-                <input
-                  type="submit"
-                  className="input-submit"
-                  value="Continue"
-                  required
-                />
+              <div className="input-group">
+                <div className="input-field">
+                  <input
+                    type="text"
+                    className="input-box"
+                    value={email}
+                    onChange={(e) => {
+                      setemail(e.target.value);
+                    }}
+                    id="logEmail"
+                    required
+                  />
+                  <label htmlFor="logEmail">Email Address</label>
+                </div>
+                <div className="input-field">
+                  <input
+                    type="submit"
+                    className="input-submit"
+                    value="Continue"
+                    required
+                  />
+                </div>
               </div>
             </div>
-          </form>
+          </div>
         </div>
-      </div>
+      </form>
     </>
   );
 }
@@ -91,8 +101,7 @@ export function ClinicianLoginInfo() {
             className="verify-logo"
           />
           <p className="info-text">
-            This is the login for admins only. Please return to the home page if
-            you are not a staff member.
+            Welcome Back! Please provide your email before continueing.
             <br />
             <br />
             <br />

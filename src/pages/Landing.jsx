@@ -6,9 +6,9 @@ function Landing() {
   return (
     <>
       <div>
-        <div class="wave"></div>
-        <div class="wave"></div>
-        <div class="wave"></div>
+        <div className="wave"></div>
+        <div className="wave"></div>
+        <div className="wave"></div>
       </div>
       <div className="to-admin-login">
         <i className="fa-solid fa-arrow-right" id="forward-arrow"></i>

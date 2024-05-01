@@ -21,8 +21,8 @@ function Presurvey() {
 
   return (
     <>
-      <div class="split-survey left-survey">
-        <div class="centered-survey">
+      <div className="split-survey left-survey">
+        <div className="centered-survey">
           <p>Please fill out the pre-training survey before continuing.</p>
           <p>If you've already filled in the pre-training quiz click here.</p>
           <p>
@@ -68,13 +68,12 @@ function Presurvey() {
                 <label htmlFor="logEmail">Email address</label>
               </div>
               <div className="input-field">
-                <input type="text" list="position" className="input-box" />
-                <datalist id="position">
+                <select name="Position" id="position" className="input-box">
                   <option>Nurse</option>
                   <option>Doctor</option>
                   <option>Student</option>
                   <option>Supervisor</option>
-                </datalist>
+                </select>
 
                 <label htmlFor="position">Position</label>
               </div>
@@ -96,6 +95,13 @@ function Presurvey() {
                   required
                 />
               </div>
+              <div className="tc ">
+                <input type="checkbox" className="cb" />
+                By ticking the box, you agree to the
+                <Link to="/home">Terms and Conditions</Link> of the Verify Quiz
+                Platform.
+              </div>
+
               <div className="forgot">
                 <Link to="/cliniciansign">
                   Already did the survey? continue here

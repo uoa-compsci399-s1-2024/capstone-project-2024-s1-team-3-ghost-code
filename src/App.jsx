@@ -22,6 +22,15 @@ const ProtectedRoute = ({ element, ...props }) => {
   return React.cloneElement(element, props);
 };
 
+const getClinicianToken = () => sessionStorage.getItem("clinicianToken");
+
+const ClinicianProtectedRoute = ({ element, ...props }) => {
+  const cliniciantoken = getClinicianToken();
+  if (!cliniciantoken) {
+    return <Navigate to="/cliniciansign" />;
+  }
+  return React.cloneElement(element, props);
+};
 function App() {
   console.log("Rendering App component");
   return (
@@ -33,7 +42,11 @@ function App() {
           <Route path="/adminlogin" element={<AdminLoginComponents />} />
           <Route path="/presurvey" element={<Presurvey />} />
           <Route path="/cliniciansign" element={<ClinicianSignComponents />} />
-          <Route path="/quizDashboard" element={<QuizDashboard />} />
+
+          <Route
+            path="/quizDashboard"
+            element={<ClinicianProtectedRoute element={<QuizDashboard />} />}
+          />
 
           <Route
             path="/adminsearch"
