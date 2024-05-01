@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "./AClinicianSearch.css";
 import { Link } from "react-router-dom";
 import AdminDashboard from "../components/Dashboards/ADashboard";
+import AdminInfo from "../components/AdminComponent/adminInfo";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
@@ -40,57 +41,11 @@ useEffect(() => {
   }
 }, [searchQuery, adminToken]);
 
-  // Function to fetch admin information from backend API
-  useEffect(() => {
-    fetch('http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/auth/GetCurrentAdmin', {
-      headers: {
-        "Authorization": `Bearer ${adminToken}` // Include token in headers
-
-      }
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(data => {
-        setAdminName(data.firstName + " " + data.lastName);
-    
-      })
-      .catch(error => {
-        console.error("Error fetching admin information:", error);
-      });
-  }, []);
+ 
 
   const handleSearchInputChange = (event) => {
     setSearchQuery(event.target.value);
   };
-
-
-  //function to check if someone clicked outside the admin info box
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsDropdownVisible(false);
-      }
-    }
-
-    // Adding click event listener
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      // Cleanup the event listener
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
-  const toggleDropdown = () => {
-    setIsDropdownVisible(!isDropdownVisible);
-  };
-
-  const handleSignOut = () => {
-    sessionStorage.removeItem('adminToken');
-  }
 
 
 
@@ -100,16 +55,8 @@ useEffect(() => {
         <AdminDashboard />
       </div>
       <div className="AdminClientSearchContainer">
-        <div className="admin-info" ref={dropdownRef} onClick={toggleDropdown}>
-          <span className="admin-name">{adminName}</span>
-          {isDropdownVisible && (
-            <div className="admin-dropdown">
-              <Link to="/adminlogin" className="Admindropdown-item" onClick={handleSignOut}>
-                Sign Out
-              </Link>
-            </div>
-          )}
-        </div>
+        <AdminInfo />
+       
         <div className="AdminClientSearchInput">
           <input
             type="text"
