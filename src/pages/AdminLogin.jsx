@@ -1,31 +1,64 @@
 import "./AdminLogin.css";
 import React, { useState } from "react";
-import { Link, BrowserRouter, Router, Route, Routes } from "react-router-dom";
-import PropTypes from "prop-types";
+import { Link, useNavigate } from "react-router-dom";
 
-export function AdminLoginForm({ setToken }) {
-  const [passwordVisible, setPasswordVisible] = useState(false); // Set initial state to true
-
-  const togglePasswordVisibility = () => {
-    setPasswordVisible((prevVisible) => !prevVisible);
-  };
-
+export function BackToHomeLink() {
   return (
     <>
       <div className="back-to-home">
         <i className="fa-solid fa-arrow-left" id="back-arrow"></i>
         <Link style={{ textDecoration: "none" }} to="/home">
-          <div
-            className="back-to-home-text"
-            style={{ textDecoration: "none", color: "black" }}
-          >
-            Back to Home
-          </div>
+          <div className="back-to-home-text">Back to Home</div>
         </Link>
       </div>
+    </>
+  );
+}
+
+export function AdminLoginForm() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const navigate = useNavigate(); // Use the useNavigate hook for redirection
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible((prevVisible) => !prevVisible);
+  };
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
+
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    };
+
+    try {
+      const response = await fetch(
+        "http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/auth/Login",
+        requestOptions
+      );
+      const text = await response.text(); // Get response as text
+
+      // Example handling of the response text
+      if (!text.includes("Email or Password invalid.")) {
+        sessionStorage.setItem("adminToken", text); // Store token (or whatever the response indicates)
+        navigate("/adminsearch"); // Redirect using navigate instead of updating state
+      } else {
+        alert("Login failed!");
+      }
+    } catch (error) {
+      console.error("Login Error:", error);
+      alert("An error occurred during login.");
+    }
+  };
+
+  return (
+    <form onSubmit={handleLogin}>
       <div className="container split left">
         <div className="box">
-          <form className="box-login" id="login-form">
+          <div className="box-login" id="login">
             <div className="top-header">
               <h3>Admin Login</h3>
               <div className="divider"></div>
@@ -36,49 +69,43 @@ export function AdminLoginForm({ setToken }) {
                   type="text"
                   className="input-box"
                   id="logEmail"
+                  placeholder="Email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                 />
-                <label htmlFor="logEmail">Email address</label>
               </div>
               <div className="input-field">
                 <input
                   type={passwordVisible ? "text" : "password"}
                   className="input-box"
                   id="logPassword"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                 />
-                <label htmlFor="logPassword">Password</label>
-                <div className="eye-area">
-                  <div className="eye-box" onClick={togglePasswordVisibility}>
-                    {passwordVisible ? (
-                      <i className="fa-regular fa-eye-slash" id="eye-slash"></i> //show when false
-                    ) : (
-                      <i className="fa-regular fa-eye" id="eye"></i> //show when true
-                    )}
-                  </div>
+                <div className="eye-area" onClick={togglePasswordVisibility}>
+                  {passwordVisible ? (
+                    <i className="fa-regular fa-eye-slash" id="eye-slash"></i>
+                  ) : (
+                    <i className="fa-regular fa-eye" id="eye"></i>
+                  )}
                 </div>
               </div>
               <div className="input-field">
-                <input
-                  type="submit"
-                  className="input-submit"
-                  value="Sign In"
-                  required
-                />
+                <input type="submit" className="input-submit" value="Sign In" />
               </div>
               <div className="forgot">
                 <a href="#">Forgot password?</a>
               </div>
             </div>
-          </form>
+          </div>
         </div>
       </div>
-    </>
+    </form>
   );
 }
-AdminLoginForm.propTypes = {
-  setToken: PropTypes.func,
-};
 
 export function AdminLoginInfo() {
   return (
@@ -108,6 +135,7 @@ export function AdminLoginComponents() {
       <div className="container">
         <div className="login-wrapper">
           <div className="login-column">
+            <BackToHomeLink />
             <AdminLoginForm />
           </div>
           <div className="info-column">
