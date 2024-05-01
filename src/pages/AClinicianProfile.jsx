@@ -10,17 +10,17 @@ function AClinicianProfile() {
     const [clinic, setClinic] = useState("");
     const [position, setPosition] = useState("");
     const [status, setStatus] = useState("");
-    const token = sessionStorage.getItem('token');
+    const adminToken = sessionStorage.getItem('adminToken');
 
     useEffect(() => {
         const requestOptions = {
             method: 'GET',
             headers: {
-                "Authorization": `Bearer ${token}` // Include token in headers
+                "Authorization": `Bearer ${adminToken}` // Include token in headers
             }
         };
 
-        fetch(`http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/ClinicianLogin/${clinicianId}`, requestOptions)
+        fetch(`http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/ClinicianSearch/${clinicianId}`, requestOptions)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -31,7 +31,7 @@ function AClinicianProfile() {
             setClinicianDetails(data); // Set state with parsed JSON data
             setEmail(data.userEmail || "None");
             setClinic(data.organization || "None");
-            setPosition(data.role || "None");
+            setPosition(data.roleName || "None");
             setStatus(data.status || "Not Certified");
         })
         .catch(error => console.error('Failed to fetch clinician details:', error));

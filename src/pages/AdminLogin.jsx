@@ -28,6 +28,7 @@ export function AdminLoginForm() {
   const handleLogin = async (event) => {
     event.preventDefault();
 
+
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -41,7 +42,7 @@ export function AdminLoginForm() {
       
       // Example handling of the response text
       if (!text.includes('Email or Password invalid.')) {
-        sessionStorage.setItem('token', text); // Store token (or whatever the response indicates)
+        sessionStorage.setItem('adminToken', text); // Store token (or whatever the response indicates)
         navigate('/adminsearch'); // Redirect using navigate instead of updating state
       } else {
         alert('Login failed!');

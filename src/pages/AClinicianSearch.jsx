@@ -9,7 +9,7 @@ function AClinicianSearch() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [adminName, setAdminName] = useState("");
-  const token = sessionStorage.getItem('token');
+  const adminToken = sessionStorage.getItem('adminToken');
 
 // Function to fetch search results from backend API
 useEffect(() => {
@@ -17,7 +17,7 @@ useEffect(() => {
     // Make HTTP request to backend API with search query
     fetch(`http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/ClinicianSearch/${searchQuery}`, {
       headers: {
-        "Authorization": `Bearer ${token}` // Include token in headers
+        "Authorization": `Bearer ${adminToken}` // Include token in headers
       }
     })
     .then(response => {
@@ -35,13 +35,13 @@ useEffect(() => {
   } else {
     setSearchResults([]);
   }
-}, [searchQuery, token]);
+}, [searchQuery, adminToken]);
 
   // Function to fetch admin information from backend API
   useEffect(() => {
     fetch('http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/auth/GetCurrentAdmin', {
       headers: {
-        "Authorization": `Bearer ${token}` // Include token in headers
+        "Authorization": `Bearer ${adminToken}` // Include token in headers
 
       }
     })

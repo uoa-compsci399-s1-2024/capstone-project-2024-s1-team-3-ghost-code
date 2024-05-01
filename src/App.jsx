@@ -8,13 +8,13 @@ import  AClinicianSearch from './pages/AClinicianSearch';
 import   QuizDashboard  from './pages/QuizDashboard';
 import AClinicianProfile from './pages/AClinicianProfile';
 
-const getToken = () => sessionStorage.getItem('token');
+const getAdminToken = () => sessionStorage.getItem('adminToken');
 
 // ProtectedRoute component to protect admin-only routes
 const ProtectedRoute = ({ element, ...props }) => {
   // Check if token exists
-  const token = getToken();
-  if (!token) {
+  const adminToken = getAdminToken();
+  if (!adminToken) {
     // Redirect to admin login page if token is not present
     return <Navigate to="/adminlogin" />;
   }
