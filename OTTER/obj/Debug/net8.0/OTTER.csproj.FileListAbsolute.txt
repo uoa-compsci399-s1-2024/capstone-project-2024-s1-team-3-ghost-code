@@ -401,3 +401,18 @@ C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-cod
 C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Debug\net8.0\AWSSDK.SecretsManager.dll
 C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Debug\net8.0\Kralizek.Extensions.Configuration.AWSSecretsManager.dll
 C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\baile\OneDrive\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Debug\net8.0\AWSSDK.Core.dll
+C:\Users\baile\OneDrive\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Debug\net8.0\AWSSDK.SecretsManager.dll
+C:\Users\baile\OneDrive\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Debug\net8.0\Kralizek.Extensions.Configuration.AWSSecretsManager.dll
+C:\Users\baile\OneDrive\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\baile\OneDrive\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\baile\OneDrive\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\baile\OneDrive\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\baile\OneDrive\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\baile\OneDrive\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\baile\OneDrive\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\baile\OneDrive\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\baile\OneDrive\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Debug\net8.0\Scrutor.dll
+C:\Users\baile\OneDrive\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Debug\net8.0\Swashbuckle.AspNetCore.Filters.dll
+C:\Users\baile\OneDrive\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Debug\net8.0\Swashbuckle.AspNetCore.Filters.Abstractions.dll
+C:\Users\baile\OneDrive\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll

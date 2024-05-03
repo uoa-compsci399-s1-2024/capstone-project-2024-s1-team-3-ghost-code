@@ -1,6 +1,212 @@
 [
   {
-    "ContainingType": "OTTER.Controllers.OTTERController",
+    "ContainingType": "OTTER.Controllers.AuthController",
+    "Method": "CheckPasswordReset",
+    "RelativePath": "auth/CheckPasswordReset/{token}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 400
+      }
+    ]
+  },
+  {
+    "ContainingType": "OTTER.Controllers.AuthController",
+    "Method": "ClinicianLogin",
+    "RelativePath": "auth/ClinicianLogin",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 401
+      }
+    ]
+  },
+  {
+    "ContainingType": "OTTER.Controllers.AuthController",
+    "Method": "GetCurrentAdmin",
+    "RelativePath": "auth/GetCurrentAdmin",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "OTTER.Dtos.AdminOutputDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 401
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 403
+      }
+    ]
+  },
+  {
+    "ContainingType": "OTTER.Controllers.AuthController",
+    "Method": "GetCurrentUser",
+    "RelativePath": "auth/GetCurrentClinician",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "OTTER.Dtos.AdminOutputDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 401
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 403
+      }
+    ]
+  },
+  {
+    "ContainingType": "OTTER.Controllers.AuthController",
+    "Method": "Login",
+    "RelativePath": "auth/Login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "loginDto",
+        "Type": "OTTER.Dtos.AdminLoginDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 401
+      }
+    ]
+  },
+  {
+    "ContainingType": "OTTER.Controllers.AuthController",
+    "Method": "ForgotPassword",
+    "RelativePath": "auth/ResetPassword",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "OTTER.Controllers.AuthController",
+    "Method": "SubmitPasswordReset",
+    "RelativePath": "auth/SubmitPasswordReset",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "passwordResetDto",
+        "Type": "OTTER.Dtos.PasswordResetDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 400
+      }
+    ]
+  },
+  {
+    "ContainingType": "OTTER.Controllers.FunctionController",
     "Method": "AddAdmin",
     "RelativePath": "webapi/AddAdmin",
     "HttpMethod": "POST",
@@ -36,7 +242,69 @@
     ]
   },
   {
-    "ContainingType": "OTTER.Controllers.OTTERController",
+    "ContainingType": "OTTER.Controllers.FunctionController",
+    "Method": "AddClinician",
+    "RelativePath": "webapi/AddClinician",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "user",
+        "Type": "OTTER.Models.UserInputDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "OTTER.Models.User",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 201
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 409
+      }
+    ]
+  },
+  {
+    "ContainingType": "OTTER.Controllers.FunctionController",
+    "Method": "AddOrganization",
+    "RelativePath": "webapi/AddOrganization",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "orgInput",
+        "Type": "OTTER.Models.OrgInputDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "OTTER.Models.Organization",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 409
+      }
+    ]
+  },
+  {
+    "ContainingType": "OTTER.Controllers.FunctionController",
     "Method": "CreateQuestion",
     "RelativePath": "webapi/AddQuestion",
     "HttpMethod": "POST",
@@ -62,23 +330,38 @@
     ]
   },
   {
-    "ContainingType": "OTTER.Controllers.OTTERController",
-    "Method": "ClinicianLogin",
-    "RelativePath": "webapi/ClinicianLogin/{email}",
-    "HttpMethod": "GET",
+    "ContainingType": "OTTER.Controllers.FunctionController",
+    "Method": "AddRole",
+    "RelativePath": "webapi/AddRole",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "email",
-        "Type": "System.String",
+        "Name": "roleInput",
+        "Type": "OTTER.Dtos.RoleInputDto",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "OTTER.Models.Role",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 409
+      }
+    ]
   },
   {
-    "ContainingType": "OTTER.Controllers.OTTERController",
+    "ContainingType": "OTTER.Controllers.FunctionController",
     "Method": "SearchUsers",
     "RelativePath": "webapi/ClinicianSearch/{term}",
     "HttpMethod": "GET",
@@ -104,7 +387,7 @@
     ]
   },
   {
-    "ContainingType": "OTTER.Controllers.OTTERController",
+    "ContainingType": "OTTER.Controllers.FunctionController",
     "Method": "DeleteAdmin",
     "RelativePath": "webapi/DeleteAdmin/{id}",
     "HttpMethod": "DELETE",
@@ -136,7 +419,61 @@
     ]
   },
   {
-    "ContainingType": "OTTER.Controllers.OTTERController",
+    "ContainingType": "OTTER.Controllers.FunctionController",
+    "Method": "DeleteClinician",
+    "RelativePath": "webapi/DeleteClinician/{email}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 404
+      }
+    ]
+  },
+  {
+    "ContainingType": "OTTER.Controllers.FunctionController",
+    "Method": "DeleteOrganization",
+    "RelativePath": "webapi/DeleteOrganization/{orgID}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "orgID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 404
+      }
+    ]
+  },
+  {
+    "ContainingType": "OTTER.Controllers.FunctionController",
     "Method": "DeleteQuestion",
     "RelativePath": "webapi/DeleteQuestion/{id}",
     "HttpMethod": "DELETE",
@@ -152,7 +489,39 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "OTTER.Controllers.OTTERController",
+    "ContainingType": "OTTER.Controllers.FunctionController",
+    "Method": "DeleteRole",
+    "RelativePath": "webapi/DeleteRole/{orgID}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "roleID",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "orgID",
+        "Type": "",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 404
+      }
+    ]
+  },
+  {
+    "ContainingType": "OTTER.Controllers.FunctionController",
     "Method": "EditAdmin",
     "RelativePath": "webapi/EditAdmin",
     "HttpMethod": "PUT",
@@ -188,7 +557,69 @@
     ]
   },
   {
-    "ContainingType": "OTTER.Controllers.OTTERController",
+    "ContainingType": "OTTER.Controllers.FunctionController",
+    "Method": "EditClinician",
+    "RelativePath": "webapi/EditClinician",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "user",
+        "Type": "OTTER.Models.User",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "OTTER.Models.User",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 404
+      }
+    ]
+  },
+  {
+    "ContainingType": "OTTER.Controllers.FunctionController",
+    "Method": "EditOrganization",
+    "RelativePath": "webapi/EditOrganization",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "org",
+        "Type": "OTTER.Models.Organization",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "OTTER.Models.Organization",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 404
+      }
+    ]
+  },
+  {
+    "ContainingType": "OTTER.Controllers.FunctionController",
     "Method": "EditQuestion",
     "RelativePath": "webapi/EditQuestion",
     "HttpMethod": "PUT",
@@ -214,7 +645,38 @@
     ]
   },
   {
-    "ContainingType": "OTTER.Controllers.OTTERController",
+    "ContainingType": "OTTER.Controllers.FunctionController",
+    "Method": "EditRole",
+    "RelativePath": "webapi/EditRole",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "role",
+        "Type": "OTTER.Models.Role",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "OTTER.Models.Role",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 404
+      }
+    ]
+  },
+  {
+    "ContainingType": "OTTER.Controllers.FunctionController",
     "Method": "GetAdminByID",
     "RelativePath": "webapi/GetAdminByID/{id}",
     "HttpMethod": "GET",
@@ -245,7 +707,7 @@
     ]
   },
   {
-    "ContainingType": "OTTER.Controllers.OTTERController",
+    "ContainingType": "OTTER.Controllers.FunctionController",
     "Method": "GetAdmins",
     "RelativePath": "webapi/GetAdmins",
     "HttpMethod": "GET",
@@ -270,7 +732,7 @@
     ]
   },
   {
-    "ContainingType": "OTTER.Controllers.OTTERController",
+    "ContainingType": "OTTER.Controllers.FunctionController",
     "Method": "GetClinicianCertificationStatus",
     "RelativePath": "webapi/GetClinicianCertificationStatus/{id}",
     "HttpMethod": "GET",
@@ -296,7 +758,7 @@
     ]
   },
   {
-    "ContainingType": "OTTER.Controllers.OTTERController",
+    "ContainingType": "OTTER.Controllers.FunctionController",
     "Method": "GetModuleByID",
     "RelativePath": "webapi/GetModuleByID/{id}",
     "HttpMethod": "GET",
@@ -322,7 +784,7 @@
     ]
   },
   {
-    "ContainingType": "OTTER.Controllers.OTTERController",
+    "ContainingType": "OTTER.Controllers.FunctionController",
     "Method": "GetModules",
     "RelativePath": "webapi/GetModules",
     "HttpMethod": "GET",
@@ -342,7 +804,37 @@
     ]
   },
   {
-    "ContainingType": "OTTER.Controllers.OTTERController",
+    "ContainingType": "OTTER.Controllers.FunctionController",
+    "Method": "GetOrganizations",
+    "RelativePath": "webapi/GetOrganizations",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[OTTER.Models.Organization, OTTER, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 401
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 403
+      }
+    ]
+  },
+  {
+    "ContainingType": "OTTER.Controllers.FunctionController",
     "Method": "GetQuestionsByModule",
     "RelativePath": "webapi/GetQuestions/{module}",
     "HttpMethod": "GET",
@@ -368,7 +860,7 @@
     ]
   },
   {
-    "ContainingType": "OTTER.Controllers.OTTERController",
+    "ContainingType": "OTTER.Controllers.FunctionController",
     "Method": "GetQuizByID",
     "RelativePath": "webapi/GetQuizByID/{id}",
     "HttpMethod": "GET",
@@ -394,7 +886,7 @@
     ]
   },
   {
-    "ContainingType": "OTTER.Controllers.OTTERController",
+    "ContainingType": "OTTER.Controllers.FunctionController",
     "Method": "GetQuizQs",
     "RelativePath": "webapi/GetQuizQs",
     "HttpMethod": "POST",
@@ -420,7 +912,7 @@
     ]
   },
   {
-    "ContainingType": "OTTER.Controllers.OTTERController",
+    "ContainingType": "OTTER.Controllers.FunctionController",
     "Method": "GetQuizzesByID",
     "RelativePath": "webapi/GetQuizzesByModID/{id}",
     "HttpMethod": "GET",
@@ -446,13 +938,49 @@
     ]
   },
   {
-    "ContainingType": "OTTER.Controllers.OTTERController",
-    "Method": "TryLogin",
-    "RelativePath": "webapi/Login",
+    "ContainingType": "OTTER.Controllers.FunctionController",
+    "Method": "GetRoles",
+    "RelativePath": "webapi/GetRoles",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[OTTER.Models.Role, OTTER, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 401
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 403
+      }
+    ]
+  },
+  {
+    "ContainingType": "OTTER.Controllers.FunctionController",
+    "Method": "GetStats",
+    "RelativePath": "webapi/GetStats",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "statIn",
+        "Type": "OTTER.Dtos.StatRequestDto",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": [
       {
         "Type": "System.Void",
@@ -462,12 +990,22 @@
       {
         "Type": "System.Void",
         "MediaTypes": [],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
         "StatusCode": 401
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 403
       }
     ]
   },
   {
-    "ContainingType": "OTTER.Controllers.OTTERController",
+    "ContainingType": "OTTER.Controllers.FunctionController",
     "Method": "SubmitQuiz",
     "RelativePath": "webapi/QuizSubmission",
     "HttpMethod": "POST",
@@ -493,7 +1031,7 @@
     ]
   },
   {
-    "ContainingType": "OTTER.Controllers.OTTERController",
+    "ContainingType": "OTTER.Controllers.FunctionController",
     "Method": "GetAdminByEmail",
     "RelativePath": "webapi/SearchAdmins/{search}",
     "HttpMethod": "GET",
@@ -524,7 +1062,7 @@
     ]
   },
   {
-    "ContainingType": "OTTER.Controllers.OTTERController",
+    "ContainingType": "OTTER.Controllers.FunctionController",
     "Method": "SetClinicianCertificationStatus",
     "RelativePath": "webapi/SetClinicianCertificationStatus",
     "HttpMethod": "POST",

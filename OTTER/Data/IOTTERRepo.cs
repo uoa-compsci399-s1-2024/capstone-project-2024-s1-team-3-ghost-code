@@ -21,6 +21,7 @@ namespace OTTER.Data
         Answer AddAnswer(Answer answer);
         void DeleteAnswer(int id);
         Answer EditAnswer(EditAnswerInputDto answer);
+        IEnumerable<Attempt> GetAttempts();
         Attempt GetAttemptByID(int id);
         Attempt AddAttempt(Attempt attempt);
         AttemptQuestion GetAttemptQuestionBySequenceAndUser(int s, int u);
@@ -41,6 +42,11 @@ namespace OTTER.Data
         Organization AddOrganization(Organization organization);
         void DeleteOrganization(int id);
         Organization EditOrganization(Organization organization);
+        IEnumerable<Role> GetRoles();
+        Role GetRoleByID(int id);
+        Role AddRole(Role role);
+        void DeleteRole(int id);
+        Role EditRole(Role role);
         bool validAdmin(string email, string password);
         IEnumerable<Admin> GetAdmins();
         IEnumerable<Admin> SearchAdmins(string search);

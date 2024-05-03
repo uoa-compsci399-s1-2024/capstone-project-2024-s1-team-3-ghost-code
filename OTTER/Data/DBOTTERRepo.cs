@@ -171,6 +171,11 @@ namespace OTTER.Data
             return a;
         }
 
+        public IEnumerable<Attempt> GetAttempts()
+        {
+            return _dbContext.Attempts.ToList<Attempt>();
+        }
+
         public Attempt GetAttemptByID(int id)
         {
             return _dbContext.Attempts.FirstOrDefault(e => e.AttemptID == id);
@@ -214,8 +219,49 @@ namespace OTTER.Data
                 output.Feedback.Add(feedback);
                 output.Sequence.Add(sequence);
             }
-            _dbContext.Attempts.FirstOrDefault(e => e.AttemptID == submission.AttemptID).Completed = "COMPLETE";
+            _dbContext.Attempts.FirstOrDefault(e => e.AttemptID == submission.AttemptID).Completed = "FAIL";
             _dbContext.SaveChanges();
+            double mark = 0.0;
+            double count = 0.0;
+            foreach(List<bool> question in output.Correct)
+            {
+                foreach (bool answer in question)
+                {
+                    count++;
+                    if (answer == true)
+                    {
+                        mark++;
+                    }
+                }
+            }
+            if(mark/count >= 0.7)
+            {
+                _dbContext.Attempts.FirstOrDefault(e => e.AttemptID == submission.AttemptID).Completed = "PASS";
+                Certification cert = new Certification { User = GetUserByID(submission.UserID), Type = GetAttemptByID(submission.AttemptID).Quiz.Name, DateTime = DateTime.UtcNow, ExpiryDateTime = DateTime.UtcNow.AddYears(1)};
+                AddCertification(cert);
+                if (cert.Type.Contains("Practice"))
+                {
+                    SendEmail(cert.User.UserEmail, $"Passed {GetAttemptByID(submission.AttemptID).Quiz.Name} quiz", $"Hi {cert.User.FirstName},<br><br>Congratulations on passing the " +
+                    $"{GetAttemptByID(submission.AttemptID).Quiz.Name} quiz.<Br>You should now progress to the final quiz for this module." +
+                    $"<Br><Br>Thanks,<Br>The VERIFY Team");
+                } else if (cert.Type.Contains("Final") && GetCertificationByID(cert.User.UserID).Where(e => e.Type.Contains("Final")).Count() == 6)
+                {
+                    SendEmail(cert.User.UserEmail, $"Passed {GetAttemptByID(submission.AttemptID).Quiz.Name} quiz", $"Hi {cert.User.FirstName},<br><br>Congratulations on passing the " +
+                    $"{GetAttemptByID(submission.AttemptID).Quiz.Name} quiz.<Br>It appears you have passed every final quiz for all available modules. You should now register to complete the practical test to become fully qualified in the VERIFY study." +
+                    $"<Br><Br>Thanks,<Br>The VERIFY Team");
+                }
+                else if (cert.Type.Contains("Final")) {
+                    SendEmail(cert.User.UserEmail, $"Passed {GetAttemptByID(submission.AttemptID).Quiz.Name} quiz", $"Hi {cert.User.FirstName},<br><br>Congratulations on passing the " +
+                    $"{GetAttemptByID(submission.AttemptID).Quiz.Name} quiz.<Br>You should now move on to another module." +
+                    $"<Br><Br>Thanks,<Br>The VERIFY Team");
+                } else if (cert.Type == "Recertification"){
+                    SendEmail(cert.User.UserEmail, $"Passed {GetAttemptByID(submission.AttemptID).Quiz.Name} quiz", $"Hi {cert.User.FirstName},<br><br>Congratulations on passing the " +
+                    $"{GetAttemptByID(submission.AttemptID).Quiz.Name} quiz.<Br>You are now recertified until {cert.ExpiryDateTime.ToString("dd/MM/yyyy")}." +
+                    $"<Br><Br>Thanks,<Br>The VERIFY Team");
+                } 
+                
+            }
+            output.Score = (int)(Math.Floor(mark / count) * 100);
             return output;
         }
 
@@ -271,13 +317,20 @@ namespace OTTER.Data
 
         public IEnumerable<Certification> GetCertificationByID(int id)
         {
-            return _dbContext.Certifications.Where(e => e.User.UserID == id && (e.Type == "PRACTICAL" || e.Type == "RECERT"));
+            return _dbContext.Certifications.Where(e => e.User.UserID == id && (e.Type == "InitCertification" || e.Type == "Recertification"));
         }
 
         public Certification AddCertification(Certification certification)
         {
             EntityEntry<Certification> c = _dbContext.Certifications.Add(certification);
             _dbContext.SaveChanges();
+            if (certification.Type == "InitCertification")
+            {
+                SendEmail(certification.User.UserEmail, $"You are now fully certified with the VERIFY study!", $"Hi {certification.User.FirstName},<br><br>Congratulations on passing the " +
+                    $"practical test.<Br>An admin has already entered you certifcation status and you are now certified until {certification.ExpiryDateTime.ToString("dd/MM/yyyy")}." +
+                    $"<Br><Br>To remain certified, you must complete the Recertification Quiz which is now accessible via the quiz dashboard." +
+                    $"<Br><Br>Thanks,<Br>The VERIFY Team");
+            }
             return c.Entity;
         }
 
@@ -333,6 +386,45 @@ namespace OTTER.Data
             return o;
         }
 
+        public IEnumerable<Role> GetRoles()
+        {
+            return _dbContext.Roles.ToList<Role>();
+        }
+        
+        public Role GetRoleByID(int id)
+        {
+            return _dbContext.Roles.FirstOrDefault(e => e.RoleID == id);
+        }
+        
+        public Role AddRole(Role role)
+        {
+            EntityEntry<Role> r = _dbContext.Roles.Add(role);
+            _dbContext.SaveChanges();
+            return r.Entity;
+        }
+        
+        public void DeleteRole(int id)
+        {
+            Role r = _dbContext.Roles.FirstOrDefault(e => e.RoleID == id);
+            if (r != null)
+            {
+                _dbContext.Roles.Remove(r);
+                _dbContext.SaveChanges();
+            }
+        }
+        
+        public Role EditRole(Role role)
+        {
+            Role r = _dbContext.Roles.FirstOrDefault(e => e.RoleID == role.RoleID);
+            if (r != null)
+            {
+                r.RoleName = role.RoleName;
+                _dbContext.SaveChanges();
+                r = _dbContext.Roles.FirstOrDefault(e => e.RoleID == role.RoleID);
+            }
+            return r;
+        }
+        
         public bool validAdmin(string email, string password)
         {
             Admin admin = _dbContext.Admins.FirstOrDefault(e => e.Email == email && e.Password == password);
@@ -406,7 +498,7 @@ namespace OTTER.Data
 
                 SendEmail(a.Email, "Password reset request",
                     $"Hi {a.FirstName},<br><br>We have received a request to reset your password.<br><br>Reset code: {a.PasswordResetToken}" +
-                    $"<br><br>This code is valid for 30 minutes.<br><br>Thanks<br>The VERIFY Team");
+                    $"<br><br>This code is valid for 30 minutes.<br><br>Thanks,<br>The VERIFY Team");
             }
         }
 

@@ -332,5 +332,245 @@ namespace OTTER.Controllers
         {
             return Ok(_repo.MarkQuiz(submission));
         }
+
+        [SwaggerOperation(
+            Tags = new[] { "ClinicianFunctions" }
+        )]
+        [SwaggerResponse(200, "Organizations retrieved", typeof(IEnumerable<Organization>))]
+        [SwaggerResponse(401, "Token is invalid")]
+        [SwaggerResponse(403, "Token is not authorized to view resource")]
+        [Authorize(Roles = "Admin, User")]
+        [HttpGet("GetOrganizations")]
+        public ActionResult<IEnumerable<Organization>> GetOrganizations()
+        {
+            return Ok(_repo.GetOrganizations());
+        }
+
+        [SwaggerOperation(
+            Tags = new[] { "ClinicianFunctions" }
+        )]
+        [SwaggerResponse(200, "Roles retrieved", typeof(IEnumerable<Role>))]
+        [SwaggerResponse(401, "Token is invalid")]
+        [SwaggerResponse(403, "Token is not authorized to view resource")]
+        [Authorize(Roles = "Admin, User")]
+        [HttpGet("GetRoles")]
+        public ActionResult<IEnumerable<Role>> GetRoles()
+        {
+            return Ok(_repo.GetRoles());
+        }
+
+        [SwaggerOperation(
+            Tags = new[] { "ClinicianFunctions" }
+        )]
+        [SwaggerResponse(201, "New clinician created", typeof(User))]
+        [SwaggerResponse(409, "Clinician with submitted email already exists")]
+        [HttpPost("AddClinician")]
+        public ActionResult<User> AddClinician(UserInputDto user)
+        {
+            if(_repo.GetUserByEmail(user.UserEmail) == null)
+            {
+                User newUser = new User { FirstName = user.FirstName, LastName = user.LastName, UserEmail = user.UserEmail, Organization = _repo.GetOrganizationByID(user.OrganizationID), Role = _repo.GetRoleByID(user.RoleID) };
+                _repo.AddUser(newUser);
+                _repo.SendEmail(newUser.UserEmail, $"Welcome to the VERIFY Study!", $"Hi {newUser.FirstName},<br><br>Welcome to the VERIFY Study's Online TMS Training Experience Reboot. We're so glad you've joined us in our quest to better" +
+                    $"understand the effects of a stroke on a patient, and also help to improve the recovery process for them.<Br>To become fully certified in the study, you must first pass the final quiz for each module, followed by the practical test. " +
+                    $"There is a practice quiz for each module that we recommend you attempt before attempting the final quiz." +
+                    $"<Br>Upon passing all the required tests, your newly awarded certification will be valid for 1 year. To remain certified, you must complete the Recertification Quiz every year you wish to remain certified." +
+                    $"<Br><Br>Once again we'd like to thank you for joining us, and we wish you the best of luck in your studies.<Br>The VERIFY Team");
+                return CreatedAtAction(nameof(_repo.GetUserByID), new { id = newUser.UserID }, newUser);
+            } else
+            {
+                return Conflict("Clinician with email " + user.UserEmail + " already exists.");
+            }
+        }
+
+        [SwaggerOperation(
+            Tags = new[] { "AdminUserFunctions" }
+        )]
+        [SwaggerResponse(200, "Clinician updated", typeof(User))]
+        [SwaggerResponse(404, "Clinician with submitted ID could not be found")]
+        [Authorize(Roles = "Admin")]
+        [HttpPut("EditClinician")]
+        public ActionResult<User> EditClinician(User user)
+        {
+            if (_repo.GetUserByID(user.UserID) != null)
+            {
+                _repo.EditUser(user);
+                return Ok("Clinician updated");
+            }
+            else
+            {
+                return NotFound("Clinician with ID " + user.UserID + " not found.");
+            }
+        }
+
+        [SwaggerOperation(
+            Tags = new[] { "AdminUserFunctions" }
+        )]
+        [SwaggerResponse(200, "Clinician deleted")]
+        [SwaggerResponse(404, "Clinician with submitted ID could not be found")]
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("DeleteClinician/{email}")]
+        public ActionResult DeleteClinician(string email)
+        {
+            if (_repo.GetUserByEmail(email) != null)
+            {
+                _repo.GetUserByEmail(email);
+                return Ok("Clinician deleted");
+            }
+            else
+            {
+                return NotFound("Clinician with email " + email + " not found.");
+            }
+        }
+
+        [SwaggerOperation(
+            Tags = new[] { "AdminUserFunctions" }
+        )]
+        [SwaggerResponse(200, "Organization added")]
+        [SwaggerResponse(409, "Organization with submitted name already exists")]
+        [Authorize(Roles = "Admin")]
+        [HttpPost("AddOrganization")]
+        public ActionResult<Organization> AddOrganization(OrgInputDto orgInput)
+        {
+            if (_repo.GetOrganizations().Where(e => e.OrgName.ToLower() == orgInput.OrgName) == null)
+            {
+                return Ok(_repo.AddOrganization(new Organization { OrgName = orgInput.OrgName }));
+            }
+            else
+            {
+                return Conflict("Organization with name " + orgInput.OrgName + " already exists.");
+            }
+        }
+
+        [SwaggerOperation(
+            Tags = new[] { "AdminUserFunctions" }
+        )]
+        [SwaggerResponse(200, "Organization updated")]
+        [SwaggerResponse(404, "Organization with submitted ID not found")]
+        [Authorize(Roles = "Admin")]
+        [HttpPut("EditOrganization")]
+        public ActionResult<Organization> EditOrganization(Organization org)
+        {
+            if (_repo.GetOrganizationByID(org.OrgID) != null)
+            {
+                _repo.EditOrganization(org);
+                return Ok("Organization updated.");
+            }
+            else
+            {
+                return NotFound("Organization with ID " + org.OrgID + " not found.");
+            }
+        }
+
+        [SwaggerOperation(
+            Tags = new[] { "AdminUserFunctions" }
+        )]
+        [SwaggerResponse(200, "Organization deleted")]
+        [SwaggerResponse(404, "Organization with submitted ID not found")]
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("DeleteOrganization/{orgID}")]
+        public ActionResult DeleteOrganization(int orgID)
+        {
+            if (_repo.GetOrganizationByID(orgID) != null)
+            {
+                _repo.DeleteOrganization(orgID);
+                return Ok("Organization deleted.");
+            }
+            else
+            {
+                return NotFound("Organization with ID " + orgID + " not found.");
+            }
+        }
+       
+        [SwaggerOperation(
+            Tags = new[] { "AdminUserFunctions" }
+        )]
+        [SwaggerResponse(200, "Role added")]
+        [SwaggerResponse(409, "Role with submitted name already exists")]
+        [Authorize(Roles = "Admin")]
+        [HttpPost("AddRole")]
+        public ActionResult<Role> AddRole(RoleInputDto roleInput)
+        {
+            if (_repo.GetRoles().Where(e => e.RoleName.ToLower() == roleInput.RoleName) == null)
+            {
+                return Ok(_repo.AddRole(new Role{ RoleName= roleInput.RoleName}));
+            }
+            else
+            {
+                return Conflict("Role with name " + roleInput.RoleName + " already exists.");
+            }
+        }
+
+        [SwaggerOperation(
+            Tags = new[] { "AdminUserFunctions" }
+        )]
+        [SwaggerResponse(200, "Role updated")]
+        [SwaggerResponse(404, "Role with submitted ID not found")]
+        [Authorize(Roles = "Admin")]
+        [HttpPut("EditRole")]
+        public ActionResult<Role> EditRole(Role role)
+        {
+            if (_repo.GetRoleByID(role.RoleID) != null)
+            {
+                _repo.EditRole(role);
+                return Ok("Role updated.");
+            }
+            else
+            {
+                return NotFound("Role with ID " + role.RoleID + " not found.");
+            }
+        }
+
+        [SwaggerOperation(
+            Tags = new[] { "AdminUserFunctions" }
+        )]
+        [SwaggerResponse(200, "Role deleted")]
+        [SwaggerResponse(404, "Role with submitted ID not found")]
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("DeleteRole/{orgID}")]
+        public ActionResult DeleteRole(int roleID)
+        {
+            if (_repo.GetRoleByID(roleID) != null)
+            {
+                _repo.DeleteRole(roleID);
+                return Ok("Role deleted.");
+            }
+            else
+            {
+                return NotFound("Role with ID " + roleID + " not found.");
+            }
+        }
+
+        [SwaggerOperation(
+            Tags = new[] { "AdminUserFunctions" }
+        )]
+        [SwaggerResponse(200, "Stats retrieved")]
+        [SwaggerResponse(400, "Start or end date not valid/missing")]
+        [SwaggerResponse(401, "Token invalid")]
+        [SwaggerResponse(403, "Token not authorized to view resource")]
+        [Authorize(Roles = "Admin")]
+        [HttpGet("GetStats")]
+        public ActionResult GetStats(StatRequestDto statIn)
+        {
+            if (statIn.SearchStart != null && statIn.SearchEnd != null && DateTime.Compare(statIn.SearchStart, statIn.SearchEnd) <= 0)
+            {
+                if(statIn.UserID != null)
+                {
+                    return Ok(_repo.GetAttempts().Where(e => e.User.UserID == statIn.UserID && DateTime.Compare(statIn.SearchStart, e.DateTime) <= 0 && DateTime.Compare(e.DateTime, statIn.SearchEnd) <= 0));
+                } else if (statIn.QuizID != null)
+                {
+                    return Ok(_repo.GetAttempts().Where(e => e.Quiz.QuizID == statIn.QuizID && DateTime.Compare(statIn.SearchStart, e.DateTime) <= 0 && DateTime.Compare(e.DateTime, statIn.SearchEnd) <= 0));
+                } else if (statIn.Complete != null)
+                {
+                    return Ok(_repo.GetAttempts().Where(e => e.Completed == statIn.Complete && DateTime.Compare(statIn.SearchStart, e.DateTime) <= 0 && DateTime.Compare(e.DateTime, statIn.SearchEnd) <= 0));
+                } else
+                {
+                    return Ok(_repo.GetAttempts().Where(e => DateTime.Compare(statIn.SearchStart, e.DateTime) <= 0 && DateTime.Compare(e.DateTime, statIn.SearchEnd) <= 0));
+                }
+            } else
+            {
+                return BadRequest("Please specify a start and end date");
+            }
+        }
     }
 }

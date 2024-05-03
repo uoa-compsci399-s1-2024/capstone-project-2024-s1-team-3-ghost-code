@@ -10,5 +10,7 @@ namespace OTTER.Dtos
         public List<List<bool>> Correct { get; set; }
         [Required]
         public List<List<string>> Feedback { get; set; }
+        [Required]
+        public int Score { get; set; }
     }
 }
