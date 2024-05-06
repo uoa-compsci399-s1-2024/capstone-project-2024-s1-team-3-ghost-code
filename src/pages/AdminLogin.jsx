@@ -1,7 +1,6 @@
 import "./AdminLogin.css";
 import React, { useState } from "react";
 import { Link, useNavigate} from "react-router-dom";
-import bcrypt from 'bcryptjs';
 
 export function BackToHomeLink() {
   return (
@@ -21,8 +20,6 @@ export function AdminLoginForm() {
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
   const navigate = useNavigate(); // Use the useNavigate hook for redirection
-  const saltRounds = 10;
-
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(prevVisible => !prevVisible);
@@ -31,18 +28,11 @@ export function AdminLoginForm() {
   const handleLogin = async (event) => {
     event.preventDefault();
 
-    //Bcrypting the password
-    bcrypt.hash(password, saltRounds, async (err, hash) => {
-      if (err) {
-        console.error('Error hashing password:', err);
-        alert('Failed to hash the password.');
-        return;
-      }
 
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password: hash })
+      body: JSON.stringify({ email, password })
     };
 
     try {
@@ -61,7 +51,6 @@ export function AdminLoginForm() {
       console.error('Login Error:', error);
       alert('An error occurred during login.');
     }
-  });
     
   };
 
