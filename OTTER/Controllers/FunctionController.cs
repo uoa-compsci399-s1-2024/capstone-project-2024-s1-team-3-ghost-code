@@ -337,9 +337,6 @@ namespace OTTER.Controllers
             Tags = new[] { "ClinicianFunctions" }
         )]
         [SwaggerResponse(200, "Organizations retrieved", typeof(IEnumerable<Organization>))]
-        [SwaggerResponse(401, "Token is invalid")]
-        [SwaggerResponse(403, "Token is not authorized to view resource")]
-        [Authorize(Roles = "Admin, User")]
         [HttpGet("GetOrganizations")]
         public ActionResult<IEnumerable<Organization>> GetOrganizations()
         {
@@ -350,9 +347,6 @@ namespace OTTER.Controllers
             Tags = new[] { "ClinicianFunctions" }
         )]
         [SwaggerResponse(200, "Roles retrieved", typeof(IEnumerable<Role>))]
-        [SwaggerResponse(401, "Token is invalid")]
-        [SwaggerResponse(403, "Token is not authorized to view resource")]
-        [Authorize(Roles = "Admin, User")]
         [HttpGet("GetRoles")]
         public ActionResult<IEnumerable<Role>> GetRoles()
         {
