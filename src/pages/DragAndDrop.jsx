@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const DragAndDropComponent = () => {
+const DragAndDrop = () => {
   const [deviceType, setDeviceType] = useState("");
   const [initialX, setInitialX] = useState(0);
   const [initialY, setInitialY] = useState(0);
@@ -97,4 +97,4 @@ const DragAndDropComponent = () => {
   );
 };
 
-export default DragAndDropComponent;
+export default DragAndDrop;
