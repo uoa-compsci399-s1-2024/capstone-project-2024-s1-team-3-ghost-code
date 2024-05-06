@@ -9,9 +9,9 @@
     font-family: 'poppins',sans-serif;
     max-height:100vh;
 }
-body{
+/* body{
     background: white;
-}
+} */
 .container{
     justify-content: center; /* Vertically center items */
     align-items: flex-start;
@@ -208,7 +208,7 @@ i{
   #back-arrow {
     width: 25px;
     stroke-width: 2px;
-    margin-top: 29px;
+    margin-top: 27px;
     margin-left: 0px; /* Adjust margin as needed */
   }
   

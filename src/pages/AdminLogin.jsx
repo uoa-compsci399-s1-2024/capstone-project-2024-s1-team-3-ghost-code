@@ -1,6 +1,6 @@
 import "./AdminLogin.css";
 import React, { useState } from "react";
-import { Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export function BackToHomeLink() {
   return (
@@ -16,42 +16,42 @@ export function BackToHomeLink() {
 }
 
 export function AdminLoginForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const navigate = useNavigate(); // Use the useNavigate hook for redirection
 
   const togglePasswordVisibility = () => {
-    setPasswordVisible(prevVisible => !prevVisible);
+    setPasswordVisible((prevVisible) => !prevVisible);
   };
 
   const handleLogin = async (event) => {
     event.preventDefault();
 
-
     const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
     };
 
     try {
-      const response = await fetch('http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/auth/Login', requestOptions);
-      const text = await response.text();  // Get response as text
-    
-      
+      const response = await fetch(
+        "http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/auth/Login",
+        requestOptions
+      );
+      const text = await response.text(); // Get response as text
+
       // Example handling of the response text
-      if (!text.includes('Email or Password invalid.')) {
-        sessionStorage.setItem('adminToken', text); // Store token (or whatever the response indicates)
-        navigate('/adminsearch'); // Redirect using navigate instead of updating state
+      if (!text.includes("Email or Password invalid.")) {
+        sessionStorage.setItem("adminToken", text); // Store token (or whatever the response indicates)
+        navigate("/adminsearch"); // Redirect using navigate instead of updating state
       } else {
-        alert('Login failed!');
+        alert("Login failed!");
       }
     } catch (error) {
-      console.error('Login Error:', error);
-      alert('An error occurred during login.');
+      console.error("Login Error:", error);
+      alert("An error occurred during login.");
     }
-    
   };
 
   return (
@@ -94,11 +94,7 @@ export function AdminLoginForm() {
                 </div>
               </div>
               <div className="input-field">
-                <input
-                  type="submit"
-                  className="input-submit"
-                  value="Sign In"
-                />
+                <input type="submit" className="input-submit" value="Sign In" />
               </div>
               <div className="forgot">
                 <a href="#">Forgot password?</a>

@@ -1,5 +1,6 @@
 import React from "react";
 import "./ADashboard.css";
+import { Link } from "react-router-dom";
 
 function AdminDashboard() {
   return (
@@ -9,7 +10,7 @@ function AdminDashboard() {
           className="Adminlogo"
           loading="lazy"
           src="src/components/VERIFYLogo.jpg"
-          alt="DashboardLogo" 
+          alt="DashboardLogo"
         />
       </div>
       <button className="Adminbutton">Dashboard</button>
@@ -17,8 +18,12 @@ function AdminDashboard() {
       <button className="Adminbutton">Clinicians</button>
       <button className="Adminbutton">Statistics</button>
       <br></br>
-      
-      <button className="Adminbutton">Settings</button>
+      <Link
+        style={{ textDecoration: "none", color: "white" }}
+        to="/adminSettings"
+      >
+        <button className="Adminbutton">Settings</button>
+      </Link>
     </div>
   );
 }
