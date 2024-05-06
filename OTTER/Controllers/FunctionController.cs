@@ -96,7 +96,7 @@ namespace OTTER.Controllers
         {
             if (_repo.GetAdmins().FirstOrDefault(e => e.Email == newadmin.Email) == null)
             {
-                Admin a = new Admin { FirstName = newadmin.FirstName, LastName = newadmin.LastName, Email = newadmin.Email, Password = newadmin.Password };
+                Admin a = new Admin { FirstName = newadmin.FirstName, LastName = newadmin.LastName, Email = newadmin.Email, Password = BCrypt.Net.BCrypt.HashPassword(newadmin.Password) };
                 _repo.AddAdmin(a);
                 AdminOutputDto aOut = new AdminOutputDto { AdminID = a.AdminID, FirstName = a.FirstName, LastName = a.LastName, Email = a.Email };
                 return CreatedAtAction(nameof(GetAdminByID), new { id = aOut.AdminID}, aOut);

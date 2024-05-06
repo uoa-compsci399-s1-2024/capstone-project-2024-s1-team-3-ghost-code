@@ -479,7 +479,7 @@ namespace OTTER.Data
                 a.FirstName = admin.FirstName;
                 a.LastName = admin.LastName;
                 a.Email = admin.Email;
-                a.Password = admin.Password;
+                a.Password = BCrypt.Net.BCrypt.HashPassword(admin.Password);
                 _dbContext.SaveChanges();
                 a = _dbContext.Admins.FirstOrDefault(e => e.AdminID == admin.AdminID);
             }
@@ -519,7 +519,7 @@ namespace OTTER.Data
             if (a != null)
             {
                 if (a.ResetTokenExpires > DateTime.Now) { 
-                    a.Password = passwordResetDto.Password;
+                    a.Password = BCrypt.Net.BCrypt.HashPassword(passwordResetDto.Password);
                     a.PasswordResetToken = null;
                     a.ResetTokenExpires = null;
                     _dbContext.SaveChanges();

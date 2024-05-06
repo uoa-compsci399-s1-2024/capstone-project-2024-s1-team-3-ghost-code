@@ -416,3 +416,4 @@ C:\Users\baile\OneDrive\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-c
 C:\Users\baile\OneDrive\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Debug\net8.0\Swashbuckle.AspNetCore.Filters.dll
 C:\Users\baile\OneDrive\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Debug\net8.0\Swashbuckle.AspNetCore.Filters.Abstractions.dll
 C:\Users\baile\OneDrive\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Debug\net8.0\BCrypt.Net-Next.dll

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -36,7 +37,7 @@ namespace OTTER.Controllers
         public async Task<ActionResult<string>> Login(AdminLoginDto loginDto)
         {
             Admin admin = _repo.GetAdminByEmail(loginDto.Email);
-            if (admin == null || admin.Password != loginDto.Password)
+            if (admin == null || !BCrypt.Net.BCrypt.Verify(loginDto.Password, admin.Password))
             {
                 return Unauthorized("Email or Password invalid.");
             }
