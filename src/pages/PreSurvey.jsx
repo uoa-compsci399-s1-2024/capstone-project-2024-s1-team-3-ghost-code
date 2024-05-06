@@ -3,24 +3,100 @@ import React, {
   useState,
   useEffect,
   useContext,
-  useLocation,
-  useNavigate,
+  useLocation, 
 } from "react";
-import { Link } from "react-router-dom";
+
+import { Link, useNavigate} from "react-router-dom";
 
 function Presurvey() {
-  // const [loggedIn, setLoggedIn] = useContext(LoginContext);
-  // const [firstname, setfirstname] = useState();
-  // const [lastname, setlastname] = useState();
-  // const [email, setemail] = useState();
-  // const [position, setposition] = useState();
-  // const [organisation, setorgnisation] = useState();
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [position, setPosition] = useState('');
+  const [organisation, setOrganisation] = useState('');
+  const [positions, setPositions] = useState([]); // Array of positions from API
+  const [organisations, setOrganisations] = useState([]); // Array of organisations from API
 
-  // const location = useLocation();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+
+  // Fetch positions
+  useEffect(() => {
+    async function fetchPositions() {
+      try {
+        const response = await fetch('http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/GetRoles');
+        if (!response.ok) throw new Error('Failed to fetch');
+        const data = await response.json();
+        setPositions(data.roleName || []); // Ensure your API returns an object with a 'positions' key
+        //setPosition(data.roleName["Doctor"]); // Set default position
+      } catch (error) {
+        console.error("Failed to fetch positions:", error);
+      }
+    }
+
+    fetchPositions();
+  }, []);
+
+  // Fetch organisations
+  useEffect(() => {
+    async function fetchOrganisations() {
+      try {
+        const response = await fetch('http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/GetOrganizations');
+        if (!response.ok) throw new Error('Failed to fetch');
+        const data = await response.json();
+        setOrganisations(data.orgName || [] ); // Ensure your API returns an object with an 'organisations' key
+        //setOrganisation(data.orgName["University of Auckland"]); // Set default organisation
+      } catch (error) {
+        console.error("Failed to fetch organisations:", error);
+      }
+    }
+
+    fetchOrganisations();
+  }, []);
+
+
+
+
+
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const clinicianData = {
+      userEmail: email,
+      firstName: firstName,
+      lastName: lastName,
+      position: position,
+      organisation: organisation
+    };
+
+    try {
+      const response = await fetch('http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/AddClinician', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(clinicianData)
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Clinician added:', data);
+        // Redirect or show success message
+        navigate('quizDashboard');  // or wherever you want to redirect
+      } else {
+        throw new Error('Failed to register clinician');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('Error submitting the form. Please try again.');
+    }
+  };
+
+
+
 
   return (
-    <>
+    <form onSubmit={handleSubmit}>
       <div className="split-survey left-survey">
         <div className="centered-survey">
           <p>Please fill out the pre-training survey before continuing.</p>
@@ -45,48 +121,63 @@ function Presurvey() {
                   type="text"
                   className="input-box"
                   id="survey-lastName"
+                  placeholder="Last name"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
                   required
                 />
-                <label htmlFor="lastName">Last Name</label>
+        
               </div>
               <div className="input-field next-to">
                 <input
                   type="text"
                   className="input-box"
                   id="survey-firstName"
+                  placeholder="First Name"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
                   required
                 />
-                <label htmlFor="firstName">First Name</label>
+               
               </div>
               <div className="input-field">
                 <input
                   type="text"
                   className="input-box"
                   id="survey-email"
+                  placeholder="Email Address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                 />
-                <label htmlFor="logEmail">Email address</label>
+                
               </div>
               <div className="input-field">
-                <select name="Position" id="position" className="input-box">
-                  <option>Nurse</option>
-                  <option>Doctor</option>
-                  <option>Student</option>
-                  <option>Supervisor</option>
+              <select
+                  className="input-box"
+                  value={position}
+                  onChange={(e) => setPosition(e.target.value)}
+                  required
+                >
+                  {positions.map(pos => (
+                    <option key={pos} value={pos}>{pos}</option>
+                  ))}
                 </select>
-
-                <label htmlFor="position">Position</label>
               </div>
 
               <div className="input-field">
-                <select name="Organisation" id="position" className="input-box">
-                  <option>Auckland City Hospital</option>
-                  <option>University of Auckland</option>
-                  <option>Medicare</option>
-                  <option>Other</option>
+              <select
+                  className="input-box"
+                  value={organisation}
+                  onChange={(e) => setOrganisation(e.target.value)}
+                  required
+                >
+                  {organisations.map(org => (
+                    <option key={org} value={org}>{org}</option>
+                  ))}
                 </select>
-                <label htmlFor="position">Organisation</label>
               </div>
+
               <div className="input-field">
                 <input
                   type="submit"
@@ -111,7 +202,7 @@ function Presurvey() {
           </div>
         </div>
       </div>
-    </>
+    </form>
   );
 }
 
