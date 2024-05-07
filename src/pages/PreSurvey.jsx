@@ -93,33 +93,45 @@ function Presurvey() {
  
 
     try {
-      const response = await fetch('http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/AddClinician', {
+      const registrationResponse = await fetch('http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/AddClinician', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(clinicianData)
       });
-
-      if (response.ok) {
-        // Handle successful registration here, such as redirecting to a welcome page
-        navigate('/cliniciansign');
-
-      } else if (response.status === 409) {
-        // If email is already registered, alert the user and redirect
+  
+      if (registrationResponse.ok) {
+        // Attempt to log in the user after successful registration
+        const loginResponse = await fetch('http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/auth/ClinicianLogin', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email: email })
+        });
+  
+        const text = await loginResponse.text(); // First get the response as text to check for errors
+  
+        if (loginResponse.ok && !text.includes("Login failed")) {
+          
+          localStorage.setItem('userToken', text); // Store the token
+          navigate('/quizDashboard'); // Redirect to quizDashboard
+        } else {
+          throw new Error('Login failed after registration');
+        }
+  
+      } else if (registrationResponse.status === 409) {
         alert('An account with this email already exists.');
         navigate('/cliniciansign');
-
       } else {
         throw new Error('Failed to register clinician');
       }
     } catch (error) {
-      console.error('Error submitting form:', error);
+      console.error('Error during registration or login:', error);
       alert('Error submitting the form. Please try again.');
     }
   };
-
-
 
 
   return (
