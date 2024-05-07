@@ -1,0 +1,62 @@
+.clinician-profile-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 5rem;
+    padding-bottom: 2rem;
+    margin: 0;
+    background-color: #BDDEDE;    
+    border-left: 15px solid #BDDEDE;
+    margin-left: 20%;
+    margin-bottom: 1080px;
+}
+
+.clinician-details {
+    width: 950px;
+    max-width: 950px;
+    margin-top: 1rem;
+    padding-top: 20px;
+}
+
+
+
+.personal-details-container {
+    margin-top: 20px;
+}
+
+.personal-details-box {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.personal-details-box h3 {
+    margin-bottom: 10px;
+}
+
+.personal-details-box input {
+    width: 500px;
+    max-width: 950px;
+    padding: 1rem 1rem;
+    border: 2px solid #ddd;
+    border-radius: 1rem;
+    font-size: 1.5rem;
+    background: #ffffff;
+    transition: border-color 0.3s;
+    padding-left: 40px;
+    margin-bottom: 10px;
+}
+
+.personal-details-box button {
+    margin-top: 10px;
+}
+
+.view-grades-box {
+    /* Style the view grades box as needed */
+}

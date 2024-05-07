@@ -20,4 +20,11 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
+    <ItemGroup>
+      <DataModelFiles Include="$(ProjectDir)..\OTTER\OTTERDatabase.sqlite" />
+    </ItemGroup>
+    <Copy SourceFiles="@(DataModelFiles)" DestinationFolder="$(PublishDir)" SkipUnchangedFiles="false" />
+  </Target>
+
 </Project>
