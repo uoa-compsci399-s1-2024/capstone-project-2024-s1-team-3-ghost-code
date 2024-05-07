@@ -21,6 +21,13 @@ function Presurvey() {
 
   const navigate = useNavigate();
 
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  function validateEmail(email) {
+    return emailRegex.test(email);
+  }
+
+
   // Fetch positions
   useEffect(() => {
     async function fetchPositions() {
@@ -70,6 +77,11 @@ function Presurvey() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (!validateEmail(email)) {
+      alert("Please enter a valid email address.");
+      return; // Stop the submission
+    }
 
     // Get the index of the selected position and organization
     const positionIndex = positions.findIndex(pos => pos === position);
