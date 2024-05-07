@@ -135,9 +135,9 @@ namespace OTTER.Controllers
         [SwaggerResponse(200, "Clinician login was successful and token returned")]
         [SwaggerResponse(401, "Clinician email does not exist")]
         [HttpPost("ClinicianLogin")]
-        public async Task<ActionResult<string>> ClinicianLogin(string email)
+        public async Task<ActionResult<string>> ClinicianLogin(UserLoginDto loginDto)
         {
-            User user = _repo.GetUserByEmail(email);
+            User user = _repo.GetUserByEmail(loginDto.Email);
             if (user == null)
             {
                 return Unauthorized("Email does not exist.");
