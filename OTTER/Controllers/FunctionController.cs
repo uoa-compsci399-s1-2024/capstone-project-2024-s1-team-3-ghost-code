@@ -356,7 +356,7 @@ namespace OTTER.Controllers
         [SwaggerOperation(
             Tags = new[] { "ClinicianFunctions" }
         )]
-        [SwaggerResponse(201, "New clinician created", typeof(User))]
+        [SwaggerResponse(200, "New clinician created", typeof(User))]
         [SwaggerResponse(409, "Clinician with submitted email already exists")]
         [HttpPost("AddClinician")]
         public ActionResult<User> AddClinician(UserInputDto user)
@@ -370,7 +370,7 @@ namespace OTTER.Controllers
                     $"There is a practice quiz for each module that we recommend you attempt before attempting the final quiz." +
                     $"<Br>Upon passing all the required tests, your newly awarded certification will be valid for 1 year. To remain certified, you must complete the Recertification Quiz every year you wish to remain certified." +
                     $"<Br><Br>Once again we'd like to thank you for joining us, and we wish you the best of luck in your studies.<Br>The VERIFY Team");
-                return CreatedAtAction(nameof(_repo.GetUserByID), new { id = newUser.UserID }, newUser);
+                return Ok(_repo.GetUserByEmail(newUser.UserEmail));
             } else
             {
                 return Conflict("Clinician with email " + user.UserEmail + " already exists.");
