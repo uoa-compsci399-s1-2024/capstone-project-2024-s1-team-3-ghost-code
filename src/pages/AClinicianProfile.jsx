@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import AdminDashboard from "../components/Dashboards/ADashboard";
 import AdminInfo from "../components/AdminComponent/adminInfo";
+import { Link, useNavigate } from "react-router-dom";
 import './AClinicianProfile.css';
 
 
@@ -14,6 +15,8 @@ function AClinicianProfile() {
     const [status, setStatus] = useState("");
     const adminToken = sessionStorage.getItem('adminToken');
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         const requestOptions = {
             method: 'GET',
@@ -25,6 +28,11 @@ function AClinicianProfile() {
         fetch(`http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/ClinicianSearch/${clinicianId}`, requestOptions)
         .then(response => {
             if (!response.ok) {
+                if (response.status === 401) {
+                    // Token is invalid or expired, log the admin out
+                    sessionStorage.removeItem('adminToken');
+                    navigate('/adminlogin'); // Redirect to admin login page
+                }
                 throw new Error('Network response was not ok');
             }
             return response.json(); // Parse response as JSON
@@ -33,15 +41,17 @@ function AClinicianProfile() {
         .then(data => {
             setClinicianDetails(data[0]); // Set state with parsed JSON data
             setEmail(data[0].userEmail || "None");
-            setClinic(data[0].organization || "None");
-            setPosition(data[0].roleName || "None");
+            setClinic(data[0].orgName || "NoneOrg");
+            setPosition(data[0].roleName || "NoneRole");
             setStatus(data[0].status || "Not Certified");
-            
+            console.log(data[0]);
             
         })
         .catch(error => console.error('Failed to fetch clinician details:', error));
     
-    }, [clinicianId, adminToken]);
+    }, [clinicianId, adminToken, navigate]);
+
+
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);

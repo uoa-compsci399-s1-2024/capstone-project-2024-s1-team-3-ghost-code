@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./AClinicianSearch.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AdminDashboard from "../components/Dashboards/ADashboard";
 import AdminInfo from "../components/AdminComponent/adminInfo";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,6 +14,7 @@ function AClinicianSearch() {
   const dropdownRef = useRef(null); // Reference to the admin info box
 
   const adminToken = sessionStorage.getItem('adminToken');
+  const navigate = useNavigate();
 
 // Function to fetch search results from backend API
 useEffect(() => {
@@ -26,6 +27,11 @@ useEffect(() => {
     })
     .then(response => {
       if (!response.ok) {
+        if (response.status === 401) {
+          // Token is invalid or expired, log the admin out
+          sessionStorage.removeItem('adminToken');
+          navigate('/adminlogin'); // Redirect to admin login page
+        }
         throw new Error('Network response was not ok');
       }
       return response.json();
@@ -39,7 +45,7 @@ useEffect(() => {
   } else {
     setSearchResults([]);
   }
-}, [searchQuery, adminToken]);
+}, [searchQuery, adminToken, navigate]);
 
  
 

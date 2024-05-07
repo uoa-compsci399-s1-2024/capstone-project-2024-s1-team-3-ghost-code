@@ -16,6 +16,8 @@ function Presurvey() {
   const [organisation, setOrganisation] = useState('');
   const [positions, setPositions] = useState([]); // Array of positions from API
   const [organisations, setOrganisations] = useState([]); // Array of organisations from API
+  const [orgIDs, setOrgsID] = useState([]);
+  const [roleIDs, setRolesID] = useState([]);
 
   const navigate = useNavigate();
 
@@ -26,8 +28,13 @@ function Presurvey() {
         const response = await fetch('http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/GetRoles');
         if (!response.ok) throw new Error('Failed to fetch');
         const data = await response.json();
-        setPositions(data.roleName || []); // Ensure your API returns an object with a 'positions' key
-        //setPosition(data.roleName["Doctor"]); // Set default position
+        const roleName = data.map(role => role.roleName);
+        const roleID = data.map(role => role.roleID)
+        setPositions(roleName || []); // Ensure your API returns an object with a 'positions' key
+        setPosition("Doctor"); // Set default position
+
+        setRolesID(roleID);
+  
       } catch (error) {
         console.error("Failed to fetch positions:", error);
       }
@@ -43,31 +50,47 @@ function Presurvey() {
         const response = await fetch('http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/GetOrganizations');
         if (!response.ok) throw new Error('Failed to fetch');
         const data = await response.json();
-        setOrganisations(data.orgName || [] ); // Ensure your API returns an object with an 'organisations' key
-        //setOrganisation(data.orgName["University of Auckland"]); // Set default organisation
+        const orgNames = data.map(org => org.orgName); // Extract orgName from each organisation object
+        const orgIDs = data.map(org => org.orgID);
+        setOrganisations(orgNames || []); // Set organisations state to an array of orgName strings
+        setOrganisation("University of Auckland"); // Set default organisation (if needed)
+        
+        setOrgsID(orgIDs);
+
       } catch (error) {
         console.error("Failed to fetch organisations:", error);
       }
     }
-
+  
     fetchOrganisations();
   }, []);
 
-
-
-
+  
 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    // Get the index of the selected position and organization
+    const positionIndex = positions.findIndex(pos => pos === position);
+    const organisationIndex = organisations.findIndex(org => org === organisation);
+
+    // Retrieve the corresponding IDs using the indexes
+    const roleID = positionIndex !== -1 ? roleIDs[positionIndex] : null;
+    const organisationID = organisationIndex !== -1 ? orgIDs[organisationIndex] : null;
+
+    
+
     const clinicianData = {
       userEmail: email,
       firstName: firstName,
       lastName: lastName,
-      position: position,
-      organisation: organisation
+      roleID: roleID,
+      organizationID: organisationID
     };
+
+    console.log(clinicianData);
+ 
 
     try {
       const response = await fetch('http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/AddClinician', {
@@ -80,9 +103,9 @@ function Presurvey() {
 
       if (response.ok) {
         const data = await response.json();
-        console.log('Clinician added:', data);
+      
         // Redirect or show success message
-        navigate('quizDashboard');  // or wherever you want to redirect
+        navigate('/cliniciansign');  // or wherever you want to redirect
       } else {
         throw new Error('Failed to register clinician');
       }
@@ -187,7 +210,7 @@ function Presurvey() {
                 />
               </div>
               <div className="tc ">
-                <input type="checkbox" className="cb" />
+                <input type="checkbox" className="cb" required />
                 By ticking the box, you agree to the
                 <Link to="/home">Terms and Conditions</Link> of the Verify Quiz
                 Platform.

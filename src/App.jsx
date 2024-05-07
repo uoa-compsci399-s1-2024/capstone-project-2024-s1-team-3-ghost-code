@@ -22,7 +22,7 @@ const ProtectedRoute = ({ element, ...props }) => {
   return React.cloneElement(element, props);
 };
 
-const getClinicianToken = () => sessionStorage.getItem("clinicianToken");
+const getClinicianToken = () => sessionStorage.getItem("cliniciantoken");
 
 const ClinicianProtectedRoute = ({ element, ...props }) => {
   const cliniciantoken = getClinicianToken();
