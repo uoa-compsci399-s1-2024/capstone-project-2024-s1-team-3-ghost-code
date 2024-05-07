@@ -1,134 +1,18 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\",
+  "WorkspaceRootPath": "C:\\Users\\User\\OneDrive\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\dtos\\userlogindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:dtos\\userlogindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\dtos\\adminlogindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:dtos\\adminlogindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\controllers\\functioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:controllers\\functioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\data\\dbotterrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\user\\onedrive\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\data\\dbotterrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:data\\dbotterrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\handler\\adminhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:handler\\adminhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\user\\onedrive\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\controllers\\functioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:controllers\\functioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\data\\iotterrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:data\\iotterrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\models\\attempt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:models\\attempt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\dtos\\statrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:dtos\\statrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\dtos\\quizsubmarksdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:dtos\\quizsubmarksdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\models\\admin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:models\\admin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\data\\otterdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:data\\otterdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\dtos\\roleinputdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:dtos\\roleinputdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\models\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:models\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\dtos\\userinputdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:dtos\\userinputdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\models\\certification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:models\\certification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\dtos\\quizsubmissiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:dtos\\quizsubmissiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\models\\quiz.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:models\\quiz.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\dtos\\emailcontentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:dtos\\emailcontentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\dtos\\passwordresetdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:dtos\\passwordresetdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\dtos\\admininputdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:dtos\\admininputdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\models\\attemptquestion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:models\\attemptquestion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\dtos\\editanswerinputdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:dtos\\editanswerinputdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\dtos\\questionoutputdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:dtos\\questionoutputdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\models\\answer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:models\\answer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\models\\question.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:models\\question.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\dtos\\certificationinputdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:dtos\\certificationinputdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\dtos\\answeroutputdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:dtos\\answeroutputdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\dtos\\quizinputdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:dtos\\quizinputdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\user\\onedrive\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -138,20 +22,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "UserLoginDto.cs",
-              "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Dtos\\UserLoginDto.cs",
-              "RelativeDocumentMoniker": "Dtos\\UserLoginDto.cs",
-              "ToolTip": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Dtos\\UserLoginDto.cs",
-              "RelativeToolTip": "Dtos\\UserLoginDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-07T04:47:43.772Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
               "$type": "Bookmark",
@@ -159,378 +34,42 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "QuizSubMarksDto.cs",
-              "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Dtos\\QuizSubMarksDto.cs",
-              "RelativeDocumentMoniker": "Dtos\\QuizSubMarksDto.cs",
-              "ToolTip": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Dtos\\QuizSubMarksDto.cs",
-              "RelativeToolTip": "Dtos\\QuizSubMarksDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAmAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-30T23:23:00.75Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "AuthController.cs",
-              "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Controllers\\AuthController.cs",
-              "RelativeDocumentMoniker": "Controllers\\AuthController.cs",
-              "ToolTip": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Controllers\\AuthController.cs",
-              "RelativeToolTip": "Controllers\\AuthController.cs",
-              "ViewState": "AQIAAHkAAAAAAAAAAADwv4wAAAAdAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-29T10:27:46.605Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
               "Title": "DBOTTERRepo.cs",
-              "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Data\\DBOTTERRepo.cs",
+              "DocumentMoniker": "C:\\Users\\User\\OneDrive\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Data\\DBOTTERRepo.cs",
               "RelativeDocumentMoniker": "Data\\DBOTTERRepo.cs",
-              "ToolTip": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Data\\DBOTTERRepo.cs",
+              "ToolTip": "C:\\Users\\User\\OneDrive\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Data\\DBOTTERRepo.cs",
               "RelativeToolTip": "Data\\DBOTTERRepo.cs",
-              "ViewState": "AQIAABABAAAAAAAAAAAIwMkBAAAJAAAA",
+              "ViewState": "AQIAAHQAAAAAAAAAAAAtwA4BAABVAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-29T21:56:27.008Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "FunctionController.cs",
-              "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Controllers\\FunctionController.cs",
-              "RelativeDocumentMoniker": "Controllers\\FunctionController.cs",
-              "ToolTip": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Controllers\\FunctionController.cs",
-              "RelativeToolTip": "Controllers\\FunctionController.cs",
-              "ViewState": "AQIAAFoBAAAAAAAAAAAIwGYBAAAcAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-17T22:25:43.111Z",
+              "WhenOpened": "2024-05-07T09:35:45.448Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Admin.cs",
-              "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Models\\Admin.cs",
-              "RelativeDocumentMoniker": "Models\\Admin.cs",
-              "ToolTip": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Models\\Admin.cs",
-              "RelativeToolTip": "Models\\Admin.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAA3AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-29T10:10:58.012Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "AdminLoginDto.cs",
-              "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Dtos\\AdminLoginDto.cs",
-              "RelativeDocumentMoniker": "Dtos\\AdminLoginDto.cs",
-              "ToolTip": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Dtos\\AdminLoginDto.cs",
-              "RelativeToolTip": "Dtos\\AdminLoginDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAAAAAA",
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\OneDrive\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\User\\OneDrive\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "Controllers\\AuthController.cs",
+              "ViewState": "AQIAAHMAAAAAAAAAAAAiwLIAAABPAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-29T10:20:22.538Z",
+              "WhenOpened": "2024-05-07T06:54:34.372Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "PasswordResetDto.cs",
-              "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Dtos\\PasswordResetDto.cs",
-              "RelativeDocumentMoniker": "Dtos\\PasswordResetDto.cs",
-              "ToolTip": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Dtos\\PasswordResetDto.cs",
-              "RelativeToolTip": "Dtos\\PasswordResetDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAFAAAA",
+              "DocumentIndex": 1,
+              "Title": "FunctionController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\OneDrive\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Controllers\\FunctionController.cs",
+              "RelativeDocumentMoniker": "Controllers\\FunctionController.cs",
+              "ToolTip": "C:\\Users\\User\\OneDrive\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Controllers\\FunctionController.cs",
+              "RelativeToolTip": "Controllers\\FunctionController.cs",
+              "ViewState": "AQIAAGEBAAAAAAAAAAAswGYBAAAcAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-30T05:41:29.964Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "IOTTERRepo.cs",
-              "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Data\\IOTTERRepo.cs",
-              "RelativeDocumentMoniker": "Data\\IOTTERRepo.cs",
-              "ToolTip": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Data\\IOTTERRepo.cs",
-              "RelativeToolTip": "Data\\IOTTERRepo.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-28T22:44:36.016Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "EmailContentDto.cs",
-              "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Dtos\\EmailContentDto.cs",
-              "RelativeDocumentMoniker": "Dtos\\EmailContentDto.cs",
-              "ToolTip": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Dtos\\EmailContentDto.cs",
-              "RelativeToolTip": "Dtos\\EmailContentDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-30T06:59:59.416Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "AdminHandler.cs",
-              "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Handler\\AdminHandler.cs",
-              "RelativeDocumentMoniker": "Handler\\AdminHandler.cs",
-              "ToolTip": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Handler\\AdminHandler.cs",
-              "RelativeToolTip": "Handler\\AdminHandler.cs",
-              "ViewState": "AQIAABAAAAAAAAAAAAAgwAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-30T22:31:17.095Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "StatRequestDto.cs",
-              "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Dtos\\StatRequestDto.cs",
-              "RelativeDocumentMoniker": "Dtos\\StatRequestDto.cs",
-              "ToolTip": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Dtos\\StatRequestDto.cs",
-              "RelativeToolTip": "Dtos\\StatRequestDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAXAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-03T00:29:23.093Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "AdminInputDto.cs",
-              "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Dtos\\AdminInputDto.cs",
-              "RelativeDocumentMoniker": "Dtos\\AdminInputDto.cs",
-              "ToolTip": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Dtos\\AdminInputDto.cs",
-              "RelativeToolTip": "Dtos\\AdminInputDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-30T07:00:05.227Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "OTTERDBContext.cs",
-              "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Data\\OTTERDBContext.cs",
-              "RelativeDocumentMoniker": "Data\\OTTERDBContext.cs",
-              "ToolTip": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Data\\OTTERDBContext.cs",
-              "RelativeToolTip": "Data\\OTTERDBContext.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-30T05:21:38.373Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "QuestionOutputDto.cs",
-              "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Dtos\\QuestionOutputDto.cs",
-              "RelativeDocumentMoniker": "Dtos\\QuestionOutputDto.cs",
-              "ToolTip": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Dtos\\QuestionOutputDto.cs",
-              "RelativeToolTip": "Dtos\\QuestionOutputDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAqAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-28T23:15:45.735Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Attempt.cs",
-              "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Models\\Attempt.cs",
-              "RelativeDocumentMoniker": "Models\\Attempt.cs",
-              "ToolTip": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Models\\Attempt.cs",
-              "RelativeToolTip": "Models\\Attempt.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-28T22:49:34.657Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "UserInputDto.cs",
-              "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Dtos\\UserInputDto.cs",
-              "RelativeDocumentMoniker": "Dtos\\UserInputDto.cs",
-              "ToolTip": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Dtos\\UserInputDto.cs",
-              "RelativeToolTip": "Dtos\\UserInputDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAxwA8AAAAhAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-02T00:18:10.644Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "Role.cs",
-              "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Models\\Role.cs",
-              "RelativeDocumentMoniker": "Models\\Role.cs",
-              "ToolTip": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Models\\Role.cs",
-              "RelativeToolTip": "Models\\Role.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-02T00:26:11.341Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "RoleInputDto.cs",
-              "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Dtos\\RoleInputDto.cs",
-              "RelativeDocumentMoniker": "Dtos\\RoleInputDto.cs",
-              "ToolTip": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Dtos\\RoleInputDto.cs",
-              "RelativeToolTip": "Dtos\\RoleInputDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAsAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-02T03:16:40.093Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "Certification.cs",
-              "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Models\\Certification.cs",
-              "RelativeDocumentMoniker": "Models\\Certification.cs",
-              "ToolTip": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Models\\Certification.cs",
-              "RelativeToolTip": "Models\\Certification.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAmAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-26T04:50:25.844Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "User.cs",
-              "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Models\\User.cs",
-              "RelativeDocumentMoniker": "Models\\User.cs",
-              "ToolTip": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Models\\User.cs",
-              "RelativeToolTip": "Models\\User.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-28T08:04:37.598Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "QuizSubmissionDto.cs",
-              "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Dtos\\QuizSubmissionDto.cs",
-              "RelativeDocumentMoniker": "Dtos\\QuizSubmissionDto.cs",
-              "ToolTip": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Dtos\\QuizSubmissionDto.cs",
-              "RelativeToolTip": "Dtos\\QuizSubmissionDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-29T00:33:50.571Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "Quiz.cs",
-              "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Models\\Quiz.cs",
-              "RelativeDocumentMoniker": "Models\\Quiz.cs",
-              "ToolTip": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Models\\Quiz.cs",
-              "RelativeToolTip": "Models\\Quiz.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAoAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-26T22:16:57.173Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AQIAAEMAAAAAAAAAAAAgwCgAAAAxAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-28T08:54:11.567Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "AttemptQuestion.cs",
-              "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Models\\AttemptQuestion.cs",
-              "RelativeDocumentMoniker": "Models\\AttemptQuestion.cs",
-              "ToolTip": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Models\\AttemptQuestion.cs",
-              "RelativeToolTip": "Models\\AttemptQuestion.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAA3AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-28T22:22:48.692Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\appsettings.json",
-              "RelativeDocumentMoniker": "appsettings.json",
-              "ToolTip": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\appsettings.json",
-              "RelativeToolTip": "appsettings.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAEAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-04-29T10:52:02.217Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "EditAnswerInputDto.cs",
-              "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Dtos\\EditAnswerInputDto.cs",
-              "RelativeDocumentMoniker": "Dtos\\EditAnswerInputDto.cs",
-              "ToolTip": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Dtos\\EditAnswerInputDto.cs",
-              "RelativeToolTip": "Dtos\\EditAnswerInputDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-29T06:07:17.041Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 30,
-              "Title": "AnswerOutputDto.cs",
-              "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Dtos\\AnswerOutputDto.cs",
-              "RelativeDocumentMoniker": "Dtos\\AnswerOutputDto.cs",
-              "ToolTip": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Dtos\\AnswerOutputDto.cs",
-              "RelativeToolTip": "Dtos\\AnswerOutputDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAA2AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-28T23:13:46.56Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "Question.cs",
-              "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Models\\Question.cs",
-              "RelativeDocumentMoniker": "Models\\Question.cs",
-              "ToolTip": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Models\\Question.cs",
-              "RelativeToolTip": "Models\\Question.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAApAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-29T01:08:35.443Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "Answer.cs",
-              "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Models\\Answer.cs",
-              "RelativeDocumentMoniker": "Models\\Answer.cs",
-              "ToolTip": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Models\\Answer.cs",
-              "RelativeToolTip": "Models\\Answer.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAApAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-26T22:26:37.459Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 31,
-              "Title": "QuizInputDto.cs",
-              "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Dtos\\QuizInputDto.cs",
-              "RelativeDocumentMoniker": "Dtos\\QuizInputDto.cs",
-              "ToolTip": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Dtos\\QuizInputDto.cs",
-              "RelativeToolTip": "Dtos\\QuizInputDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-26T22:16:52.314Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
-              "Title": "CertificationInputDto.cs",
-              "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Dtos\\CertificationInputDto.cs",
-              "RelativeDocumentMoniker": "Dtos\\CertificationInputDto.cs",
-              "ToolTip": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Dtos\\CertificationInputDto.cs",
-              "RelativeToolTip": "Dtos\\CertificationInputDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAZAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-26T05:15:33.744Z"
+              "WhenOpened": "2024-04-17T22:25:43.111Z",
+              "EditorCaption": ""
             }
           ]
         }

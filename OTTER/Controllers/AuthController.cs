@@ -176,7 +176,7 @@ namespace OTTER.Controllers
             Description = "Requires clinician privileges",
             Tags = new[] { "ClinicianAuth" }
         )]
-        [SwaggerResponse(200, "Query for Clinician was successful", typeof(AdminOutputDto))]
+        [SwaggerResponse(200, "Query for Clinician was successful", typeof(User))]
         [SwaggerResponse(401, "Token is invalid")]
         [SwaggerResponse(403, "Token is not authorized to view resource")]
         [Authorize(Roles = "User")]

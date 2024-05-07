@@ -1,5 +1,6 @@
 ﻿using OTTER.Models;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography.X509Certificates;
 using OTTER.Dtos;
 using System.Security.Cryptography;
@@ -267,21 +268,21 @@ namespace OTTER.Data
 
         public IEnumerable<User> GetUsers()
         {
-            return _dbContext.Users.ToList<User>();
+            return _dbContext.Users.Include(e => e.Role).Include(e => e.Organization).ToList<User>();
         }
 
         public User GetUserByEmail(string email)
         {
-            return _dbContext.Users.FirstOrDefault(e => e.UserEmail == email);
+            return _dbContext.Users.Include(e => e.Role).Include(e => e.Organization).FirstOrDefault(e => e.UserEmail == email);
         }
 
         public User GetUserByID(int id)
         {
-            return _dbContext.Users.FirstOrDefault(e => e.UserID == id);
+            return _dbContext.Users.Include(e => e.Role).Include(e => e.Organization).FirstOrDefault(e => e.UserID == id);
         }
         public IEnumerable<User> GetUserBySearch(string search)
         {
-            return _dbContext.Users.Where(e => e.UserEmail.ToLower().Contains(search.ToLower()) || e.FirstName.ToLower().Contains(search.ToLower()) || e.LastName.ToLower().Contains(search.ToLower()) || e.Role.RoleName.ToLower().Contains(search.ToLower()) || e.Organization.OrgName.ToLower().Contains(search.ToLower()));
+            return _dbContext.Users.Include(e => e.Role).Include(e => e.Organization).Where(e => e.UserEmail.ToLower().Contains(search.ToLower()) || e.FirstName.ToLower().Contains(search.ToLower()) || e.LastName.ToLower().Contains(search.ToLower()) || e.Role.RoleName.ToLower().Contains(search.ToLower()) || e.Organization.OrgName.ToLower().Contains(search.ToLower()));
         }
 
         public User AddUser(User user)

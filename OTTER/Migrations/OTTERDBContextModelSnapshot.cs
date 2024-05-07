@@ -29,7 +29,7 @@ namespace OTTER.Migrations
 
                     b.HasIndex("AttemptsAttemptQID");
 
-                    b.ToTable("AnswerAttemptQuestion");
+                    b.ToTable("AnswerAttemptQuestion", (string)null);
                 });
 
             modelBuilder.Entity("OTTER.Models.Admin", b =>
@@ -65,7 +65,7 @@ namespace OTTER.Migrations
 
                     b.HasKey("AdminID");
 
-                    b.ToTable("Admins");
+                    b.ToTable("Admins", (string)null);
                 });
 
             modelBuilder.Entity("OTTER.Models.Answer", b =>
@@ -100,7 +100,7 @@ namespace OTTER.Migrations
 
                     b.HasIndex("QuestionID");
 
-                    b.ToTable("Answers");
+                    b.ToTable("Answers", (string)null);
                 });
 
             modelBuilder.Entity("OTTER.Models.Attempt", b =>
@@ -128,7 +128,7 @@ namespace OTTER.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("Attempts");
+                    b.ToTable("Attempts", (string)null);
                 });
 
             modelBuilder.Entity("OTTER.Models.AttemptQuestion", b =>
@@ -152,7 +152,7 @@ namespace OTTER.Migrations
 
                     b.HasIndex("QuestionID");
 
-                    b.ToTable("AttemptQuestions");
+                    b.ToTable("AttemptQuestions", (string)null);
                 });
 
             modelBuilder.Entity("OTTER.Models.Certification", b =>
@@ -178,7 +178,7 @@ namespace OTTER.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("Certifications");
+                    b.ToTable("Certifications", (string)null);
                 });
 
             modelBuilder.Entity("OTTER.Models.Module", b =>
@@ -200,7 +200,7 @@ namespace OTTER.Migrations
 
                     b.HasKey("ModuleID");
 
-                    b.ToTable("Modules");
+                    b.ToTable("Modules", (string)null);
                 });
 
             modelBuilder.Entity("OTTER.Models.Organization", b =>
@@ -215,7 +215,7 @@ namespace OTTER.Migrations
 
                     b.HasKey("OrgID");
 
-                    b.ToTable("Organizations");
+                    b.ToTable("Organizations", (string)null);
                 });
 
             modelBuilder.Entity("OTTER.Models.Question", b =>
@@ -251,7 +251,7 @@ namespace OTTER.Migrations
 
                     b.HasIndex("ModuleID");
 
-                    b.ToTable("Questions");
+                    b.ToTable("Questions", (string)null);
                 });
 
             modelBuilder.Entity("OTTER.Models.Quiz", b =>
@@ -284,7 +284,7 @@ namespace OTTER.Migrations
 
                     b.HasIndex("ModuleID");
 
-                    b.ToTable("Quizzes");
+                    b.ToTable("Quizzes", (string)null);
                 });
 
             modelBuilder.Entity("OTTER.Models.Role", b =>
@@ -299,7 +299,7 @@ namespace OTTER.Migrations
 
                     b.HasKey("RoleID");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("OTTER.Models.User", b =>
@@ -332,7 +332,7 @@ namespace OTTER.Migrations
 
                     b.HasIndex("RoleID");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("AnswerAttemptQuestion", b =>
