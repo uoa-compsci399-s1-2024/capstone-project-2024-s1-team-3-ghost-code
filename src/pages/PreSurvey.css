@@ -28,6 +28,7 @@
   transform: translate(-50%, -50%);
   text-align: center;
   color: white;
+  margin: auto;
 }
 
 /* Style the image inside the centered container, if needed */

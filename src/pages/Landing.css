@@ -35,6 +35,7 @@
 
 .welcome-page p{
     margin-bottom: 30px;
+    padding: 0 50px 0 50px
 }
 
 .start-quiz{
@@ -87,6 +88,17 @@
         background-position: 0% 0%;
     }
 }
+
+.button-next-to {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+  }
+
+  .button-next-to > * {
+    padding: 0px 10px 0px 10px; 
+  }
+  
 
 .wave {
     background: rgb(255 255 255 / 25%);

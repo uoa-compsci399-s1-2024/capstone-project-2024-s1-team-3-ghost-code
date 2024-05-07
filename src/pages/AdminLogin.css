@@ -21,20 +21,23 @@
     padding-bottom: 50px;
     padding-left: 60px;
 }
-.box{
-    display: flex;
-    flex-direction: row;
+.box {
     position: relative;
-    padding: 60px 20px 30px 20px;
+    padding: 60px 25px 30px 20px;
     height: 450px;
-    width: 515px;;
+    width: 515px;
     border-radius: 30px;
     background-color: #BDDEDE;
     -webkit-backdrop-filter: blur(15px);
     backdrop-filter: blur(15px);
     border: 3px solid rgba(255, 255, 255, 0.2);
     overflow: hidden;
-}
+  
+    /* Centering */
+    margin: auto;
+    left: 19%;
+  transform: translateX(-50%);
+  }
 .box-login{
     position: absolute;
     width: 85%;
@@ -165,8 +168,8 @@
 }
 .eye-area{
     position: absolute;
-    top: 25px;
-    right: 25px;
+    top: 20px;
+    right: 30px;
 }
 .eye-box{
     display: flex;
