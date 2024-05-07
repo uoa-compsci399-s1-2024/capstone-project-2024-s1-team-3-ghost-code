@@ -67,8 +67,7 @@ export default function AdminSetting() {
               <div className="information-text">
                 <p>
                   Once you submit this information the recipient will be
-                  notified with their login information and may change their
-                  password
+                  notified with their login information and set a password
                 </p>
               </div>
               <div className="information">
@@ -91,13 +90,6 @@ export default function AdminSetting() {
                   className="input-box-settings"
                   id="email"
                   placeholder="Email Address"
-                  required
-                ></input>
-                <input
-                  type="password"
-                  className="input-box-settings"
-                  id="password"
-                  placeholder="Password"
                   required
                 ></input>
                 <button className="btn-settings">Submit</button>
