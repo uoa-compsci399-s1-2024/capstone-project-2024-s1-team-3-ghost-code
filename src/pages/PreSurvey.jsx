@@ -102,10 +102,14 @@ function Presurvey() {
       });
 
       if (response.ok) {
-        const data = await response.json();
-      
-        // Redirect or show success message
-        navigate('/cliniciansign');  // or wherever you want to redirect
+        // Handle successful registration here, such as redirecting to a welcome page
+        navigate('/cliniciansign');
+
+      } else if (response.status === 409) {
+        // If email is already registered, alert the user and redirect
+        alert('An account with this email already exists.');
+        navigate('/cliniciansign');
+
       } else {
         throw new Error('Failed to register clinician');
       }
