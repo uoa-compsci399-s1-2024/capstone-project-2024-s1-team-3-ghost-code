@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./AClinicianSearch.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AdminDashboard from "../components/Dashboards/ADashboard";
+import AdminInfo from "../components/AdminComponent/adminInfo";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
@@ -9,7 +10,11 @@ function AClinicianSearch() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [adminName, setAdminName] = useState("");
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+  const dropdownRef = useRef(null); // Reference to the admin info box
+
   const adminToken = sessionStorage.getItem('adminToken');
+  const navigate = useNavigate();
 
 // Function to fetch search results from backend API
 useEffect(() => {
@@ -22,6 +27,11 @@ useEffect(() => {
     })
     .then(response => {
       if (!response.ok) {
+        if (response.status === 401) {
+          // Token is invalid or expired, log the admin out
+          sessionStorage.removeItem('adminToken');
+          navigate('/adminlogin'); // Redirect to admin login page
+        }
         throw new Error('Network response was not ok');
       }
       return response.json();
@@ -35,34 +45,15 @@ useEffect(() => {
   } else {
     setSearchResults([]);
   }
-}, [searchQuery, adminToken]);
+}, [searchQuery, adminToken, navigate]);
 
-  // Function to fetch admin information from backend API
-  useEffect(() => {
-    fetch('http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/auth/GetCurrentAdmin', {
-      headers: {
-        "Authorization": `Bearer ${adminToken}` // Include token in headers
-
-      }
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(data => {
-        setAdminName(data.firstName);
-    
-      })
-      .catch(error => {
-        console.error("Error fetching admin information:", error);
-      });
-  }, []);
+ 
 
   const handleSearchInputChange = (event) => {
     setSearchQuery(event.target.value);
   };
+
+
 
   return (
     <div className="flex">
@@ -70,10 +61,8 @@ useEffect(() => {
         <AdminDashboard />
       </div>
       <div className="AdminClientSearchContainer">
-        <div className="admin-info">
-          <span className="admin-name">{adminName}</span>
-          <div className="admin-icon"></div>
-        </div>
+        <AdminInfo />
+       
         <div className="AdminClientSearchInput">
           <input
             type="text"
@@ -81,7 +70,7 @@ useEffect(() => {
             onChange={handleSearchInputChange}
             placeholder="Search..."
           />
-          <FontAwesomeIcon icon={faSearch} className="search-icon" />
+           <FontAwesomeIcon icon={faSearch} className="search-icon" />
         </div>
         <div className="AdminClientSearchResults">
           {searchResults.map(result => (
@@ -97,4 +86,5 @@ useEffect(() => {
     </div>
   );
 }
+
 export default AClinicianSearch;

@@ -17,7 +17,8 @@ export function BackToHomeLink() {
 }
 
 export function ClinicianLoginForm() {
-  const [email, setemail] = useState();
+  const [email, setEmail] = useState('');
+
   const navigate = useNavigate();
 
   const handleLogin = async (event) => {
@@ -25,18 +26,18 @@ export function ClinicianLoginForm() {
 
     const requestOptions = {
       method: "POST",
-      headers: { "Content-Type": "text/plain" },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email }),
     };
     try {
       const response = await fetch(
-        "http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/auth/ClinicianLogin?email=bob@anguswright.com",
+        "http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/auth/ClinicianLogin",
         requestOptions
       );
       const text = await response.text(); // Get response as text
 
       // Example handling of the response text
-      if (!text.includes("Email is not registerd.")) {
+      if (!text.includes("Clinican email does not exist")) {
         sessionStorage.setItem("cliniciantoken", text); // Store token (or whatever the response indicates)
         navigate("/quizDashboard"); // Redirect using navigate instead of updating state
       } else {
@@ -65,7 +66,7 @@ export function ClinicianLoginForm() {
                     className="input-box"
                     value={email}
                     onChange={(e) => {
-                      setemail(e.target.value);
+                      setEmail(e.target.value);
                     }}
                     id="logEmail"
                     required

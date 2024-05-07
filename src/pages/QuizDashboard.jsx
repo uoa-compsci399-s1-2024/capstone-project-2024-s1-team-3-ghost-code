@@ -3,20 +3,45 @@ import axios from 'redaxios';
 import ClientDashboard from '../components/Dashboards/CDashboard'; // Assuming this sidebar is appropriate
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'; // Icon for module completion
+import { Link, useNavigate} from "react-router-dom";
 import "./QuizDashboard.css";
 
+
+
 function QuizDashboard() {
+    const navigate = useNavigate();
+    const clinicianToken = sessionStorage.getItem('cliniciantoken');
+
     const [modules, setModules] = useState([]);
 
     useEffect(() => {
-        axios.get('http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/GetModules')
-            .then(response => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/GetModules', {
+                    headers: {
+                        "Authorization": `Bearer ${clinicianToken}` // Include token in headers
+                    }
+                });
                 setModules(response.data);
-            })
-            .catch(error => {
-                console.error('Failed to fetch modules:', error);
-            });
-    }, []);
+            } catch (error) {
+                if (error.response) {
+                    const { status } = error.response;
+                    if (status === 401) {
+                        // Token is invalid or expired, log the user out
+                        sessionStorage.removeItem('cliniciantoken');
+                        navigate('/cliniciansign'); // Redirect to login page
+                    } else if (status === 403) {
+                        // Not authorized to access resource, redirect to appropriate dashboard
+                        navigate('/quizDashboard'); // Redirect to appropriate dashboard
+                    }
+                } else {
+                    console.error('Error fetching modules:', error);
+                }
+            }
+        };
+
+        fetchData();
+    }, [clinicianToken, navigate]);
 
     return (
         <div className="flex">

@@ -107,23 +107,4 @@ body {
     padding-left: 30px; /* Adjust padding to make space for the icon */
   }
   
-  .admin-info {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    display: flex;
-    align-items: center;
-    color: #333;
-  }
   
-  .admin-name {
-    margin-right: 10px;
-  }
-  
-  .admin-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: #ccc;
-    /* Additional styles for the circle icon */
-  }
