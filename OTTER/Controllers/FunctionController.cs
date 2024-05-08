@@ -29,6 +29,7 @@ namespace OTTER.Controllers
         )]
         [SwaggerResponse(200, "Query for Admins was successful", typeof(AdminOutputDto))]
         [SwaggerResponse(401, "Admin token is invalid")]
+        [SwaggerResponse(403, "Token is not authorized to view resource")]
         [Authorize(Roles = "Admin")]
         [HttpGet("GetAdmins")]
         public ActionResult<IEnumerable<AdminOutputDto>> GetAdmins()
@@ -47,7 +48,9 @@ namespace OTTER.Controllers
             Tags = new[] { "Admins" }
         )]
         [SwaggerResponse(200, "Query for Admin was successful", typeof(AdminOutputDto))]
-        [SwaggerResponse(401, "Admin login email or password is incorrect")]
+        [SwaggerResponse(401, "Admin token is invalid")]
+        [SwaggerResponse(403, "Token is not authorized to view resource")]
+        [SwaggerResponse(404, "No Admin with that ID found")]
         [Authorize(Roles = "Admin")]
         [HttpGet("GetAdminByID/{id}")]
         public ActionResult<AdminOutputDto> GetAdminByID(int id)
@@ -69,7 +72,8 @@ namespace OTTER.Controllers
             Tags = new[] { "Admins" }
         )]
         [SwaggerResponse(200, "Query for Admins was successful", typeof(AdminOutputDto))]
-        [SwaggerResponse(401, "Admin login email or password is incorrect")]
+        [SwaggerResponse(401, "Admin token is invalid")]
+        [SwaggerResponse(403, "Token is not authorized to view resource")]
         [Authorize(Roles = "Admin")]
         [HttpGet("SearchAdmins/{search}")]
         public ActionResult<IEnumerable<Admin>> GetAdminByEmail(string search)
@@ -88,7 +92,8 @@ namespace OTTER.Controllers
             Tags = new[] { "Admins" }
         )]
         [SwaggerResponse(201, "New admin created", typeof(AdminInputDto))]
-        [SwaggerResponse(401, "Admin login email or password is incorrect")]
+        [SwaggerResponse(401, "Admin token is invalid")]
+        [SwaggerResponse(403, "Token is not authorized to view resource")]
         [SwaggerResponse(409, "Admin with submitted email already exists")]
         [Authorize(Roles = "Admin")]
         [HttpPost("AddAdmin")]
@@ -113,7 +118,8 @@ namespace OTTER.Controllers
             Tags = new[] { "Admins" }
         )]
         [SwaggerResponse(200, "Admin deleted")]
-        [SwaggerResponse(401, "Admin login email or password is incorrect")]
+        [SwaggerResponse(401, "Admin token is invalid")]
+        [SwaggerResponse(403, "Token is not authorized to view resource")]
         [SwaggerResponse(404, "Admin with submitted ID does not exist")]
         [Authorize(Roles = "Admin")]
         [HttpDelete("DeleteAdmin/{id}")]
@@ -135,11 +141,12 @@ namespace OTTER.Controllers
             Tags = new[] { "Admins" }
         )]
         [SwaggerResponse(200, "Admin edited", typeof(AdminOutputDto))]
-        [SwaggerResponse(401, "Admin login email or password is incorrect")]
+        [SwaggerResponse(401, "Admin token is invalid")]
+        [SwaggerResponse(403, "Token is not authorized to view resource")]
         [SwaggerResponse(404, "Admin with submitted ID does not exist")]
         [Authorize(Roles = "Admin")]
         [HttpPut("EditAdmin")]
-        public ActionResult<Admin> EditAdmin(Admin updatedAdmin)
+        public ActionResult<AdminOutputDto> EditAdmin(Admin updatedAdmin)
         {
             Admin edited = _repo.EditAdmin(updatedAdmin);
             if (edited != null)
@@ -152,8 +159,13 @@ namespace OTTER.Controllers
         }
 
         [SwaggerOperation(
+            Summary = "Gets all the questions from a module",
+            Description = "Requires admin privileges",
             Tags = new[] { "AdminQuizFunctions" }
         )]
+        [SwaggerResponse(200, "List of questions by module", typeof(IEnumerable<Question>))]
+        [SwaggerResponse(401, "Admin token is invalid")]
+        [SwaggerResponse(403, "Token is not authorized to view resource")]
         [Authorize(Roles = "Admin")]
         [HttpGet("GetQuestions/{module}")]
         public ActionResult<IEnumerable<Question>> GetQuestionsByModule(int module)
@@ -162,8 +174,13 @@ namespace OTTER.Controllers
         }
 
         [SwaggerOperation(
+            Summary = "Gets all the modules",
+            Description = "Requires admin or clinician privileges",
             Tags = new[] { "ClinicianFunctions", "AdminQuizFunctions" }
         )]
+        [SwaggerResponse(200, "List of modules", typeof(IEnumerable<Module>))]
+        [SwaggerResponse(401, "Token is invalid")]
+        [SwaggerResponse(403, "Token is not authorized to view resource")]
         [Authorize(Roles = "User,Admin")]
         [HttpGet("GetModules")]
         public ActionResult<IEnumerable<Module>> GetModules()
@@ -172,9 +189,14 @@ namespace OTTER.Controllers
         }
 
         [SwaggerOperation(
+            Summary = "Gets a module by ID",
+            Description = "Requires clinician or admin privileges",
             Tags = new[] { "ClinicianFunctions" }
         )]
-        [Authorize(Roles = "User")]
+        [SwaggerResponse(200, "Returns a module")]
+        [SwaggerResponse(401, "Token is invalid")]
+        [SwaggerResponse(403, "Token is not authorized to view resource")]
+        [Authorize(Roles = "User,Admin")]
         [HttpGet("GetModuleByID/{id}")]
         public ActionResult<Module> GetModuleByID(int id)
         {
@@ -182,8 +204,13 @@ namespace OTTER.Controllers
         }
 
         [SwaggerOperation(
+            Summary = "Returns a list of clinicians",
+            Description = "Admin privileges required",
             Tags = new[] { "AdminUserFunctions" }
         )]
+        [SwaggerResponse(200, "Returns a list of users",typeof(IEnumerable<User>))]
+        [SwaggerResponse(401, "Admin token is invalid")]
+        [SwaggerResponse(403, "Token is not authorized to view resource")]
         [Authorize(Roles = "Admin")]
         [HttpGet("ClinicianSearch/{term}")]
         public ActionResult<IEnumerable<User>> SearchUsers(string term)
