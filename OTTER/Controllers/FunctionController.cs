@@ -162,9 +162,9 @@ namespace OTTER.Controllers
         }
 
         [SwaggerOperation(
-            Tags = new[] { "ClinicianFunctions" }
+            Tags = new[] { "ClinicianFunctions", "AdminQuizFunctions" }
         )]
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "User,Admin")]
         [HttpGet("GetModules")]
         public ActionResult<IEnumerable<Module>> GetModules()
         {
