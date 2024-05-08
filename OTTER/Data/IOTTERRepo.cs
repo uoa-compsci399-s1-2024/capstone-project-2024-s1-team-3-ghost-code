@@ -39,11 +39,13 @@ namespace OTTER.Data
         Certification EditCertification(Certification certification);
         IEnumerable<Organization> GetOrganizations();
         Organization GetOrganizationByID(int id);
+        Organization GetOrganizationByNameLower(string name);
         Organization AddOrganization(Organization organization);
         void DeleteOrganization(int id);
         Organization EditOrganization(Organization organization);
         IEnumerable<Role> GetRoles();
         Role GetRoleByID(int id);
+        Role GetRoleByNameLower(string name);
         Role AddRole(Role role);
         void DeleteRole(int id);
         Role EditRole(Role role);

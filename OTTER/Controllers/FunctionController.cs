@@ -416,7 +416,7 @@ namespace OTTER.Controllers
         {
             if (_repo.GetUserByID(user.UserID) != null)
             {
-                if (_repo.GetUserByEmail(user.UserEmail) == null || _repo.GetUserByEmail(user.UserEmail).UserEmail == user.UserEmail)
+                if (_repo.GetUserByEmail(user.UserEmail) == null || _repo.GetUserByEmail(user.UserEmail).UserEmail == _repo.GetUserByID(user.UserID).UserEmail)
                 {
                     User editUser = new User { FirstName = user.FirstName, LastName = user.LastName, UserEmail = user.UserEmail, Organization = _repo.GetOrganizationByID(user.OrganizationID), Role = _repo.GetRoleByID(user.RoleID) };
                     _repo.EditUser(user.UserID, editUser);
@@ -462,7 +462,7 @@ namespace OTTER.Controllers
         [HttpPost("AddOrganization")]
         public ActionResult<Organization> AddOrganization(OrgInputDto orgInput)
         {
-            if (_repo.GetOrganizations().Where(e => e.OrgName.ToLower() == orgInput.OrgName) == null)
+            if (_repo.GetOrganizationByNameLower(orgInput.OrgName) == null)
             {
                 return Ok(_repo.AddOrganization(new Organization { OrgName = orgInput.OrgName }));
             }
@@ -521,7 +521,7 @@ namespace OTTER.Controllers
         [HttpPost("AddRole")]
         public ActionResult<Role> AddRole(RoleInputDto roleInput)
         {
-            if (_repo.GetRoles().Where(e => e.RoleName.ToLower() == roleInput.RoleName) == null)
+            if (_repo.GetRoleByNameLower(roleInput.RoleName) == null)
             {
                 return Ok(_repo.AddRole(new Role{ RoleName= roleInput.RoleName}));
             }

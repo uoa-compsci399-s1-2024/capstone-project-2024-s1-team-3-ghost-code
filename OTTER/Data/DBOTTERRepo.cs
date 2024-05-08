@@ -364,6 +364,11 @@ namespace OTTER.Data
             return _dbContext.Organizations.FirstOrDefault(e => e.OrgID == id);
         }
 
+        public Organization GetOrganizationByNameLower(string name)
+        {
+            return _dbContext.Organizations.FirstOrDefault(e => e.OrgName.ToLower() == name.ToLower());
+        }
+
         public Organization AddOrganization(Organization organization)
         {
             EntityEntry<Organization> o = _dbContext.Organizations.Add(organization);
@@ -402,7 +407,12 @@ namespace OTTER.Data
         {
             return _dbContext.Roles.FirstOrDefault(e => e.RoleID == id);
         }
-        
+
+        public Role GetRoleByNameLower(string name)
+        {
+            return _dbContext.Roles.FirstOrDefault(e => e.RoleName.ToLower() == name.ToLower());
+        }
+
         public Role AddRole(Role role)
         {
             EntityEntry<Role> r = _dbContext.Roles.Add(role);
