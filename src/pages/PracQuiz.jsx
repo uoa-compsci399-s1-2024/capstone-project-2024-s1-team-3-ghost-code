@@ -21,7 +21,7 @@ const PracQuiz = () => {
         const response = await redaxios.post('http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/GetQuizQs', {
           quizID: 1, // Replace with the actual quizID
           userID: 1, // Replace with the actual userID
-          moduleID: 1 // Replace with the actual moduleID
+          moduleID: 1, // Replace with the actual moduleID
         }, {
           headers: {
             "Authorization": `Bearer ${cliniciantoken}` // Include token in headers
@@ -89,7 +89,10 @@ const PracQuiz = () => {
               </li>
             ))}
           </ul>
-          <div className="flex-right">
+          <div className="button-container">
+            {activeQuestion !== 0 && (
+              <button onClick={() => setActiveQuestion((prev) => prev - 1)}>Previous</button>
+            )}
             <button onClick={onClickNext} disabled={selectedAnswerIndex === null}>
               {activeQuestion === questions.length - 1 ? 'Finish' : 'Next'}
             </button>
