@@ -6,18 +6,10 @@ import AdminDashboard from "../components/Dashboards/ADashboard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 
-// const adminToken = sessionStorage.getItem("adminToken");
-// const requestOptions = {
-//   method: "GET",
-//   headers: {
-//     Authorization:
-//       "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3NlcmlhbG51bWJlciI6IjQiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsImV4cCI6MTcxNTIxMzI2M30.YUVgtMQlfRuY2C1FWH4TmmixPEcdSOCsoRH4CSgCnYlsUOWi4_haRmHivjftGlS3GIQrFwGvKWC0cXVC5u_43g",
-//   },
-// };
 export function QuizSearch() {}
 export function Modules() {
   const navigate = useNavigate();
-  const clinicianToken = sessionStorage.getItem("cliniciantoken");
+  const adminToken = sessionStorage.getItem("adminToken");
 
   const [modules, setModules] = useState([]);
 
@@ -28,7 +20,7 @@ export function Modules() {
           "http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/GetModules",
           {
             headers: {
-              Authorization: `Bearer ${clinicianToken}`, // Include token in headers
+              Authorization: `Bearer ${adminToken}`, // Include token in headers
             },
           }
         );
@@ -38,11 +30,11 @@ export function Modules() {
           const { status } = error.response;
           if (status === 401) {
             // Token is invalid or expired, log the user out
-            sessionStorage.removeItem("cliniciantoken");
-            navigate("/cliniciansign"); // Redirect to login page
+            sessionStorage.removeItem("adminLogin");
+            navigate("/adminlogin"); // Redirect to login page
           } else if (status === 403) {
             // Not authorized to access resource, redirect to appropriate dashboard
-            navigate("/quizDashboard"); // Redirect to appropriate dashboard
+            navigate("/adminlogin"); // Redirect to appropriate dashboard
           }
         } else {
           console.error("Error fetching modules:", error);
@@ -51,7 +43,9 @@ export function Modules() {
     };
 
     fetchData();
-  }, [clinicianToken, navigate]);
+  }, [adminToken, navigate]);
+
+  //search query for searching for modules!
 
   return (
     <div className="flex">

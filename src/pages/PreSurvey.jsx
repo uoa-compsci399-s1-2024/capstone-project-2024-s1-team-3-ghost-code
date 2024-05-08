@@ -3,8 +3,41 @@ import "./AdminLogin.css";
 import React, { useState, useEffect, useContext, useLocation } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
-
+function TermsandConditions() {
+  return (
+    <>
+      <section id="terms-popup">
+        <h2 className="terms-heading">Privacy Disclosure</h2>
+        <div className="terms-container">
+          <div className="terms">
+            <p>
+              By providing your email address, you expressly consent to the
+              collection and use of your personal information by [Your App
+              Name]. This may include disclosing your full name, organization
+              details, and quiz progress to other users who hold just your email
+              address within the [Your App Name] platform. We prioritize the
+              protection and privacy of your data and will only disclose it for
+              legitimate purposes consistent with our Privacy Policy. You have
+              the right to withdraw your consent or update your preferences at
+              any time. For more information, please review our Privacy Policy.
+            </p>
+          </div>
+          <div className="btn-terms-container">
+            <button className="btn-terms-accept">I agree!</button>
+            <div className="btn-terms-message">
+              Please read before agreeing.
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
 function Presurvey() {
+  function myFunction() {
+    var popup = document.getElementById("terms-popup");
+    popup.classList.toggle("show");
+  }
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -144,114 +177,120 @@ function Presurvey() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="split-survey left-survey">
-        <div className="centered-survey">
-          <p>Please fill out the pre-training survey before continuing.</p>
-          <p>If you've already filled in the pre-training quiz click here.</p>
-          <p>
-            By filling out this survey you will be able to come back to the quiz
-            at any time to continue where you left off.
-          </p>
+    <>
+      <TermsandConditions />
+      <form onSubmit={handleSubmit}>
+        <div className="split-survey left-survey">
+          <div className="centered-survey">
+            <p>Please fill out the pre-training survey before continuing.</p>
+            <p>If you've already filled in the pre-training quiz click here.</p>
+            <p>
+              By filling out this survey you will be able to come back to the
+              quiz at any time to continue where you left off.
+            </p>
+          </div>
         </div>
-      </div>
 
-      <div className="container-survey split-survey right-survey">
-        <div className="box-survey">
-          <div className="box-survey-details" id="register-form">
-            <div className="top-header">
-              <h3>Pre-Training Survey</h3>
-              <div className="divider"></div>
-            </div>
-            <div className="input-group">
-              <div className="input-field next-to">
-                <input
-                  type="text"
-                  className="input-box"
-                  id="survey-lastName"
-                  placeholder="Last Name"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  required
-                />
+        <div className="container-survey split-survey right-survey">
+          <div className="box-survey">
+            <div className="box-survey-details" id="register-form">
+              <div className="top-header">
+                <h3>Pre-Training Survey</h3>
+                <div className="divider"></div>
               </div>
-              <div className="input-field next-to">
-                <input
-                  type="text"
-                  className="input-box"
-                  id="survey-firstName"
-                  placeholder="First Name"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="input-field">
-                <input
-                  type="text"
-                  className="input-box"
-                  id="survey-email"
-                  placeholder="Email Address"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="input-field">
-                <select
-                  className="input-box"
-                  value={position}
-                  onChange={(e) => setPosition(e.target.value)}
-                  required
-                >
-                  {positions.map((pos) => (
-                    <option key={pos} value={pos}>
-                      {pos}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              <div className="input-group">
+                <div className="input-field next-to">
+                  <input
+                    type="text"
+                    className="input-box"
+                    id="survey-lastName"
+                    // placeholder="Last Name"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    required
+                  />
+                  <label htmlFor="logEmail">Last Name</label>
+                </div>
+                <div className="input-field next-to">
+                  <input
+                    type="text"
+                    className="input-box"
+                    id="survey-firstName"
+                    // placeholder="First Name"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    required
+                  />
+                  <label htmlFor="logEmail">First Name</label>
+                </div>
+                <div className="input-field">
+                  <input
+                    type="text"
+                    className="input-box"
+                    id="survey-email"
+                    // placeholder="Email Address"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                  <label htmlFor="logEmail">Email Address</label>
+                </div>
+                <div className="input-field">
+                  <select
+                    className="input-box"
+                    value={position}
+                    onChange={(e) => setPosition(e.target.value)}
+                    required
+                  >
+                    {positions.map((pos) => (
+                      <option key={pos} value={pos}>
+                        {pos}
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
-              <div className="input-field">
-                <select
-                  className="input-box"
-                  value={organisation}
-                  onChange={(e) => setOrganisation(e.target.value)}
-                  required
-                >
-                  {organisations.map((org) => (
-                    <option key={org} value={org}>
-                      {org}
-                    </option>
-                  ))}
-                </select>
-              </div>
+                <div className="input-field">
+                  <select
+                    className="input-box"
+                    value={organisation}
+                    onChange={(e) => setOrganisation(e.target.value)}
+                    required
+                  >
+                    {organisations.map((org) => (
+                      <option key={org} value={org}>
+                        {org}
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
-              <div className="input-field">
-                <input
-                  type="submit"
-                  className="input-submit"
-                  value="Submit"
-                  required
-                />
-              </div>
-              <div className="tc ">
-                <input type="checkbox" className="cb" required />
-                By ticking the box, you agree to the
-                <Link to="/home">Terms and Conditions</Link> of the Verify Quiz
-                Platform.
-              </div>
+                <div className="input-field">
+                  <input
+                    type="submit"
+                    className="input-submit"
+                    value="Submit"
+                    required
+                  />
+                </div>
+                <div className="tc ">
+                  <input type="checkbox" className="cb" required />
+                  By ticking the box, you agree to the&nbsp;
+                  <Link onclick="popupFunction()">Privacy Disclosure</Link> of
+                  the Verify Quiz Platform.
+                </div>
 
-              <div className="forgot">
-                <Link to="/cliniciansign">
-                  Already did the survey? continue here
-                </Link>
+                <div className="forgot">
+                  <Link to="/cliniciansign">
+                    Already did the survey? continue here
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </>
   );
 }
 
