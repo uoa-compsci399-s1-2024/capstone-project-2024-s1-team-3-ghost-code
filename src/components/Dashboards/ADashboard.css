@@ -1,0 +1,62 @@
+.Admindashboard-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20%; /* Adjust the width of the dashboard sidebar */
+  height: 100vh; /* Make it full height */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 10px;
+  background-color: #008080;
+  color: white;
+  text-align: center;
+  border-top-right-radius: 50px; /* Adjust the value as needed for the curve */
+  border-bottom-right-radius: 0; /* Make the bottom-right corner straight */
+    
+  }
+  
+  .Adminlogo-container {
+    overflow: hidden;
+    margin-bottom: 150px;
+    border-top-left-radius: 20px; /* Adjust the border radius for the curved sides */
+    border-top-right-radius: 20px; /* Adjust the border radius for the curved sides */
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+  
+  }
+  
+  .Adminlogo {
+    width: 100%;
+    object-fit: contain;
+  }
+
+
+  img.Adminlogo {
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+  }
+  
+  .Adminbutton {
+    display: flex;
+    justify-content: center;
+    width: 285px;
+    padding: 15px;
+    margin-top: 50px;
+   
+    background-color: #008080;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    color: white;
+    font-size: 1.6rem;
+  }
+  
+  .Adminbutton:hover {
+    background-color: #006666;
+  }
+  
