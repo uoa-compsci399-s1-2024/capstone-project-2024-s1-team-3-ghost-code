@@ -416,7 +416,7 @@ namespace OTTER.Controllers
         {
             if (_repo.GetUserByID(user.UserID) != null)
             {
-                if (_repo.GetUserByEmail(user.UserEmail) == null)
+                if (_repo.GetUserByEmail(user.UserEmail) == null || _repo.GetUserByEmail(user.UserEmail).UserEmail == user.UserEmail)
                 {
                     User editUser = new User { FirstName = user.FirstName, LastName = user.LastName, UserEmail = user.UserEmail, Organization = _repo.GetOrganizationByID(user.OrganizationID), Role = _repo.GetRoleByID(user.RoleID) };
                     _repo.EditUser(user.UserID, editUser);

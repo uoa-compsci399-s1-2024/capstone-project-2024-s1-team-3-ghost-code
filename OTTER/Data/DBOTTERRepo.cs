@@ -65,12 +65,13 @@ namespace OTTER.Data
 
         public IEnumerable<QuestionOutputDto> GetQuizQs(QuizInputDto quizInput)
         {
-            Attempt attempt = AddAttempt(new Attempt { Quiz = GetQuizByID(quizInput.QuizID), User = GetUserByID(quizInput.UserID), DateTime = DateTime.UtcNow, Completed = "INCOMPLETE" });
+            Quiz quiz = GetQuizByID(quizInput.QuizID);
+            Attempt attempt = AddAttempt(new Attempt { Quiz = quiz, User = GetUserByID(quizInput.UserID), DateTime = DateTime.UtcNow, Completed = "INCOMPLETE" });
             Random random = new Random();
             IEnumerable<Question> validMod = GetQuestionsByModule(quizInput.ModuleID);
-            IEnumerable<Question> validStage = validMod.Where(e => e.Stage == quizInput.Stage && e.Deleted == false);
+            IEnumerable<Question> validStage = validMod.Where(e => e.Stage == quiz.Stage && e.Deleted == false);
             List<QuestionOutputDto> output = new List<QuestionOutputDto>();
-            for (int i = 0; i < quizInput.Length; i++)
+            for (int i = 0; i < quiz.Length; i++)
             {
                 int randnum = random.Next(0,validStage.Count());
                 Question randq = validStage.ElementAt(randnum);
