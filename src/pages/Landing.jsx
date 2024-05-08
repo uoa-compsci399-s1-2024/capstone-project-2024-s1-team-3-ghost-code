@@ -24,11 +24,17 @@ function Landing() {
         <p>
           Here you will find the module quizzes to give you a step forward in
           being certified to use TMS in your workplace, click the button below
-          to begin the quiz.
+          to begin the quiz. If you have already started click the Continue
+          button.
         </p>
-        <Link to="/presurvey">
-          <button className="start-quiz">Start The Quiz</button>
-        </Link>
+        <div className="button-next-to">
+          <Link to="/presurvey">
+            <button className="start-quiz">Start The Quiz</button>
+          </Link>
+          <Link to="/cliniciansign">
+            <button className="start-quiz">Continue</button>
+          </Link>
+        </div>
       </div>
     </>
   );
