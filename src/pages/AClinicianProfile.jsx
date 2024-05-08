@@ -93,15 +93,16 @@ function AClinicianProfile() {
         const response = await fetch('http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/EditClinician', requestOptions);
         if (response.ok) {
             alert('Clinician updated successfully!');
+        } else if (response.status === 409) {
+            throw new Error('A user with this email already exists.');
         } else {
             throw new Error('Failed to update clinician');
         }
     } catch (error) {
         console.error('Error updating clinician:', error);
-        alert('Error updating the clinician. Please try again.');
+        alert(error.message);
     }
 };
-
 
     return (
         <div className="flex">
