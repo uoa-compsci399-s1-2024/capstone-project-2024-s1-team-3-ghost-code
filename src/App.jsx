@@ -9,6 +9,8 @@ import QuizDashboard from "./pages/QuizDashboard";
 import AClinicianProfile from "./pages/AClinicianProfile";
 import AdminSetting from "./pages/AdminSettings";
 
+import PracQuiz from "./pages/PracQuiz";
+
 const getAdminToken = () => sessionStorage.getItem("adminToken");
 
 // ProtectedRoute component to protect admin-only routes

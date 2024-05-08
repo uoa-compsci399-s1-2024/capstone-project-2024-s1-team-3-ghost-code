@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './PracQuiz.css';
+import redaxios from 'redaxios';
 
 const PracQuiz = () => {
   const [questions, setQuestions] = useState([]);
@@ -7,6 +8,7 @@ const PracQuiz = () => {
   const [selectedAnswer, setSelectedAnswer] = useState('');
   const [showResult, setShowResult] = useState(false);
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
+  const cliniciantoken = sessionStorage.getItem('cliniciantoken');
   const [result, setResult] = useState({
     score: 0,
     correctAnswers: 0,
@@ -16,11 +18,19 @@ const PracQuiz = () => {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await fetch('http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/GetQuizQs');
+        const response = await redaxios.post('http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/GetQuizQs', {
+          quizID: 1, // Replace with the actual quizID
+          userID: 1, // Replace with the actual userID
+          moduleID: 1 // Replace with the actual moduleID
+        }, {
+          headers: {
+            "Authorization": `Bearer ${cliniciantoken}` // Include token in headers
+          }
+        });
         if (!response.ok) {
           throw new Error('Failed to fetch questions');
         }
-        const data = await response.json();
+        const data = response.data; // Assuming response is in the format { data: [...] }
         setQuestions(data);
       } catch (error) {
         console.error('Error fetching questions:', error);
@@ -57,7 +67,7 @@ const PracQuiz = () => {
   if (questions.length === 0) {
     return <div>Loading...</div>;
   }
-
+ 
   const { title, answers } = questions[activeQuestion];
 
   return (
