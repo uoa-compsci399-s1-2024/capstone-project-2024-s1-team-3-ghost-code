@@ -353,7 +353,10 @@ namespace OTTER.Data
 
         public IEnumerable<Organization> GetOrganizations()
         {
-            return _dbContext.Organizations.ToList<Organization>();
+            Organization other = _dbContext.Organizations.First(r => r.OrgName == "Other");
+            IEnumerable<Organization> list = _dbContext.Organizations.Where(r => r.OrgName != "Other").OrderBy(o => o.OrgName).ToList<Organization>();
+            list = list.Append(other);
+            return list;
         }
 
         public Organization GetOrganizationByID(int id)
