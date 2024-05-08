@@ -14,7 +14,10 @@ function AdminDashboard() {
         />
       </div>
       <button className="Adminbutton">Dashboard</button>
-      <button className="Adminbutton">Edit Quiz</button>
+      <Link to="/createquiz">
+        <button className="Adminbutton">Edit Quiz</button>
+      </Link>
+
       <button className="Adminbutton">Clinicians</button>
       <button className="Adminbutton">Statistics</button>
       <br></br>
