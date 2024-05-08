@@ -302,16 +302,18 @@ namespace OTTER.Data
             }
         }
 
-        public User EditUser(User user)
+        public User EditUser(int id, User user)
         {
-            User u = _dbContext.Users.FirstOrDefault(e => e.UserEmail == user.UserEmail);
+            User u = _dbContext.Users.FirstOrDefault(e => e.UserID == id);
             if (u != null)
             {
                 u.FirstName = user.FirstName;
                 u.LastName = user.LastName;
+                u.UserEmail = user.UserEmail;
                 u.Organization = user.Organization;
+                u.Role = user.Role;
                 _dbContext.SaveChanges();
-                u = _dbContext.Users.FirstOrDefault(e => e.UserEmail == user.UserEmail);
+                u = _dbContext.Users.FirstOrDefault(e => e.UserID == id);
             }
             return u;
         }

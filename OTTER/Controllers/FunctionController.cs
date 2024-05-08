@@ -409,14 +409,23 @@ namespace OTTER.Controllers
         )]
         [SwaggerResponse(200, "Clinician updated", typeof(User))]
         [SwaggerResponse(404, "Clinician with submitted ID could not be found")]
+        [SwaggerResponse(409, "Conflict")]
         [Authorize(Roles = "Admin")]
         [HttpPut("EditClinician")]
-        public ActionResult<User> EditClinician(User user)
+        public ActionResult<User> EditClinician(UserEditDto user)
         {
             if (_repo.GetUserByID(user.UserID) != null)
             {
-                _repo.EditUser(user);
-                return Ok("Clinician updated");
+                if (_repo.GetUserByEmail(user.UserEmail) == null)
+                {
+                    User editUser = new User { FirstName = user.FirstName, LastName = user.LastName, UserEmail = user.UserEmail, Organization = _repo.GetOrganizationByID(user.OrganizationID), Role = _repo.GetRoleByID(user.RoleID) };
+                    _repo.EditUser(user.UserID, editUser);
+                    return Ok(_repo.GetUserByID(user.UserID));
+                }
+                else
+                {
+                    return Conflict("Clinician with email " + user.UserEmail + " already exists.");
+                }
             }
             else
             {
