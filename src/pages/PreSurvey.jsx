@@ -178,7 +178,7 @@ function Presurvey() {
 
   return (
     <>
-      <TermsandConditions />
+      {/* <TermsandConditions /> */}
       <form onSubmit={handleSubmit}>
         <div className="split-survey left-survey">
           <div className="centered-survey">
