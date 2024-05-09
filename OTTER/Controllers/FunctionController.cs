@@ -28,7 +28,7 @@ namespace OTTER.Controllers
             Tags = new[] { "Admins" }
         )]
         [SwaggerResponse(200, "Query for Admins was successful", typeof(AdminOutputDto))]
-        [SwaggerResponse(401, "Admin token is invalid")]
+        [SwaggerResponse(401, "Token is invalid")]
         [SwaggerResponse(403, "Token is not authorized to view resource")]
         [Authorize(Roles = "Admin")]
         [HttpGet("GetAdmins")]
@@ -48,7 +48,7 @@ namespace OTTER.Controllers
             Tags = new[] { "Admins" }
         )]
         [SwaggerResponse(200, "Query for Admin was successful", typeof(AdminOutputDto))]
-        [SwaggerResponse(401, "Admin token is invalid")]
+        [SwaggerResponse(401, "Token is invalid")]
         [SwaggerResponse(403, "Token is not authorized to view resource")]
         [SwaggerResponse(404, "No Admin with that ID found")]
         [Authorize(Roles = "Admin")]
@@ -72,7 +72,7 @@ namespace OTTER.Controllers
             Tags = new[] { "Admins" }
         )]
         [SwaggerResponse(200, "Query for Admins was successful", typeof(AdminOutputDto))]
-        [SwaggerResponse(401, "Admin token is invalid")]
+        [SwaggerResponse(401, "Token is invalid")]
         [SwaggerResponse(403, "Token is not authorized to view resource")]
         [Authorize(Roles = "Admin")]
         [HttpGet("SearchAdmins/{search}")]
@@ -92,7 +92,7 @@ namespace OTTER.Controllers
             Tags = new[] { "Admins" }
         )]
         [SwaggerResponse(201, "New admin created", typeof(AdminInputDto))]
-        [SwaggerResponse(401, "Admin token is invalid")]
+        [SwaggerResponse(401, "Token is invalid")]
         [SwaggerResponse(403, "Token is not authorized to view resource")]
         [SwaggerResponse(409, "Admin with submitted email already exists")]
         [Authorize(Roles = "Admin")]
@@ -118,7 +118,7 @@ namespace OTTER.Controllers
             Tags = new[] { "Admins" }
         )]
         [SwaggerResponse(200, "Admin deleted")]
-        [SwaggerResponse(401, "Admin token is invalid")]
+        [SwaggerResponse(401, "Token is invalid")]
         [SwaggerResponse(403, "Token is not authorized to view resource")]
         [SwaggerResponse(404, "Admin with submitted ID does not exist")]
         [Authorize(Roles = "Admin")]
@@ -141,7 +141,7 @@ namespace OTTER.Controllers
             Tags = new[] { "Admins" }
         )]
         [SwaggerResponse(200, "Admin edited", typeof(AdminOutputDto))]
-        [SwaggerResponse(401, "Admin token is invalid")]
+        [SwaggerResponse(401, "Token is invalid")]
         [SwaggerResponse(403, "Token is not authorized to view resource")]
         [SwaggerResponse(404, "Admin with submitted ID does not exist")]
         [Authorize(Roles = "Admin")]
@@ -164,7 +164,7 @@ namespace OTTER.Controllers
             Tags = new[] { "AdminQuizFunctions" }
         )]
         [SwaggerResponse(200, "List of questions by module", typeof(IEnumerable<Question>))]
-        [SwaggerResponse(401, "Admin token is invalid")]
+        [SwaggerResponse(401, "Token is invalid")]
         [SwaggerResponse(403, "Token is not authorized to view resource")]
         [Authorize(Roles = "Admin")]
         [HttpGet("GetQuestions/{module}")]
@@ -209,7 +209,7 @@ namespace OTTER.Controllers
             Tags = new[] { "AdminUserFunctions" }
         )]
         [SwaggerResponse(200, "Returns a list of users",typeof(IEnumerable<User>))]
-        [SwaggerResponse(401, "Admin token is invalid")]
+        [SwaggerResponse(401, "Token is invalid")]
         [SwaggerResponse(403, "Token is not authorized to view resource")]
         [Authorize(Roles = "Admin")]
         [HttpGet("ClinicianSearch/{term}")]
@@ -219,11 +219,16 @@ namespace OTTER.Controllers
         }
 
         [SwaggerOperation(
+            Summary = "Adds a new question to the question bank",
+            Description = "Admin privileges required",
             Tags = new[] { "AdminQuizFunctions" }
         )]
+        [SwaggerResponse(200, "Successfully added question", typeof(Question))]
+        [SwaggerResponse(401, "Token is invalid")]
+        [SwaggerResponse(403, "Token is not authorized to view resource")]
         [Authorize(Roles = "Admin")]
         [HttpPost("AddQuestion")]
-        public ActionResult<User> CreateQuestion(QuestionInputDto newQuestion)
+        public ActionResult<Question> CreateQuestion(QuestionInputDto newQuestion)
         {
             Question q = new Question { Module = _repo.GetModuleByID(newQuestion.ModID), Title = newQuestion.Title, Description = newQuestion.Description, ImageURL = newQuestion.ImageURL, QuestionType = newQuestion.QuestionType, Stage = newQuestion.Stage, Deleted = false};
             _repo.AddQuestion(q);
@@ -236,8 +241,14 @@ namespace OTTER.Controllers
         }
 
         [SwaggerOperation(
+            Summary = "Deletes a question from the question bank",
+            Description = "Admin privileges required",
             Tags = new[] { "AdminQuizFunctions" }
         )]
+        [SwaggerResponse(200, "Successfully deleted question")]
+        [SwaggerResponse(401, "Token is invalid")]
+        [SwaggerResponse(403, "Token is not authorized to view resource")]
+        [SwaggerResponse(404, "A question with submitted ID could not be found")]
         [Authorize(Roles = "Admin")]
         [HttpDelete("DeleteQuestion/{id}")]
         public ActionResult DeleteQuestion(int id)
@@ -254,8 +265,14 @@ namespace OTTER.Controllers
         }
 
         [SwaggerOperation(
+            Summary = "Edits a question",
+            Description = "Admin privileges required",
             Tags = new[] { "AdminQuizFunctions" }
         )]
+        [SwaggerResponse(200, "Successfully edited question", typeof(Question))]
+        [SwaggerResponse(401, "Token is invalid")]
+        [SwaggerResponse(403, "Token is not authorized to view resource")]
+        [SwaggerResponse(404, "A question with submitted ID could not be found")]
         [Authorize(Roles = "Admin")]
         [HttpPut("EditQuestion")]
         public ActionResult<Question> EditQuestion(EditQuestionInputDto updatedQuestion)
@@ -284,8 +301,14 @@ namespace OTTER.Controllers
         }*/
 
         [SwaggerOperation(
+            Summary = "Gets the certification status of a clinician",
+            Description = "Admin privileges required",
             Tags = new[] { "AdminUserFunctions" }
         )]
+        [SwaggerResponse(200, "Successfully retrieved clinician certification", typeof(Certification))]
+        [SwaggerResponse(401, "Token is invalid")]
+        [SwaggerResponse(403, "Token is not authorized to view resource")]
+        [SwaggerResponse(404, "A user with submitted ID could not be found")]
         [Authorize(Roles = "Admin")]
         [HttpGet("GetClinicianCertificationStatus/{id}")]
         public ActionResult<Certification> GetClinicianCertificationStatus(int id)
@@ -301,8 +324,14 @@ namespace OTTER.Controllers
         }
 
         [SwaggerOperation(
+            Summary = "Sets the certification status of a clinician",
+            Description = "Admin privileges required",
             Tags = new[] { "AdminUserFunctions" }
         )]
+        [SwaggerResponse(200, "Successfully set certification status", typeof(Certification))]
+        [SwaggerResponse(401, "Token is invalid")]
+        [SwaggerResponse(403, "Token is not authorized to view resource")]
+        [SwaggerResponse(404, "A user with submitted ID could not be found")]
         [Authorize(Roles = "Admin")]
         [HttpPost("SetClinicianCertificationStatus")]
         public ActionResult<Certification> SetClinicianCertificationStatus(CertificationInputDto newCert)
@@ -321,8 +350,13 @@ namespace OTTER.Controllers
         }
 
         [SwaggerOperation(
+            Summary = "Gets all the quizzes of a module",
+            Description = "Clinician privileges required",
             Tags = new[] { "ClinicianFunctions" }
         )]
+        [SwaggerResponse(200, "Successfully retrieved quizzes", typeof(IEnumerable<Quiz>))]
+        [SwaggerResponse(401, "User token is invalid")]
+        [SwaggerResponse(403, "Token is not authorized to view resource")]
         [Authorize(Roles = "User")]
         [HttpGet("GetQuizzesByModID/{id}")]
         public ActionResult<IEnumerable<Quiz>> GetQuizzesByID(int id)
@@ -331,8 +365,13 @@ namespace OTTER.Controllers
         }
 
         [SwaggerOperation(
+            Summary = "Gets a specific quiz by its ID",
+            Description = "Clinician privileges required",
             Tags = new[] { "ClinicianFunctions" }
         )]
+        [SwaggerResponse(200, "Successfully retrieved quiz", typeof(Quiz))]
+        [SwaggerResponse(401, "Token is invalid")]
+        [SwaggerResponse(403, "Token is not authorized to view resource")]
         [Authorize(Roles = "User")]
         [HttpGet("GetQuizByID/{id}")]
         public ActionResult<Quiz> GetQuizByID(int id)
@@ -341,8 +380,13 @@ namespace OTTER.Controllers
         }
 
         [SwaggerOperation(
+            Summary = "Gets the set of randomly selected questions for a quiz",
+            Description = "Clinician privileges required",
             Tags = new[] { "ClinicianFunctions" }
         )]
+        [SwaggerResponse(200, "Successfully retrieved questions", typeof(IEnumerable<QuestionOutputDto>))]
+        [SwaggerResponse(401, "Token is invalid")]
+        [SwaggerResponse(403, "Token is not authorized to view resource")]
         [Authorize(Roles = "User")]
         [HttpPost("GetQuizQs")]
         public ActionResult<IEnumerable<QuestionOutputDto>> GetQuizQs(QuizInputDto quizInput)
@@ -351,8 +395,13 @@ namespace OTTER.Controllers
         }
 
         [SwaggerOperation(
+            Summary = "Submits the selected answers and marks the quiz, returns the result and sends appropriate email",
+            Description = "Clinician privileges required",
             Tags = new[] { "ClinicianFunctions" }
         )]
+        [SwaggerResponse(200, "Successfully marked quiz", typeof(QuizSubMarksDto))]
+        [SwaggerResponse(401, "Token is invalid")]
+        [SwaggerResponse(403, "Token is not authorized to view resource")]
         [Authorize(Roles = "User")]
         [HttpPost("QuizSubmission")]
         public ActionResult<QuizSubMarksDto> SubmitQuiz(QuizSubmissionDto submission)
@@ -361,6 +410,7 @@ namespace OTTER.Controllers
         }
 
         [SwaggerOperation(
+            Summary = "Returns the list of current organizations",
             Tags = new[] { "ClinicianFunctions" }
         )]
         [SwaggerResponse(200, "Organizations retrieved", typeof(IEnumerable<Organization>))]
@@ -371,6 +421,7 @@ namespace OTTER.Controllers
         }
 
         [SwaggerOperation(
+            Summary = "Returns the list of current roles",
             Tags = new[] { "ClinicianFunctions" }
         )]
         [SwaggerResponse(200, "Roles retrieved", typeof(IEnumerable<Role>))]
@@ -381,6 +432,7 @@ namespace OTTER.Controllers
         }
 
         [SwaggerOperation(
+            Summary = "Creates a new clinician profile",
             Tags = new[] { "ClinicianFunctions" }
         )]
         [SwaggerResponse(200, "New clinician created", typeof(User))]
@@ -405,9 +457,13 @@ namespace OTTER.Controllers
         }
 
         [SwaggerOperation(
+            Summary = "Edits a clinicians details",
+            Description = "Admin privileges required",
             Tags = new[] { "AdminUserFunctions" }
         )]
         [SwaggerResponse(200, "Clinician updated", typeof(User))]
+        [SwaggerResponse(401, "Token is invalid")]
+        [SwaggerResponse(403, "Token is not authorized to view resource")]
         [SwaggerResponse(404, "Clinician with submitted ID could not be found")]
         [SwaggerResponse(409, "Conflict")]
         [Authorize(Roles = "Admin")]
@@ -434,9 +490,13 @@ namespace OTTER.Controllers
         }
 
         [SwaggerOperation(
+            Summary = "Deletes a clinicians profile",
+            Description = "Admin privileges required",
             Tags = new[] { "AdminUserFunctions" }
         )]
         [SwaggerResponse(200, "Clinician deleted")]
+        [SwaggerResponse(401, "Token is invalid")]
+        [SwaggerResponse(403, "Token is not authorized to view resource")]
         [SwaggerResponse(404, "Clinician with submitted ID could not be found")]
         [Authorize(Roles = "Admin")]
         [HttpDelete("DeleteClinician/{email}")]
@@ -454,9 +514,13 @@ namespace OTTER.Controllers
         }
 
         [SwaggerOperation(
+            Summary = "Adds an organization to the current list of organizations",
+            Description = "Admin privileges required",
             Tags = new[] { "AdminUserFunctions" }
         )]
-        [SwaggerResponse(200, "Organization added")]
+        [SwaggerResponse(200, "Organization added",typeof(Organization))]
+        [SwaggerResponse(401, "Token is invalid")]
+        [SwaggerResponse(403, "Token is not authorized to view resource")]
         [SwaggerResponse(409, "Organization with submitted name already exists")]
         [Authorize(Roles = "Admin")]
         [HttpPost("AddOrganization")]
@@ -473,9 +537,13 @@ namespace OTTER.Controllers
         }
 
         [SwaggerOperation(
+            Summary = "Edits the name of an organization",
+            Description = "Admin privileges required",
             Tags = new[] { "AdminUserFunctions" }
         )]
         [SwaggerResponse(200, "Organization updated")]
+        [SwaggerResponse(401, "Token is invalid")]
+        [SwaggerResponse(403, "Token is not authorized to view resource")]
         [SwaggerResponse(404, "Organization with submitted ID not found")]
         [Authorize(Roles = "Admin")]
         [HttpPut("EditOrganization")]
@@ -493,9 +561,13 @@ namespace OTTER.Controllers
         }
 
         [SwaggerOperation(
+            Summary = "Deletes an organization from the current list of organizations",
+            Description = "Admin privileges required",
             Tags = new[] { "AdminUserFunctions" }
         )]
         [SwaggerResponse(200, "Organization deleted")]
+        [SwaggerResponse(401, "Token is invalid")]
+        [SwaggerResponse(403, "Token is not authorized to view resource")]
         [SwaggerResponse(404, "Organization with submitted ID not found")]
         [Authorize(Roles = "Admin")]
         [HttpDelete("DeleteOrganization/{orgID}")]
@@ -513,9 +585,13 @@ namespace OTTER.Controllers
         }
        
         [SwaggerOperation(
+            Summary = "Adds a role to the current lsit of roles",
+            Description = "Admin privileges required",
             Tags = new[] { "AdminUserFunctions" }
         )]
-        [SwaggerResponse(200, "Role added")]
+        [SwaggerResponse(200, "Role added", typeof(Role))]
+        [SwaggerResponse(401, "Token is invalid")]
+        [SwaggerResponse(403, "Token is not authorized to view resource")]
         [SwaggerResponse(409, "Role with submitted name already exists")]
         [Authorize(Roles = "Admin")]
         [HttpPost("AddRole")]
@@ -532,9 +608,13 @@ namespace OTTER.Controllers
         }
 
         [SwaggerOperation(
+            Summary = "Edits the name of a role",
+            Description = "Admin privileges required",
             Tags = new[] { "AdminUserFunctions" }
         )]
         [SwaggerResponse(200, "Role updated")]
+        [SwaggerResponse(401, "Token is invalid")]
+        [SwaggerResponse(403, "Token is not authorized to view resource")]
         [SwaggerResponse(404, "Role with submitted ID not found")]
         [Authorize(Roles = "Admin")]
         [HttpPut("EditRole")]
@@ -552,9 +632,13 @@ namespace OTTER.Controllers
         }
 
         [SwaggerOperation(
+            Summary = "Deletes a role from the current list of roles",
+            Description = "Admin privileges required",
             Tags = new[] { "AdminUserFunctions" }
         )]
         [SwaggerResponse(200, "Role deleted")]
+        [SwaggerResponse(401, "Token is invalid")]
+        [SwaggerResponse(403, "Token is not authorized to view resource")]
         [SwaggerResponse(404, "Role with submitted ID not found")]
         [Authorize(Roles = "Admin")]
         [HttpDelete("DeleteRole/{orgID}")]
@@ -572,11 +656,13 @@ namespace OTTER.Controllers
         }
 
         [SwaggerOperation(
+            Summary = "Gets ALL the attempts between certain dates AND with a given UserID OR QuizID OR Completion status",
+            Description = "Admin privileges requried. NOTE: Dates must be provided. Remaining properties can be null, however only one at a time can be filled.",
             Tags = new[] { "AdminUserFunctions" }
         )]
         [SwaggerResponse(200, "Stats retrieved")]
         [SwaggerResponse(400, "Start or end date not valid/missing")]
-        [SwaggerResponse(401, "Token invalid")]
+        [SwaggerResponse(401, "Token is invalid")]
         [SwaggerResponse(403, "Token not authorized to view resource")]
         [Authorize(Roles = "Admin")]
         [HttpGet("GetStats")]
