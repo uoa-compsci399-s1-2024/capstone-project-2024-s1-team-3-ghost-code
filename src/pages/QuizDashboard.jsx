@@ -14,6 +14,9 @@ function QuizDashboard() {
 
     const [modules, setModules] = useState([]);
     const [selectedModule, setSelectedModule] = useState(null);
+
+    const [practiceQuizID, setPracticeQuizID] = useState(null);
+    const [finalQuizID, setFinalQuizID] = useState(null);
     
 
     useEffect(() => {
@@ -45,16 +48,59 @@ function QuizDashboard() {
         fetchData();
     }, [clinicianToken, navigate]);
 
-    const handleModuleClick = (module) => {
+    const handleModuleClick = async (module) => {
         // If the clicked module is already selected, deselect it
         if (selectedModule && selectedModule.moduleID === module.moduleID) {
             setSelectedModule(null);
         } else {
             // Otherwise, select the clicked module
-            setSelectedModule(module);
-            
+            setSelectedModule(module);       
         }
     };
+
+    const handlePracticeQuizClick = async (module) => {
+        try {
+            const response = await axios.get(`http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/GetQuizzesByModID/${module.moduleID}`, {
+                headers: {
+                    "Authorization": `Bearer ${clinicianToken}` // Include token in headers
+                }
+            });
+            const practiceQuizID = response.data[0]?.quizID;
+            if (practiceQuizID) {
+                navigateToQuizPage(practiceQuizID);
+            } else {
+                console.error("Practice quiz ID not found.");
+            }
+        } catch (error) {
+            console.error('Error fetching practice quiz ID:', error);
+        }
+    };
+
+    const handleFinalQuizClick = async (module) => {
+        try {
+            const response = await axios.get(`http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/GetQuizzesByModID/${module.moduleID}`, {
+                headers: {
+                    "Authorization": `Bearer ${clinicianToken}` // Include token in headers
+                }
+            });
+            const finalQuizID = response.data[1]?.quizID;
+            console.log(finalQuizID);
+            if (finalQuizID) {
+                navigateToQuizPage(finalQuizID);
+            } else {
+                console.error("Final quiz ID not found.");
+            }
+        } catch (error) {
+            console.error('Error fetching final quiz ID:', error);
+        }
+    };
+
+    const navigateToQuizPage = (quizID) => {
+        // Navigate to the quiz page with the retrieved quiz ID
+        navigate(`/quiz/${quizID}/${selectedModule.moduleID}`);
+    };
+
+
 
     return (
         <div className="flex">

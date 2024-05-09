@@ -7,6 +7,7 @@ import { ClinicianSignComponents } from "./pages/ClinicianSign";
 import AClinicianSearch from "./pages/AClinicianSearch";
 import QuizDashboard from "./pages/QuizDashboard";
 import AClinicianProfile from "./pages/AClinicianProfile";
+import PracQuiz from "./pages/PracQuiz";
 
 const getAdminToken = () => sessionStorage.getItem("adminToken");
 
@@ -46,6 +47,11 @@ function App() {
           <Route
             path="/quizDashboard"
             element={<ClinicianProtectedRoute element={<QuizDashboard />} />}
+          />
+
+          <Route
+            path="/quiz/:quizID/:moduleID"
+            element={<ClinicianProtectedRoute element={<PracQuiz />} />}
           />
 
           <Route
