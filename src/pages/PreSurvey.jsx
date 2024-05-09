@@ -199,24 +199,22 @@ function Presurvey() {
                 <div className="divider"></div>
               </div>
               <div className="input-group">
-                <div className="input-field next-to">
+                <div className="input-field next-to-survey">
                   <input
                     type="text"
                     className="input-box"
                     id="survey-lastName"
-                    // placeholder="Last Name"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
                     required
                   />
                   <label htmlFor="logEmail">Last Name</label>
                 </div>
-                <div className="input-field next-to">
+                <div className="input-field next-to-survey">
                   <input
                     type="text"
                     className="input-box"
                     id="survey-firstName"
-                    // placeholder="First Name"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
                     required
