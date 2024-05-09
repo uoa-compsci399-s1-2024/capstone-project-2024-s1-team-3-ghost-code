@@ -195,7 +195,7 @@ function Presurvey() {
           <div className="box-survey">
             <div className="box-survey-details" id="register-form">
               <div className="top-header">
-                <h3>Pre-Training Survey</h3>
+                <h3>Registration</h3>
                 <div className="divider"></div>
               </div>
               <div className="input-group">
