@@ -276,7 +276,7 @@ function Presurvey() {
                 <div className="tc ">
                   <input type="checkbox" className="cb" required />
                   By ticking the box, you agree to the&nbsp;
-                  <Link onclick="popupFunction()">Privacy Disclosure</Link> of
+                  <Link onClick="popupFunction()">Privacy Disclosure</Link> of
                   the Verify Quiz Platform.
                 </div>
 
