@@ -13,10 +13,18 @@ function AdminDashboard() {
           alt="DashboardLogo"
         />
       </div>
-      <button className="Adminbutton">Dashboard</button>
-      <button className="Adminbutton">Edit Quiz</button>
-      <button className="Adminbutton">Clinicians</button>
-      <button className="Adminbutton">Statistics</button>
+      <Link to="/adminDashboard" style={{ textDecoration: "none" }}>
+        <button className="Adminbutton">Dashboard</button>
+      </Link>
+      <Link to="/editQuiz" style={{ textDecoration: "none" }}>
+        <button className="Adminbutton">Edit Quiz</button>
+      </Link>
+      <Link to="/adminsearch" style={{ textDecoration: "none" }}>
+        <button className="Adminbutton">Clinicians</button>
+      </Link>
+      <Link to="/statistics" style={{ textDecoration: "none" }}>
+        <button className="Adminbutton">Statistics</button>
+      </Link>
       <br></br>
       <Link
         style={{ textDecoration: "none", color: "white" }}
