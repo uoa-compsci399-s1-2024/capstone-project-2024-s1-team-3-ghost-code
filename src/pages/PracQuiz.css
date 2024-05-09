@@ -1,6 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@100;200;300;400;500;600;700;800&display=swap');
 
+* {
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+}
 
+.quiz-loading{
+  height: 100vh;
+
+}
+
+.quiz-body {
+  background: #BDDEDE;
+  color: #000000;
+  padding: 1rem;
+  margin: 0 auto;
+  height: 100vh;
+}
+
+.cont-main-quiz{
+  width: 80%;
+  margin: 0 auto;
+}
 .cont-return-but{
   padding-top: 4%;
   padding-bottom: 2%;
@@ -137,13 +158,9 @@ h2{
   justify-content: flex-end;
 }
 
-/*For the 'body' of the feedback page.
-
 .cont-feedback{
   
 }
-
-*/
 
 .feeback-qs{
   float: left;
@@ -170,4 +187,17 @@ h2{
 .result p span {
   color: #800080;
   font-size: 22px;
+}
+
+.progress-bar-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 10px; /* Adjust height as needed */
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #007bff; /* Adjust color as needed */
 }

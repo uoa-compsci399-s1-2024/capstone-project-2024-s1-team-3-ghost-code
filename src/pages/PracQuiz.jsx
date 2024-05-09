@@ -5,17 +5,20 @@ import {Link, useNavigate, useParams } from 'react-router-dom';
 
 const PracQuiz = () => {
   const { quizID, moduleID } = useParams();
+
+  
   const [questions, setQuestions] = useState([]);
   const [activeQuestion, setActiveQuestion] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState('');
+  const [selectedAnswers, setSelectedAnswers] = useState([]);
   const [showResult, setShowResult] = useState(false);
-  const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
+  const [selectedAnswerIndexes, setSelectedAnswerIndexes] = useState([]);
   const cliniciantoken = sessionStorage.getItem('cliniciantoken');
   const [result, setResult] = useState({
     score: 0,
     correctAnswers: 0,
     wrongAnswers: 0,
   });
+
 
   const [userID, setUserID] = useState(null);
 
@@ -66,9 +69,28 @@ const PracQuiz = () => {
   }, [userID,quizID,moduleID]);
 
 
+  const onAnswerSelected = (answer, index) => {
+    const currentQuestion = questions[activeQuestion];
+    if (currentQuestion.questionType === 1) {
+      // Single selection question
+      setSelectedAnswers([answer]);
+      setSelectedAnswerIndexes([index]);
+    } else if (currentQuestion.questionType === 2) {
+      // Multiple selection question
+      if (selectedAnswerIndexes.includes(index)) {
+        setSelectedAnswers((prev) => prev.filter((ans) => ans !== answer));
+        setSelectedAnswerIndexes((prev) => prev.filter((idx) => idx !== index));
+      } else {
+        setSelectedAnswers((prev) => [...prev, answer]);
+        setSelectedAnswerIndexes((prev) => [...prev, index]);
+      }
+    }
+  };
+
+
   const onClickNext = () => {
     const currentQuestion = questions[activeQuestion];
-    const isCorrect = selectedAnswer === currentQuestion.correctAnswer;
+    const isCorrect = selectedAnswers.includes(currentQuestion.correctAnswer);
     
     setResult((prev) => ({
       ...prev,
@@ -79,15 +101,14 @@ const PracQuiz = () => {
 
     if (activeQuestion !== questions.length - 1) {
       setActiveQuestion((prev) => prev + 1);
+      setSelectedAnswers([]);
+      setSelectedAnswerIndexes([]);
     } else {
       setShowResult(true);
     }
   };
 
-  const onAnswerSelected = (answer, index) => {
-    setSelectedAnswer(answer);
-    setSelectedAnswerIndex(index);
-  };
+ 
 
   const addLeadingZero = (number) => (number > 9 ? number : `0${number}`);
 
@@ -95,31 +116,39 @@ const PracQuiz = () => {
     return <div>Loading...</div>;
   }
  
+ 
   const { title, answers } = questions[activeQuestion];
 
   return (
+    <div className='quiz-body'>
     <div className="quiz-container">
       {!showResult ? (
-        <div>
-          <div>
+
+          <div className="cont-main-quiz">
 
           <div className="cont-return-but">
-          <Link to="/quizDashboard" style={{ textDecoration: "none" }}>
+
+          <Link to="/quizDashboard" style={{ textDecoration: "none" }}>            
           <button className="btn return-button">Back to Modules</button>
           </Link>
           </div>
+
+          <div className="progress-bar-container">
+            <div className="progress-bar" style={{ width: `${(activeQuestion) / questions.length * 100}%` }}></div>
+            </div>
             
+          {/*Need api or something*/}
           <h2>Module 1: TMS Overview</h2>
           
           <div className='cont-question'>
           <div className="button-container">
-            {activeQuestion !== 0 && (
+          {activeQuestion !== 0 && (
               <button onClick={() => setActiveQuestion((prev) => prev - 1)} className="btn prev-ques">Previous</button>
             )}
 
 
 
-            <button onClick={onClickNext} disabled={selectedAnswerIndex === null} className="btn next-ques">
+            <button onClick={onClickNext} disabled={selectedAnswerIndexes.length === 0} className="btn next-ques">
               {activeQuestion === questions.length - 1 ? 'Finish' : 'Next'}
             </button>
           </div>
@@ -129,22 +158,21 @@ const PracQuiz = () => {
           <div className='question-body'>
 
           <div className='question-stage'> 
-            <span className="active-question-no">{addLeadingZero(activeQuestion + 1)}</span>
-            <span className="total-question">/{addLeadingZero(questions.length)}</span>
+          <span className="active-question-no">{addLeadingZero(activeQuestion + 1)}</span>
+          <span className="total-question">/{addLeadingZero(questions.length)}</span>
           </div>
 
           <h2>{title}</h2>
           <ul>
-            {answers.map((answer, index) => (
+          {answers.map((answer, index) => (
               <li
                 onClick={() => onAnswerSelected(answer.answerText, index)}
                 key={answer.answerID}
-                className={selectedAnswerIndex === index ? 'selected-answer' : null}>
+                className={selectedAnswerIndexes.includes(index) ? 'selected-answer' : null}>
                 {answer.answerText}
               </li>
             ))}
           </ul>
-          </div>
           </div>
           </div>
 
@@ -152,7 +180,9 @@ const PracQuiz = () => {
       ) : (
         <div className='cont-feedback'>
           <div className="cont-return-but">
+          <Link to="/quizDashboard" style={{ textDecoration: "none" }}>    
             <button className="btn return-button">Back to Modules</button>
+            </Link>
           </div>
 
           <div className="result">
@@ -171,14 +201,15 @@ const PracQuiz = () => {
             </p>
           </div>
 
-          <div className='feeback-qs'>
-            {/*individual questions here for feedback, along with blurb at the bottom of each*/}
+          <div className='feedback-qs'>
+            {/*individual questions here for feedback, along with blurb at the bottom of each. APIS: */}
           </div>
 
         </div>
 
 
       )}
+    </div>
     </div>
   );
 };
