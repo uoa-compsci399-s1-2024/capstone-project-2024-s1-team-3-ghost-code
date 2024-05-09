@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@100;200;300;400;500;600;700;800&display=swap');
 
-* {
-  font-family: Arial, Helvetica, sans-serif; /*this is where the fonts are changing*/
+ *{
+  font-family: Arial, Helvetica, sans-serif; 
   box-sizing: border-box;
 }
 
@@ -19,6 +19,7 @@
 }
 
 .cont-main-quiz{
+  /* font-size: 1rem; */
   width: 80%;
   margin: 0 auto;
 }
@@ -27,7 +28,8 @@
   padding-bottom: 2%;
 }
 
-h2{
+.module-title{
+  font-size: 20px;
   padding-top: 2%;
   padding-bottom: 2%;
 }
