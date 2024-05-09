@@ -6,7 +6,8 @@ import AdminDashboard from "../components/Dashboards/ADashboard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 
-export function QuizSearch() {}
+export function QuestionSearch() {}
+
 export function Modules() {
   const navigate = useNavigate();
   const adminToken = sessionStorage.getItem("adminToken");
@@ -44,8 +45,6 @@ export function Modules() {
 
     fetchData();
   }, [adminToken, navigate]);
-
-  //search query for searching for modules!
 
   return (
     <div className="flex">

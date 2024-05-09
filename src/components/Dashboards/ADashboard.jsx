@@ -14,11 +14,16 @@ function AdminDashboard() {
         />
       </div>
       <button className="Adminbutton">Dashboard</button>
-      <Link to="/createquiz">
+      <Link style={{ textDecoration: "none", color: "white" }} to="/createquiz">
         <button className="Adminbutton">Edit Quiz</button>
       </Link>
 
-      <button className="Adminbutton">Clinicians</button>
+      <Link
+        style={{ textDecoration: "none", color: "white" }}
+        to="/adminsearch"
+      >
+        <button className="Adminbutton">Clinicians</button>
+      </Link>
       <button className="Adminbutton">Statistics</button>
       <br></br>
       <Link
