@@ -9,6 +9,7 @@ import QuizDashboard from "./pages/QuizDashboard";
 import AClinicianProfile from "./pages/AClinicianProfile";
 import AdminSetting from "./pages/AdminSettings";
 import QuizCreation from "./pages/CreatingQuiz";
+import PracQuiz from "./pages/PracQuiz";
 
 const getAdminToken = () => sessionStorage.getItem("adminToken");
 
@@ -56,6 +57,11 @@ function App() {
           <Route
             path="/quizDashboard"
             element={<ClinicianProtectedRoute element={<QuizDashboard />} />}
+          />
+
+          <Route
+            path="/quiz/:quizID/:moduleID"
+            element={<ClinicianProtectedRoute element={<PracQuiz />} />}
           />
 
           <Route
