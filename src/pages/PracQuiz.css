@@ -66,7 +66,7 @@ h2{
 
 .btn.next-ques:hover,
 .btn.next-ques:focus-visible {
-  background: #1a1919;
+  background: #008080;
   color: #FFFFFF;
 }
 
@@ -98,7 +98,7 @@ h2{
 .quiz-container .active-question-no {
   font-size: 32px;
   font-weight: 500;
-  color: #800080;
+  color: #008080;
 }
 
 .quiz-container .total-question {
@@ -132,11 +132,11 @@ h2{
 
 .quiz-container ul .selected-answer {
   background: #ffd6ff;
-  border: 1px solid #800080;
+  border: 1px solid #008080;
 }
 
 .quiz-container button {
-  background: linear-gradient(90.04deg, #800080 0.03%, #ffc0cb 99.96%);
+  background: #008080;
   border-radius: 9px;
   font-size: 18px;
   color: #ffffff;
