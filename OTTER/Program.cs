@@ -103,6 +103,7 @@ public class Program
             app.UseSwaggerUI(c =>
             {
                 c.DocumentTitle = "OTTER Swagger UI";
+                c.DefaultModelsExpandDepth(-1);
             });
         }
 
