@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.Text;
+using System.Runtime.ConstrainedExecution;
 
 namespace OTTER.Data
 {
@@ -136,6 +137,11 @@ namespace OTTER.Data
             return q;
         }
 
+        public IEnumerable<Answer> GetCorrectAnswersByQID(int id)
+        {
+            return _dbContext.Answers.Where(e => e.Question.QuestionID == id && e.CorrectAnswer == true);
+        }
+
         public Answer GetAnswerByID(int id)
         {
             return _dbContext.Answers.FirstOrDefault(e => e.AnswerID == id);
@@ -190,9 +196,9 @@ namespace OTTER.Data
             return at.Entity;
         }
 
-        public AttemptQuestion GetAttemptQuestionBySequenceAndUser(int s, int u)
+        public AttemptQuestion GetAttemptQuestionBySequenceAndUserAndAttempt(int s, int u, int a)
         {
-            return _dbContext.AttemptQuestions.FirstOrDefault(e => e.Attempt.User.UserID == u && e.Sequence == s);
+            return _dbContext.AttemptQuestions.FirstOrDefault(e => e.Attempt.User.UserID == u && e.Sequence == s && e.Attempt.AttemptID == a);
         }
 
         public AttemptQuestion AddAttemptQuestion(AttemptQuestion attemptQ)
@@ -211,7 +217,7 @@ namespace OTTER.Data
                 List<string> feedback = new List<string>();
                 foreach (int AID in submission.AnswerID.ElementAt(sequence - 1))
                 {
-                    AttemptQuestion aQ = GetAttemptQuestionBySequenceAndUser(sequence, submission.UserID);
+                    AttemptQuestion aQ = GetAttemptQuestionBySequenceAndUserAndAttempt(sequence, submission.UserID, submission.AttemptID);
                     aQ.Answers.ToList().Add(GetAnswerByID(AID));
                     GetAnswerByID(AID).Attempts.ToList().Add(aQ);
                     correct.Add(GetAnswerByID(AID).CorrectAnswer);
@@ -225,28 +231,54 @@ namespace OTTER.Data
             _dbContext.SaveChanges();
             double mark = 0.0;
             double count = 0.0;
-            foreach(List<bool> question in output.Correct)
+
+            foreach (int sequence in submission.Sequence)
             {
-                foreach (bool answer in question)
+
+                if(GetCorrectAnswersByQID(submission.QuestionID.ElementAt(sequence - 1)).Count() == 1)
                 {
                     count++;
-                    if (answer == true)
+                    if (output.Correct.ElementAt(sequence - 1).ElementAt(0) == true)
                     {
                         mark++;
                     }
+                } else
+                {
+                    double multiCount = GetCorrectAnswersByQID(submission.QuestionID.ElementAt(sequence - 1)).Count();
+                    double multiMark = 0.0;
+                    count++;
+                    foreach (bool correct in output.Correct.ElementAt(sequence - 1))
+                    {
+                        if(correct == true)
+                        {
+                            multiMark++;
+                        }
+                    }
+                    if (multiMark == multiCount)
+                    {
+                        mark++;
+                    } 
                 }
             }
-            if(mark/count >= 0.7)
+
+            //foreach(List<bool> question in output.Correct)
+            //{
+            //    foreach (bool answer in question)
+            //    {
+            //        count++;
+            //        if (answer == true)
+            //        {
+            //            mark++;
+            //        }
+            //    }
+            //}
+
+            if(GetAttemptByID(submission.AttemptID).Quiz.Stage == "Final" && mark /count >= 0.8)
             {
                 _dbContext.Attempts.FirstOrDefault(e => e.AttemptID == submission.AttemptID).Completed = "PASS";
                 Certification cert = new Certification { User = GetUserByID(submission.UserID), Type = GetAttemptByID(submission.AttemptID).Quiz.Name, DateTime = DateTime.UtcNow, ExpiryDateTime = DateTime.UtcNow.AddYears(1)};
                 AddCertification(cert);
-                if (cert.Type.Contains("Practice"))
-                {
-                    SendEmail(cert.User.UserEmail, $"Passed {GetAttemptByID(submission.AttemptID).Quiz.Name} quiz", $"Hi {cert.User.FirstName},<br><br>Congratulations on passing the " +
-                    $"{GetAttemptByID(submission.AttemptID).Quiz.Name} quiz.<Br>You should now progress to the final quiz for this module." +
-                    $"<Br><Br>Thanks,<Br>The VERIFY Team");
-                } else if (cert.Type.Contains("Final") && GetCertificationByID(cert.User.UserID).Where(e => e.Type.Contains("Final")).Count() == 6)
+                if (cert.Type.Contains("Final") && GetCertificationByID(cert.User.UserID).Where(e => e.Type.Contains("Final")).Count() == 6)
                 {
                     SendEmail(cert.User.UserEmail, $"Passed {GetAttemptByID(submission.AttemptID).Quiz.Name} quiz", $"Hi {cert.User.FirstName},<br><br>Congratulations on passing the " +
                     $"{GetAttemptByID(submission.AttemptID).Quiz.Name} quiz.<Br>It appears you have passed every final quiz for all available modules. You should now register to complete the practical test to become fully qualified in the VERIFY study." +
@@ -261,8 +293,17 @@ namespace OTTER.Data
                     $"{GetAttemptByID(submission.AttemptID).Quiz.Name} quiz.<Br>You are now recertified until {cert.ExpiryDateTime.ToString("dd/MM/yyyy")}." +
                     $"<Br><Br>Thanks,<Br>The VERIFY Team");
                 } 
-                
+            } 
+            else if (GetAttemptByID(submission.AttemptID).Quiz.Stage == "Practice" && mark/count >= 0.7)
+            {
+                _dbContext.Attempts.FirstOrDefault(e => e.AttemptID == submission.AttemptID).Completed = "PASS";
+                Certification cert = new Certification { User = GetUserByID(submission.UserID), Type = GetAttemptByID(submission.AttemptID).Quiz.Name, DateTime = DateTime.UtcNow, ExpiryDateTime = DateTime.UtcNow.AddYears(1) };
+                AddCertification(cert);
+                SendEmail(cert.User.UserEmail, $"Passed {GetAttemptByID(submission.AttemptID).Quiz.Name} quiz", $"Hi {cert.User.FirstName},<br><br>Congratulations on passing the " +
+                    $"{GetAttemptByID(submission.AttemptID).Quiz.Name} quiz.<Br>You should now progress to the final quiz for this module." +
+                    $"<Br><Br>Thanks,<Br>The VERIFY Team");
             }
+
             output.Score = (int)(Math.Floor(mark / count) * 100);
             return output;
         }

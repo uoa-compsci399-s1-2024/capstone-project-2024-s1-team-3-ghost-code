@@ -17,6 +17,7 @@ namespace OTTER.Data
         Question AddQuestion(Question question);
         void DeleteQuestion(int id);
         Question EditQuestion(EditQuestionInputDto question);
+        IEnumerable<Answer> GetCorrectAnswersByQID(int id);
         Answer GetAnswerByID(int id);
         Answer AddAnswer(Answer answer);
         void DeleteAnswer(int id);
@@ -24,7 +25,7 @@ namespace OTTER.Data
         IEnumerable<Attempt> GetAttempts();
         Attempt GetAttemptByID(int id);
         Attempt AddAttempt(Attempt attempt);
-        AttemptQuestion GetAttemptQuestionBySequenceAndUser(int s, int u);
+        AttemptQuestion GetAttemptQuestionBySequenceAndUserAndAttempt(int s, int u, int a);
         AttemptQuestion AddAttemptQuestion(AttemptQuestion attemptQ);
         QuizSubMarksDto MarkQuiz(QuizSubmissionDto submission);
         IEnumerable<User> GetUsers();

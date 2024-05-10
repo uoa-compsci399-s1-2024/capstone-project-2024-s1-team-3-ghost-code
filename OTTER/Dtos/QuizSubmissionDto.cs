@@ -9,6 +9,8 @@ namespace OTTER.Dtos
         [Required]
         public IEnumerable<int> Sequence { get; set; }
         [Required]
+        public IEnumerable<int> QuestionID { get; set; }
+        [Required]
         public int UserID { get; set; }
         [Required]
         public int AttemptID { get; set; }
