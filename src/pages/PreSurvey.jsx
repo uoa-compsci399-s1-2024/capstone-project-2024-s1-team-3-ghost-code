@@ -183,7 +183,7 @@ function Presurvey() {
         <div className="split-survey left-survey">
           <div className="centered-survey">
             <p>Please fill out the pre-training survey before continuing.</p>
-            <p>If you've already filled in the pre-training quiz click here.</p>
+            <p></p>
             <p>
               By filling out this survey you will be able to come back to the
               quiz at any time to continue where you left off.
