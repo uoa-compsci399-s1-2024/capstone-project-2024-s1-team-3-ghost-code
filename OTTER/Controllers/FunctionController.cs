@@ -144,17 +144,26 @@ namespace OTTER.Controllers
         [SwaggerResponse(401, "Token is invalid")]
         [SwaggerResponse(403, "Token is not authorized to view resource")]
         [SwaggerResponse(404, "Admin with submitted ID does not exist")]
+        [SwaggerResponse(409, "Conflict")]
         [Authorize(Roles = "Admin")]
         [HttpPut("EditAdmin")]
-        public ActionResult<AdminOutputDto> EditAdmin(Admin updatedAdmin)
+        public ActionResult<AdminOutputDto> EditAdmin(AdminEditDto updatedAdmin)
         {
-            Admin edited = _repo.EditAdmin(updatedAdmin);
-            if (edited != null)
+            if (_repo.GetAdminByID(updatedAdmin.AdminID) != null)
             {
-                return Ok(new AdminOutputDto { AdminID = edited.AdminID, FirstName = edited.FirstName, LastName = edited.LastName, Email = edited.Email });
-            } else
+                if (_repo.GetAdminByEmail(updatedAdmin.Email) == null || _repo.GetAdminByEmail(updatedAdmin.Email).Email == _repo.GetAdminByID(updatedAdmin.AdminID).Email)
+                {
+                    AdminOutputDto edited = _repo.EditAdmin(updatedAdmin);
+                    return Ok(edited);
+                }
+                else
+                {
+                    return Conflict("Admin with email " + updatedAdmin.Email + " already exists.");
+                }
+            }
+            else
             {
-                return NotFound("No Admin could be found with the ID of " + updatedAdmin.AdminID + ".");
+                return NotFound("Admin with ID " + updatedAdmin.AdminID + " not found.");
             }
         }
 

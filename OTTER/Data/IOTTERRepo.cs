@@ -57,7 +57,7 @@ namespace OTTER.Data
         Admin GetAdminByEmail(string email);
         Admin AddAdmin(Admin admin);
         void DeleteAdmin(int id);
-        Admin EditAdmin(Admin admin);
+        AdminOutputDto EditAdmin(AdminEditDto admin);
         void ResetPassword(string email);
         bool CheckPasswordReset(string token);
         bool SubmitPasswordReset(PasswordResetDto passwordResetDto);

@@ -8,6 +8,7 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.Text;
 using System.Runtime.ConstrainedExecution;
+using Microsoft.AspNetCore.Components.Forms;
 
 namespace OTTER.Data
 {
@@ -529,19 +530,17 @@ namespace OTTER.Data
             }
         }
 
-        public Admin EditAdmin(Admin admin)
+        public AdminOutputDto EditAdmin(AdminEditDto admin)
         {
-            Admin a = _dbContext.Admins.FirstOrDefault(e => e.AdminID == admin.AdminID);
-            if (a != null)
-            {
-                a.FirstName = admin.FirstName;
-                a.LastName = admin.LastName;
-                a.Email = admin.Email;
-                a.Password = BCrypt.Net.BCrypt.HashPassword(admin.Password);
-                _dbContext.SaveChanges();
-                a = _dbContext.Admins.FirstOrDefault(e => e.AdminID == admin.AdminID);
-            }
-            return a;
+            Admin a = _dbContext.Admins.First(e => e.AdminID == admin.AdminID);
+            a.FirstName = admin.FirstName;
+            a.LastName = admin.LastName;
+            a.Email = admin.Email;
+            a.Password = BCrypt.Net.BCrypt.HashPassword(admin.Password);
+            _dbContext.SaveChanges();
+            a = _dbContext.Admins.First(e => e.AdminID == admin.AdminID);
+            AdminOutputDto newAdmin = new AdminOutputDto { AdminID = a.AdminID, FirstName = a.FirstName, LastName = a.LastName, Email = a.Email };
+            return newAdmin;
         }
 
         public void ResetPassword(string email)
