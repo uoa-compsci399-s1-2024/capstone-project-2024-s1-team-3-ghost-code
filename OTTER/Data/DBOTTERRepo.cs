@@ -9,6 +9,12 @@ using Newtonsoft.Json;
 using System.Text;
 using System.Runtime.ConstrainedExecution;
 using Microsoft.AspNetCore.Components.Forms;
+using iTextSharp.text.pdf;
+using Amazon;
+using Amazon.Runtime;
+using Amazon.S3;
+using Amazon.S3.Transfer;
+using System;
 
 namespace OTTER.Data
 {
@@ -36,6 +42,60 @@ namespace OTTER.Data
 
             client.PostAsync(endpoint, payload);
         }
+
+        public string CreateCertitificate(string name, Module module, DateTime date)
+        {
+            string bucketURL = "https://s3.ap-southeast-2.amazonaws.com/certificate.tmstrainingquizzes.com/";
+
+            // Load the template PDF
+            using (var reader = new PdfReader(bucketURL + "certtemplate.pdf"))
+            {
+                using (var stream = new MemoryStream())
+                {
+                    var stamper = new PdfStamper(reader, stream);
+                    var form = stamper.AcroFields;
+
+                    // Populate fields with data
+                    form.SetField("Name", name);
+                    form.SetField("Module", $"VERIFY: {module.Name} module");
+                    form.SetField("Date", date.ToString("dd/MM/yyyy"));
+
+                    // Flatten the form (optional)
+                    stamper.FormFlattening = true;
+
+                    stamper.Close();
+
+                    byte[] bytes = stream.ToArray();
+
+                    // Upload to S3
+                    string certURI = $"certificates/{date.ToString("yyyyMMddhhmmss")}{name.Replace(" ", "")}{module.Name.Replace(" ", "")}.pdf";
+
+                    if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production") // Only uploads if the environment is production to get accurate AWS credentials
+                    {
+                        UploadToS3(bytes, certURI);
+
+                        return bucketURL + certURI;
+                    } else // If not production, certificate not found
+                    {
+                        return bucketURL + "404.html";
+                    }
+                }
+            }
+        }
+
+        static void UploadToS3(byte[] bytes, string key)
+        {
+            var credentials = new InstanceProfileAWSCredentials();
+            using (var stream = new MemoryStream(bytes))
+            {
+                using (var client = new AmazonS3Client(credentials, RegionEndpoint.APSoutheast2))
+                {
+                    var transferUtility = new TransferUtility(client);
+                    transferUtility.Upload(stream, "certificate.tmstrainingquizzes.com", key);
+                }
+            }
+        }
+
 
         public IEnumerable<Module> GetModules()
         {

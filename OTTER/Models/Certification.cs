@@ -14,5 +14,6 @@ namespace OTTER.Models
         public DateTime DateTime { get; set; }
         [Required]
         public DateTime ExpiryDateTime { get; set; }
+        public string? CertificateURL { get; set; }
     }
 }

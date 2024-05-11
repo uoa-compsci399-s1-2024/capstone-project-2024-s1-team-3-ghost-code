@@ -15,7 +15,7 @@ namespace OTTER.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.3");
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.4");
 
             modelBuilder.Entity("AnswerAttemptQuestion", b =>
                 {
@@ -29,7 +29,7 @@ namespace OTTER.Migrations
 
                     b.HasIndex("AttemptsAttemptQID");
 
-                    b.ToTable("AnswerAttemptQuestion", (string)null);
+                    b.ToTable("AnswerAttemptQuestion");
                 });
 
             modelBuilder.Entity("OTTER.Models.Admin", b =>
@@ -65,7 +65,7 @@ namespace OTTER.Migrations
 
                     b.HasKey("AdminID");
 
-                    b.ToTable("Admins", (string)null);
+                    b.ToTable("Admins");
                 });
 
             modelBuilder.Entity("OTTER.Models.Answer", b =>
@@ -100,7 +100,7 @@ namespace OTTER.Migrations
 
                     b.HasIndex("QuestionID");
 
-                    b.ToTable("Answers", (string)null);
+                    b.ToTable("Answers");
                 });
 
             modelBuilder.Entity("OTTER.Models.Attempt", b =>
@@ -128,7 +128,7 @@ namespace OTTER.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("Attempts", (string)null);
+                    b.ToTable("Attempts");
                 });
 
             modelBuilder.Entity("OTTER.Models.AttemptQuestion", b =>
@@ -152,7 +152,7 @@ namespace OTTER.Migrations
 
                     b.HasIndex("QuestionID");
 
-                    b.ToTable("AttemptQuestions", (string)null);
+                    b.ToTable("AttemptQuestions");
                 });
 
             modelBuilder.Entity("OTTER.Models.Certification", b =>
@@ -160,6 +160,9 @@ namespace OTTER.Migrations
                     b.Property<int>("CertificationID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("CertificateURL")
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("TEXT");
@@ -178,7 +181,7 @@ namespace OTTER.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("Certifications", (string)null);
+                    b.ToTable("Certifications");
                 });
 
             modelBuilder.Entity("OTTER.Models.Module", b =>
@@ -200,7 +203,7 @@ namespace OTTER.Migrations
 
                     b.HasKey("ModuleID");
 
-                    b.ToTable("Modules", (string)null);
+                    b.ToTable("Modules");
                 });
 
             modelBuilder.Entity("OTTER.Models.Organization", b =>
@@ -215,7 +218,7 @@ namespace OTTER.Migrations
 
                     b.HasKey("OrgID");
 
-                    b.ToTable("Organizations", (string)null);
+                    b.ToTable("Organizations");
                 });
 
             modelBuilder.Entity("OTTER.Models.Question", b =>
@@ -251,7 +254,7 @@ namespace OTTER.Migrations
 
                     b.HasIndex("ModuleID");
 
-                    b.ToTable("Questions", (string)null);
+                    b.ToTable("Questions");
                 });
 
             modelBuilder.Entity("OTTER.Models.Quiz", b =>
@@ -284,7 +287,7 @@ namespace OTTER.Migrations
 
                     b.HasIndex("ModuleID");
 
-                    b.ToTable("Quizzes", (string)null);
+                    b.ToTable("Quizzes");
                 });
 
             modelBuilder.Entity("OTTER.Models.Role", b =>
@@ -299,7 +302,7 @@ namespace OTTER.Migrations
 
                     b.HasKey("RoleID");
 
-                    b.ToTable("Roles", (string)null);
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("OTTER.Models.User", b =>
@@ -332,7 +335,7 @@ namespace OTTER.Migrations
 
                     b.HasIndex("RoleID");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("AnswerAttemptQuestion", b =>

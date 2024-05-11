@@ -7,6 +7,7 @@ namespace OTTER.Data
     public interface IOTTERRepo
     {
         void SendEmail(string email, string subject, string body);
+        string CreateCertitificate(string name, Module module, DateTime date);
         IEnumerable<Module> GetModules();
         Module GetModuleByID(int id);
         IEnumerable<Quiz> GetQuizzesByID(int id);

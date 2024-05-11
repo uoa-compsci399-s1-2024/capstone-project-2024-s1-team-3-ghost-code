@@ -564,3 +564,6 @@ C:\Users\User\OneDrive\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-co
 C:\Users\User\OneDrive\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\obj\Debug\net8.0\OTTER.pdb
 C:\Users\User\OneDrive\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\obj\Debug\net8.0\OTTER.genruntimeconfig.cache
 C:\Users\User\OneDrive\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\obj\Debug\net8.0\ref\OTTER.dll
+C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Debug\net8.0\BouncyCastle.Crypto.dll
+C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Debug\net8.0\itextsharp.dll
+C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Debug\net8.0\AWSSDK.S3.dll
