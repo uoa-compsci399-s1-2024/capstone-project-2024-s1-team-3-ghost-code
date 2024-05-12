@@ -345,13 +345,13 @@ namespace OTTER.Data
                 if (cert.Type.Contains("Final") && GetCertificationByID(cert.User.UserID).Where(e => e.Type.Contains("Final")).Count() == 6)
                 {
                     SendEmail(cert.User.UserEmail, $"Passed {GetAttemptByID(submission.AttemptID).Quiz.Name} quiz", $"Hi {cert.User.FirstName},<br><br>Congratulations on passing the " +
-                    $"{GetAttemptByID(submission.AttemptID).Quiz.Name} quiz. To view your certificate for this module, <a href = {cert.CertificateURL}>click here</a>." +
+                    $"{GetAttemptByID(submission.AttemptID).Quiz.Name} quiz. To view your certificate for this module, <a href = '{cert.CertificateURL}'>click here</a>." +
                     $"<Br>It appears you have passed every final quiz for all available modules. You should now register to complete the practical test to become fully qualified in the VERIFY study." +
                     $"<Br><Br>Thanks,<Br>The VERIFY Team");
                 }
                 else if (cert.Type.Contains("Final")) {
                     SendEmail(cert.User.UserEmail, $"Passed {GetAttemptByID(submission.AttemptID).Quiz.Name} quiz", $"Hi {cert.User.FirstName},<br><br>Congratulations on passing the " +
-                    $"{GetAttemptByID(submission.AttemptID).Quiz.Name} quiz. To view your certificate for this module, <a href = {cert.CertificateURL}>click here</a>." +
+                    $"{GetAttemptByID(submission.AttemptID).Quiz.Name} quiz. To view your certificate for this module, <a href = '{cert.CertificateURL}'>click here</a>." +
                     $"<Br>You should now move on to another module." +
                     $"<Br><Br>Thanks,<Br>The VERIFY Team");
                 } 
