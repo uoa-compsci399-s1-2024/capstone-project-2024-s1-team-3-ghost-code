@@ -336,22 +336,23 @@ namespace OTTER.Data
 
             if(GetAttemptByID(submission.AttemptID).Quiz.Stage == "Final" && mark /count >= 0.8)
             {
+                
                 _dbContext.Attempts.FirstOrDefault(e => e.AttemptID == submission.AttemptID).Completed = "PASS";
                 Certification cert = new Certification { User = GetUserByID(submission.UserID), Type = GetAttemptByID(submission.AttemptID).Quiz.Name, DateTime = DateTime.UtcNow, ExpiryDateTime = DateTime.UtcNow.AddYears(1)};
+                string certificateURL = CreateCertitificate($"{cert.User.FirstName} {cert.User.LastName}", GetQuestionByID(submission.QuestionID.ElementAt(0)).Module, cert.DateTime);
+                cert.CertificateURL = certificateURL;
                 AddCertification(cert);
                 if (cert.Type.Contains("Final") && GetCertificationByID(cert.User.UserID).Where(e => e.Type.Contains("Final")).Count() == 6)
                 {
                     SendEmail(cert.User.UserEmail, $"Passed {GetAttemptByID(submission.AttemptID).Quiz.Name} quiz", $"Hi {cert.User.FirstName},<br><br>Congratulations on passing the " +
-                    $"{GetAttemptByID(submission.AttemptID).Quiz.Name} quiz.<Br>It appears you have passed every final quiz for all available modules. You should now register to complete the practical test to become fully qualified in the VERIFY study." +
+                    $"{GetAttemptByID(submission.AttemptID).Quiz.Name} quiz. To view your certificate for this module, <a href = {cert.CertificateURL}>click here</a>." +
+                    $"<Br>It appears you have passed every final quiz for all available modules. You should now register to complete the practical test to become fully qualified in the VERIFY study." +
                     $"<Br><Br>Thanks,<Br>The VERIFY Team");
                 }
                 else if (cert.Type.Contains("Final")) {
                     SendEmail(cert.User.UserEmail, $"Passed {GetAttemptByID(submission.AttemptID).Quiz.Name} quiz", $"Hi {cert.User.FirstName},<br><br>Congratulations on passing the " +
-                    $"{GetAttemptByID(submission.AttemptID).Quiz.Name} quiz.<Br>You should now move on to another module." +
-                    $"<Br><Br>Thanks,<Br>The VERIFY Team");
-                } else if (cert.Type == "Recertification"){
-                    SendEmail(cert.User.UserEmail, $"Passed {GetAttemptByID(submission.AttemptID).Quiz.Name} quiz", $"Hi {cert.User.FirstName},<br><br>Congratulations on passing the " +
-                    $"{GetAttemptByID(submission.AttemptID).Quiz.Name} quiz.<Br>You are now recertified until {cert.ExpiryDateTime.ToString("dd/MM/yyyy")}." +
+                    $"{GetAttemptByID(submission.AttemptID).Quiz.Name} quiz. To view your certificate for this module, <a href = {cert.CertificateURL}>click here</a>." +
+                    $"<Br>You should now move on to another module." +
                     $"<Br><Br>Thanks,<Br>The VERIFY Team");
                 } 
             } 
@@ -362,6 +363,13 @@ namespace OTTER.Data
                 AddCertification(cert);
                 SendEmail(cert.User.UserEmail, $"Passed {GetAttemptByID(submission.AttemptID).Quiz.Name} quiz", $"Hi {cert.User.FirstName},<br><br>Congratulations on passing the " +
                     $"{GetAttemptByID(submission.AttemptID).Quiz.Name} quiz.<Br>You should now progress to the final quiz for this module." +
+                    $"<Br><Br>Thanks,<Br>The VERIFY Team");
+            } else if (GetAttemptByID(submission.AttemptID).Quiz.Stage == "Recert" && mark / count >= 0.8)
+            {
+                _dbContext.Attempts.FirstOrDefault(e => e.AttemptID == submission.AttemptID).Completed = "PASS";
+                Certification cert = new Certification { User = GetUserByID(submission.UserID), Type = GetAttemptByID(submission.AttemptID).Quiz.Name, DateTime = DateTime.UtcNow, ExpiryDateTime = DateTime.UtcNow.AddYears(1) };
+                SendEmail(cert.User.UserEmail, $"Passed {GetAttemptByID(submission.AttemptID).Quiz.Name} quiz", $"Hi {cert.User.FirstName},<br><br>Congratulations on passing the " +
+                    $"{GetAttemptByID(submission.AttemptID).Quiz.Name} quiz.<Br>You are now recertified until {cert.ExpiryDateTime.ToString("dd/MM/yyyy")}." +
                     $"<Br><Br>Thanks,<Br>The VERIFY Team");
             }
 
@@ -423,7 +431,7 @@ namespace OTTER.Data
 
         public IEnumerable<Certification> GetCertificationByID(int id)
         {
-            return _dbContext.Certifications.Where(e => e.User.UserID == id && (e.Type == "InitCertification" || e.Type == "Recertification"));
+            return _dbContext.Certifications.Where(e => e.User.UserID == id && (e.Type == "InitCertification" || e.Type == "Recert"));
         }
 
         public Certification AddCertification(Certification certification)
