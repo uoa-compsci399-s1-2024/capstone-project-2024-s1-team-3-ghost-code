@@ -28,7 +28,12 @@ public class Program
             options.AddPolicy(name: MyAllowSpecificOrigins,
                               policy =>
                               {
-                                  policy.WithOrigins("http://localhost:5173") // Specify the allowed origin
+                                  policy.WithOrigins(
+                                      "http://localhost:5173",
+                                      "https://www.tmstrainingquizzes.com",
+                                      "https://sahil-branch.d1khm46bk5sp3v.amplifyapp.com",
+                                      "https://ayesha-branch.d1khm46bk5sp3v.amplifyapp.com"
+                                      ) // Specify the allowed origin
                                         .AllowAnyMethod() // Allow all methods, or use .WithMethods("GET", "POST") to specify
                                         .AllowAnyHeader() // Allow all headers, or specify like .WithHeaders("Authorization")
                                         .AllowCredentials(); // Necessary if your front-end needs to send credentials like cookies or auth headers
