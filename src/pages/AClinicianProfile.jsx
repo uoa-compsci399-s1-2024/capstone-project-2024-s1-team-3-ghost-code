@@ -31,7 +31,7 @@ function AClinicianProfile() {
                 }
             };
             try {
-                const response = await fetch(`http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/ClinicianSearch/${clinicianId}`, requestOptions);
+                const response = await fetch(`https://api.tmstrainingquizzes.com/webapi/ClinicianSearch/${clinicianId}`, requestOptions);
                 if (!response.ok) {
                     if (response.status === 401) {
                         sessionStorage.removeItem('adminToken');
@@ -50,12 +50,12 @@ function AClinicianProfile() {
             }
 
             // Fetch organizations
-            const orgsResponse = await fetch('http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/GetOrganizations');
+            const orgsResponse = await fetch('https://api.tmstrainingquizzes.com/webapi/GetOrganizations');
             const orgsData = await orgsResponse.json();
             setOrganizations(orgsData.map(org => ({ name: org.orgName, id: org.orgID })));
 
             // Fetch roles
-            const rolesResponse = await fetch('http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/GetRoles');
+            const rolesResponse = await fetch('https://api.tmstrainingquizzes.com/webapi/GetRoles');
             const rolesData = await rolesResponse.json();
             setPositions(rolesData.map(role => ({ name: role.roleName, id: role.roleID })));
         };
@@ -90,7 +90,7 @@ function AClinicianProfile() {
     };
 
     try {
-        const response = await fetch('http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/EditClinician', requestOptions);
+        const response = await fetch('https://api.tmstrainingquizzes.com/webapi/EditClinician', requestOptions);
         if (response.ok) {
             alert('Clinician updated successfully!');
         } else if (response.status === 409) {

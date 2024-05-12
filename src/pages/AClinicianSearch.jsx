@@ -20,7 +20,7 @@ function AClinicianSearch() {
 useEffect(() => {
   if (searchQuery.trim() !== "") {
     // Make HTTP request to backend API with search query
-    fetch(`http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/ClinicianSearch/${searchQuery}`, {
+    fetch(`https://api.tmstrainingquizzes.com/webapi/ClinicianSearch/${searchQuery}`, {
       headers: {
         "Authorization": `Bearer ${adminToken}` // Include token in headers
       }

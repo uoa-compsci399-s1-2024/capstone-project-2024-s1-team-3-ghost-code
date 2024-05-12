@@ -22,7 +22,7 @@ function QuizDashboard() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/GetModules', {
+                const response = await axios.get('https://api.tmstrainingquizzes.com/webapi/GetModules', {
                     headers: {
                         "Authorization": `Bearer ${clinicianToken}` // Include token in headers
                     }
@@ -60,7 +60,7 @@ function QuizDashboard() {
 
     const handlePracticeQuizClick = async (module) => {
         try {
-            const response = await axios.get(`http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/GetQuizzesByModID/${module.moduleID}`, {
+            const response = await axios.get(`https://api.tmstrainingquizzes.com/webapi/GetQuizzesByModID/${module.moduleID}`, {
                 headers: {
                     "Authorization": `Bearer ${clinicianToken}` // Include token in headers
                 }
@@ -78,7 +78,7 @@ function QuizDashboard() {
 
     const handleFinalQuizClick = async (module) => {
         try {
-            const response = await axios.get(`http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/GetQuizzesByModID/${module.moduleID}`, {
+            const response = await axios.get(`https://api.tmstrainingquizzes.com/webapi/GetQuizzesByModID/${module.moduleID}`, {
                 headers: {
                     "Authorization": `Bearer ${clinicianToken}` // Include token in headers
                 }

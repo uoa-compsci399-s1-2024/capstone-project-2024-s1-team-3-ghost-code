@@ -10,7 +10,7 @@ const [adminName, setAdminName] = useState("");
 
    // Function to fetch admin information from backend API
    useEffect(() => {
-    fetch('http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/auth/GetCurrentAdmin', {
+    fetch('https://api.tmstrainingquizzes.com/auth/GetCurrentAdmin', {
       headers: {
         "Authorization": `Bearer ${adminToken}` // Include token in headers
 

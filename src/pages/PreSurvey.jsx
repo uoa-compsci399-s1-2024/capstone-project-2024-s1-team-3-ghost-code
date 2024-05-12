@@ -32,7 +32,7 @@ function Presurvey() {
   useEffect(() => {
     async function fetchPositions() {
       try {
-        const response = await fetch('http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/GetRoles');
+        const response = await fetch('https://api.tmstrainingquizzes.com/webapi/GetRoles');
         if (!response.ok) throw new Error('Failed to fetch');
         const data = await response.json();
         const roleName = data.map(role => role.roleName);
@@ -54,7 +54,7 @@ function Presurvey() {
   useEffect(() => {
     async function fetchOrganisations() {
       try {
-        const response = await fetch('http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/GetOrganizations');
+        const response = await fetch('https://api.tmstrainingquizzes.com/webapi/GetOrganizations');
         if (!response.ok) throw new Error('Failed to fetch');
         const data = await response.json();
         const orgNames = data.map(org => org.orgName); // Extract orgName from each organisation object
@@ -105,7 +105,7 @@ function Presurvey() {
  
 
     try {
-      const registrationResponse = await fetch('http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/AddClinician', {
+      const registrationResponse = await fetch('https://api.tmstrainingquizzes.com/webapi/AddClinician', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -115,7 +115,7 @@ function Presurvey() {
   
       if (registrationResponse.ok) {
         // Attempt to log in the user after successful registration
-        const loginResponse = await fetch('http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/auth/ClinicianLogin', {
+        const loginResponse = await fetch('https://api.tmstrainingquizzes.com/auth/ClinicianLogin', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
