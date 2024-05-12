@@ -18,7 +18,7 @@ export function Modules() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/GetModules",
+          "https://api.tmstrainingquizzes.com/webapi/GetModules",
           {
             headers: {
               Authorization: `Bearer ${adminToken}`, // Include token in headers
@@ -57,7 +57,7 @@ export function Modules() {
               className="module-item"
               onClick={() =>
                 navigate(
-                  `http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/GetModuleByID/${module.sequence}`
+                  `https://api.tmstrainingquizzes.com/webapi/GetModuleByID/${module.sequence}`
                 )
               }
             >

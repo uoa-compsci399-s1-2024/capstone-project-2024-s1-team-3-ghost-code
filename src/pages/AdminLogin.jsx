@@ -36,7 +36,7 @@ export function AdminLoginForm() {
 
     try {
       const response = await fetch(
-        "http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/auth/Login",
+        "https://api.tmstrainingquizzes.com/auth/Login",
         requestOptions
       );
       const text = await response.text(); // Get response as text

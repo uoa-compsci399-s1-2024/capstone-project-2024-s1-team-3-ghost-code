@@ -64,14 +64,11 @@ export default function AdminSetting() {
 
   // Function to fetch admin information from backend API
   useEffect(() => {
-    fetch(
-      "http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/auth/GetCurrentAdmin",
-      {
-        headers: {
-          Authorization: `Bearer ${adminToken}`, // Include token in headers
-        },
-      }
-    )
+    fetch("https://api.tmstrainingquizzes.com/auth/GetCurrentAdmin", {
+      headers: {
+        Authorization: `Bearer ${adminToken}`, // Include token in headers
+      },
+    })
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");

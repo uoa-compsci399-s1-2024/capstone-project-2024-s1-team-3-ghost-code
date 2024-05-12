@@ -133,7 +133,7 @@ function Presurvey() {
 
     try {
       const registrationResponse = await fetch(
-        "http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/AddClinician",
+        "https://api.tmstrainingquizzes.com/webapi/AddClinician",
         {
           method: "POST",
           headers: {
@@ -146,7 +146,7 @@ function Presurvey() {
       if (registrationResponse.ok) {
         // Attempt to log in the user after successful registration
         const loginResponse = await fetch(
-          "http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/auth/ClinicianLogin",
+          "https://api.tmstrainingquizzes.com/auth/ClinicianLogin",
           {
             method: "POST",
             headers: {
