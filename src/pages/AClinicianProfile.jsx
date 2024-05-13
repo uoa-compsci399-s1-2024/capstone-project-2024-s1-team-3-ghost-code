@@ -13,12 +13,14 @@ function AClinicianProfile() {
     const [organization, setOrganization] = useState("");
     const [position, setPosition] = useState("");
 
-    const [status, setStatus] = useState("Not Certifed");
-    const [initialStatus, setInitialStatus] = useState(status);
+    const [status, setStatus] = useState();
+    const [initialStatus, setInitialStatus] = useState();
 
     const [organizations, setOrganizations] = useState([]);
     const [positions, setPositions] = useState([]);
     const adminToken = sessionStorage.getItem('adminToken');
+
+    
   
 
     
@@ -40,7 +42,7 @@ function AClinicianProfile() {
                 if (response.ok) {
                     const data = await response.json();
                     setClinicianDetails(data[0]);
-                    setEmail(data[0].userEmail || "");
+                    setEmail(data[0].userEmail || "");  
                     setOrganization(data[0].organization.orgName);
                     setPosition(data[0].role.roleName);
                 } else if (response.status === 401) {
@@ -49,18 +51,6 @@ function AClinicianProfile() {
                 }
             } catch (error) {
                 console.error('Failed to fetch clinician details:', error);
-            }
-
-            // Fetch certification status
-            try {
-                const certResponse = await fetch(`https://api.tmstrainingquizzes.com/webapi/CertificationStatus/${clinicianId}`, requestOptions);
-                if (certResponse.ok) {
-                    setStatus("Certified");
-                } else if (certResponse.status === 404) {
-                    setStatus("Not Certified");
-                }
-            } catch (error) {
-                console.error('Failed to fetch certification status:', error);
             }
 
             // Fetch organizations
@@ -72,10 +62,75 @@ function AClinicianProfile() {
             const rolesResponse = await fetch('https://api.tmstrainingquizzes.com/webapi/GetRoles');
             const rolesData = await rolesResponse.json();
             setPositions(rolesData.map(role => ({ name: role.roleName, id: role.roleID })));
+
+           
         };
 
         fetchDetails();
     }, [clinicianId, adminToken, navigate]);
+
+
+    useEffect(() => {
+        if (clinicianDetails) {
+            const fetchCertificationStatus = async () => {
+                const requestOptions = {
+                    method: 'GET',
+                    headers: {
+                        "Authorization": `Bearer ${adminToken}`
+                    }
+                };
+
+                try {
+                    const certResponse = await fetch(`https://api.tmstrainingquizzes.com/webapi/GetClinicianCertificationStatus/${clinicianDetails.userID}`, requestOptions);
+                    if (certResponse.ok) {
+                        const certData = await certResponse.json();
+                        setStatus("Certified");
+                        setInitialStatus("Certified");
+                    } else if (certResponse.status === 404) {
+                        setStatus("Not Certified");
+                        setInitialStatus("Not Certified");
+                    }
+                } catch (error) {
+                    console.error('Failed to fetch certification status:', error);
+                }
+            };
+            fetchCertificationStatus();
+        }
+    }, [clinicianDetails, adminToken]);
+
+
+
+
+    async function setClinicianCertificationStatus() {
+        const url = 'https://api.tmstrainingquizzes.com/webapi/SetClinicianCertificationStatus';
+        const data = {
+            UserID: clinicianDetails.userID,
+            Type: 'Certified'
+        };
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${adminToken}`
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (!response.ok) throw new Error('Failed to update certification status');
+
+            const result = await response.json();
+            console.log('Certification status updated:', result);
+            setStatus("Certified");
+            setInitialStatus("Certified");
+        } catch (error) {
+            console.error('Error updating certification status:', error);
+        }
+    }
+
+
+
 
    const handleSaveChanges = async () => {
     // Find the selected role and organization IDs
@@ -117,39 +172,9 @@ function AClinicianProfile() {
         alert(error.message);
     }
 
-     // Check if the status changed to "Certified"
-     if (initialStatus === 'Not Certified' && currentStatus === 'Certified') {
+    if (initialStatus === 'Not Certified' && status === 'Certified') {
         await setClinicianCertificationStatus();
-     }
-
-      // Function to call the certification API
-    const setClinicianCertificationStatus = async () => {
-        const url = 'https://api.tmstrainingquizzes.com/webapi/SetClinicianCertificationStatus';
-        const data = {
-        UserID: clinicianDetails.userID,
-        Type: 'Certified'
-        };
-
-        try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        });
-
-        if (!response.ok) throw new Error('Failed to update certification status');
-
-        const result = await response.json();
-        console.log('Certification status updated:', result);
-        // Optionally update UI or state here
-
-        } catch (error) {
-        console.error('Error updating certification status:', error);
-        }
-    };
-
+    }
     
 };
 
