@@ -17,7 +17,7 @@ function ClientDashboard() {
         to="https://www.verifytraining.auckland.ac.nz/s"
         style={{ textDecoration: "none" }}
       >
-        <button className="clientButton">Resources</button>
+        <button className="clientButton">Verify Training</button>
       </Link>
 
       <Link to="/quizDashboard" style={{ textDecoration: "none" }}>
