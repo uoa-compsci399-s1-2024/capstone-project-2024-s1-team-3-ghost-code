@@ -84,7 +84,7 @@ export function QuestionsDisplay() {
   // This useEffect fetches modules initially to display, and then for each module, it fetches questions
   useEffect(() => {
     fetch(
-      "http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/GetModules",
+      "https://api.tmstrainingquizzes.com/webapi/GetModules",
       requestOptions
     )
       .then((res) => res.json())
@@ -94,7 +94,7 @@ export function QuestionsDisplay() {
         Promise.all(
           modules.map((mod) =>
             fetch(
-              `http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/GetQuestions/${mod.sequence}`
+              `https://api.tmstrainingquizzes.com/webapi/GetQuestions/${mod.sequence}`
             )
               .then((res) => res.json())
               .then((questionsForModule) => {

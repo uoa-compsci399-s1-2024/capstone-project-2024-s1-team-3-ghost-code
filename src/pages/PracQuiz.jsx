@@ -24,7 +24,7 @@ const PracQuiz = () => {
     const fetchClinicianData = async () => {
       try {
         const clinicianResponse = await redaxios.get(
-          "http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/auth/GetCurrentClinician",
+          "https://api.tmstrainingquizzes.com/auth/GetCurrentClinician",
           {
             headers: {
               Authorization: `Bearer ${cliniciantoken}`, // Include token in headers
@@ -45,7 +45,7 @@ const PracQuiz = () => {
     const fetchQuestions = async () => {
       try {
         const response = await redaxios.post(
-          "http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/GetQuizQs",
+          "https://api.tmstrainingquizzes.com/webapi/GetQuizQs",
           {
             quizID: quizID,
             userID: userID,

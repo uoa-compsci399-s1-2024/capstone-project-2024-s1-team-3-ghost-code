@@ -193,7 +193,7 @@ export default function AdminSetting() {
                       className="admin-search-item"
                       onClick={() =>
                         navigate(
-                          `http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/GetAdminByID/${adminSearchs.sequence}`
+                          `https://api.tmstrainingquizzes.com/webapi/GetAdminByID/${adminSearchs.sequence}`
                         )
                       }
                     >
