@@ -38,7 +38,7 @@ function Presurvey() {
         const roleName = data.map(role => role.roleName);
         const roleID = data.map(role => role.roleID)
         setPositions(roleName || []); // Ensure your API returns an object with a 'positions' key
-        setPosition("Doctor"); // Set default position
+        setPosition(roleName[0]); // Set default position
 
         setRolesID(roleID);
   
@@ -60,7 +60,7 @@ function Presurvey() {
         const orgNames = data.map(org => org.orgName); // Extract orgName from each organisation object
         const orgIDs = data.map(org => org.orgID);
         setOrganisations(orgNames || []); // Set organisations state to an array of orgName strings
-        setOrganisation("University of Auckland"); // Set default organisation (if needed)
+        setOrganisation(orgNames[0]); // Set default organisation (if needed)
         
         setOrgsID(orgIDs);
 
@@ -90,6 +90,8 @@ function Presurvey() {
     // Retrieve the corresponding IDs using the indexes
     const roleID = positionIndex !== -1 ? roleIDs[positionIndex] : null;
     const organisationID = organisationIndex !== -1 ? orgIDs[organisationIndex] : null;
+
+    console.log(organisationID)
 
     
 

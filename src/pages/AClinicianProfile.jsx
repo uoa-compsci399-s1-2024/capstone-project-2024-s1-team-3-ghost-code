@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams,  } from 'react-router-dom';
 import AdminDashboard from "../components/Dashboards/ADashboard";
 import AdminInfo from "../components/AdminComponent/adminInfo";
 import { Link, useNavigate } from "react-router-dom";
@@ -12,10 +12,15 @@ function AClinicianProfile() {
     const [email, setEmail] = useState("");
     const [organization, setOrganization] = useState("");
     const [position, setPosition] = useState("");
-    const [status, setStatus] = useState("");
+
+    const [status, setStatus] = useState("Not Certifed");
+    const [initialStatus, setInitialStatus] = useState(status);
+
     const [organizations, setOrganizations] = useState([]);
     const [positions, setPositions] = useState([]);
     const adminToken = sessionStorage.getItem('adminToken');
+  
+
     
 
 
@@ -32,21 +37,30 @@ function AClinicianProfile() {
             };
             try {
                 const response = await fetch(`https://api.tmstrainingquizzes.com/webapi/ClinicianSearch/${clinicianId}`, requestOptions);
-                if (!response.ok) {
-                    if (response.status === 401) {
-                        sessionStorage.removeItem('adminToken');
-                        navigate('/adminlogin');
-                    }
-                    throw new Error('Network response was not ok');
+                if (response.ok) {
+                    const data = await response.json();
+                    setClinicianDetails(data[0]);
+                    setEmail(data[0].userEmail || "");
+                    setOrganization(data[0].organization.orgName);
+                    setPosition(data[0].role.roleName);
+                } else if (response.status === 401) {
+                    sessionStorage.removeItem('adminToken');
+                    navigate('/adminlogin');
                 }
-                const data = await response.json();
-                setClinicianDetails(data[0]);
-                setEmail(data[0].userEmail || "");
-                setOrganization(data[0].organization.orgName);
-                setPosition(data[0].role.roleName);
-                setStatus(data[0].status || "Not Certified");
             } catch (error) {
                 console.error('Failed to fetch clinician details:', error);
+            }
+
+            // Fetch certification status
+            try {
+                const certResponse = await fetch(`https://api.tmstrainingquizzes.com/webapi/CertificationStatus/${clinicianId}`, requestOptions);
+                if (certResponse.ok) {
+                    setStatus("Certified");
+                } else if (certResponse.status === 404) {
+                    setStatus("Not Certified");
+                }
+            } catch (error) {
+                console.error('Failed to fetch certification status:', error);
             }
 
             // Fetch organizations
@@ -102,15 +116,50 @@ function AClinicianProfile() {
         console.error('Error updating clinician:', error);
         alert(error.message);
     }
+
+     // Check if the status changed to "Certified"
+     if (initialStatus === 'Not Certified' && currentStatus === 'Certified') {
+        await setClinicianCertificationStatus();
+     }
+
+      // Function to call the certification API
+    const setClinicianCertificationStatus = async () => {
+        const url = 'https://api.tmstrainingquizzes.com/webapi/SetClinicianCertificationStatus';
+        const data = {
+        UserID: clinicianDetails.userID,
+        Type: 'Certified'
+        };
+
+        try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (!response.ok) throw new Error('Failed to update certification status');
+
+        const result = await response.json();
+        console.log('Certification status updated:', result);
+        // Optionally update UI or state here
+
+        } catch (error) {
+        console.error('Error updating certification status:', error);
+        }
+    };
+
+    
 };
 
-    return (
-        <div className="flex">
-            <div className="dashboard-container">
-                <AdminDashboard />
-            </div>
-            <div className="AdminClientSearchContainer">
-                <AdminInfo />
+return (
+    <div className="flex">
+        <div className="dashboard-container">
+            <AdminDashboard />
+        </div>
+        <div className="AdminClientSearchContainer">
+            <AdminInfo />
             <div className="clinician-profile-container">
                 {clinicianDetails && (
                     <div className="clinician-details">
@@ -133,16 +182,19 @@ function AClinicianProfile() {
                                     ))}
                                 </select>
                                 <label>Status:</label>
-                                <input type="text" value={status} onChange={(e) => setStatus(e.target.value)} />
+                                <select value={status} onChange={(e) => setStatus(e.target.value)}>
+                                    <option value="Not Certified">Not Certified</option>
+                                    <option value="Certified">Certified</option>
+                                </select>
                                 <button onClick={handleSaveChanges}>Save Changes</button>
                             </div>
                         </div>
                     </div>
                 )}
-                </div>
             </div>
         </div>
-    );
+    </div>
+);
 }
 
 export default AClinicianProfile;
