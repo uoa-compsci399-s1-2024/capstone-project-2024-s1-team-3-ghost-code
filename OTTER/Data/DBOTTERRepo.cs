@@ -58,7 +58,7 @@ namespace OTTER.Data
                     // Populate fields with data
                     form.SetField("Name", name);
                     form.SetField("Module", $"VERIFY: {module.Name} module");
-                    form.SetField("Date", date.ToString("dd/MM/yyyy"));
+                    form.SetField("Date", date.ToString("dd MMMM yyyy"));
 
                     // Flatten the form (optional)
                     stamper.FormFlattening = true;
@@ -510,7 +510,10 @@ namespace OTTER.Data
 
         public IEnumerable<Role> GetRoles()
         {
-            return _dbContext.Roles.ToList<Role>();
+            Role other = _dbContext.Roles.First(r => r.RoleName == "Other");
+            IEnumerable<Role> list = _dbContext.Roles.Where(r => r.RoleName != "Other").OrderBy(o => o.RoleName).ToList<Role>();
+            list = list.Append(other);
+            return list;
         }
         
         public Role GetRoleByID(int id)
