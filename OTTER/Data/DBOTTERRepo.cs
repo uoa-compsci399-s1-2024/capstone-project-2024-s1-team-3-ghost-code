@@ -21,7 +21,7 @@ namespace OTTER.Data
     public class DBOTTERRepo : IOTTERRepo
     {
         private readonly OTTERDBContext _dbContext;
-        private readonly string _emailApiUri = "https://script.google.com/macros/s/AKfycbzvev_v7GVvporKeNujKD5ndYEcQa-Xv93tu5FHhwyea_TC_-7PqW2qk1Jv63uSfQ1F/exec";
+        private readonly string _emailApiUri = "https://script.google.com/macros/s/AKfycbxju7WbjRdS5w3e_PNTmuVgGU0l-ZA3L_Lu_FVkjAnSb1h0BTg_cDwY0czF8BWOig6z/exec";
         public DBOTTERRepo(OTTERDBContext dbContext)
         {
             _dbContext = dbContext;
