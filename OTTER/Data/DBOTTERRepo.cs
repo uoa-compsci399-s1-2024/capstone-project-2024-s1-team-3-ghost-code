@@ -334,7 +334,7 @@ namespace OTTER.Data
             //    }
             //}
 
-            if(GetAttemptByID(submission.AttemptID).Quiz.Stage == "Final" && mark /count >= 0.8)
+            if (GetAttemptByID(submission.AttemptID).Quiz.Stage == "Final" && mark /count >= 0.8)
             {
                 
                 _dbContext.Attempts.FirstOrDefault(e => e.AttemptID == submission.AttemptID).Completed = "PASS";
