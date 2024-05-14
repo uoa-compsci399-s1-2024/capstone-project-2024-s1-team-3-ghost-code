@@ -271,21 +271,34 @@ namespace OTTER.Data
 
         public QuizSubMarksDto MarkQuiz(QuizSubmissionDto submission)
         {
-            QuizSubMarksDto output = new QuizSubMarksDto { Sequence = new List<int>(), Correct = new List<List<bool>>(), Feedback = new List<List<string>>() };
+            QuizSubMarksDto output = new QuizSubMarksDto { Sequence = new List<int>(), SelectedCorrect = new List<List<bool>>(), SelectedFeedback = new List<List<string>>(), MissedCorrect = new List<List<bool>>(), MissedFeedback = new List<List<string>>()  };
             foreach (int sequence in submission.Sequence)
             {
                 List<bool> correct = new List<bool>();
                 List<string> feedback = new List<string>();
+                List<bool> missedCorrect = new List<bool>();
+                List<string> missedFeedback = new List<string>();
+                List<int> selectedAID = new List<int>();
                 foreach (int AID in submission.AnswerID.ElementAt(sequence - 1))
                 {
+                    selectedAID.Add(AID);
                     AttemptQuestion aQ = GetAttemptQuestionBySequenceAndUserAndAttempt(sequence, submission.UserID, submission.AttemptID);
                     aQ.Answers.ToList().Add(GetAnswerByID(AID));
                     GetAnswerByID(AID).Attempts.ToList().Add(aQ);
                     correct.Add(GetAnswerByID(AID).CorrectAnswer);
                     feedback.Add(GetAnswerByID(AID).Feedback);
                 }
-                output.Correct.Add(correct);
-                output.Feedback.Add(feedback);
+                foreach (Answer correctAnswer in GetCorrectAnswersByQID(submission.QuestionID.ElementAt(sequence - 1))){
+                    if(selectedAID.Contains(correctAnswer.AnswerID) == false)
+                    {
+                        missedCorrect.Add(correctAnswer.CorrectAnswer);
+                        missedFeedback.Add(correctAnswer.Feedback);
+                    }
+                }
+                output.MissedCorrect.Add(missedCorrect);
+                output.MissedFeedback.Add(missedFeedback);
+                output.SelectedCorrect.Add(correct);
+                output.SelectedFeedback.Add(feedback);
                 output.Sequence.Add(sequence);
             }
             _dbContext.Attempts.FirstOrDefault(e => e.AttemptID == submission.AttemptID).Completed = "FAIL";
@@ -299,7 +312,7 @@ namespace OTTER.Data
                 if(GetCorrectAnswersByQID(submission.QuestionID.ElementAt(sequence - 1)).Count() == 1)
                 {
                     count++;
-                    if (output.Correct.ElementAt(sequence - 1).ElementAt(0) == true)
+                    if (output.SelectedCorrect.ElementAt(sequence - 1).ElementAt(0) == true)
                     {
                         mark++;
                     }
@@ -308,7 +321,7 @@ namespace OTTER.Data
                     double multiCount = GetCorrectAnswersByQID(submission.QuestionID.ElementAt(sequence - 1)).Count();
                     double multiMark = 0.0;
                     count++;
-                    foreach (bool correct in output.Correct.ElementAt(sequence - 1))
+                    foreach (bool correct in output.SelectedCorrect.ElementAt(sequence - 1))
                     {
                         if(correct == true)
                         {
@@ -324,18 +337,6 @@ namespace OTTER.Data
                     } 
                 }
             }
-
-            //foreach(List<bool> question in output.Correct)
-            //{
-            //    foreach (bool answer in question)
-            //    {
-            //        count++;
-            //        if (answer == true)
-            //        {
-            //            mark++;
-            //        }
-            //    }
-            //}
 
             if (GetAttemptByID(submission.AttemptID).Quiz.Stage == "Final" && mark /count >= 0.8)
             {

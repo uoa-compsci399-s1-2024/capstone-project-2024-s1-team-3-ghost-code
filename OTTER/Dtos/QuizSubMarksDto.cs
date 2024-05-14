@@ -7,10 +7,14 @@ namespace OTTER.Dtos
         [Required]
         public List<int> Sequence { get; set; }
         [Required]
-        public List<List<bool>> Correct { get; set; }
+        public List<List<bool>> SelectedCorrect { get; set; }
         [Required]
-        public List<List<string>> Feedback { get; set; }
+        public List<List<string>> SelectedFeedback { get; set; }
         [Required]
         public int Score { get; set; }
+        [Required]
+        public List<List<string>> MissedFeedback { get; set; }
+        [Required]
+        public List<List<bool>> MissedCorrect { get; set; }
     }
 }
