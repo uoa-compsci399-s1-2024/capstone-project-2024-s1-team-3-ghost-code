@@ -1,5 +1,6 @@
 import React from "react";
 import "./CDashboard.css";
+import { Link } from "react-router-dom";
 
 function ClientDashboard() {
   return (
@@ -9,11 +10,19 @@ function ClientDashboard() {
           className="clientLogo"
           loading="lazy"
           src="src/components/VERIFYLogo.jpg"
-          alt="DashboardLogo" 
+          alt="DashboardLogo"
         />
       </div>
-      <button className="clientButton">Resources</button>
-      <button className="clientButton">Dashboard</button>
+      <Link
+        to="https://www.verifytraining.auckland.ac.nz/s"
+        style={{ textDecoration: "none" }}
+      >
+        <button className="clientButton">Verify Training</button>
+      </Link>
+
+      <Link to="/quizDashboard" style={{ textDecoration: "none" }}>
+        <button className="clientButton">Dashboard</button>
+      </Link>
 
       <br></br>
       <br></br>
@@ -22,7 +31,9 @@ function ClientDashboard() {
       <br></br>
       <br></br>
       <br></br>
-      <button className="clientButton">Settings</button>
+      <Link to="/quizClientSettings" style={{ textDecoration: "none" }}>
+        <button className="clientButton">Settings</button>
+      </Link>
     </div>
   );
 }

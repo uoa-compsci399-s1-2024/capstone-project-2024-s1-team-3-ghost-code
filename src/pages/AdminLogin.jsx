@@ -36,7 +36,7 @@ export function AdminLoginForm() {
 
     try {
       const response = await fetch(
-        "http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/auth/Login",
+        "https://api.tmstrainingquizzes.com/auth/Login",
         requestOptions
       );
       const text = await response.text(); // Get response as text
@@ -69,22 +69,24 @@ export function AdminLoginForm() {
                   type="text"
                   className="input-box"
                   id="logEmail"
-                  placeholder="Email address"
+                  // placeholder="Email address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
+                <label htmlFor="logEmail">Email Address</label>
               </div>
               <div className="input-field">
                 <input
                   type={passwordVisible ? "text" : "password"}
                   className="input-box"
                   id="logPassword"
-                  placeholder="Password"
+                  // placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
+                <label htmlFor="logEmail">Password</label>
                 <div className="eye-area" onClick={togglePasswordVisibility}>
                   {passwordVisible ? (
                     <i className="fa-regular fa-eye-slash" id="eye-slash"></i>

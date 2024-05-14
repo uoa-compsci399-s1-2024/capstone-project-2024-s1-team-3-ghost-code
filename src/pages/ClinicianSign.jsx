@@ -17,7 +17,7 @@ export function BackToHomeLink() {
 }
 
 export function ClinicianLoginForm() {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
 
   const navigate = useNavigate();
 
@@ -31,7 +31,7 @@ export function ClinicianLoginForm() {
     };
     try {
       const response = await fetch(
-        "http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/auth/ClinicianLogin",
+        "https://api.tmstrainingquizzes.com/auth/ClinicianLogin",
         requestOptions
       );
       const text = await response.text(); // Get response as text
