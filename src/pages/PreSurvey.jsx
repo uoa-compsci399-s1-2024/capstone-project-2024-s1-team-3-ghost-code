@@ -60,15 +60,13 @@ function Presurvey() {
   useEffect(() => {
     async function fetchPositions() {
       try {
-        const response = await fetch(
-          "http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/GetRoles"
-        );
-        if (!response.ok) throw new Error("Failed to fetch");
+        const response = await fetch('https://api.tmstrainingquizzes.com/webapi/GetRoles');
+        if (!response.ok) throw new Error('Failed to fetch');
         const data = await response.json();
         const roleName = data.map((role) => role.roleName);
         const roleID = data.map((role) => role.roleID);
         setPositions(roleName || []); // Ensure your API returns an object with a 'positions' key
-        setPosition("Doctor"); // Set default position
+        setPosition(roleName[0]); // Set default position
 
         setRolesID(roleID);
       } catch (error) {
@@ -83,15 +81,15 @@ function Presurvey() {
   useEffect(() => {
     async function fetchOrganisations() {
       try {
-        const response = await fetch(
-          "http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/GetOrganizations"
-        );
-        if (!response.ok) throw new Error("Failed to fetch");
+        const response = await fetch('https://api.tmstrainingquizzes.com/webapi/GetOrganizations');
+        if (!response.ok) throw new Error('Failed to fetch');
         const data = await response.json();
         const orgNames = data.map((org) => org.orgName); // Extract orgName from each organisation object
         const orgIDs = data.map((org) => org.orgID);
         setOrganisations(orgNames || []); // Set organisations state to an array of orgName strings
-        setOrganisation("University of Auckland"); // Set default organisation (if needed)
+        setOrganisation(orgNames[0]); // Set default organisation (if needed)
+        
+        setOrgsID(orgIDs);
 
         setOrgsID(orgIDs);
       } catch (error) {
@@ -118,8 +116,11 @@ function Presurvey() {
 
     // Retrieve the corresponding IDs using the indexes
     const roleID = positionIndex !== -1 ? roleIDs[positionIndex] : null;
-    const organisationID =
-      organisationIndex !== -1 ? orgIDs[organisationIndex] : null;
+    const organisationID = organisationIndex !== -1 ? orgIDs[organisationIndex] : null;
+
+    console.log(organisationID)
+
+    
 
     const clinicianData = {
       userEmail: email,
@@ -132,30 +133,24 @@ function Presurvey() {
     console.log(clinicianData);
 
     try {
-      const registrationResponse = await fetch(
-        "https://api.tmstrainingquizzes.com/webapi/AddClinician",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(clinicianData),
-        }
-      );
-
+      const registrationResponse = await fetch('https://api.tmstrainingquizzes.com/webapi/AddClinician', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(clinicianData)
+      });
+  
       if (registrationResponse.ok) {
         // Attempt to log in the user after successful registration
-        const loginResponse = await fetch(
-          "https://api.tmstrainingquizzes.com/auth/ClinicianLogin",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ email: email }),
-          }
-        );
-
+        const loginResponse = await fetch('https://api.tmstrainingquizzes.com/auth/ClinicianLogin', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email: email })
+        });
+  
         const text = await loginResponse.text(); // First get the response as text to check for errors
 
         if (loginResponse.ok && !text.includes("Login failed")) {

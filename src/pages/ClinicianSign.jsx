@@ -37,8 +37,8 @@ export function ClinicianLoginForm() {
       const text = await response.text(); // Get response as text
 
       // Example handling of the response text
-      if (!text.includes("Clinican email does not exist")) {
-        sessionStorage.setItem("cliniciantoken", text); // Store token (or whatever the response indicates)
+      if (!text.includes("Email does not exist")) {
+        localStorage.setItem('userToken', text); // Store the token// Store token (or whatever the response indicates)
         navigate("/quizDashboard"); // Redirect using navigate instead of updating state
       } else {
         alert("Login failed!");

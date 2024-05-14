@@ -8,9 +8,9 @@ function AdminInfo() {
   const dropdownRef = useRef(null); // Reference to the admin info box
   const adminToken = sessionStorage.getItem("adminToken");
 
-  // Function to fetch admin information from backend API
-  useEffect(() => {
-    fetch("https://api.tmstrainingquizzes.com/auth/GetCurrentAdmin", {
+   // Function to fetch admin information from backend API
+   useEffect(() => {
+    fetch('https://api.tmstrainingquizzes.com/auth/GetCurrentAdmin', {
       headers: {
         Authorization: `Bearer ${adminToken}`, // Include token in headers
       },
