@@ -15,6 +15,6 @@ namespace OTTER.Dtos
         [Required]
         public List<List<string>> MissedFeedback { get; set; }
         [Required]
-        public List<List<bool>> MissedCorrect { get; set; }
+        public List<List<int>> MissedCorrectAID { get; set; }
     }
 }

@@ -271,12 +271,12 @@ namespace OTTER.Data
 
         public QuizSubMarksDto MarkQuiz(QuizSubmissionDto submission)
         {
-            QuizSubMarksDto output = new QuizSubMarksDto { Sequence = new List<int>(), SelectedCorrect = new List<List<bool>>(), SelectedFeedback = new List<List<string>>(), MissedCorrect = new List<List<bool>>(), MissedFeedback = new List<List<string>>()  };
+            QuizSubMarksDto output = new QuizSubMarksDto { Sequence = new List<int>(), SelectedCorrect = new List<List<bool>>(), SelectedFeedback = new List<List<string>>(), MissedCorrectAID = new List<List<int>>(), MissedFeedback = new List<List<string>>()  };
             foreach (int sequence in submission.Sequence)
             {
                 List<bool> correct = new List<bool>();
                 List<string> feedback = new List<string>();
-                List<bool> missedCorrect = new List<bool>();
+                List<int> missedCorrectAID = new List<int>();
                 List<string> missedFeedback = new List<string>();
                 List<int> selectedAID = new List<int>();
                 foreach (int AID in submission.AnswerID.ElementAt(sequence - 1))
@@ -291,11 +291,11 @@ namespace OTTER.Data
                 foreach (Answer correctAnswer in GetCorrectAnswersByQID(submission.QuestionID.ElementAt(sequence - 1))){
                     if(selectedAID.Contains(correctAnswer.AnswerID) == false)
                     {
-                        missedCorrect.Add(correctAnswer.CorrectAnswer);
+                        missedCorrectAID.Add(correctAnswer.AnswerID);
                         missedFeedback.Add(correctAnswer.Feedback);
                     }
                 }
-                output.MissedCorrect.Add(missedCorrect);
+                output.MissedCorrectAID.Add(missedCorrectAID);
                 output.MissedFeedback.Add(missedFeedback);
                 output.SelectedCorrect.Add(correct);
                 output.SelectedFeedback.Add(feedback);
