@@ -9,6 +9,38 @@
   height: 100vh;
 
 }
+/* Progress bar code*/
+.progress-bar-container {
+  width: 100%;
+  border: 2px solid #000; /* Outline of the full bar */
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-bar {
+  background-color: #008080;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Align percentage text to the right */
+  color: white;
+  font-weight: bold;
+  position: relative;
+  padding-right: 10px; /* Add some padding to the right */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+}
+
+.progress-percentage {
+  position: absolute;
+  right: 10px; /* Ensure it stays inside the bar */
+  pointer-events: none;
+}
+
+
+
 
 .quiz-body {
   background: #BDDEDE;
@@ -192,15 +224,3 @@
   font-size: 22px;
 }
 
-.progress-bar-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 10px; /* Adjust height as needed */
-}
-
-.progress-bar {
-  height: 100%;
-  background-color: #007bff; /* Adjust color as needed */
-}
