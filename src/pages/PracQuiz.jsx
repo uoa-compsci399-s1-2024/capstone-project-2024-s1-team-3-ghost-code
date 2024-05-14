@@ -196,13 +196,19 @@ const storeSelectedAnswersForQuestion = (selectedAnswers, questionIndex) => {
   
         // Calculate score based on submission result
         const score = submissionResult.score;
+        const correctAnswers = submissionResult.correct.filter(answer => answer[0] === true).length;
+        const wrongAnswers = submissionResult.correct.filter(answer => answer[0] === false).length;
+
+        console.log(correctAnswers)
+
+        
   
         // Show result with score
         setResult((prev) => ({
           ...prev,
           score: score,
-          correctAnswers: 0, // Reset correct answers count
-          wrongAnswers: 0, // Reset wrong answers count
+          correctAnswers: correctAnswers, // Reset correct answers count
+          wrongAnswers: wrongAnswers, // Reset wrong answers count
         }));
   
         setShowResult(true);
