@@ -1,0 +1,151 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'poppins',sans-serif;
+    max-height:100vh;
+}
+  
+  .welcome-page {
+    margin: auto;
+    
+    overflow: auto;
+    background: linear-gradient(315deg, #FFBA49 3%, #EF5B5B 38%, #F97068 68%, #23001E 98%);
+    animation: gradient 15s ease infinite;
+    background-size: 400% 400%;
+    background-attachment: fixed;
+    margin-bottom: 0px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: white;
+}
+
+.welcome-page h2 {
+    font-size: 60px;
+}
+
+.welcome-page p{
+    margin-bottom: 30px;
+    padding: 0 50px 0 50px
+}
+
+.start-quiz{
+    width: 200px;
+    height: 50px;
+    font-size: 15px;
+    font-weight: 500;
+    border: none;
+    border-radius: 10px;
+    background: #008080;
+    color: #fff;
+    box-shadow: 0px 4px 20px rgba(62, 9, 9, 0.144);
+    cursor: pointer;
+    transition: .4s;
+}
+.start-quiz:hover{
+    background:  #006464;
+    box-shadow: 0px 4px 20px rgba(62, 9, 9, 0.32);
+}
+
+  .to-admin-login {
+    position: absolute;
+    top: 20px;
+    right: 1px;
+    font-size: 16px;
+    display: inline-block;
+    color: white;
+  }
+
+  .admin-login-text {
+    margin-right: 50px;
+  }
+  
+  #forward-arrow {
+    width: 25px;
+    right: 15px;
+    margin-top: 4px;
+    color: white;
+  }
+
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+.button-next-to {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+  }
+
+  .button-next-to > * {
+    padding: 0px 10px 0px 10px; 
+  }
+  
+
+.wave {
+    background: rgb(255 255 255 / 25%);
+    border-radius: 1000% 1000% 0 0;
+    position: fixed;
+    width: 200%;
+    height: 12em;
+    animation: wave 10s -3s linear infinite;
+    transform: translate3d(0, 0, 0);
+    opacity: 0.8;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.wave:nth-of-type(2) {
+    bottom: -1.25em;
+    animation: wave 18s linear reverse infinite;
+    opacity: 0.8;
+}
+
+.wave:nth-of-type(3) {
+    bottom: -2.5em;
+    animation: wave 20s -1s reverse infinite;
+    opacity: 0.9;
+}
+
+@keyframes wave {
+    2% {
+        transform: translateX(1);
+    }
+
+    25% {
+        transform: translateX(-25%);
+    }
+
+    50% {
+        transform: translateX(-50%);
+    }
+
+    75% {
+        transform: translateX(-25%);
+    }
+
+    100% {
+        transform: translateX(1);
+    }
+}
+  
+  

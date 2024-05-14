@@ -1,0 +1,85 @@
+.flex {
+    display: flex;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+}
+
+
+.quizModuleContainer {
+    margin-left: 20%; /* Ensure it starts after the ClientDashboard */
+    flex: 1; /* Take remaining space */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding: 20px;
+    background-color: #BDDEDE;  
+    
+}
+
+.quizModuleresults {
+    padding-top: 20px;
+    
+}
+
+.module-item {
+    width:70%; /* Adjust the width as needed */
+    margin: 0 auto; /* Center the module boxes horizontally */
+    padding: 60px; /* Add padding to the module boxes */
+    margin-bottom: 20px; /* Add some space between module boxes */
+    background-color: #ffffff; /* Background color */
+    border-radius: 15px; /* Add curved edges */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    cursor: pointer;
+}
+
+.moduleId,
+.moduleName,
+.moduleDescription {
+    margin: 5px 0;
+    font-size: 1.3rem;
+    
+}
+
+.moduleId {
+    font-weight: bold;
+}
+
+.moduleName {
+    font-weight: bold;
+}
+
+.progress-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+/* prac and final quiz buttons:
+/* QuizDashboard.css */
+
+/* Styling for the buttons */
+.module-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.module-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.module-button.practice {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
+
+.module-button.final {
+    background-color: #f44336; /* Red */
+    color: white;
+}
+
+.module-button:hover {
+    opacity: 0.8;
+}
