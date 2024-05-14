@@ -247,7 +247,7 @@ namespace OTTER.Data
 
         public Attempt GetAttemptByID(int id)
         {
-            return _dbContext.Attempts.FirstOrDefault(e => e.AttemptID == id);
+            return _dbContext.Attempts.Include(e => e.Quiz).FirstOrDefault(e => e.AttemptID == id);
         }
 
         public Attempt AddAttempt(Attempt attempt)
@@ -313,6 +313,9 @@ namespace OTTER.Data
                         if(correct == true)
                         {
                             multiMark++;
+                        } else if (correct == false)
+                        {
+                            multiMark--;
                         }
                     }
                     if (multiMark == multiCount)
@@ -373,7 +376,7 @@ namespace OTTER.Data
                     $"<Br><Br>Thanks,<Br>The VERIFY Team");
             }
 
-            output.Score = (int)(Math.Floor(mark / count) * 100);
+            output.Score = (int)(Math.Floor((mark / count) * 100));
             return output;
         }
 
@@ -431,7 +434,7 @@ namespace OTTER.Data
 
         public IEnumerable<Certification> GetCertificationByID(int id)
         {
-            return _dbContext.Certifications.Where(e => e.User.UserID == id && (e.Type == "InitCertification" || e.Type == "Recert"));
+            return _dbContext.Certifications.Include(e => e.User).ThenInclude(e => e.Organization).Include(e => e.User).ThenInclude(e => e.Role).Where(e => e.User.UserID == id && (e.Type == "InitCertification" || e.Type == "Recert"));
         }
 
         public Certification AddCertification(Certification certification)
