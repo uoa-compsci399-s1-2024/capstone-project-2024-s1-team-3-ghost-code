@@ -156,6 +156,12 @@ const storeSelectedAnswersForQuestion = (selectedAnswers, questionIndex) => {
   
 
   const onClickNext = async () => {
+
+    console.log(selectedAnswersList)
+    console.log(sequence)
+    console.log(questionIDs)
+    console.log(userID)
+    console.log(attemptID)
     const currentQuestion = questions[activeQuestion];
     
     if (activeQuestion !== questions.length - 1) {
