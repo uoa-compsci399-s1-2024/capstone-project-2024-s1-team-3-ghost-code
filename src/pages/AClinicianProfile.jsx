@@ -105,7 +105,7 @@ function AClinicianProfile() {
         const url = 'https://api.tmstrainingquizzes.com/webapi/SetClinicianCertificationStatus';
         const data = {
             UserID: clinicianDetails.userID,
-            Type: 'Certified'
+            Type: 'InitCertification'
         };
 
         try {

@@ -159,9 +159,10 @@ const storeSelectedAnswersForQuestion = (selectedAnswers, questionIndex) => {
     const currentQuestion = questions[activeQuestion];
     
     if (activeQuestion !== questions.length - 1) {
-      setActiveQuestion((prev) => prev + 1);
-      const nextSelectedIndexes = selectedAnswersLists[activeQuestion + 1 ] || [];
-      setSelectedAnswerIndexes([]);
+      const nextQuestionIndex = activeQuestion + 1;
+      setActiveQuestion(nextQuestionIndex);
+      const nextSelectedIndexes = selectedAnswersLists[nextQuestionIndex] || [];
+      setSelectedAnswerIndexes(nextSelectedIndexes);
     } else {
       try { 
   
@@ -173,7 +174,7 @@ const storeSelectedAnswersForQuestion = (selectedAnswers, questionIndex) => {
             sequence: sequence,
             questionID: questionIDs,
             userID: userID,
-            attemptID: attemptID
+            attemptID: attemptID,
           },
           {
             headers: {
@@ -181,6 +182,7 @@ const storeSelectedAnswersForQuestion = (selectedAnswers, questionIndex) => {
             },
           }
         );
+    
   
         // Process the submission response
         const submissionResult = submissionResponse.data;
