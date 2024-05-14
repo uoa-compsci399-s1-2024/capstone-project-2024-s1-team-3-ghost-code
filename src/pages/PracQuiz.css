@@ -1,13 +1,98 @@
 @import url('https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@100;200;300;400;500;600;700;800&display=swap');
 
+* {
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+}
 
+.quiz-loading{
+  height: 100vh;
+
+}
+
+.quiz-body {
+  background: #BDDEDE;
+  color: #000000;
+  padding: 1rem;
+  margin: 0 auto;
+  height: 100vh;
+}
+
+.cont-main-quiz{
+  width: 80%;
+  margin: 0 auto;
+}
+.cont-return-but{
+  padding-top: 4%;
+  padding-bottom: 2%;
+}
+
+h2{
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+
+/*Prev question button*/
+.btn.prev-ques {
+  background: #757575;
+  color: #FFFFFF;
+  border-color: #000000;
+  width: 10%;
+  height: 5%;
+  float: left;
+  margin-left: 2%;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.btn.prev-ques:hover,
+.btn.prev-ques:focus-visible {
+  background: #1a1919;
+  color: #FFFFFF;
+}
+
+/*Next question button*/
+.btn.next-ques {
+  background: #757575;
+  color: #FFFFFF;
+  border-color: #000000;
+  width: 10%;
+  height: 5%;
+  float: right;
+  margin-right: 2%;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.btn.next-ques:hover,
+.btn.next-ques:focus-visible {
+  background: #1a1919;
+  color: #FFFFFF;
+}
+
+.button-container {
+  padding-top: 0%;
+}
+
+.question-body{
+  margin-top: 7%;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-bottom: 2%;
+}
+
+.cont-question{
+  background: #FFFFFF;
+  padding: 20px;
+  border-radius: 25px;
+  margin: 0 auto;
+  width: 100%;
+}
 .quiz-container {
-  max-width: 500px;
-  min-width: 250px;
-  background: #ffffff;
-  border-radius: 4px;
-  margin-top: 100px;
-  padding: 30px 60px;
+
+  padding: 20px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .quiz-container .active-question-no {
@@ -30,7 +115,6 @@
 
 .quiz-container ul {
   margin-top: 20px;
-  margin-left: -40px;
 }
 
 .quiz-container ul li {
@@ -74,10 +158,25 @@
   justify-content: flex-end;
 }
 
+.cont-feedback{
+  
+}
+
+.feeback-qs{
+  float: left;
+}
+.result {
+  background-color: white;
+  border-radius: 25px;
+  padding: 2%;
+  float: right;
+  width: 25%;
+}
 .result h3 {
   font-size: 24px;
   letter-spacing: 1.4px;
   text-align: center;
+  margin-bottom: 5%;
 }
 
 .result p {

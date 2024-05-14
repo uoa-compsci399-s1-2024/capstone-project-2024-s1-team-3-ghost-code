@@ -5,9 +5,9 @@ import redaxios from 'redaxios';
 const PracQuiz = () => {
   const [questions, setQuestions] = useState([]);
   const [activeQuestion, setActiveQuestion] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState('');
+  const [selectedAnswers, setSelectedAnswers] = useState([]);
   const [showResult, setShowResult] = useState(false);
-  const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
+  const [selectedAnswerIndexes, setSelectedAnswerIndexes] = useState([]);
   const cliniciantoken = sessionStorage.getItem('cliniciantoken');
   const [result, setResult] = useState({
     score: 0,
@@ -15,6 +15,8 @@ const PracQuiz = () => {
     wrongAnswers: 0,
   });
 
+
+  
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
@@ -39,9 +41,27 @@ const PracQuiz = () => {
     fetchQuestions();
   }, []);
 
+  const onAnswerSelected = (answer, index) => {
+    const currentQuestion = questions[activeQuestion];
+    if (currentQuestion.questionType === 1) {
+      // Single selection question
+      setSelectedAnswers([answer]);
+      setSelectedAnswerIndexes([index]);
+    } else if (currentQuestion.questionType === 2) {
+      // Multiple selection question
+      if (selectedAnswerIndexes.includes(index)) {
+        setSelectedAnswers((prev) => prev.filter((ans) => ans !== answer));
+        setSelectedAnswerIndexes((prev) => prev.filter((idx) => idx !== index));
+      } else {
+        setSelectedAnswers((prev) => [...prev, answer]);
+        setSelectedAnswerIndexes((prev) => [...prev, index]);
+      }
+    }
+  };
+
   const onClickNext = () => {
     const currentQuestion = questions[activeQuestion];
-    const isCorrect = selectedAnswer === currentQuestion.correctAnswer;
+    const isCorrect = selectedAnswers.includes(currentQuestion.correctAnswer);
     
     setResult((prev) => ({
       ...prev,
@@ -52,15 +72,14 @@ const PracQuiz = () => {
 
     if (activeQuestion !== questions.length - 1) {
       setActiveQuestion((prev) => prev + 1);
+      setSelectedAnswers([]);
+      setSelectedAnswerIndexes([]);
     } else {
       setShowResult(true);
     }
   };
 
-  const onAnswerSelected = (answer, index) => {
-    setSelectedAnswer(answer);
-    setSelectedAnswerIndex(index);
-  };
+
 
   const addLeadingZero = (number) => (number > 9 ? number : `0${number}`);
 
@@ -68,8 +87,11 @@ const PracQuiz = () => {
     return <div>Loading...</div>;
   }
  
+
+  
   const { title, answers } = questions[activeQuestion];
 
+  
   return (
     <div className="quiz-container">
       {!showResult ? (
@@ -84,7 +106,7 @@ const PracQuiz = () => {
               <li
                 onClick={() => onAnswerSelected(answer.answerText, index)}
                 key={answer.answerID}
-                className={selectedAnswerIndex === index ? 'selected-answer' : null}>
+                className={selectedAnswerIndexes.includes(index) ? 'selected-answer' : null}>
                 {answer.answerText}
               </li>
             ))}
@@ -93,7 +115,7 @@ const PracQuiz = () => {
             {activeQuestion !== 0 && (
               <button onClick={() => setActiveQuestion((prev) => prev - 1)}>Previous</button>
             )}
-            <button onClick={onClickNext} disabled={selectedAnswerIndex === null}>
+            <button onClick={onClickNext} disabled={selectedAnswerIndexes.length === 0}>
               {activeQuestion === questions.length - 1 ? 'Finish' : 'Next'}
             </button>
           </div>
