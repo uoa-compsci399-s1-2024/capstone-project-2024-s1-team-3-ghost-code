@@ -14,6 +14,7 @@ namespace OTTER.Data
         Quiz GetQuizByID(int id);
         Question GetQuestionByID(int id);
         IEnumerable<Question> GetQuestionsByModule(int id);
+        IEnumerable<AdminQuestionOutputDto> GetQuestionsByModuleAdmin(int id);
         IEnumerable<QuestionOutputDto> GetQuizQs(QuizInputDto quizInput);
         Question AddQuestion(Question question);
         void DeleteQuestion(int id);

@@ -13,8 +13,6 @@ namespace OTTER.Dtos
         [Required]
         public int Score { get; set; }
         [Required]
-        public List<List<string>> MissedFeedback { get; set; }
-        [Required]
         public List<List<int>> MissedCorrectAID { get; set; }
     }
 }

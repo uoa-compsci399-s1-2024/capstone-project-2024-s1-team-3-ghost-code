@@ -172,14 +172,14 @@ namespace OTTER.Controllers
             Description = "Requires admin privileges",
             Tags = new[] { "AdminQuizFunctions" }
         )]
-        [SwaggerResponse(200, "List of questions by module", typeof(IEnumerable<Question>))]
+        [SwaggerResponse(200, "List of questions by module", typeof(IEnumerable<AdminQuestionOutputDto>))]
         [SwaggerResponse(401, "Token is invalid")]
         [SwaggerResponse(403, "Token is not authorized to view resource")]
         [Authorize(Roles = "Admin")]
         [HttpGet("GetQuestions/{module}")]
-        public ActionResult<IEnumerable<Question>> GetQuestionsByModule(int module)
+        public ActionResult<IEnumerable<AdminQuestionOutputDto>> GetQuestionsByModule(int module)
         {
-            return Ok(_repo.GetQuestionsByModule(module));
+            return Ok(_repo.GetQuestionsByModuleAdmin(module));
         }
 
         [SwaggerOperation(

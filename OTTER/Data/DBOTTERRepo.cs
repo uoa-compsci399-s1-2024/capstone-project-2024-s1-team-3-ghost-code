@@ -125,6 +125,24 @@ namespace OTTER.Data
             return _dbContext.Questions.Where(e => e.Module.ModuleID == id).ToList<Question>();
         }
 
+        public IEnumerable<AdminQuestionOutputDto> GetQuestionsByModuleAdmin(int id)
+        {
+            List<AdminQuestionOutputDto> output = new List<AdminQuestionOutputDto>();
+            IEnumerable<Question> Qs = _dbContext.Questions.Where(e => e.Module.ModuleID == id).ToList<Question>();
+            foreach (Question q in Qs)
+            {
+                AdminQuestionOutputDto adminQuestionOutputDto = new AdminQuestionOutputDto { QuestionID = q.QuestionID, ModID = id, Title = q.Title, Description = q.Description, ImageURL = q.ImageURL, QuestionType = q.QuestionType, Stage = q.Stage, Answers = new List<AdminAnswerOutputDto>() };
+                IEnumerable<Answer> As = _dbContext.Answers.Include(e => e.Question).Where(e => e.Question.QuestionID == q.QuestionID).ToList<Answer>();
+                foreach (Answer a in As)
+                {
+                    AdminAnswerOutputDto adminAnswerOutputDto = new AdminAnswerOutputDto { AnswerID = a.AnswerID, QuestionID = q.QuestionID, AnswerType = a.AnswerType, AnswerText = a.AnswerText, AnswerCoordinates = a.AnswerCoordinates, CorrectAnswer = a.CorrectAnswer, Feedback = a.Feedback };
+                    adminQuestionOutputDto.Answers.Add(adminAnswerOutputDto);
+                }
+                output.Add(adminQuestionOutputDto);
+            }
+            return output;
+        }
+
         public IEnumerable<QuestionOutputDto> GetQuizQs(QuizInputDto quizInput)
         {
             Quiz quiz = GetQuizByID(quizInput.QuizID);
@@ -181,21 +199,24 @@ namespace OTTER.Data
 
         public Question EditQuestion(EditQuestionInputDto question)
         {
-            Question q = _dbContext.Questions.FirstOrDefault(e => e.QuestionID == question.QuestionID);
-            if (q != null)
+            Question oldQ = _dbContext.Questions.Include(e => e.Module).FirstOrDefault(e => e.QuestionID == question.QuestionID);
+            if (oldQ != null)
             {
-                q.Title = question.Title;
-                q.Description = question.Description;
-                q.ImageURL = question.ImageURL;
-                q.Stage = question.Stage;
+                DeleteQuestion(oldQ.QuestionID);
+                Question newQ = new Question { Module = oldQ.Module, Title = question.Title, Description = question.Description, ImageURL = question.ImageURL, QuestionType = oldQ.QuestionType, Stage = oldQ.Stage, Deleted = false };
+                AddQuestion(newQ);
                 _dbContext.SaveChanges();
                 foreach(EditAnswerInputDto answer in question.Answers)
                 {
-                    EditAnswer(answer);
+                    Answer oldA = _dbContext.Answers.FirstOrDefault(e => e.AnswerID == answer.AnswerID);
+                    AddAnswer(new Answer { Question = newQ, AnswerType = oldA.AnswerType, AnswerText = answer.AnswerText, AnswerCoordinates = answer.AnswerCoordinates, CorrectAnswer = answer.CorrectAnswer, Feedback = answer.Feedback, Attempts = new List<AttemptQuestion>(), Deleted = false });
                 }
-                q = _dbContext.Questions.FirstOrDefault(e => e.QuestionID == question.QuestionID);
+                newQ = _dbContext.Questions.FirstOrDefault(e => e.QuestionID == question.QuestionID);
+                return newQ;
             }
-            return q;
+            return null;
+
+
         }
 
         public IEnumerable<Answer> GetCorrectAnswersByQID(int id)
@@ -271,13 +292,12 @@ namespace OTTER.Data
 
         public QuizSubMarksDto MarkQuiz(QuizSubmissionDto submission)
         {
-            QuizSubMarksDto output = new QuizSubMarksDto { Sequence = new List<int>(), SelectedCorrect = new List<List<bool>>(), SelectedFeedback = new List<List<string>>(), MissedCorrectAID = new List<List<int>>(), MissedFeedback = new List<List<string>>()  };
+            QuizSubMarksDto output = new QuizSubMarksDto { Sequence = new List<int>(), SelectedCorrect = new List<List<bool>>(), SelectedFeedback = new List<List<string>>(), MissedCorrectAID = new List<List<int>>()  };
             foreach (int sequence in submission.Sequence)
             {
                 List<bool> correct = new List<bool>();
                 List<string> feedback = new List<string>();
                 List<int> missedCorrectAID = new List<int>();
-                List<string> missedFeedback = new List<string>();
                 List<int> selectedAID = new List<int>();
                 foreach (int AID in submission.AnswerID.ElementAt(sequence - 1))
                 {
@@ -292,11 +312,9 @@ namespace OTTER.Data
                     if(selectedAID.Contains(correctAnswer.AnswerID) == false)
                     {
                         missedCorrectAID.Add(correctAnswer.AnswerID);
-                        missedFeedback.Add(correctAnswer.Feedback);
                     }
                 }
                 output.MissedCorrectAID.Add(missedCorrectAID);
-                output.MissedFeedback.Add(missedFeedback);
                 output.SelectedCorrect.Add(correct);
                 output.SelectedFeedback.Add(feedback);
                 output.Sequence.Add(sequence);
@@ -308,34 +326,23 @@ namespace OTTER.Data
 
             foreach (int sequence in submission.Sequence)
             {
-
-                if(GetCorrectAnswersByQID(submission.QuestionID.ElementAt(sequence - 1)).Count() == 1)
+                double multiCount = GetCorrectAnswersByQID(submission.QuestionID.ElementAt(sequence - 1)).Count();
+                double multiMark = 0.0;
+                count++;
+                foreach (bool correct in output.SelectedCorrect.ElementAt(sequence - 1))
                 {
-                    count++;
-                    if (output.SelectedCorrect.ElementAt(sequence - 1).ElementAt(0) == true)
+                    if(correct == true)
                     {
-                        mark++;
+                        multiMark++;
+                    } else if (correct == false)
+                    {
+                        multiMark--;
                     }
-                } else
-                {
-                    double multiCount = GetCorrectAnswersByQID(submission.QuestionID.ElementAt(sequence - 1)).Count();
-                    double multiMark = 0.0;
-                    count++;
-                    foreach (bool correct in output.SelectedCorrect.ElementAt(sequence - 1))
-                    {
-                        if(correct == true)
-                        {
-                            multiMark++;
-                        } else if (correct == false)
-                        {
-                            multiMark--;
-                        }
-                    }
-                    if (multiMark == multiCount)
-                    {
-                        mark++;
-                    } 
                 }
+                if (multiMark == multiCount)
+                {
+                    mark++;
+                } 
             }
 
             if (GetAttemptByID(submission.AttemptID).Quiz.Stage == "Final" && mark /count >= 0.8)
