@@ -264,6 +264,7 @@ const storeSelectedAnswersForQuestion = (selectedAnswers, questionIndex) => {
         console.log(activeQuestion)
     }
 };
+console.log(moduleName)
 
 
 return (
@@ -286,6 +287,7 @@ return (
 
                   {/*Need api or something*/}
                   <h2>{moduleID}: {moduleName}</h2>
+                  
 
                   <div className='cont-question'>
                       <div className="button-container">
