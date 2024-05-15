@@ -127,6 +127,14 @@ const Quiz = () => {
                 <button className="btn return-button">Back to Modules</button>
               </Link>
             </div>
+            
+            
+
+
+
+            {/*Need api or something*/}
+            <h2 className="module-title">Module 1: TMS Overview</h2>
+
             <div className="progress-bar-container">
               <div
                 className="progress-bar"
@@ -138,14 +146,6 @@ const Quiz = () => {
                 </span>
               </div>  
             </div>
-            
-
-
-
-            {/*Need api or something*/}
-            <h2 className="module-title">Module 1: TMS Overview</h2>
-
-            
             
             <div className="cont-question">
               <div className="button-container">
