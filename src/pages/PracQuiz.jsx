@@ -25,9 +25,33 @@ const PracQuiz = () => {
   const [sequence, setSequence] = useState([]);
 
   
+  const [moduleName, setmoduleName] = useState("");
 
 
   const [userID, setUserID] = useState(null);
+
+  useEffect(() => {
+    const fetchModuleID = async(moduleID) => {
+      try {
+        const response = await axios.get(`https://api.tmstrainingquizzes.com/webapi/GetQuizzesByModID/${moduleID}`, {
+            headers: {
+                "Authorization": `Bearer ${clinicianToken}` // Include token in headers
+            }
+        });
+        const moduleNamefind = response.data.name;
+        if (moduleNamefind) {
+            setModuleName(moduleNamefind);
+        } else {
+            console.error("Module name not found.");
+        }
+    } catch (error) {
+        console.error('Error fetching practice quiz ID:', error);
+    }
+  };
+
+    fetchModuleID();
+  }, []);
+
 
   
   useEffect(() => {
@@ -261,7 +285,7 @@ return (
                   </div>
 
                   {/*Need api or something*/}
-                  <h2>Module 1: TMS Overview</h2>
+                  <h2>{moduleID}: {moduleName}</h2>
 
                   <div className='cont-question'>
                       <div className="button-container">
