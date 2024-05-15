@@ -82,23 +82,34 @@ function AClinicianProfile() {
 
                 try {
                     const certResponse = await fetch(`https://api.tmstrainingquizzes.com/webapi/GetClinicianCertificationStatus/${clinicianDetails.userID}`, requestOptions);
-                    if (certResponse.ok) {
-                        const certData = await certResponse.json();
-                        setStatus("Certified");
-                        setInitialStatus("Certified");
-                    } else if (certResponse.status === 404) {
+                if (certResponse.ok) {
+                    const certData = await certResponse.json();
+                    console.log(certData);
+
+                    // Check if certification has expired
+                    const expiryDateTime = new Date(certData[certData.length -1].expiryDateTime);
+                    console.log(expiryDateTime)
+                    const currentDateTime = new Date();
+
+                    if (currentDateTime > expiryDateTime) {
+                        // If certification has expired, set status to Not Certified
                         setStatus("Not Certified");
                         setInitialStatus("Not Certified");
+                    } else {
+                        setStatus("Certified");
+                        setInitialStatus("Certified");
                     }
-                } catch (error) {
-                    console.error('Failed to fetch certification status:', error);
+                } else if (certResponse.status === 404) {
+                    setStatus("Not Certified");
+                    setInitialStatus("Not Certified");
                 }
-            };
-            fetchCertificationStatus();
-        }
-    }, [clinicianDetails, adminToken]);
-
-
+            } catch (error) {
+                console.error('Failed to fetch certification status:', error);
+            }
+        };
+        fetchCertificationStatus();
+    }
+}, [clinicianDetails, adminToken]);
 
 
     async function setClinicianCertificationStatus() {

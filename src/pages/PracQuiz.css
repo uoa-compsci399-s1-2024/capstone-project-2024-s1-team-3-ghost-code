@@ -171,6 +171,7 @@ h2{
   padding: 2%;
   float: right;
   width: 25%;
+  margin-top: -100px;
 }
 .result h3 {
   font-size: 24px;
@@ -200,4 +201,66 @@ h2{
 .progress-bar {
   height: 100%;
   background-color: #007bff; /* Adjust color as needed */
+}
+
+
+/* test */
+.feedback-qs {
+  background-color: #FFFFFF;
+  border-radius: 25px;
+  padding: 20px;
+  margin: 250px auto 20px; /* Adjust margin-top as needed */
+  width: 80%;
+
+}
+
+.feedback-qs h3 {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.feedback-qs p {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.feedback-qs p span {
+  color: #800080;
+  font-weight: 600;
+}
+
+.feedback-qs ul {
+  margin-top: 20px;
+}
+
+.feedback-qs ul li {
+  color: #2d264b;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.button-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.button-container .btn {
+  background: linear-gradient(90.04deg, #800080 0.03%, #ffc0cb 99.96%);
+  border-radius: 9px;
+  font-size: 18px;
+  color: #ffffff;
+  padding: 10px 42px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.button-container .btn:disabled {
+  background: #e7e8e9;
+  color: #9fa3a9;
+  cursor: not-allowed;
 }

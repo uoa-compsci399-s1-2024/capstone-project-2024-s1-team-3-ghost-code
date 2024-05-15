@@ -272,7 +272,6 @@ return (
   <div className='quiz-body'>
       <div className="quiz-container">
           {!showResult ? (
-
               <div className="cont-main-quiz">
 
                   <div className="cont-return-but">
@@ -324,39 +323,51 @@ return (
 
               </div>
           ) : (
-              <div className='cont-feedback'>
-                  <div className="cont-return-but">
-                      <Link to="/quizDashboard" style={{ textDecoration: "none" }}>
-                          <button className="btn return-button">Back to Modules</button>
-                      </Link>
-                  </div>
+            <div className='cont-feedback'>
+            <div className="cont-return-but">
+                <Link to="/quizDashboard" style={{ textDecoration: "none" }}>
+                    <button className="btn return-button">Back to Modules</button>
+                </Link>
+            </div>
+        
+            <div className="result">
+                <h3>Result</h3>
+                <p>Total Questions: <span>{questions.length}</span></p>
+                <p>Total Score: <span>{result.score}</span></p>
+                <p>Correct Answers: <span>{result.correctAnswers}</span></p>
+                <p>Wrong Answers: <span>{result.wrongAnswers}</span></p>
+            </div>
+        
+            <div className='feedback-qs'>
+                <div className="question-answer-wrapper">
+                    <h4>{questions[activeQuestion].title}</h4>
+                    <ul>
+                        {questions[activeQuestion].answers.map(answer => (
+                            <li key={answer.answerID} style={{ color: '#808080' }}>
+                                {answer.answerText}
+                            </li>
+                        ))}
+                    </ul>
+                    <p>Selected Answer(s):</p>
+                    <ul>
+                        {selectedAnswersLists[activeQuestion]?.map(selectedAnswerID => (
+                            <li key={selectedAnswerID} style={{ color: '#808080' }}>
+                                {questions[activeQuestion].answers.find(answer => answer.answerID === selectedAnswerID)?.answerText}
+                            </li>
+                        ))}
+                    </ul>
+                  <div className="button-container">
+                <button onClick={onClickPrevious} disabled={activeQuestion === 0} className="btn prev-ques">Previous</button>
+                <button onClick={onClickNext} disabled={activeQuestion === questions.length - 1} className="btn next-ques">Next</button>
+                </div>
+                </div>
+            </div>
 
-                  <div className="result">
-                      <h3>Result</h3>
-                      <p>
-                          Total Questions: <span>{questions.length}</span>
-                      </p>
-                      <p>
-                          Total Score:<span> {result.score}</span>
-                      </p>
-                      <p>
-                          Correct Answers:<span> {result.correctAnswers}</span>
-                      </p>
-                      <p>
-                          Wrong Answers:<span> {result.wrongAnswers}</span>
-                      </p>
-                  </div>
-
-                  <div className='feedback-qs'>
-                      {/*individual questions here for feedback, along with blurb at the bottom of each. APIS: */}
-                  </div>
-
-              </div>
-
-
-          )}
-      </div>
-  </div>
+      
+        </div>
+    )}
+</div>
+</div>
 );
 };
 
