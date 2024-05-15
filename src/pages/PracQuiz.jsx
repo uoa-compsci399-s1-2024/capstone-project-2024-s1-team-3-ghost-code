@@ -35,7 +35,7 @@ const PracQuiz = () => {
       try {
         const response = await redaxios.get(`https://api.tmstrainingquizzes.com/webapi/GetModuleByID/${moduleID}`, {
             headers: {
-                "Authorization": `Bearer ${clinicianToken}` // Include token in headers
+                "Authorization": `Bearer ${cliniciantoken}` // Include token in headers
             }
         });
         const moduleNamefind = response.data.name;
