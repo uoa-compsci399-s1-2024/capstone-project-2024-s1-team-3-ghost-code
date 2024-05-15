@@ -29,10 +29,10 @@ const PracQuiz = () => {
 
 
   const [userID, setUserID] = useState(null);
-  console.log(moduleID)
+  
 
   useEffect(() => {
-    const fetchModuleID = async(moduleID) => {
+    const fetchModuleID = async() => {
       try {
         const response = await redaxios.get(`https://api.tmstrainingquizzes.com/webapi/GetModuleByID/${moduleID}`, {
             headers: {
