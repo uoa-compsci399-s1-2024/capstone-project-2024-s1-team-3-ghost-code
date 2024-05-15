@@ -29,6 +29,7 @@ const PracQuiz = () => {
 
 
   const [userID, setUserID] = useState(null);
+  console.log(moduleID)
 
   useEffect(() => {
     const fetchModuleID = async(moduleID) => {
