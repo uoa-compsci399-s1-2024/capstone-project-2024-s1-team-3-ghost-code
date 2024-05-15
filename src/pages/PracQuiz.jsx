@@ -41,7 +41,7 @@ const PracQuiz = () => {
         });
         const moduleNamefind = response.data.name;
         if (moduleNamefind) {
-            setModuleName(moduleNamefind);
+          setmoduleName(moduleNamefind);
         } else {
             console.error("Module name not found.");
         }
