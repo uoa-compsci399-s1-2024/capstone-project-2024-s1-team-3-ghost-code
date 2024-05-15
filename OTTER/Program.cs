@@ -77,7 +77,7 @@ public class Program
 
         /*builder.Services.AddAuthentication().AddScheme<AuthenticationSchemeOptions, AdminHandler>("Authentication", null);*/
 
-        builder.Services.AddDbContext<OTTERDBContext>(options => options.UseSqlite(builder.Configuration["OTTERConnection"]));
+        builder.Services.AddDbContext<OTTERDBContext>(options => options.UseSqlServer(builder.Configuration["OTTERConnection"]));
 
         builder.Services.AddControllers();
 
