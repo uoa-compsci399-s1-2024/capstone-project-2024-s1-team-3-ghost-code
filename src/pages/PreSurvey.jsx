@@ -129,7 +129,7 @@ function Presurvey() {
   
         if (loginResponse.ok && !text.includes("Login failed")) {
           
-          localStorage.setItem('userToken', text); // Store the token
+          sessionStorage.setItem('cliniciantoken', text); // Store the token
           navigate('/quizDashboard'); // Redirect to quizDashboard
         } else {
           throw new Error('Login failed after registration');
