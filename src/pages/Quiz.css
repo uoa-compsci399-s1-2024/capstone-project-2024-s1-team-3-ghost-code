@@ -5,11 +5,21 @@
   /* box-sizing: border-box; 
 } */
 
-.quiz-loading{
+.quiz-loading {
   height: 100vh;
-
 }
-/* Progress bar code*/
+
+/* Progress bar code */
+.quiz-loading {
+  height: 100vh;
+}
+
+/* Progress bar code */
+.quiz-loading {
+  height: 100vh;
+}
+
+/* Progress bar code */
 .progress-bar-container {
   width: 100%;
   border: 2px solid #000; /* Outline of the full bar */
@@ -19,7 +29,7 @@
 }
 
 .progress-bar {
-  background-color: #008080;
+  background: linear-gradient(to right, #00b09b, #96c93d); /* Gradient colors */
   height: 30px;
   display: flex;
   align-items: center;
@@ -31,6 +41,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: clip;
+  transition: width 0.5s ease-in-out; /* Add smooth transition for width */
 }
 
 .progress-percentage {
@@ -38,8 +49,6 @@
   right: 10px; /* Ensure it stays inside the bar */
   pointer-events: none;
 }
-
-
 
 
 .quiz-body {
@@ -132,7 +141,6 @@
 .quiz-container .active-question-no {
   font-size: 32px;
   font-weight: 500;
-  color: #800080;
   color: #008080;
 }
 
@@ -166,8 +174,8 @@
 }
 
 .quiz-container ul .selected-answer {
-  background: #ffd6ff;
-  border: 1px solid #008080;
+  background: #5790da46;
+  border: 3px solid #5790da;
 }
 
 .quiz-container button {
