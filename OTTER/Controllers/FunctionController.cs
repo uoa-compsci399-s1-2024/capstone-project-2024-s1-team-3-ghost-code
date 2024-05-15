@@ -314,13 +314,13 @@ namespace OTTER.Controllers
             Description = "Admin privileges required",
             Tags = new[] { "AdminUserFunctions" }
         )]
-        [SwaggerResponse(200, "Successfully retrieved clinician certification", typeof(Certification))]
+        [SwaggerResponse(200, "Successfully retrieved clinician certification", typeof(IEnumerable<Certification>))]
         [SwaggerResponse(401, "Token is invalid")]
         [SwaggerResponse(403, "Token is not authorized to view resource")]
         [SwaggerResponse(404, "A user with submitted ID could not be found")]
         [Authorize(Roles = "Admin")]
         [HttpGet("GetClinicianCertificationStatus/{id}")]
-        public ActionResult<Certification> GetClinicianCertificationStatus(int id)
+        public ActionResult<IEnumerable<Certification>> GetClinicianCertificationStatus(int id)
         {
             IEnumerable<Certification> cert = _repo.GetCertificationByID(id);
             if (cert.Count() != 0)
