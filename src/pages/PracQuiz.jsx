@@ -33,7 +33,7 @@ const PracQuiz = () => {
   useEffect(() => {
     const fetchModuleID = async(moduleID) => {
       try {
-        const response = await axios.get(`https://api.tmstrainingquizzes.com/webapi/GetQuizzesByModID/${moduleID}`, {
+        const response = await redaxios.get(`https://api.tmstrainingquizzes.com/webapi/GetQuizzesByModID/${moduleID}`, {
             headers: {
                 "Authorization": `Bearer ${clinicianToken}` // Include token in headers
             }

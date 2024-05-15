@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'redaxios';
+import redaxios from 'redaxios';
 import ClientDashboard from '../components/Dashboards/CDashboard'; // Assuming this sidebar is appropriate
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'; // Icon for module completion
@@ -22,7 +22,7 @@ function QuizDashboard() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('https://api.tmstrainingquizzes.com/webapi/GetModules', {
+                const response = await redaxios.get('https://api.tmstrainingquizzes.com/webapi/GetModules', {
                     headers: {
                         "Authorization": `Bearer ${clinicianToken}` // Include token in headers
                     }
@@ -60,7 +60,7 @@ function QuizDashboard() {
 
     const handlePracticeQuizClick = async (module) => {
         try {
-            const response = await axios.get(`https://api.tmstrainingquizzes.com/webapi/GetQuizzesByModID/${module.moduleID}`, {
+            const response = await redaxios.get(`https://api.tmstrainingquizzes.com/webapi/GetQuizzesByModID/${module.moduleID}`, {
                 headers: {
                     "Authorization": `Bearer ${clinicianToken}` // Include token in headers
                 }
@@ -78,7 +78,7 @@ function QuizDashboard() {
 
     const handleFinalQuizClick = async (module) => {
         try {
-            const response = await axios.get(`https://api.tmstrainingquizzes.com/webapi/GetQuizzesByModID/${module.moduleID}`, {
+            const response = await redaxios.get(`https://api.tmstrainingquizzes.com/webapi/GetQuizzesByModID/${module.moduleID}`, {
                 headers: {
                     "Authorization": `Bearer ${clinicianToken}` // Include token in headers
                 }
