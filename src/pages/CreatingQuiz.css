@@ -1,5 +1,6 @@
 .question-container {
     background-color: grey;
+    height: 100vh;
     border-radius: 10px;
     max-width: 600px;
     width: 100%;

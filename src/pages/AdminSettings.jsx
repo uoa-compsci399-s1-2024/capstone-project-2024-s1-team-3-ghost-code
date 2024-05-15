@@ -26,7 +26,7 @@ export default function AdminSetting() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/GetAdmins",
+          "https://api.tmstrainingquizzes.com/webapi/GetAdmins",
           {
             headers: {
               Authorization: `Bearer ${adminToken}`, // Include token in headers
@@ -204,6 +204,36 @@ export default function AdminSetting() {
                     </div>
                   ))}
                 </div>
+              </div>
+            </div>
+            <div className="accordion-item" id="changeRegistration">
+              <a className="accordion-link" href="#changeRegistration">
+                Clinician Registration
+                <i className="fa-solid fa-caret-down"></i>
+                <i className="fa-solid fa-caret-up"></i>
+              </a>
+              <div className="information-text">
+                <p>
+                  You may add new Sites and Disciplines by entering relevant
+                  information in the boxes below and submitting it.
+                </p>
+              </div>
+              <div className="information">
+                <input
+                  type="text"
+                  className="input-box-settings"
+                  id="firstname"
+                  placeholder="Add New Discipline"
+                  required
+                ></input>
+                <input
+                  type="text"
+                  className="input-box-settings"
+                  id="lastname"
+                  placeholder="Add New Site"
+                  required
+                ></input>
+                <button className="btn-settings">Submit</button>
               </div>
             </div>
           </div>

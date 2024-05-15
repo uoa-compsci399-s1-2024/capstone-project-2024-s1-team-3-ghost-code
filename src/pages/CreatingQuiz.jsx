@@ -1,10 +1,11 @@
 import "./CreatingQuiz.css";
 import axios from "redaxios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AdminDashboard from "../components/Dashboards/ADashboard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 export function QuestionSearch() {}
 
@@ -79,49 +80,85 @@ export function Modules() {
 }
 
 export function QuestionsDisplay() {
-  const [questions, setQuestions] = useState([]);
+  const [questions, setQuestions] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [adminName, setAdminName] = useState("");
+  const dropdownRef = useRef(null); // Reference to the admin info box
+
+  const adminToken = sessionStorage.getItem("adminToken");
+  const navigate = useNavigate();
 
   // This useEffect fetches modules initially to display, and then for each module, it fetches questions
   useEffect(() => {
-    fetch(
-      "https://api.tmstrainingquizzes.com/webapi/GetModules",
-      requestOptions
-    )
-      .then((res) => res.json())
-      .then((modules) => {
-        console.log(modules);
-        // For each module, fetch questions
-        Promise.all(
-          modules.map((mod) =>
-            fetch(
-              `https://api.tmstrainingquizzes.com/webapi/GetQuestions/${mod.sequence}`
-            )
-              .then((res) => res.json())
-              .then((questionsForModule) => {
-                // Add questions to the module object
-                mod.questions = questionsForModule;
-                return mod;
-              })
-          )
-        ).then((modulesWithQuestions) => {
-          console.log(modulesWithQuestions);
-          setQuestions(modulesWithQuestions);
+    if (questions.trim() !== "") {
+      // Make HTTP request to backend API with search query
+      fetch(
+        `https://api.tmstrainingquizzes.com/webapi/GetQuestions/${questions}`,
+        {
+          headers: {
+            Authorization: `Bearer ${adminToken}`, // Include token in headers
+          },
+        }
+      )
+        .then((response) => {
+          if (!response.ok) {
+            if (response.status === 401) {
+              // Token is invalid or expired, log the admin out
+              sessionStorage.removeItem("adminToken");
+              navigate("/adminlogin"); // Redirect to admin login page
+            }
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setSearchResults(data);
+        })
+        .catch((error) => {
+          console.error("Error fetching search results:", error);
         });
-      })
-      .catch((error) => {
-        console.error("Error fetching modules:", error);
-      });
-  }, []);
+    } else {
+      setSearchResults([]);
+    }
+  }, [questions, adminToken, navigate]);
+
+  const handleSearchInputChange = (event) => {
+    setQuestions(event.target.value);
+  };
 
   // Now you have questions grouped by modules in the 'questions' state
 
   return (
     <>
-      {questions.map((question) => (
-        <div key={question.questionID} className="questionContainer">
-          <div className="questioninfo">{question.description}</div>
+      <div className="flex">
+        <div className="dashboard-container"></div>
+        <div className="AdminClientSearchContainer">
+          <div className="AdminClientSearchInput">
+            <input
+              type="text"
+              value={questions}
+              onChange={handleSearchInputChange}
+              placeholder="Search..."
+            />
+            <FontAwesomeIcon icon={faSearch} className="search-icon" />
+          </div>
+          <div className="AdminClientSearchResults">
+            {searchResults.map((result) => (
+              <Link
+                key={result.questionID}
+                to={`/clinician/${result.userEmail}`} //change to link to editting quiz
+                className="link"
+              >
+                <div className="adminClientSearchResultItem">
+                  <div className="AdminClientSearchResultName">
+                    {result.title}
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
-      ))}
+      </div>
     </>
   );
 }
@@ -129,9 +166,9 @@ export function QuestionsDisplay() {
 export default function QuizCreation() {
   return (
     <>
-      <Modules />
+      <QuestionsDisplay />
+      {/* <Modules /> */}
       <AdminDashboard />
-      {/* <QuestionsDisplay /> */}
     </>
   );
 }
