@@ -273,7 +273,7 @@ namespace OTTER.Data
 
         public Attempt AddAttempt(Attempt attempt)
         {
-            IEnumerable<Attempt> current = GetAttempts().Where(e => e.User.UserID == attempt.User.UserID && e.Quiz.QuizID == attempt.Quiz.QuizID && e.Completed == "INCOMPLETE");
+            IEnumerable<Attempt> current = GetAttempts().Where(e => e.User.UserID == attempt.User.UserID && e.Completed == "INCOMPLETE");
             if(current != null)
             {
                 foreach(Attempt next in current)
