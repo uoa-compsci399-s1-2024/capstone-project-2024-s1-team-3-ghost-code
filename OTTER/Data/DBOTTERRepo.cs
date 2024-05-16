@@ -263,7 +263,7 @@ namespace OTTER.Data
 
         public IEnumerable<Attempt> GetAttempts()
         {
-            return _dbContext.Attempts.ToList<Attempt>();
+            return _dbContext.Attempts.Include(e => e.User).Include(e => e.Quiz).ThenInclude(e => e.Module).ToList<Attempt>();
         }
 
         public Attempt GetAttemptByID(int id)

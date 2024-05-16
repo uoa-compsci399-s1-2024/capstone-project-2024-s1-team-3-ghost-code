@@ -697,5 +697,46 @@ namespace OTTER.Controllers
                 return BadRequest("Please specify a start and end date");
             }
         }
+
+        [SwaggerOperation(
+            Summary = "Determines if the practice quiz and final quiz have been completed for a given module",
+            Description = "Clinician priviliges required",
+            Tags = new[] {"ClinicianFunctions"}
+        )]
+        [SwaggerResponse(200, "Success",typeof(QuizAccessDto))]
+        [SwaggerResponse(401, "Token is invalid")]
+        [SwaggerResponse(403, "Token not authorized to view resource")]
+        [SwaggerResponse(404, "Module with submitted id does not exist")]
+        [Authorize(Roles = "User")]
+        [HttpGet("CheckAccess/{modID}")]
+        public ActionResult<QuizAccessDto> GetQuizAccess(int modID)
+        {
+            if (_repo.GetModuleByID(modID) != null)
+            {
+                IEnumerable<Attempt> attempts = _repo.GetAttempts();
+                IEnumerable<Attempt> userAttempts = attempts.Where(e => e.User.UserEmail == User.FindFirstValue(ClaimTypes.Email));
+                IEnumerable<Attempt> moduleAttempts = userAttempts.Where(e => e.Quiz.Module.ModuleID == modID);
+                IEnumerable<Attempt> practiceAttempts = moduleAttempts.Where(e => e.Quiz.Name.Contains("Practice") && e.Completed == "PASS");
+                IEnumerable<Attempt> finalAttempts = moduleAttempts.Where(e => e.Quiz.Name.Contains("Final") && e.Completed == "PASS");
+                if (practiceAttempts.Count() > 0)
+                {
+                    if (finalAttempts.Count() == 0)
+                    {
+                        return Ok(new QuizAccessDto { PracticePassed = true, FinalPassed = false, Description = "This clinician has passed a practice quiz, but not a final quiz. The final quiz is available." });
+                    }
+                    else
+                    {
+                        return Ok(new QuizAccessDto { PracticePassed = true, FinalPassed = true, Description = "This clinician has passed a practice quiz and a final quiz. The final quiz is unavailable." });
+                    }
+                }
+                else
+                {
+                    return Ok(new QuizAccessDto { PracticePassed = false, FinalPassed = false, Description = "This clinician has not passed a practice quiz. The final quiz is unavailable." });
+                }
+            } else
+            {
+                return NotFound("A module with ID " + modID + " does not exist.");
+            }
+        }
     }
 }

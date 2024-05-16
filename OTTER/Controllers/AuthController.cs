@@ -181,7 +181,7 @@ namespace OTTER.Controllers
         [SwaggerResponse(403, "Token is not authorized to view resource")]
         [Authorize(Roles = "User")]
         [HttpGet("GetCurrentClinician")]
-        public ActionResult<AdminOutputDto> GetCurrentUser()
+        public ActionResult<User> GetCurrentUser()
         {
             User user = _repo.GetUserByEmail(User.FindFirstValue(ClaimTypes.Email));
             return Ok(user);
