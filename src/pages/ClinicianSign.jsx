@@ -17,7 +17,7 @@ export function BackToHomeLink() {
 }
 
 export function ClinicianLoginForm() {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
 
   const navigate = useNavigate();
 
@@ -38,17 +38,31 @@ export function ClinicianLoginForm() {
 
       // Example handling of the response text
       if (!text.includes("Email does not exist")) {
-        sessionStorage.setItem("cliniciantoken", text); // Store token (or whatever the response indicates)
-        //console.log(cliniciantoken)
+        sessionStorage.setItem('cliniciantoken', text); // Store the token// Store token (or whatever the response indicates)
         navigate("/quizDashboard"); // Redirect using navigate instead of updating state
       } else {
-        alert("Login failed!");
+        if (text.includes("Email does not exist")) {
+          handleErrorResponse(401);
+        }
+        
       }
     } catch (error) {
-      console.error("Login Error:", error);
-      alert("An error occurred during login.");
+      if (error.status) {
+        handleErrorResponse(error.status);
+      } else {
+        console.error("Login Error:", error);
+        alert("An error occurred during login.");
+      }
     }
   };
+
+  const handleErrorResponse = (status) => {
+    if (status === 401) {
+      console.log('Email does not exist');
+      navigate('/presurvey');
+    } 
+  };
+  
 
   return (
     <>
