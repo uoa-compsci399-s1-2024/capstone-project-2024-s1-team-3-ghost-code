@@ -16,21 +16,16 @@ function AClinicianSearch() {
   const adminToken = sessionStorage.getItem("adminToken");
   const navigate = useNavigate();
 
-// Function to fetch search results from backend API
-useEffect(() => {
-  if (searchQuery.trim() !== "") {
-    // Make HTTP request to backend API with search query
-    fetch(`https://api.tmstrainingquizzes.com/webapi/ClinicianSearch/${searchQuery}`, {
-      headers: {
-        "Authorization": `Bearer ${adminToken}` // Include token in headers
-      }
-    })
-    .then(response => {
-      if (!response.ok) {
-        if (response.status === 401) {
-          // Token is invalid or expired, log the admin out
-          sessionStorage.removeItem('adminToken');
-          navigate('/adminlogin'); // Redirect to admin login page
+  // Function to fetch search results from backend API
+  useEffect(() => {
+    if (searchQuery.trim() !== "") {
+      // Make HTTP request to backend API with search query
+      fetch(
+        `https://api.tmstrainingquizzes.com/webapi/ClinicianSearch/${searchQuery}`,
+        {
+          headers: {
+            Authorization: `Bearer ${adminToken}`, // Include token in headers
+          },
         }
       )
         .then((response) => {

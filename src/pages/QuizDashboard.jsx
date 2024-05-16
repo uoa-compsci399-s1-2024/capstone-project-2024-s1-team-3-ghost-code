@@ -17,60 +17,56 @@ function QuizDashboard() {
   const [practiceQuizID, setPracticeQuizID] = useState(null);
   const [finalQuizID, setFinalQuizID] = useState(null);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('https://api.tmstrainingquizzes.com/webapi/GetModules', {
-                    headers: {
-                        "Authorization": `Bearer ${clinicianToken}` // Include token in headers
-                    }
-                });
-                setModules(response.data);
-            } catch (error) {
-                if (error.response) {
-                    const { status } = error.response;
-                    if (status === 401) {
-                        // Token is invalid or expired, log the user out
-                        sessionStorage.removeItem('cliniciantoken');
-                        navigate('/cliniciansign'); // Redirect to login page
-                    } else if (status === 403) {
-                        // Not authorized to access resource, redirect to appropriate dashboard
-                        navigate('/quizDashboard'); // Redirect to appropriate dashboard
-                    }
-                } else {
-                    console.error('Error fetching modules:', error);
-                }
-            }
-        };
-
-        fetchData();
-    }, [clinicianToken, navigate]);
-
-    const handleModuleClick = async (module) => {
-        // If the clicked module is already selected, deselect it
-        if (selectedModule && selectedModule.moduleID === module.moduleID) {
-            setSelectedModule(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://api.tmstrainingquizzes.com/webapi/GetModules",
+          {
+            headers: {
+              Authorization: `Bearer ${clinicianToken}`, // Include token in headers
+            },
+          }
+        );
+        setModules(response.data);
+      } catch (error) {
+        if (error.response) {
+          const { status } = error.response;
+          if (status === 401) {
+            // Token is invalid or expired, log the user out
+            sessionStorage.removeItem("cliniciantoken");
+            navigate("/cliniciansign"); // Redirect to login page
+          } else if (status === 403) {
+            // Not authorized to access resource, redirect to appropriate dashboard
+            navigate("/quizDashboard"); // Redirect to appropriate dashboard
+          }
         } else {
           console.error("Error fetching modules:", error);
         }
       }
     };
 
-    const handlePracticeQuizClick = async (module) => {
-        try {
-            const response = await axios.get(`https://api.tmstrainingquizzes.com/webapi/GetQuizzesByModID/${module.moduleID}`, {
-                headers: {
-                    "Authorization": `Bearer ${clinicianToken}` // Include token in headers
-                }
-            });
-            const practiceQuizID = response.data[0]?.quizID;
-            if (practiceQuizID) {
-                navigateToQuizPage(practiceQuizID);
-            } else {
-                console.error("Practice quiz ID not found.");
-            }
-        } catch (error) {
-            console.error('Error fetching practice quiz ID:', error);
+    fetchData();
+  }, [clinicianToken, navigate]);
+
+  const handleModuleClick = async (module) => {
+    // If the clicked module is already selected, deselect it
+    if (selectedModule && selectedModule.moduleID === module.moduleID) {
+      setSelectedModule(null);
+    } else {
+      // Otherwise, select the clicked module
+      setSelectedModule(module);
+    }
+  };
+
+  const handlePracticeQuizClick = async (module) => {
+    try {
+      const response = await axios.get(
+        `https://api.tmstrainingquizzes.com/webapi/GetQuizzesByModID/${module.moduleID}`,
+        {
+          headers: {
+            Authorization: `Bearer ${clinicianToken}`, // Include token in headers
+          },
         }
       );
       const practiceQuizID = response.data[0]?.quizID;
@@ -84,22 +80,14 @@ function QuizDashboard() {
     }
   };
 
-    const handleFinalQuizClick = async (module) => {
-        try {
-            const response = await axios.get(`https://api.tmstrainingquizzes.com/webapi/GetQuizzesByModID/${module.moduleID}`, {
-                headers: {
-                    "Authorization": `Bearer ${clinicianToken}` // Include token in headers
-                }
-            });
-            const finalQuizID = response.data[1]?.quizID;
-            console.log(finalQuizID);
-            if (finalQuizID) {
-                navigateToQuizPage(finalQuizID);
-            } else {
-                console.error("Final quiz ID not found.");
-            }
-        } catch (error) {
-            console.error('Error fetching final quiz ID:', error);
+  const handleFinalQuizClick = async (module) => {
+    try {
+      const response = await axios.get(
+        `https://api.tmstrainingquizzes.com/webapi/GetQuizzesByModID/${module.moduleID}`,
+        {
+          headers: {
+            Authorization: `Bearer ${clinicianToken}`, // Include token in headers
+          },
         }
       );
       const finalQuizID = response.data[1]?.quizID;

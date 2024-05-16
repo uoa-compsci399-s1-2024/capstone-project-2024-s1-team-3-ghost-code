@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@100;200;300;400;500;600;700;800&display=swap');
 
-* {
-  font-family: Arial, Helvetica, sans-serif;
-  box-sizing: border-box;
-}
+ /* *{
+  font-family: Arial, Helvetica, sans-serif; 
+  /* box-sizing: border-box; 
+} */
 
 .quiz-loading {
   height: 100vh;
@@ -60,6 +60,7 @@
 }
 
 .cont-main-quiz{
+  /* font-size: 1rem; */
   width: 80%;
   margin: 0 auto;
 }
@@ -68,7 +69,8 @@
   padding-bottom: 2%;
 }
 
-h2{
+.module-title{
+  font-size: 20px;
   padding-top: 2%;
   padding-bottom: 2%;
 }
@@ -107,7 +109,7 @@ h2{
 
 .btn.next-ques:hover,
 .btn.next-ques:focus-visible {
-  background: #1a1919;
+  background: #008080;
   color: #FFFFFF;
 }
 
@@ -139,7 +141,7 @@ h2{
 .quiz-container .active-question-no {
   font-size: 32px;
   font-weight: 500;
-  color: #800080;
+  color: #008080;
 }
 
 .quiz-container .total-question {
@@ -177,7 +179,7 @@ h2{
 }
 
 .quiz-container button {
-  background: linear-gradient(90.04deg, #800080 0.03%, #ffc0cb 99.96%);
+  background: #008080;
   border-radius: 9px;
   font-size: 18px;
   color: #ffffff;
@@ -199,36 +201,13 @@ h2{
   justify-content: flex-end;
 }
 
-.cont-results{
-  width: 80%;
-  margin: 0 auto;
-  height: 100%;
-}
-
-/*
-.feedback-qs{
+.cont-feedback{
   
 }
-*/
-.sep-qs{
-  background-color: #FFFFFF;
-  border-radius: 25px 25px 0px 0px;
-  padding-top: 5%;
-  width: 70%;
-  padding: 2%;
-}
 
-.cont-feedback{
-  background:#FFECEC;
-  border-radius: 0px 0px 25px 25px;
-  width: 70%;
-  margin-bottom: 1%;
+.feeback-qs{
+  float: left;
 }
-
-.cont-feedback-writing {
-  padding: 2%;
-}
-
 .result {
   background-color: white;
   border-radius: 25px;

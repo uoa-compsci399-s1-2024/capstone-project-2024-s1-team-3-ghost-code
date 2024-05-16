@@ -68,7 +68,7 @@ function Presurvey() {
         const roleName = data.map((role) => role.roleName);
         const roleID = data.map((role) => role.roleID);
         setPositions(roleName || []); // Ensure your API returns an object with a 'positions' key
-        setPosition(roleName[0]); // Set default position
+        setPosition("Doctor"); // Set default position
 
         setRolesID(roleID);
       } catch (error) {
@@ -91,9 +91,7 @@ function Presurvey() {
         const orgNames = data.map((org) => org.orgName); // Extract orgName from each organisation object
         const orgIDs = data.map((org) => org.orgID);
         setOrganisations(orgNames || []); // Set organisations state to an array of orgName strings
-        setOrganisation(orgNames[0]); // Set default organisation (if needed)
-        
-        setOrgsID(orgIDs);
+        setOrganisation("University of Auckland"); // Set default organisation (if needed)
 
         setOrgsID(orgIDs);
       } catch (error) {
@@ -120,11 +118,8 @@ function Presurvey() {
 
     // Retrieve the corresponding IDs using the indexes
     const roleID = positionIndex !== -1 ? roleIDs[positionIndex] : null;
-    const organisationID = organisationIndex !== -1 ? orgIDs[organisationIndex] : null;
-
-    console.log(organisationID)
-
-    
+    const organisationID =
+      organisationIndex !== -1 ? orgIDs[organisationIndex] : null;
 
     const clinicianData = {
       userEmail: email,
@@ -137,24 +132,30 @@ function Presurvey() {
     console.log(clinicianData);
 
     try {
-      const registrationResponse = await fetch('https://api.tmstrainingquizzes.com/webapi/AddClinician', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(clinicianData)
-      });
-  
+      const registrationResponse = await fetch(
+        "https://api.tmstrainingquizzes.com/webapi/AddClinician",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(clinicianData),
+        }
+      );
+
       if (registrationResponse.ok) {
         // Attempt to log in the user after successful registration
-        const loginResponse = await fetch('https://api.tmstrainingquizzes.com/auth/ClinicianLogin', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ email: email })
-        });
-  
+        const loginResponse = await fetch(
+          "https://api.tmstrainingquizzes.com/auth/ClinicianLogin",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email: email }),
+          }
+        );
+
         const text = await loginResponse.text(); // First get the response as text to check for errors
 
         if (loginResponse.ok && !text.includes("Login failed")) {
