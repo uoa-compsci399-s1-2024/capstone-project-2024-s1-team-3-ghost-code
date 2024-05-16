@@ -202,7 +202,28 @@
 }
 
 .cont-feedback{
-  
+  background:#FFECEC;
+  border-radius: 0px 0px 25px 25px;
+  width: 70%;
+  margin-bottom: 1%;
+}
+
+.cont-feedback-writing {
+  padding: 2%;
+}
+
+.cont-results{
+  width: 80%;
+  margin: 0 auto;
+  height: 100%;
+}
+
+.sep-qs{
+  background-color: #FFFFFF;
+  border-radius: 25px 25px 0px 0px;
+  padding-top: 5%;
+  width: 70%;
+  padding: 2%;
 }
 
 .feeback-qs{
