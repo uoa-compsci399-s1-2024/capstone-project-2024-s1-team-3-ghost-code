@@ -42,4 +42,16 @@
 
 }
 
+.add-question{
+    font-size: xx-large;
+    border-radius: 10px;
+    border: 2px dashed #008080;
+    background-color: rgba(0, 0, 0, 0);
+    color: #008080;
+    width: 900px;
+    padding: 15px;
+    margin-top: 40px;
+    cursor: pointer;
+}
+
 

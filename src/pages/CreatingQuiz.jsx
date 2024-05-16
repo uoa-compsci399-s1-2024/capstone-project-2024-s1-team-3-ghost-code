@@ -142,6 +142,10 @@ export function QuestionsDisplay() {
             />
             <FontAwesomeIcon icon={faSearch} className="search-icon" />
           </div>
+          <Link to="/createquestion">
+            <button className="add-question"> + </button>
+          </Link>
+
           <div className="AdminClientSearchResults">
             {searchResults.map((result) => (
               <Link
