@@ -10,6 +10,7 @@ import AClinicianProfile from "./pages/AClinicianProfile";
 import AdminSetting from "./pages/AdminSettings";
 import QuizCreation from "./pages/CreatingQuiz";
 import Quiz from "./pages/Quiz";
+import AdminModuleReview from "./pages/AdminModuleReview";
 
 const getAdminToken = () => sessionStorage.getItem("adminToken");
 
@@ -75,6 +76,8 @@ function App() {
           />
 
           <Route path="/quiz" element={<Quiz  />} />
+
+          <Route path="/adminmodulereview" element={<AdminModuleReview />} />
     
 
           
