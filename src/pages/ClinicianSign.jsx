@@ -38,7 +38,8 @@ export function ClinicianLoginForm() {
 
       // Example handling of the response text
       if (!text.includes("Email does not exist")) {
-        localStorage.setItem('userToken', text); // Store the token// Store token (or whatever the response indicates)
+        sessionStorage.setItem("cliniciantoken", text); // Store token (or whatever the response indicates)
+        //console.log(cliniciantoken)
         navigate("/quizDashboard"); // Redirect using navigate instead of updating state
       } else {
         alert("Login failed!");

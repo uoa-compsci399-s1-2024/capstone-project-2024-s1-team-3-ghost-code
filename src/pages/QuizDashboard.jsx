@@ -9,6 +9,7 @@ import "./QuizDashboard.css";
 function QuizDashboard() {
   const navigate = useNavigate();
   const clinicianToken = sessionStorage.getItem("cliniciantoken");
+  console.log(clinicianToken)
 
   const [modules, setModules] = useState([]);
   const [selectedModule, setSelectedModule] = useState(null);

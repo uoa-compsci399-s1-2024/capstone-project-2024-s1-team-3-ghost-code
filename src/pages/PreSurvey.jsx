@@ -60,8 +60,10 @@ function Presurvey() {
   useEffect(() => {
     async function fetchPositions() {
       try {
-        const response = await fetch('https://api.tmstrainingquizzes.com/webapi/GetRoles');
-        if (!response.ok) throw new Error('Failed to fetch');
+        const response = await fetch(
+          "https://api.tmstrainingquizzes.com/webapi/GetRoles"
+        );
+        if (!response.ok) throw new Error("Failed to fetch");
         const data = await response.json();
         const roleName = data.map((role) => role.roleName);
         const roleID = data.map((role) => role.roleID);
@@ -81,8 +83,10 @@ function Presurvey() {
   useEffect(() => {
     async function fetchOrganisations() {
       try {
-        const response = await fetch('https://api.tmstrainingquizzes.com/webapi/GetOrganizations');
-        if (!response.ok) throw new Error('Failed to fetch');
+        const response = await fetch(
+          "https://api.tmstrainingquizzes.com/webapi/GetOrganizations"
+        );
+        if (!response.ok) throw new Error("Failed to fetch");
         const data = await response.json();
         const orgNames = data.map((org) => org.orgName); // Extract orgName from each organisation object
         const orgIDs = data.map((org) => org.orgID);
@@ -154,7 +158,7 @@ function Presurvey() {
         const text = await loginResponse.text(); // First get the response as text to check for errors
 
         if (loginResponse.ok && !text.includes("Login failed")) {
-          localStorage.setItem("userToken", text); // Store the token
+          sessionStorage.setItem("cliniciantoken", text); // Store the token
           navigate("/quizDashboard"); // Redirect to quizDashboard
         } else {
           throw new Error("Login failed after registration");
