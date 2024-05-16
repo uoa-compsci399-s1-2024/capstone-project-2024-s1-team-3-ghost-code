@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import "./PracQuiz.css";
+import "./Quiz.css";
 import redaxios from "redaxios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
-const PracQuiz = () => {
+const Quiz = () => {
   const { quizID, moduleID } = useParams();
 
   const [questions, setQuestions] = useState([]);
@@ -93,12 +93,11 @@ const PracQuiz = () => {
   const onClickNext = () => {
     const currentQuestion = questions[activeQuestion];
     const isCorrect = selectedAnswers.includes(currentQuestion.correctAnswer);
-
     setResult((prev) => ({
       ...prev,
-      score: isCorrect ? prev.score + 5 : prev.score,
-      correctAnswers: isCorrect ? prev.correctAnswers + 1 : prev.correctAnswers,
-      wrongAnswers: !isCorrect ? prev.wrongAnswers + 1 : prev.wrongAnswers,
+      score: isCorrect ? prev.score : prev.score,
+      correctAnswers: isCorrect ? prev.correctAnswers : prev.correctAnswers,
+      wrongAnswers: !isCorrect ? prev.wrongAnswers : prev.wrongAnswers,
     }));
 
     if (activeQuestion !== questions.length - 1) {
@@ -128,19 +127,26 @@ const PracQuiz = () => {
                 <button className="btn return-button">Back to Modules</button>
               </Link>
             </div>
-
+            
+            
             <div className="progress-bar-container">
               <div
                 className="progress-bar"
                 style={{
-                  width: `${(activeQuestion / questions.length) * 100}%`,
-                }}
-              ></div>
+                  width: `${(activeQuestion / questions.length) * 100}%`,    
+                }}>
+                <span className="progress-percentage">
+                  {Math.round((activeQuestion / questions.length) * 100)}%
+                </span>
+              </div>  
             </div>
+
 
             {/*Need api or something*/}
             <h2 className="module-title">Module 1: TMS Overview</h2>
 
+           
+            
             <div className="cont-question">
               <div className="button-container">
                 {activeQuestion !== 0 && (
@@ -152,6 +158,7 @@ const PracQuiz = () => {
                   </button>
                 )}
 
+                
                 <button
                   onClick={onClickNext}
                   disabled={selectedAnswerIndexes.length === 0}
@@ -161,15 +168,22 @@ const PracQuiz = () => {
                 </button>
               </div>
 
+              
+              
+
+              
               <div className="question-body">
                 <div className="question-stage">
                   <span className="active-question-no">
                     {addLeadingZero(activeQuestion + 1)}
                   </span>
+                  
                   <span className="total-question">
                     /{addLeadingZero(questions.length)}
                   </span>
                 </div>
+
+              
 
                 <h2>{title}</h2>
                 <ul>
@@ -224,4 +238,4 @@ const PracQuiz = () => {
   );
 };
 
-export default PracQuiz;
+export default Quiz;

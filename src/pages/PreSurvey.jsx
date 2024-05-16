@@ -61,7 +61,7 @@ function Presurvey() {
     async function fetchPositions() {
       try {
         const response = await fetch(
-          "http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/GetRoles"
+          "https://api.tmstrainingquizzes.com/webapi/GetRoles"
         );
         if (!response.ok) throw new Error("Failed to fetch");
         const data = await response.json();
@@ -84,7 +84,7 @@ function Presurvey() {
     async function fetchOrganisations() {
       try {
         const response = await fetch(
-          "http://ghostcode-be-env-2.eba-va2d79t3.ap-southeast-2.elasticbeanstalk.com/webapi/GetOrganizations"
+          "https://api.tmstrainingquizzes.com/webapi/GetOrganizations"
         );
         if (!response.ok) throw new Error("Failed to fetch");
         const data = await response.json();
@@ -159,7 +159,7 @@ function Presurvey() {
         const text = await loginResponse.text(); // First get the response as text to check for errors
 
         if (loginResponse.ok && !text.includes("Login failed")) {
-          localStorage.setItem("userToken", text); // Store the token
+          sessionStorage.setItem("cliniciantoken", text); // Store the token
           navigate("/quizDashboard"); // Redirect to quizDashboard
         } else {
           throw new Error("Login failed after registration");
