@@ -722,16 +722,16 @@ namespace OTTER.Controllers
                 {
                     if (finalAttempts.Count() == 0)
                     {
-                        return Ok(new QuizAccessDto { PracticePassed = true, FinalPassed = false, Description = "This clinician has passed a practice quiz, but not a final quiz. The final quiz is available." });
+                        return Ok(new QuizAccessDto { PracticePassed = true, FinalPassed = false, Description = "You have passed the practice quiz, but not a final quiz. The final quiz is available." });
                     }
                     else
                     {
-                        return Ok(new QuizAccessDto { PracticePassed = true, FinalPassed = true, Description = "This clinician has passed a practice quiz and a final quiz. The final quiz is unavailable." });
+                        return Ok(new QuizAccessDto { PracticePassed = true, FinalPassed = true, Description = "You have already passed the final quiz. The final quiz is unavailable." });
                     }
                 }
                 else
                 {
-                    return Ok(new QuizAccessDto { PracticePassed = false, FinalPassed = false, Description = "This clinician has not passed a practice quiz. The final quiz is unavailable." });
+                    return Ok(new QuizAccessDto { PracticePassed = false, FinalPassed = false, Description = "You have not passed a practice quiz. The final quiz is unavailable." });
                 }
             } else
             {

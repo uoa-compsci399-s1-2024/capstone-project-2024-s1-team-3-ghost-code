@@ -273,6 +273,22 @@ namespace OTTER.Data
 
         public Attempt AddAttempt(Attempt attempt)
         {
+            IEnumerable<Attempt> current = GetAttempts().Where(e => e.User.UserID == attempt.User.UserID && e.Quiz.QuizID == attempt.Quiz.QuizID && e.Completed == "INCOMPLETE");
+            if(current != null)
+            {
+                foreach(Attempt next in current)
+                {
+                    IEnumerable<AttemptQuestion> question = _dbContext.AttemptQuestions.Include(e => e.Attempt).Where(e => e.Attempt.AttemptID == next.AttemptID);
+                    if (question != null)
+                    {
+                        foreach (AttemptQuestion aQuestion in question)
+                        {
+                            _dbContext.AttemptQuestions.Remove(aQuestion);
+                        }
+                    }
+                    _dbContext.Attempts.Remove(next);
+                }
+            }
             EntityEntry<Attempt> at = _dbContext.Attempts.Add(attempt);
             _dbContext.SaveChanges();
             return at.Entity;
