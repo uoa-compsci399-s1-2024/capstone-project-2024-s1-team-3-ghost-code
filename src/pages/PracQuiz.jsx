@@ -27,8 +27,13 @@ const PracQuiz = () => {
   
   const [moduleName, setmoduleName] = useState("");
 
+  const [submissionResult, setSubmissionResult] = useState([]);
+
 
   const [userID, setUserID] = useState(null);
+  const navigate = useNavigate();
+
+
   
 
   useEffect(() => {
@@ -46,12 +51,18 @@ const PracQuiz = () => {
             console.error("Module name not found.");
         }
     } catch (error) {
-        console.error('Error fetching practice quiz ID:', error);
+      if (error.status) {
+        handleErrorResponse(error.status);
+      } else {
+         console.error('Error fetching practice quiz ID:', error);
+         console.log(error.status)
+      }
+        
     }
   };
 
     fetchModuleID();
-  }, []);
+  }, [moduleID, cliniciantoken, navigate]);
 
 
   
@@ -66,12 +77,16 @@ const PracQuiz = () => {
         const { userID } = clinicianResponse.data;
         setUserID(userID);
       } catch (error) {
-        console.error('Error fetching current clinician data:', error);
+        if (error.status) {
+          handleErrorResponse(error.status);
+        } else {
+          console.error('Error fetching current clinician data:', error);
+        }
       }
     };
 
     fetchClinicianData();
-  }, []);
+  }, [cliniciantoken, navigate]);
 
 
   useEffect(() => {
@@ -100,7 +115,12 @@ const PracQuiz = () => {
         setQuestions(data);
         setattemptID(data[0].attemptID)
       } catch (error) {
-        console.error('Error fetching questions:', error);
+        if (error.status) {
+          handleErrorResponse(error.status);
+
+        } else {
+          console.error('Error fetching questions:', error);
+        }
       }
     };
 
@@ -109,7 +129,7 @@ const PracQuiz = () => {
     if (userID !== null) {  
       fetchQuestions();
     }
-  }, [userID,quizID,moduleID]);
+  }, [userID,quizID,moduleID, cliniciantoken, navigate]);
 
 
   useEffect(() => {
@@ -122,6 +142,20 @@ const PracQuiz = () => {
     generateSequence();
   }, [questionIDs]);
 
+  const handleErrorResponse = (status) => {
+    if (status === 401) {
+      if (sessionStorage.getItem('cliniciantoken')) {
+        sessionStorage.removeItem('cliniciantoken');
+        console.log('Token found and removed due to 401 Unauthorized status.');
+      } else {
+        console.log('No token found when handling 401 status.');
+      }
+      navigate('/cliniciansign');
+    } else if (status === 403) {
+      navigate('/quizDashboard');
+    }
+  };
+  
 
 
 const [selectedAnswersLists, setSelectedAnswersLists] = useState(Array.from({ length: questions.length }, () => []));
@@ -216,16 +250,16 @@ const storeSelectedAnswersForQuestion = (selectedAnswers, questionIndex) => {
     
   
         // Process the submission response
+        setSubmissionResult(submissionResponse.data);
+        
         const submissionResult = submissionResponse.data;
-        console.log(submissionResult);
-  
         // Calculate score based on submission result
         const score = submissionResult.score;
-        const correctAnswers = submissionResult.correct.filter(answer => answer[0] === true).length;
-        const wrongAnswers = submissionResult.correct.filter(answer => answer[0] === false).length;
-
-        console.log(correctAnswers)
-
+        const correctAnswers = submissionResult.missedCorrectAID.filter(answer => answer.length === 0).length;
+        const wrongAnswers = submissionResult.missedCorrectAID.filter(answer => answer.length > 0).length;
+        console.log(submissionResult)
+      
+       
         
   
         // Show result with score
@@ -324,51 +358,62 @@ return (
               </div>
           ) : (
             <div className='cont-feedback'>
-            <div className="cont-return-but">
+              <div className="cont-return-but">
                 <Link to="/quizDashboard" style={{ textDecoration: "none" }}>
-                    <button className="btn return-button">Back to Modules</button>
+                  <button className="btn return-button">Back to Modules</button>
                 </Link>
-            </div>
-        
-            <div className="result">
+              </div>
+    
+              <div className="result">
                 <h3>Result</h3>
                 <p>Total Questions: <span>{questions.length}</span></p>
                 <p>Total Score: <span>{result.score}</span></p>
                 <p>Correct Answers: <span>{result.correctAnswers}</span></p>
                 <p>Wrong Answers: <span>{result.wrongAnswers}</span></p>
-            </div>
-        
-            <div className='feedback-qs'>
-                <div className="question-answer-wrapper">
+              </div>
+    
+              <div className='feedback-qs'>
+                <div key={questions[activeQuestion].questionID} className={`question-answer-container ${submissionResult.missedCorrectAID[activeQuestion].length === 0 ? 'correct' : 'wrong'}`}>
+                  <div className="question-answer-wrapper">
                     <h4>{questions[activeQuestion].title}</h4>
                     <ul>
-                        {questions[activeQuestion].answers.map(answer => (
-                            <li key={answer.answerID} style={{ color: '#808080' }}>
-                                {answer.answerText}
-                            </li>
-                        ))}
+                      {questions[activeQuestion].answers.map(answer => (
+                        <li key={answer.answerID} style={{ color: '#808080' }}>
+                          {answer.answerText}
+                        </li>
+                      ))}
                     </ul>
                     <p>Selected Answer(s):</p>
                     <ul>
-                        {selectedAnswersLists[activeQuestion]?.map(selectedAnswerID => (
-                            <li key={selectedAnswerID} style={{ color: '#808080' }}>
-                                {questions[activeQuestion].answers.find(answer => answer.answerID === selectedAnswerID)?.answerText}
-                            </li>
-                        ))}
-                    </ul>
-                  <div className="button-container">
-                <button onClick={onClickPrevious} disabled={activeQuestion === 0} className="btn prev-ques">Previous</button>
-                <button onClick={onClickNext} disabled={activeQuestion === questions.length - 1} className="btn next-ques">Next</button>
-                </div>
-                </div>
-            </div>
+                    {selectedAnswersLists[activeQuestion]?.map((selectedAnswerID, index) => (
+                    <li key={selectedAnswerID} style={{ color: '#808080' }}>
+                      {questions[activeQuestion].answers.find(answer => answer.answerID === selectedAnswerID)?.answerText}
+                      {Array.isArray(submissionResult.selectedFeedback[activeQuestion]?.[index]) && (
+                        <ul>
+                          {submissionResult.selectedFeedback[activeQuestion]?.[index]?.map((feedback, feedbackIndex) => (
+                            <li key={feedbackIndex}>{feedback}</li>
+                          ))}
+                        </ul>
+                      )}
+                      {typeof submissionResult.selectedFeedback[activeQuestion]?.[index] === 'string' && (
+                        <div>{submissionResult.selectedFeedback[activeQuestion]?.[index]}</div>
+                      )}
+                    </li>
+                  ))}
 
-      
+                  </ul>
+                  </div>
+                </div>
+                <div className="button-container">
+                  <button onClick={onClickPrevious} disabled={activeQuestion === 0} className="btn prev-ques">Previous</button>
+                  <button onClick={onClickNext} disabled={activeQuestion === questions.length - 1} className="btn next-ques">Next</button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
-    )}
-</div>
-</div>
-);
+      </div>
+    );
 };
 
 export default PracQuiz;

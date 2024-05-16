@@ -264,3 +264,21 @@ h2{
   color: #9fa3a9;
   cursor: not-allowed;
 }
+
+.correct {
+  background-color: green;
+}
+
+.wrong {
+  background-color: red;
+}
+
+.question-answer-container {
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.question-answer-wrapper {
+  /* Your existing styles for the question-answer wrapper */
+}
