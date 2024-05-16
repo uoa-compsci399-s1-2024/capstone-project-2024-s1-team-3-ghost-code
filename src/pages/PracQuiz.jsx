@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './PracQuiz.css';
+import './Quiz.css';
 import redaxios from 'redaxios';
 import {Link, useNavigate, useParams } from 'react-router-dom';
 
