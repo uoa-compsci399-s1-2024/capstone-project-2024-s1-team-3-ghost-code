@@ -74,6 +74,7 @@ function AClinicianSearch() {
         <div className="AdminClientSearchResults">
           {searchResults.map((result) => (
             <Link
+              style={{ textDecoration: "none" }}
               key={result.userID}
               to={`/clinician/${result.userEmail}`}
               className="link"

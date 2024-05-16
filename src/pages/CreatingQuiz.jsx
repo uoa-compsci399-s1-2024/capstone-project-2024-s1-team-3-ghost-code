@@ -146,7 +146,7 @@ export function QuestionsDisplay() {
             {searchResults.map((result) => (
               <Link
                 key={result.questionID}
-                to={`/clinician/${result.userEmail}`} //change to link to editting quiz
+                to={`/clinician/${result.questionID}`} //change to link to editting quiz
                 className="link"
               >
                 <div className="adminClientSearchResultItem">

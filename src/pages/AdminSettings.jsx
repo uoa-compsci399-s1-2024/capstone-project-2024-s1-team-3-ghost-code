@@ -55,7 +55,7 @@ export default function AdminSetting() {
   }, [adminToken, navigate]);
 
   //FOR GETTING ADMINS NAME
-
+  const [adminID, setAdminID] = useState(0);
   const [adminfirstName, setAdminFirstName] = useState("");
   const [adminlastName, setAdminLastName] = useState("");
   const [adminEmail, setAdminEmail] = useState("");
@@ -76,6 +76,7 @@ export default function AdminSetting() {
         return response.json();
       })
       .then((data) => {
+        setAdminID(data.adminID); // Set adminID
         setAdminFirstName(data.firstName);
         setAdminLastName(data.lastName);
         setAdminEmail(data.email);
@@ -100,6 +101,44 @@ export default function AdminSetting() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const payload = {
+        adminID: adminID,
+        firstName: adminfirstName,
+        lastName: adminlastName,
+        email: adminEmail,
+      };
+
+      console.log("Payload being sent:", payload);
+
+      const response = await axios.put(
+        "https://api.tmstrainingquizzes.com/webapi/EditAdmin",
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${adminToken}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        alert("Admin details updated successfully");
+      } else {
+        console.error("Unexpected response status:", response.status);
+        alert("Failed to update admin details");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert(
+        "Failed to update admin details. Check console for more information."
+      );
+    }
+  };
+
   return (
     <>
       <div className="admin-body"></div>
@@ -118,30 +157,38 @@ export default function AdminSetting() {
               <div className="information-text">
                 <p>Edit your details</p>
               </div>
-              <div className="information">
+              <form className="information" onSubmit={handleSubmit}>
                 <input
                   type="text"
                   className="input-box-settings"
                   id="firstname"
-                  placeholder={adminfirstName}
+                  value={adminfirstName}
+                  placeholder="First Name"
+                  onChange={(e) => setAdminFirstName(e.target.value)}
                   required
-                ></input>
+                />
                 <input
                   type="text"
                   className="input-box-settings"
                   id="lastname"
-                  placeholder={adminlastName}
+                  value={adminlastName}
+                  placeholder="Last Name"
+                  onChange={(e) => setAdminLastName(e.target.value)}
                   required
-                ></input>
+                />
                 <input
-                  type="text"
+                  type="email"
                   className="input-box-settings"
                   id="email"
-                  placeholder={adminEmail}
+                  value={adminEmail}
+                  placeholder="Email"
+                  onChange={(e) => setAdminEmail(e.target.value)}
                   required
-                ></input>
-                <button className="btn-settings">Save Changes</button>
-              </div>
+                />
+                <button type="submit" className="btn-settings">
+                  Save Changes
+                </button>
+              </form>
             </div>
             <div className="accordion-item" id="addnewadmin">
               <a className="accordion-link" href="#addnewadmin">
