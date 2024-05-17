@@ -379,6 +379,7 @@ return (
                   <div className='sep-qs'>
                     <h2>{questions[activeQuestion].title}</h2>
 
+                   {/* This changing colour section changes the colour of the selected question, but idk how to change it to red if it was wrong*/}
                     <ul className='feedback-options'>
                       {questions[activeQuestion].answers.map(answer => (
                         <li 
@@ -386,7 +387,7 @@ return (
                           style={{ 
                             color: selectedAnswersLists[activeQuestion]?.includes(answer.answerID) ? 
 
-                            {/* This changing colour section changes the colour of the selected question, but idk how to change it to red if it was wrong*/}
+
 
                               (submissionResult.missedCorrectAID[activeQuestion].includes(answer.answerID) ? 'red' : 'green') 
                               : 
@@ -401,10 +402,12 @@ return (
                 </div>
                 </div>
 
+
+                  {/*IDK which part of the code is displaying the answered question, I want to remove it and ONLY show the feedback, but I think they depend on each other? I'm not too sure about what I can remove.*/}
                 <div className="cont-feedback">
                   <div className="cont-feedback-writing">
 
-                  {/*IDK which part of the code is displaying the answered question, I want to remove it and ONLY show the feedback, but I think they depend on each other? I'm not too sure about what I can remove.*/}
+
                   <ul>
                     {selectedAnswersLists[activeQuestion]?.map((selectedAnswerID, index) => (
                     <li key={selectedAnswerID} style={{ color: '#808080' }}>
