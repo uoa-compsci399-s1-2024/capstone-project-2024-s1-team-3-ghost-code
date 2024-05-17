@@ -357,7 +357,7 @@ return (
 
               </div>
           ) : (
-            <div className='cont-feedback'>
+            <div className='cont-results'>
               <div className="cont-return-but">
                 <Link to="/quizDashboard" style={{ textDecoration: "none" }}>
                   <button className="btn return-button">Back to Modules</button>
@@ -373,41 +373,46 @@ return (
               </div>
     
               <div className='feedback-qs'>
-                <div key={questions[activeQuestion].questionID} className={`question-answer-container ${submissionResult.missedCorrectAID[activeQuestion].length === 0 ? 'correct' : 'wrong'}`}>
+
+                  <div key={questions[activeQuestion].questionID} className="question-answer-container">
                   <div className="question-answer-wrapper">
-                    <h4>{questions[activeQuestion].title}</h4>
-                    <ul>
+                  <div className='sep-qs'>
+                    <h2>{questions[activeQuestion].title}</h2>
+
+                    <ul className='feedback-options'>
                       {questions[activeQuestion].answers.map(answer => (
-                        <li key={answer.answerID} style={{ color: '#808080' }}>
+                        <li 
+                          key={answer.answerID} 
+                          style={{ 
+                            color: selectedAnswersLists[activeQuestion]?.includes(answer.answerID) ? 
+                              (submissionResult.missedCorrectAID[activeQuestion].includes(answer.answerID) ? 'red' : 'green') 
+                              : 
+                              (submissionResult.missedCorrectAID[activeQuestion].includes(answer.answerID) ? 'red' : '') 
+                          }}
+                        >
                           {answer.answerText}
                         </li>
                       ))}
                     </ul>
-                    <p>Selected Answer(s):</p>
-                    <ul>
-                    {selectedAnswersLists[activeQuestion]?.map((selectedAnswerID, index) => (
-                    <li key={selectedAnswerID} style={{ color: '#808080' }}>
-                      {questions[activeQuestion].answers.find(answer => answer.answerID === selectedAnswerID)?.answerText}
-                      {Array.isArray(submissionResult.selectedFeedback[activeQuestion]?.[index]) && (
-                        <ul>
-                          {submissionResult.selectedFeedback[activeQuestion]?.[index]?.map((feedback, feedbackIndex) => (
-                            <li key={feedbackIndex}>{feedback}</li>
-                          ))}
-                        </ul>
-                      )}
-                      {typeof submissionResult.selectedFeedback[activeQuestion]?.[index] === 'string' && (
-                        <div>{submissionResult.selectedFeedback[activeQuestion]?.[index]}</div>
-                      )}
-                    </li>
-                  ))}
-
-                  </ul>
                   </div>
                 </div>
+                </div>
+
+                <div className="cont-feedback">
+                  <div className="cont-feedback-writing">
+                    <p>{questions[activeQuestion].answers.map(answer => (submissionResult.selectedFeedback))}</p>
+                    <p>Little feedback for final quiz</p>
+                  </div>
+                </div>
+
+
+
+                <div className='button-alignment'>
                 <div className="button-container">
                   <button onClick={onClickPrevious} disabled={activeQuestion === 0} className="btn prev-ques">Previous</button>
                   <button onClick={onClickNext} disabled={activeQuestion === questions.length - 1} className="btn next-ques">Next</button>
                 </div>
+              </div>
               </div>
             </div>
           )}
