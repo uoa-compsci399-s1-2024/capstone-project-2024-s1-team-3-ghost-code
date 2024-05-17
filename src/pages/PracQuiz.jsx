@@ -385,9 +385,12 @@ return (
                           key={answer.answerID} 
                           style={{ 
                             color: selectedAnswersLists[activeQuestion]?.includes(answer.answerID) ? 
+
+                            {/* This changing colour section changes the colour of the selected question, but idk how to change it to red if it was wrong*/}
+
                               (submissionResult.missedCorrectAID[activeQuestion].includes(answer.answerID) ? 'red' : 'green') 
                               : 
-                              (submissionResult.missedCorrectAID[activeQuestion].includes(answer.answerID) ? 'red' : '') 
+                              (submissionResult.missedCorrectAID[activeQuestion].includes(answer.answerID) ? '' : '') 
                           }}
                         >
                           {answer.answerText}
@@ -400,8 +403,29 @@ return (
 
                 <div className="cont-feedback">
                   <div className="cont-feedback-writing">
-                    <p>{questions[activeQuestion].answers.map(answer => (submissionResult.selectedFeedback))}</p>
-                    <p>Little feedback for final quiz</p>
+
+                  {/*IDK which part of the code is displaying the answered question, I want to remove it and ONLY show the feedback, but I think they depend on each other? I'm not too sure about what I can remove.*/}
+                  <ul>
+                    {selectedAnswersLists[activeQuestion]?.map((selectedAnswerID, index) => (
+                    <li key={selectedAnswerID} style={{ color: '#808080' }}>
+                      {questions[activeQuestion].answers.find(answer => answer.answerID === selectedAnswerID)?.answerText}
+                      {Array.isArray(submissionResult.selectedFeedback[activeQuestion]?.[index]) && (
+                        <ul>
+                          {submissionResult.selectedFeedback[activeQuestion]?.[index]?.map((feedback, feedbackIndex) => (
+                            <li key={feedbackIndex}>{feedback}</li>
+                          ))}
+                        </ul>
+                      )}
+                      {typeof submissionResult.selectedFeedback[activeQuestion]?.[index] === 'string' && (
+                        <div>{submissionResult.selectedFeedback[activeQuestion]?.[index]}</div>
+                      )}
+                    </li>
+                  ))}
+
+                  </ul>
+
+
+                    
                   </div>
                 </div>
 
