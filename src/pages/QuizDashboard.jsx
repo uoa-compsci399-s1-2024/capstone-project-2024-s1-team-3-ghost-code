@@ -89,6 +89,7 @@ function QuizDashboard() {
     }
   };  
 
+
   const handleModuleClick = async (module) => {  
     // If the clicked module is already selected, deselect it
     if (selectedModule && selectedModule.moduleID === module.moduleID) {
@@ -140,8 +141,11 @@ function QuizDashboard() {
           }
         } else if (!accessStatus.practicePassed) {
           console.log("Complete practice quiz first.");
+          alert(accessStatus.description)
+          
         } else if (accessStatus.finalPassed) {
           console.log("Final quiz has already been completed.");
+          alert(accessStatus.description)
         }
       } catch (error) {
         console.error('Error handling final quiz click:', error);

@@ -33,6 +33,38 @@ const PracQuiz = () => {
   const [userID, setUserID] = useState(null);
   const navigate = useNavigate();
 
+  
+  useEffect(() => {
+    const fetchModuleAccessStatus = async () => {
+      try {
+        const response = await redaxios.get(`https://api.tmstrainingquizzes.com/webapi/CheckAccess/${moduleID}`, {
+          headers: {
+            "Authorization": `Bearer ${cliniciantoken}`
+          }
+        });
+      
+        const finalPassed = response.data.finalPassed;
+        const practicePassed = response.data.practicePassed;
+        if (quizID % 2 == 0) {
+          if (!practicePassed || finalPassed) {
+            navigate('/quizDashboard'); // Redirect to quiz dashboard if practice quiz is not passed or final exam is already completed
+          }
+
+        }
+
+      } catch (error) {
+        console.error('Error fetching module access status:', error);
+        // Handle error
+      }
+    };
+
+    fetchModuleAccessStatus();
+  }, [moduleID, cliniciantoken, navigate]);
+
+
+
+
+
 
   
 
