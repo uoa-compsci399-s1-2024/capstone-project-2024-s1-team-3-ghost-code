@@ -83,3 +83,12 @@
 .module-button:hover {
     opacity: 0.8;
 }
+
+/* test */
+.disabled-button {
+    cursor: not-allowed;
+    opacity: 0.6; /* Adjust opacity to your preference */
+    background-color: #ccc; /* Change background color to indicate disabled state */
+    color: #999; /* Change text color to indicate disabled state */
+  }
+  

@@ -6,19 +6,22 @@ import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'; // Icon for m
 import { Link, useNavigate} from "react-router-dom";
 import "./QuizDashboard.css";
 
-
-
 function QuizDashboard() {
     const navigate = useNavigate();
     const clinicianToken = sessionStorage.getItem('cliniciantoken');
    
 
-    const [modules, setModules] = useState([]);
-    const [selectedModule, setSelectedModule] = useState(null);
+  const [modules, setModules] = useState([]);
+  const [selectedModule, setSelectedModule] = useState(null);
 
-    const [practiceQuizID, setPracticeQuizID] = useState(null);
-    const [finalQuizID, setFinalQuizID] = useState(null);
-    
+  const [practiceQuizID, setPracticeQuizID] = useState(null);
+  const [finalQuizID, setFinalQuizID] = useState(null);
+
+  const [finalPassed, setFinalPassed] = useState(false);
+  const [practisePassed, setpractisePassed] = useState(false);
+
+  const [moduleAccessStatusList, setModuleAccessStatusList] = useState([]);
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -46,18 +49,61 @@ function QuizDashboard() {
             }
         };
 
-        fetchData();
-    }, [clinicianToken, navigate]);
+    fetchData();
+  }, [clinicianToken, navigate]);
 
-    const handleModuleClick = async (module) => {
-        // If the clicked module is already selected, deselect it
-        if (selectedModule && selectedModule.moduleID === module.moduleID) {
-            setSelectedModule(null);
-        } else {
-            // Otherwise, select the clicked module
-            setSelectedModule(module);       
+
+  useEffect(() => {
+    const fetchModuleAccessStatuses = async () => {
+      const moduleAccessStatusList = [];
+      try {
+        for (const module of modules) {
+          const accessStatus = await fetchModuleAccessStatus(module.moduleID);
+          moduleAccessStatusList.push(accessStatus);
         }
+        setModuleAccessStatusList(moduleAccessStatusList);
+      } catch (error) {
+        console.error('Error fetching module access statuses:', error);
+      }
     };
+  
+    fetchModuleAccessStatuses();
+  }, [modules]);
+
+  
+
+
+  const fetchModuleAccessStatus = async (moduleID) => {
+    try {
+      const response = await redaxios.get(`https://api.tmstrainingquizzes.com/webapi/CheckAccess/${moduleID}`, {
+        headers: {
+          "Authorization": `Bearer ${clinicianToken}`
+        }
+      });
+      return response.data;
+      
+
+    } catch (error) {
+      console.error('Error fetching module access status:', error);
+      return {};
+    }
+  };  
+
+  const handleModuleClick = async (module) => {  
+    // If the clicked module is already selected, deselect it
+    if (selectedModule && selectedModule.moduleID === module.moduleID) {
+      setSelectedModule(null);
+      setFinalPassed(false);
+      setpractisePassed(false);
+    } else {
+      // Otherwise, select the clicked module
+      setSelectedModule(module);
+      const access = await fetchModuleAccessStatus(module.moduleID)
+      setFinalPassed(access.finalPassed);
+      setpractisePassed(access.practicePassed);
+    }
+  };
+
 
     const handlePracticeQuizClick = async (module) => {
         try {
@@ -78,56 +124,89 @@ function QuizDashboard() {
     };
 
     const handleFinalQuizClick = async (module) => {
-        try {
-            const response = await redaxios.get(`https://api.tmstrainingquizzes.com/webapi/GetQuizzesByModID/${module.moduleID}`, {
-                headers: {
-                    "Authorization": `Bearer ${clinicianToken}` // Include token in headers
-                }
-            });
-            const finalQuizID = response.data[1]?.quizID;
-            console.log(finalQuizID);
-            if (finalQuizID) {
-                navigateToQuizPage(finalQuizID);
-            } else {
-                console.error("Final quiz ID not found.");
+      try {
+        const accessStatus = await fetchModuleAccessStatus(module.moduleID);
+        if (accessStatus.practicePassed && !accessStatus.finalPassed) {
+          const response = await redaxios.get(`https://api.tmstrainingquizzes.com/webapi/GetQuizzesByModID/${module.moduleID}`, {
+            headers: {
+              "Authorization": `Bearer ${clinicianToken}`
             }
-        } catch (error) {
-            console.error('Error fetching final quiz ID:', error);
+          });
+          const finalQuizID = response.data[1]?.quizID;
+          if (finalQuizID) {
+            navigateToQuizPage(finalQuizID);
+          } else {
+            console.error("Final quiz ID not found.");
+          }
+        } else if (!accessStatus.practicePassed) {
+          console.log("Complete practice quiz first.");
+        } else if (accessStatus.finalPassed) {
+          console.log("Final quiz has already been completed.");
         }
+      } catch (error) {
+        console.error('Error handling final quiz click:', error);
+      }
     };
+    
 
-    const navigateToQuizPage = (quizID) => {
-        // Navigate to the quiz page with the retrieved quiz ID
-        navigate(`/quiz/${quizID}/${selectedModule.moduleID}`);
-    };
+  const navigateToQuizPage = (quizID) => {
+    // Navigate to the quiz page with the retrieved quiz ID
+    navigate(`/quiz/${quizID}/${selectedModule.moduleID}`);
+  };
+
+  
 
 
+  return (
+    <div className="flex">
+      <div className="dashboard-container">
+        <ClientDashboard />
+      </div>
+      <div className="quizModuleContainer">
+        <div className="quizModuleresults">
+          {modules.map((module) => (
+            <div
+              key={module.moduleID}
+              className="module-item"
+              onClick={() => handleModuleClick(module)}
+            >
+              <div className="moduleId">{"Module " + module.sequence}</div>
+              <div className="moduleName">{module.name}</div>
+              <div className="moduleDescription">{module.description}</div>
+              <FontAwesomeIcon
+                icon={faCircleCheck}
+                style={{
+                  fontSize: "24px",
+                  color: moduleAccessStatusList[module.sequence - 1]?.finalPassed === true ? "#4CAF50" : "#ccc",
+                }}
+              />
 
-    return (
-        <div className="flex">
-            <div className="dashboard-container">
-                <ClientDashboard />
+              {selectedModule &&
+                selectedModule.moduleID === module.moduleID && (
+                  <div className="module-buttons">
+                    <button
+                      className="module-button practice"
+                      onClick={() => handlePracticeQuizClick(module)}
+                  
+                    >
+                      Practice Quiz
+                    </button>
+                    <button
+                       className={`module-button final ${!practisePassed || finalPassed ? 'disabled-button' : ''}`}
+                      onClick={() => handleFinalQuizClick(module)}
+                      disabled={!practisePassed || finalPassed}
+    
+                    >
+                      Final Quiz
+                    </button>
+                  </div>
+                )}
             </div>
-            <div className="quizModuleContainer">
-                <div className="quizModuleresults">
-                    {modules.map(module => (
-                        <div key={module.moduleID} className="module-item" onClick={() => handleModuleClick(module)}>
-                            <div className="moduleId">{"Module " + module.sequence}</div>
-                            <div className="moduleName">{module.name}</div>
-                            <div className="moduleDescription">{module.description}</div>
-                            <FontAwesomeIcon icon={faCircleCheck} style={{ color: module.completion === 100 ? '#4CAF50' : '#ccc' }} />
-                            {selectedModule && selectedModule.moduleID === module.moduleID && (
-                            <div className="module-buttons">
-                                <button className="module-button practice" onClick={() => handlePracticeQuizClick(module)}>Practice Quiz</button>
-                                <button className="module-button final" onClick={() => handleFinalQuizClick(module)}>Final Quiz</button>
-                            </div>
-                            )}
-                        </div>
-                    ))}
-                </div>
-            </div>
+          ))}
         </div>
-    );
+      </div>
+    </div>
+  );
 }
 
 export default QuizDashboard;

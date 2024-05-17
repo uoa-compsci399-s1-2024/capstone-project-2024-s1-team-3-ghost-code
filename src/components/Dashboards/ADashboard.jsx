@@ -1,6 +1,7 @@
 import React from "react";
 import "./ADashboard.css";
 import { Link } from "react-router-dom";
+import logo from "../VERIFYLogo.jpg";
 
 function AdminDashboard() {
   return (
@@ -9,22 +10,22 @@ function AdminDashboard() {
         <img
           className="Adminlogo"
           loading="lazy"
-          src="src/components/VERIFYLogo.jpg"
+          src={logo}
           alt="DashboardLogo"
         />
       </div>
-      <Link to="/adminDashboard" style={{ textDecoration: "none" }}>
-        <button className="Adminbutton">Dashboard</button>
-      </Link>
-      <Link to="/editQuiz" style={{ textDecoration: "none" }}>
+      <button className="Adminbutton">Dashboard</button>
+      <Link style={{ textDecoration: "none", color: "white" }} to="/createquiz">
         <button className="Adminbutton">Edit Quiz</button>
       </Link>
-      <Link to="/adminsearch" style={{ textDecoration: "none" }}>
+
+      <Link
+        style={{ textDecoration: "none", color: "white" }}
+        to="/adminsearch"
+      >
         <button className="Adminbutton">Clinicians</button>
       </Link>
-      <Link to="/statistics" style={{ textDecoration: "none" }}>
-        <button className="Adminbutton">Statistics</button>
-      </Link>
+      <button className="Adminbutton">Statistics</button>
       <br></br>
       <Link
         style={{ textDecoration: "none", color: "white" }}
