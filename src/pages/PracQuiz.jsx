@@ -409,8 +409,8 @@ return (
 
                 <div className='button-alignment'>
                 <div className="button-container">
-                  <button onClick={onClickPrevious} disabled={activeQuestion === 0} className="btn prev-ques">Previous</button>
-                  <button onClick={onClickNext} disabled={activeQuestion === questions.length - 1} className="btn next-ques">Next</button>
+                  <button onClick={onClickPrevious} disabled={activeQuestion === 0} className="btn feedback-prev-ques">Previous</button>
+                  <button onClick={onClickNext} disabled={activeQuestion === questions.length - 1} className="btn feedback-next-ques">Next</button>
                 </div>
               </div>
               </div>

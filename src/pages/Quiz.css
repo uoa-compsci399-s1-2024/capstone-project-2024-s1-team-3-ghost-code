@@ -90,7 +90,7 @@
 
 .btn.prev-ques:hover,
 .btn.prev-ques:focus-visible {
-  background: #1a1919;
+  background: #008080;
   color: #FFFFFF;
 }
 
@@ -112,6 +112,59 @@
   background: #008080;
   color: #FFFFFF;
 }
+
+
+/*Feedback buttons*/
+
+.btn.feedback-prev-ques {
+  background: #757575;
+  color: #FFFFFF;
+  border-color: #000000;
+  width: 15%;
+  height: 5%;
+  float: left;
+  margin-left: 2%;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.btn.feedback-prev-ques:hover,
+.btn.feedback-prev-ques:focus-visible {
+  background: #008080;
+  color: #FFFFFF;
+}
+
+
+.btn.feedback-next-ques {
+  background: #757575;
+  color: #FFFFFF;
+  border-color: #000000;
+  width: 15%;
+  height: 5%;
+  float: right;
+  margin-right: 2%;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.btn.feedback-next-ques:hover,
+.btn.feedback-next-ques:focus-visible {
+  background: #008080;
+  color: #FFFFFF;
+}
+
+.btn.feedback-next-ques:disabled {
+  background: #e7e8e9;
+  color: #9fa3a9;
+  cursor: not-allowed;
+}
+
+.btn.feedback-prev-ques:disabled {
+  background: #e7e8e9;
+  color: #9fa3a9;
+  cursor: not-allowed;
+}
+
 
 .button-container {
   padding-top: 0%;
@@ -201,10 +254,16 @@
   justify-content: flex-end;
 }
 
+
+.feedback-qs{
+  width: 70%;
+  float: left;
+}
+
 .cont-feedback{
   background:#FFECEC;
   border-radius: 0px 0px 25px 25px;
-  width: 70%;
+  width: 100%;
   margin-bottom: 1%;
 }
 
@@ -223,20 +282,14 @@
   padding: 2%;
 }
 
-
-
-
 .sep-qs{
   background-color: #FFFFFF;
   border-radius: 25px 25px 0px 0px;
   padding-top: 5%;
-  width: 70%;
+  width: 100%;
   padding: 2%;
 }
 
-.feeback-qs{
-  float: left;
-}
 .result {
   background-color: white;
   border-radius: 25px;
