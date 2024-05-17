@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AdminDashboard from "../components/Dashboards/ADashboard";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "redaxios";
+import redaxios from 'redaxios';
 import "./CreatingQuestions.css";
 
 export default function CreatingQuiz() {
@@ -59,12 +59,20 @@ export default function CreatingQuiz() {
     };
 
     try {
-      const response = await axios.post(
+      const adminToken = sessionStorage.getItem("adminToken");
+    
+      const response = await redaxios.post(
         "https://api.tmstrainingquizzes.com/webapi/AddQuestion",
-        newQuestion
+        newQuestion,
+        {
+          headers: {
+            Authorization: `Bearer ${adminToken}`, // Include token in headers
+          },
+        }
       );
+    
       console.log("Question published successfully", response.data);
-
+    
       // Reset state after publishing
       setQuestion("");
       setAnswers([{ answerText: "", feedback: "" }]);
