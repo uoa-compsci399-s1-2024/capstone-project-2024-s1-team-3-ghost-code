@@ -1,0 +1,108 @@
+.flex {
+  display: flex;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+}
+
+.amr-container {
+  margin-left: 20%; /* Ensure it starts after the ClientDashboard */
+  flex: 1; /* Take remaining space */
+  overflow-y: auto; /* Enable vertical scrolling */
+  padding: 20px;
+  background-color: #BDDEDE;  
+  font-size: 1.3rem;
+}
+
+.amr-results {
+  padding-top: 20px;
+  
+}
+
+.amr-titles{
+  margin-left: 15%; /* Ensure it starts after the ClientDashboard */
+  flex: 1; /* Take remaining space */
+  overflow-y: auto; /* Enable vertical scrolling */
+  padding: 20px;
+}
+
+amr-body {
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+  background: #ffffff;
+  color: #000000;
+  max-width: 100%;
+  margin:0;
+  padding:0;
+  padding-top: 1%;
+  padding-right: 1%;
+}
+
+.side-by-side{
+  display:flex;
+  justify-content: space-between;
+  width:70%; /* Adjust the width as needed */
+  margin: 0 auto; /* Center the module boxes horizontally */
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+
+.cont-overview-module{
+  width:70%; /* Adjust the width as needed */
+  margin: 0 auto; /* Center the module boxes horizontally */
+  padding: 60px; /* Add padding to the module boxes */
+  padding-top: 30px;
+  padding-bottom: 40px;
+  margin-bottom: 20px; /* Add some space between module boxes */
+  background-color: #ffffff; /* Background color */
+  border-radius: 15px; /* Add curved edges */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  cursor: default;
+}
+.cont-overview-qs{
+  
+}
+
+
+.cont-overview-sep-qs{
+  width:70%; /* Adjust the width as needed */
+  margin: 0 auto; /* Center the module boxes horizontally */
+  padding: 60px; /* Add padding to the module boxes */
+  padding-top: 30px;
+  padding-bottom: 30px;
+  margin-bottom: 20px; /* Add some space between module boxes */
+  background-color: #ffffff; /* Background color */
+  border-radius: 15px; /* Add curved edges */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  cursor: default;
+}
+
+
+.dropdown {
+  color: #000000;
+  background-color: #ffffff;
+  background-image: none;
+  border-color: #adadad;
+  padding: 1%;
+  border-radius: 15px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  z-index: 1;
+}
+
+
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
+
