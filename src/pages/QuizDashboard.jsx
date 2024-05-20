@@ -33,9 +33,11 @@ function QuizDashboard() {
                 });
                 setModules(response.data);
             } catch (error) {
+              
                 if (error.status) {
                     const { status } = error.status;
                     if (status === 401) {
+                    
                         // Token is invalid or expired, log the user out
                         sessionStorage.removeItem('cliniciantoken');
                         navigate('/cliniciansign'); // Redirect to login page

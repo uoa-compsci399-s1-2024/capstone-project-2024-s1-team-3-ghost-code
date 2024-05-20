@@ -1,3 +1,4 @@
+/* Styles for the question container */
 .question-container {
     background-color: grey;
     height: 100vh;
@@ -9,9 +10,9 @@
     justify-content: center;
     padding: 2rem 2rem;
     margin: 0;
-
 }
 
+/* Styles for input box in question container */
 .input-box-question {
     display: flex;
     align-items: center;
@@ -27,9 +28,10 @@
     outline: none;
 }
 
+/* Styles for answer list */
 .createanswers {
-    list-style:none;
-    padding:0;
+    list-style: none;
+    padding: 0;
 }
 
 .createanswers ul li {
@@ -39,10 +41,10 @@
     padding: 0.7rem;
     border-radius: 5px;
     cursor: pointer;
-
 }
 
-.add-question{
+/* Styles for add question button */
+.add-question {
     font-size: xx-large;
     border-radius: 10px;
     border: 2px dashed #008080;
@@ -52,4 +54,100 @@
     padding: 15px;
     margin-top: 40px;
     cursor: pointer;
+}
+
+/* New styles for buttons */
+button {
+    font-size: 14px;
+    border-radius: 5px;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button.edit-button {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
+
+button.edit-button:hover {
+    background-color: #45a049;
+}
+
+button.delete-button {
+    background-color: #f44336; /* Red */
+    color: white;
+}
+
+button.delete-button:hover {
+    background-color: #da190b;
+}
+
+/* Styles for the confirmation modal */
+.modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    z-index: 1000; /* Ensure it appears above other elements */
+}
+
+.modal-content {
+    text-align: center;
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+}
+
+.modal-content button {
+    margin: 5px;
+}
+
+.modal-content button.confirm-button {
+    background-color: #f44336;
+    color: white;
+}
+
+.modal-content button.confirm-button:hover {
+    background-color: #da190b;
+}
+
+.modal-content button.cancel-button {
+    background-color: #A3A3A3; /* Green */
+    
+    color: white;
+}
+
+.modal-content button.cancel-button:hover {
+    background-color: #808080;
+}
+
+/* Optional: Styling the search input */
+.AdminClientSearchInput input {
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    width: 80%;
+}
+
+.AdminClientSearchInput input:focus {
+    border-color: #008080;
+    outline: none;
+}
+
+.AdminClientSearchInput .search-icon {
+    margin-left: -30px;
+    cursor: pointer;
+    color: #008080;
 }

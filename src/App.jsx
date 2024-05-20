@@ -68,11 +68,6 @@ function App() {
           />
 
           <Route
-            path="/createquestion"
-            element={<ProtectedRoute element={<CreatingQuiz />} />}
-          />
-
-          <Route
             path="/createquiz/:moduleID"
             element={<ProtectedRoute element={<QuizCreation />} />}
           />
@@ -81,6 +76,20 @@ function App() {
             path="/EditQuiz"
             element={<ProtectedRoute element={<EditQuiz />} />}
           />
+
+          <Route
+            path="/createquestion/:moduleID"
+            element={<ProtectedRoute element={<CreatingQuiz mode="add" />} />}
+          />
+
+          <Route
+            path="/createquestion/:moduleID/:questionID"
+            element={<ProtectedRoute element={<CreatingQuiz mode="edit" />} />}
+          />
+
+
+
+
 
         </Routes>
       </BrowserRouter>

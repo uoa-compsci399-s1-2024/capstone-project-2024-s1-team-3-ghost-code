@@ -1,24 +1,23 @@
 import "./CreatingQuiz.css";
-import axios from "redaxios";
-import React, { useState, useEffect, useRef } from "react";
+import redaxios from "redaxios";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import AdminDashboard from "../components/Dashboards/ADashboard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-
-export function QuestionSearch() {}
 
 export function QuestionsDisplay() {
   const [questions, setQuestions] = useState([]);
-  const [searchTerm, setSearchTerm] = useState(""); // Add searchTerm state
+  const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const { moduleID } = useParams(); // Get the module ID from the URL params
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [questionToDelete, setQuestionToDelete] = useState(null);
+  const { moduleID } = useParams();
   const adminToken = sessionStorage.getItem("adminToken");
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (moduleID) { // Ensure moduleID exists before making the API call
+    if (moduleID) {
       fetch(
         `https://api.tmstrainingquizzes.com/webapi/GetQuestions/${moduleID}`,
         {
@@ -38,9 +37,9 @@ export function QuestionsDisplay() {
           return response.json();
         })
         .then((data) => {
+          console.log(data);
           setQuestions(data);
-          console.log(questions)
-          setSearchResults(data); // Initialize searchResults with all questions
+          setSearchResults(data);
         })
         .catch((error) => {
           console.error("Error fetching questions:", error);
@@ -48,13 +47,10 @@ export function QuestionsDisplay() {
     }
   }, [moduleID, adminToken, navigate]);
 
-
-   const handleSearchInputChange = (event) => {
+  const handleSearchInputChange = (event) => {
     const { value } = event.target;
     setSearchTerm(value);
   };
-
-
 
   useEffect(() => {
     if (searchTerm.trim() !== "") {
@@ -63,46 +59,110 @@ export function QuestionsDisplay() {
       );
       setSearchResults(filteredResults);
     } else {
-      setSearchResults(questions); // Reset searchResults to all questions if searchTerm is empty
+      setSearchResults(questions);
     }
   }, [searchTerm, questions]);
+
+  const handleEditQuestion = (questionID) => {
+    navigate(`/createquestion/${moduleID}/${questionID}`);
+  };
+
+  const handleDeleteQuestion = (questionID) => {
+    console.log("Delete button clicked for question ID:", questionID);
+    setQuestionToDelete(questionID);
+    setShowDeleteModal(true);
+  };
+
+  const handleAddQuestion = () => {
+    navigate(`/createquestion/${moduleID}`);
+  }
+
+  const confirmDeleteQuestion = async () => {
+    try {
+      console.log("Confirm delete for question ID:", questionToDelete);
+      const response = await redaxios.delete(
+        `https://api.tmstrainingquizzes.com/webapi/DeleteQuestion/${questionToDelete}`,
+        {
+          headers: {
+            Authorization: `Bearer ${adminToken}`,
+          },  
+        }
+      );
   
+      // Log the response to see if the deletion was successful
+      console.log("Delete response:", response);
+  
+      if (response.status === 200 || response.status === 204) {
+        // Assuming 200 or 204 means the deletion was successful
+        setQuestions(questions.filter((q) => q.questionID !== questionToDelete));
+        setSearchResults(searchResults.filter((q) => q.questionID !== questionToDelete));
+        setShowDeleteModal(false);
+        setQuestionToDelete(null);
+        console.log("Question deleted successfully");
+        alert("Question deleted successfully");
+      } else {
+        console.error("Failed to delete question:", response);
+        alert("Failed to delete question");
+      }
+    } catch (error) {
+      console.error("Error deleting question:", error);
+      alert("Error deleting question");
+    }
+  };
+  
+  const closeDeleteModal = () => {
+    console.log("Closing delete modal");
+    setShowDeleteModal(false);
+    setQuestionToDelete(null);
+  };
+
+  console.log("showDeleteModal:", showDeleteModal);
 
   return (
     <>
       <div className="flex">
-        <div className="dashboard-container"></div>
+        <div className="dashboard-container">
+          <AdminDashboard />
+        </div>
         <div className="AdminClientSearchContainer">
           <div className="AdminClientSearchInput">
             <input
               type="text"
-              value={searchTerm} //{/* Change value to searchTerm */}
+              value={searchTerm}
               onChange={handleSearchInputChange}
               placeholder="Search..."
             />
             <FontAwesomeIcon icon={faSearch} className="search-icon" />
           </div>
-          <Link to="/createquestion">
-            <button className="add-question"> + </button>
-          </Link>
-
+        
+            <button className="add-question" onClick={() => handleAddQuestion()}> + </button>
+          
           <div className="AdminClientSearchResults">
             {searchResults.map((result) => (
-              <Link
-                key={result.questionID}
-                to={`/clinician/${result.questionID}`}
-                className="link"
-              >
-                <div className="adminClientSearchResultItem">
-                  <div className="AdminClientSearchResultName">
-                    {result.title}
-                  </div>
-                </div>
-              </Link>
+              <div key={result.questionID} className="adminClientSearchResultItem">
+                <div className="AdminClientSearchResultName">{result.title}</div>
+                <button className="edit-button" onClick={() => handleEditQuestion(result.questionID)}>
+                  Edit Question
+                </button>
+                <button className="delete-button" onClick={() => handleDeleteQuestion(result.questionID)}>
+                  Delete Question
+                </button>
+              </div>
             ))}
           </div>
         </div>
       </div>
+
+      {showDeleteModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <h2>Confirm Deletion</h2>
+            <p>Are you sure you want to delete this question?</p>
+            <button className="confirm-button" onClick={confirmDeleteQuestion}>Yes, delete</button>
+            <button className="cancel-button" onClick={closeDeleteModal}>Cancel</button>
+          </div>
+        </div>
+      )}
     </>
   );
 }
@@ -111,7 +171,6 @@ export default function QuizCreation() {
   return (
     <>
       <QuestionsDisplay />
-      {/* <Modules /> */}
       <AdminDashboard />
     </>
   );
