@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace OTTER.Models
+namespace OTTER.Dtos
 {
     public class UserEditDto
     {

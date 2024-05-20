@@ -2,9 +2,9 @@
 
 namespace OTTER.Dtos
 {
-    public class OrgInputDto
+    public class EmailInputDto
     {
         [Required]
-        public string OrgName { get; set; }
+        public string Email { get; set; }
     }
 }

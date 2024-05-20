@@ -78,9 +78,9 @@ namespace OTTER.Controllers
         )]
         [SwaggerResponse(200, "Reset request submitted")]
         [HttpPost("ResetPassword")]
-        public async Task<IActionResult> ForgotPassword(string email)
+        public async Task<IActionResult> ForgotPassword(EmailInputDto email)
         {
-            _repo.ResetPassword(email);
+            _repo.ResetPassword(email.Email);
             return Ok("If user found, password reset token will be sent to email.");
         }
 
