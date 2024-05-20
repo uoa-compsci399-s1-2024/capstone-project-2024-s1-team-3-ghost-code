@@ -208,8 +208,7 @@ namespace OTTER.Data
                 _dbContext.SaveChanges();
                 foreach(EditAnswerInputDto answer in question.Answers)
                 {
-                    Answer oldA = _dbContext.Answers.FirstOrDefault(e => e.AnswerID == answer.AnswerID);
-                    AddAnswer(new Answer { Question = newQ, AnswerType = oldA.AnswerType, AnswerText = answer.AnswerText, AnswerCoordinates = answer.AnswerCoordinates, CorrectAnswer = answer.CorrectAnswer, Feedback = answer.Feedback, Attempts = new List<AttemptQuestion>(), Deleted = false });
+                    AddAnswer(new Answer { Question = newQ, AnswerType = newQ.QuestionType, AnswerText = answer.AnswerText, AnswerCoordinates = answer.AnswerCoordinates, CorrectAnswer = answer.CorrectAnswer, Feedback = answer.Feedback, Attempts = new List<AttemptQuestion>(), Deleted = false });
                 }
                 newQ = _dbContext.Questions.FirstOrDefault(e => e.QuestionID == question.QuestionID);
                 return newQ;
@@ -246,7 +245,7 @@ namespace OTTER.Data
             }
         }
 
-        public Answer EditAnswer(EditAnswerInputDto answer)
+        /*public Answer EditAnswer(EditAnswerInputDto answer)
         {
             Answer a = _dbContext.Answers.FirstOrDefault(e => e.AnswerID == answer.AnswerID);
             if (a != null)
@@ -259,7 +258,7 @@ namespace OTTER.Data
                 a = _dbContext.Answers.FirstOrDefault(e => e.AnswerID == answer.AnswerID);
             }
             return a;
-        }
+        }*/
 
         public IEnumerable<Attempt> GetAttempts()
         {
