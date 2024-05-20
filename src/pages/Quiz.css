@@ -165,9 +165,15 @@
   cursor: not-allowed;
 }
 
+.right-side{
+  float: right;
+  width: 25%;
+}
 
-.button-container {
+
+.right-side .button-container {
   padding-top: 0%;
+  width: 100%;
 }
 
 .question-body{
@@ -294,8 +300,7 @@
   background-color: white;
   border-radius: 25px;
   padding: 2%;
-  float: right;
-  width: 25%;
+
 }
 .result h3 {
   font-size: 24px;

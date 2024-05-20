@@ -296,7 +296,7 @@ const storeSelectedAnswersForQuestion = (selectedAnswers, questionIndex) => {
                   <button className="btn return-button">Back to Modules</button>
                 </Link>
               </div>
-              
+
           </div>
         </div>
       </body>
@@ -380,13 +380,23 @@ return (
                   <button className="btn return-button">Back to Modules</button>
                 </Link>
               </div>
-    
+            <div className='right-side'>
+
               <div className="result">
                 <h3>Result</h3>
                 <p>Total Questions: <span>{questions.length}</span></p>
                 <p>Total Score: <span>{result.score}</span></p>
                 <p>Correct Answers: <span>{result.correctAnswers}</span></p>
                 <p>Wrong Answers: <span>{result.wrongAnswers}</span></p>
+              </div>
+              
+              <div className='button-alignment'>
+                <div className="button-container">
+                  <button onClick={onClickPrevious} disabled={activeQuestion === 0} className="btn feedback-prev-ques">&#60;</button>
+                  <button onClick={onClickNext} disabled={activeQuestion === questions.length - 1} className="btn feedback-next-ques">&#62;</button>
+                </div>
+              </div>
+
               </div>
     
               <div className='feedback-qs'>
@@ -451,12 +461,7 @@ return (
 
 
 
-                <div className='button-alignment'>
-                <div className="button-container">
-                  <button onClick={onClickPrevious} disabled={activeQuestion === 0} className="btn feedback-prev-ques">Previous</button>
-                  <button onClick={onClickNext} disabled={activeQuestion === questions.length - 1} className="btn feedback-next-ques">Next</button>
-                </div>
-              </div>
+
               </div>
             </div>
           )}
