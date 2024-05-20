@@ -8,6 +8,9 @@ import AClinicianSearch from "./pages/AClinicianSearch";
 import QuizDashboard from "./pages/QuizDashboard";
 import AClinicianProfile from "./pages/AClinicianProfile";
 import PracQuiz from "./pages/PracQuiz";
+import QuizCreation from "./pages/CreatingQuiz";
+import CreatingQuiz from "./pages/CreatingQuestions";
+import EditQuiz from "./pages/AEditQuiz";
 
 const getAdminToken = () => sessionStorage.getItem("adminToken");
 
@@ -63,6 +66,22 @@ function App() {
             path="/clinician/:clinicianId"
             element={<ProtectedRoute element={<AClinicianProfile />} />}
           />
+
+          <Route
+            path="/createquestion"
+            element={<ProtectedRoute element={<CreatingQuiz />} />}
+          />
+
+          <Route
+            path="/createquiz/:moduleID"
+            element={<ProtectedRoute element={<QuizCreation />} />}
+          />
+
+          <Route
+            path="/EditQuiz"
+            element={<ProtectedRoute element={<EditQuiz />} />}
+          />
+
         </Routes>
       </BrowserRouter>
     </div>

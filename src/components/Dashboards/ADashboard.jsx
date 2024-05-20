@@ -15,7 +15,7 @@ function AdminDashboard() {
         />
       </div>
       <button className="Adminbutton">Dashboard</button>
-      <Link style={{ textDecoration: "none", color: "white" }} to="/createquiz">
+      <Link style={{ textDecoration: "none", color: "white" }} to="/EditQuiz">
         <button className="Adminbutton">Edit Quiz</button>
       </Link>
 
