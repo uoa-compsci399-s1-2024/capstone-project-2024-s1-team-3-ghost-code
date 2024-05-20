@@ -83,9 +83,6 @@ namespace OTTER.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AnswerID"));
 
-                    b.Property<string>("AnswerCoordinates")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("AnswerText")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

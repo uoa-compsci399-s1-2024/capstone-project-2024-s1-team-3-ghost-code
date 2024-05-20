@@ -135,7 +135,7 @@ namespace OTTER.Data
                 IEnumerable<Answer> As = _dbContext.Answers.Include(e => e.Question).Where(e => e.Question.QuestionID == q.QuestionID).ToList<Answer>();
                 foreach (Answer a in As)
                 {
-                    AdminAnswerOutputDto adminAnswerOutputDto = new AdminAnswerOutputDto { AnswerID = a.AnswerID, QuestionID = q.QuestionID, CorrectAnswer = a.CorrectAnswer, Feedback = a.Feedback };
+                    AdminAnswerOutputDto adminAnswerOutputDto = new AdminAnswerOutputDto { AnswerID = a.AnswerID, QuestionID = q.QuestionID, AnswerType = a.AnswerType, AnswerText = a.AnswerText, CorrectAnswer = a.CorrectAnswer, Feedback = a.Feedback };
                     adminQuestionOutputDto.Answers.Add(adminAnswerOutputDto);
                 }
                 output.Add(adminQuestionOutputDto);

@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\data\\dbotterrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:data\\dbotterrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -25,10 +29,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\controllers\\functioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:controllers\\functioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\data\\dbotterrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|solutionrelative:data\\dbotterrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5FEC7324-93F6-482E-8595-02EA2D7A3FEF}|OTTER.csproj|c:\\users\\angus wright\\documents\\github\\capstone-project-2024-s1-team-3-ghost-code\\otter\\models\\question.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -82,7 +82,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -90,15 +90,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 0,
               "Title": "DBOTTERRepo.cs",
               "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Data\\DBOTTERRepo.cs",
               "RelativeDocumentMoniker": "Data\\DBOTTERRepo.cs",
               "ToolTip": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Data\\DBOTTERRepo.cs",
               "RelativeToolTip": "Data\\DBOTTERRepo.cs",
-              "ViewState": "AQIAAPMBAAAAAAAAAAAAwAQCAAAMAAAA",
+              "ViewState": "AQIAAHEAAAAAAAAAAAAUwIsAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-07T09:35:45.448Z"
+              "WhenOpened": "2024-05-07T09:35:45.448Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -138,7 +139,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "FunctionController.cs",
               "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Controllers\\FunctionController.cs",
               "RelativeDocumentMoniker": "Controllers\\FunctionController.cs",
@@ -146,12 +147,11 @@
               "RelativeToolTip": "Controllers\\FunctionController.cs",
               "ViewState": "AQIAACgBAAAAAAAAAAAiwFwCAAAkAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-11T10:51:18.792Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-11T10:51:18.792Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "OTTERDBContext.cs",
               "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Data\\OTTERDBContext.cs",
               "RelativeDocumentMoniker": "Data\\OTTERDBContext.cs",
@@ -159,12 +159,11 @@
               "RelativeToolTip": "Data\\OTTERDBContext.cs",
               "ViewState": "AQIAAAoAAAAAAAAAAAAUwBoAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-15T04:19:52.032Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-15T04:19:52.032Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -177,7 +176,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "IOTTERRepo.cs",
               "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Data\\IOTTERRepo.cs",
               "RelativeDocumentMoniker": "Data\\IOTTERRepo.cs",
@@ -185,12 +184,11 @@
               "RelativeToolTip": "Data\\IOTTERRepo.cs",
               "ViewState": "AQIAAAgAAAAAAAAAAAAQwA0AAAAhAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-10T04:13:36.208Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-10T04:13:36.208Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "QuizSubMarksDto.cs",
               "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Dtos\\QuizSubMarksDto.cs",
               "RelativeDocumentMoniker": "Dtos\\QuizSubMarksDto.cs",
@@ -198,12 +196,11 @@
               "RelativeToolTip": "Dtos\\QuizSubMarksDto.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-10T03:45:09.049Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-10T03:45:09.049Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\appsettings.json",
               "RelativeDocumentMoniker": "appsettings.json",
@@ -211,8 +208,7 @@
               "RelativeToolTip": "appsettings.json",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAACXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-05-15T01:30:43.7Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-15T01:30:43.7Z"
             },
             {
               "$type": "Document",
