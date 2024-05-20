@@ -243,7 +243,7 @@ namespace OTTER.Controllers
             _repo.AddQuestion(q);
             foreach (AnswerInputDto newAnswer in newQuestion.Answers)
             {
-                Answer a = new Answer { Question = _repo.GetQuestionByID(q.QuestionID), AnswerType = newAnswer.AnswerType, AnswerText = newAnswer.AnswerText, AnswerCoordinates = newAnswer.AnswerCoordinates, CorrectAnswer = newAnswer.CorrectAnswer, Feedback = newAnswer.Feedback, Attempts = new List<AttemptQuestion>(), Deleted = false };
+                Answer a = new Answer { Question = _repo.GetQuestionByID(q.QuestionID), AnswerType = newAnswer.AnswerType, AnswerText = newAnswer.AnswerText, CorrectAnswer = newAnswer.CorrectAnswer, Feedback = newAnswer.Feedback, Attempts = new List<AttemptQuestion>(), Deleted = false };
                 _repo.AddAnswer(a);            
             }
             return Ok(q);

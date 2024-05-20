@@ -135,7 +135,7 @@ namespace OTTER.Data
                 IEnumerable<Answer> As = _dbContext.Answers.Include(e => e.Question).Where(e => e.Question.QuestionID == q.QuestionID).ToList<Answer>();
                 foreach (Answer a in As)
                 {
-                    AdminAnswerOutputDto adminAnswerOutputDto = new AdminAnswerOutputDto { AnswerID = a.AnswerID, QuestionID = q.QuestionID, AnswerType = a.AnswerType, AnswerText = a.AnswerText, AnswerCoordinates = a.AnswerCoordinates, CorrectAnswer = a.CorrectAnswer, Feedback = a.Feedback };
+                    AdminAnswerOutputDto adminAnswerOutputDto = new AdminAnswerOutputDto { AnswerID = a.AnswerID, QuestionID = q.QuestionID, CorrectAnswer = a.CorrectAnswer, Feedback = a.Feedback };
                     adminQuestionOutputDto.Answers.Add(adminAnswerOutputDto);
                 }
                 output.Add(adminQuestionOutputDto);
@@ -164,7 +164,7 @@ namespace OTTER.Data
                 List<AnswerOutputDto> aOutputDto = new List<AnswerOutputDto>();
                 foreach (Answer answer in _dbContext.Answers.Where(e => e.Question.QuestionID == randq.QuestionID))
                 {
-                    AnswerOutputDto a = new AnswerOutputDto { AnswerID = answer.AnswerID, QuestionID = answer.Question.QuestionID, AnswerType = answer.AnswerType, AnswerText = answer.AnswerText, AnswerCoordinates = answer.AnswerCoordinates };
+                    AnswerOutputDto a = new AnswerOutputDto { AnswerID = answer.AnswerID, QuestionID = answer.Question.QuestionID, AnswerType = answer.AnswerType, AnswerText = answer.AnswerText };
                     aOutputDto.Add(a);
                 }
                 qOutputDto.Answers = aOutputDto;
@@ -208,7 +208,7 @@ namespace OTTER.Data
                 _dbContext.SaveChanges();
                 foreach(EditAnswerInputDto answer in question.Answers)
                 {
-                    AddAnswer(new Answer { Question = newQ, AnswerType = newQ.QuestionType, AnswerText = answer.AnswerText, AnswerCoordinates = answer.AnswerCoordinates, CorrectAnswer = answer.CorrectAnswer, Feedback = answer.Feedback, Attempts = new List<AttemptQuestion>(), Deleted = false });
+                    AddAnswer(new Answer { Question = newQ, AnswerType = newQ.QuestionType, AnswerText = answer.AnswerText, CorrectAnswer = answer.CorrectAnswer, Feedback = answer.Feedback, Attempts = new List<AttemptQuestion>(), Deleted = false });
                 }
                 newQ = _dbContext.Questions.FirstOrDefault(e => e.QuestionID == question.QuestionID);
                 return newQ;
