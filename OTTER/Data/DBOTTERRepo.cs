@@ -122,13 +122,13 @@ namespace OTTER.Data
 
         public IEnumerable<Question> GetQuestionsByModule(int id)
         {
-            return _dbContext.Questions.Where(e => e.Module.ModuleID == id).ToList<Question>();
+            return _dbContext.Questions.Where(e => e.Module.ModuleID == id && e.Deleted == false).ToList<Question>();
         }
 
         public IEnumerable<AdminQuestionOutputDto> GetQuestionsByModuleAdmin(int id)
         {
             List<AdminQuestionOutputDto> output = new List<AdminQuestionOutputDto>();
-            IEnumerable<Question> Qs = _dbContext.Questions.Where(e => e.Module.ModuleID == id).ToList<Question>();
+            IEnumerable<Question> Qs = _dbContext.Questions.Where(e => e.Module.ModuleID == id && e.Deleted == false).ToList<Question>();
             foreach (Question q in Qs)
             {
                 AdminQuestionOutputDto adminQuestionOutputDto = new AdminQuestionOutputDto { QuestionID = q.QuestionID, ModID = id, Title = q.Title, Description = q.Description, ImageURL = q.ImageURL, QuestionType = q.QuestionType, Stage = q.Stage, Answers = new List<AdminAnswerOutputDto>() };
