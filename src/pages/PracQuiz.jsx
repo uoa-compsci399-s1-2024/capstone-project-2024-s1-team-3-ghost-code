@@ -34,6 +34,33 @@ const PracQuiz = () => {
   const navigate = useNavigate();
 
 
+  useEffect(() => {
+    const fetchModuleAccessStatus = async () => {
+      try {
+        const response = await redaxios.get(`https://api.tmstrainingquizzes.com/webapi/CheckAccess/${moduleID}`, {
+          headers: {
+            "Authorization": `Bearer ${cliniciantoken}`
+          }
+        });
+      
+        const finalPassed = response.data.finalPassed;
+        const practicePassed = response.data.practicePassed;
+        if (quizID % 2 == 0) {
+          if (!practicePassed || finalPassed) {
+            navigate('/quizDashboard'); // Redirect to quiz dashboard if practice quiz is not passed or final exam is already completed
+          }
+
+        }
+
+      } catch (error) {
+        console.error('Error fetching module access status:', error);
+        // Handle error
+      }
+    };
+
+    fetchModuleAccessStatus();
+  }, [moduleID, cliniciantoken, navigate]);
+
   
 
   useEffect(() => {
@@ -255,9 +282,25 @@ const storeSelectedAnswersForQuestion = (selectedAnswers, questionIndex) => {
         const submissionResult = submissionResponse.data;
         // Calculate score based on submission result
         const score = submissionResult.score;
-        const correctAnswers = submissionResult.missedCorrectAID.filter(answer => answer.length === 0).length;
-        const wrongAnswers = submissionResult.missedCorrectAID.filter(answer => answer.length > 0).length;
+        //const correctAnswers = submissionResult.missedCorrectAID.filter(answer => answer.length === 0).length;
+        //const wrongAnswers = submissionResult.missedCorrectAID.filter(answer => answer.length > 0).length;
         console.log(submissionResult)
+
+        let correctCount = 0;
+        let wrongCount = 0;
+        submissionResult.selectedCorrect.forEach((questionResults, index) => {
+          const allCorrect = questionResults.every(result => result === true);
+          const noMissedAnswers = submissionResult.missedCorrectAID[index].length === 0;
+      
+          if (allCorrect && noMissedAnswers) {
+            correctCount++;
+          } else {
+            wrongCount++;
+          }
+        });
+
+        const correctAnswers = correctCount;
+        const wrongAnswers = wrongCount;
       
        
         
@@ -387,7 +430,14 @@ return (
                 <p>Total Questions: <span>{questions.length}</span></p>
                 <p>Total Score: <span>{result.score}</span></p>
                 <p>Correct Answers: <span>{result.correctAnswers}</span></p>
-                <p>Wrong Answers: <span>{result.wrongAnswers}</span></p>
+              <p>Wrong Answers: <span>{result.wrongAnswers}</span></p>
+              
+            </div>
+            <div className='button-alignment'>
+                <div className="button-container">
+                  <button onClick={onClickPrevious} disabled={activeQuestion === 0} className="btn feedback-prev-ques">Previous</button>
+                  <button onClick={onClickNext} disabled={activeQuestion === questions.length - 1} className="btn feedback-next-ques">Next</button>
+                </div>
               </div>
               
               <div className='button-alignment'>
@@ -416,7 +466,7 @@ return (
 
 
 
-                              (submissionResult.missedCorrectAID[activeQuestion].includes(answer.answerID) ? 'red' : 'green') 
+                              submissionResult.selectedCorrect[activeQuestion].every(val => val) && submissionResult.missedCorrectAID[activeQuestion].length === 0 ? 'green' : 'red'
                               : 
                               (submissionResult.missedCorrectAID[activeQuestion].includes(answer.answerID) ? '' : '') 
                           }}
@@ -458,7 +508,6 @@ return (
                     
                   </div>
                 </div>
-
 
 
 
