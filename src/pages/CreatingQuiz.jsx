@@ -16,6 +16,21 @@ export function QuestionsDisplay() {
   const adminToken = sessionStorage.getItem("adminToken");
   const navigate = useNavigate();
 
+  const handleErrorResponse = (status) => {
+    if (status === 401) {
+      if (sessionStorage.getItem('adminToken')) {
+        sessionStorage.removeItem('adminToken');
+        console.log('Token found and removed due to 401 Unauthorized status.');
+      } else {
+        console.log('No token found when handling 401 status.');
+      }
+      navigate('/adminlogin');
+    } else if (status === 403) {
+      navigate('/quizDashboard');
+    }
+  };
+  
+
   useEffect(() => {
     if (moduleID) {
       fetch(
@@ -42,6 +57,7 @@ export function QuestionsDisplay() {
           setSearchResults(data);
         })
         .catch((error) => {
+          handleErrorResponse(error.status);
           console.error("Error fetching questions:", error);
         });
     }
@@ -124,22 +140,23 @@ export function QuestionsDisplay() {
         <div className="dashboard-container">
           <AdminDashboard />
         </div>
-        <div className="AdminClientSearchContainer">
-          <div className="AdminClientSearchInput">
+        <div className="AdminClientSearchContainerQuiz">
+          <div className="AdminClientSearchInputQuiz">
+          <FontAwesomeIcon icon={faSearch} className="search-iconQuiz" />
             <input
               type="text"
               value={searchTerm}
               onChange={handleSearchInputChange}
               placeholder="Search..."
+              
             />
-            <FontAwesomeIcon icon={faSearch} className="search-icon" />
           </div>
         
             <button className="add-question" onClick={() => handleAddQuestion()}> + </button>
           
-          <div className="AdminClientSearchResults">
+          <div className="AdminClientSearchResultsQuiz">
             {searchResults.map((result) => (
-              <div key={result.questionID} className="adminClientSearchResultItem">
+              <div key={result.questionID} className="AdminClientSearchResultsItemQuiz">
                 <div className="AdminClientSearchResultName">{result.title}</div>
                 <button className="edit-button" onClick={() => handleEditQuestion(result.questionID)}>
                   Edit Question

@@ -4,7 +4,9 @@ import ClientDashboard from '../components/Dashboards/CDashboard'; // Assuming t
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'; // Icon for module completion
 import { Link, useNavigate} from "react-router-dom";
+import { Tooltip as ReactTooltip } from 'react-tooltip';
 import "./QuizDashboard.css";
+
 
 function QuizDashboard() {
     const navigate = useNavigate();
@@ -21,6 +23,8 @@ function QuizDashboard() {
   const [practisePassed, setpractisePassed] = useState(false);
 
   const [moduleAccessStatusList, setModuleAccessStatusList] = useState([]);
+  const [currentAccessDescription, setCurrentAccessDescription] = useState("");
+
 
 
     useEffect(() => {
@@ -98,12 +102,17 @@ function QuizDashboard() {
       setSelectedModule(null);
       setFinalPassed(false);
       setpractisePassed(false);
+      setCurrentAccessDescription(""); // Clear description when deselecting
+      console.log(currentAccessDescription);
     } else {
       // Otherwise, select the clicked module
       setSelectedModule(module);
       const access = await fetchModuleAccessStatus(module.moduleID)
       setFinalPassed(access.finalPassed);
       setpractisePassed(access.practicePassed);
+      setCurrentAccessDescription(access.description); // Set new description
+      console.log(currentAccessDescription);
+    
     }
   };
 
@@ -160,7 +169,7 @@ function QuizDashboard() {
     navigate(`/quiz/${quizID}/${selectedModule.moduleID}`);
   };
 
-  
+
 
 
   return (
@@ -197,14 +206,18 @@ function QuizDashboard() {
                     >
                       Practice Quiz
                     </button>
+                    <div className="tooltip">
                     <button
-                       className={`module-button final ${!practisePassed || finalPassed ? 'disabled-button' : ''}`}
+                      className={`module-button final ${!practisePassed || finalPassed ? 'disabled-button' : ''}`}
                       onClick={() => handleFinalQuizClick(module)}
                       disabled={!practisePassed || finalPassed}
-    
                     >
                       Final Quiz
                     </button>
+                    <span className="tooltiptext">{selectedModule && selectedModule.moduleID === module.moduleID ? currentAccessDescription : ''}</span>
+                  </div>
+
+                 
                   </div>
                 )}
             </div>
