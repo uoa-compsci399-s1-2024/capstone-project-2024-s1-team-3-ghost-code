@@ -397,11 +397,20 @@ namespace OTTER.Controllers
         [SwaggerResponse(200, "Successfully retrieved questions", typeof(IEnumerable<QuestionOutputDto>))]
         [SwaggerResponse(401, "Token is invalid")]
         [SwaggerResponse(403, "Token is not authorized to view resource")]
+        [SwaggerResponse(404, "No questions could be found for the submitted module")]
         [Authorize(Roles = "User")]
         [HttpPost("GetQuizQs")]
         public ActionResult<IEnumerable<QuestionOutputDto>> GetQuizQs(QuizInputDto quizInput)
         {
-            return Ok(_repo.GetQuizQs(quizInput));
+            IEnumerable<QuestionOutputDto> quizQs = _repo.GetQuizQs(quizInput);
+            if(quizQs.Count() != 0)
+            {
+                return Ok(quizQs);
+            } else
+            {
+                return NotFound("No questions for this module could be found.");
+            }
+            
         }
 
         [SwaggerOperation(

@@ -172,48 +172,61 @@ namespace OTTER.Data
 
         public IEnumerable<QuestionOutputDto> GetQuizQs(QuizInputDto quizInput)
         {
-            Quiz quiz = GetQuizByID(quizInput.QuizID);
-            Attempt attempt = AddAttempt(new Attempt { Quiz = quiz, User = GetUserByID(quizInput.UserID), DateTime = DateTime.UtcNow, Completed = "INCOMPLETE" });
             Random random = new Random();
-            IEnumerable<Question> validMod = GetQuestionsByModule(quizInput.ModuleID);
-            IEnumerable<Question> validStage = validMod.Where(e => e.Deleted == false);
             List<QuestionOutputDto> output = new List<QuestionOutputDto>();
-            int topic = 1;
-            int topicCount = 0;
-            for (int i = 1; i < quiz.Length + 1; i++)
+            if(GetQuestionsByModule(quizInput.ModuleID).Where(e => e.Deleted == false) != null)
             {
-                int randnum = random.Next(0,validStage.Where(e => e.Topic == topic).Count());
-                Question randq = validStage.Where(e => e.Topic == topic).ElementAt(randnum);
-                if (output.FirstOrDefault(e => e.QuestionID == randq.QuestionID) != null)
+                Quiz quiz = GetQuizByID(quizInput.QuizID);
+                Attempt attempt = AddAttempt(new Attempt { Quiz = quiz, User = GetUserByID(quizInput.UserID), DateTime = DateTime.UtcNow, Completed = "INCOMPLETE" });
+                IEnumerable<Question> validQuestions = GetQuestionsByModule(quizInput.ModuleID).Where(e => e.Deleted == false);
+                int topic = 1;
+                int topicCount = 0;
+                for (int i = 1; i < quiz.Length + 1; i++)
                 {
-                    i--;
-                    continue;
-                }
-                QuestionOutputDto qOutputDto = new QuestionOutputDto { QuestionID = randq.QuestionID, Title = randq.Title, Description = randq.Description, ImageURL = randq.ImageURL, QuestionType = randq.QuestionType, Topic = randq.Topic };
-                List<AnswerOutputDto> aOutputDto = new List<AnswerOutputDto>();
-                foreach (Answer answer in _dbContext.Answers.Where(e => e.Question.QuestionID == randq.QuestionID))
-                {
-                    AnswerOutputDto a = new AnswerOutputDto { AnswerID = answer.AnswerID, QuestionID = answer.Question.QuestionID, AnswerType = answer.AnswerType, AnswerText = answer.AnswerText };
-                    aOutputDto.Add(a);
-                }
-                qOutputDto.Answers = aOutputDto;
-                AttemptQuestion attemptq = new AttemptQuestion { Attempt = GetAttemptByID(attempt.AttemptID), Question = GetQuestionByID(randq.QuestionID), Sequence = i, Answers = new List<Answer>() };
-                AddAttemptQuestion(attemptq);
-                qOutputDto.AttemptID = attempt.AttemptID;
-                output.Add(qOutputDto);
-                topicCount++;
-                if (i >= (quiz.Length / 100.0) * 40 || validStage.Where(e => e.Topic == topic).Count() == topicCount )
-                {
-                    topic = 2;
-                    topicCount = 0;
-                } else if (i >= (quiz.Length / 100.0) * 70 || validStage.Where(e => e.Topic == topic).Count() == topicCount)
-                {
-                    topic = 3;
-                    topicCount = 0;
-                } else if (validStage.Where(e => e.Topic == topic).Count() == topicCount)
-                {
-                    topic = 1;
-                    topicCount = 0;
+                    if (validQuestions.Where(e => e.Topic == topic) != null)
+                    {
+                        int randnum = random.Next(0, validQuestions.Where(e => e.Topic == topic).Count());
+                        Question randq = validQuestions.Where(e => e.Topic == topic).ElementAt(randnum);
+                        if (output.FirstOrDefault(e => e.QuestionID == randq.QuestionID) != null)
+                        {
+                            i--;
+                            continue;
+                        }
+                        QuestionOutputDto qOutputDto = new QuestionOutputDto { QuestionID = randq.QuestionID, Title = randq.Title, Description = randq.Description, ImageURL = randq.ImageURL, QuestionType = randq.QuestionType, Topic = randq.Topic };
+                        List<AnswerOutputDto> aOutputDto = new List<AnswerOutputDto>();
+                        foreach (Answer answer in _dbContext.Answers.Where(e => e.Question.QuestionID == randq.QuestionID))
+                        {
+                            AnswerOutputDto a = new AnswerOutputDto { AnswerID = answer.AnswerID, QuestionID = answer.Question.QuestionID, AnswerType = answer.AnswerType, AnswerText = answer.AnswerText };
+                            aOutputDto.Add(a);
+                        }
+                        qOutputDto.Answers = aOutputDto;
+                        AttemptQuestion attemptq = new AttemptQuestion { Attempt = GetAttemptByID(attempt.AttemptID), Question = GetQuestionByID(randq.QuestionID), Sequence = i, Answers = new List<Answer>() };
+                        AddAttemptQuestion(attemptq);
+                        qOutputDto.AttemptID = attempt.AttemptID;
+                        output.Add(qOutputDto);
+                        topicCount++;
+                        if (i >= (quiz.Length / 100.0) * 40 || validQuestions.Where(e => e.Topic == topic).Count() == topicCount)
+                        {
+                            topic = (topic + 1) % 4; ;
+                            topicCount = 0;
+                        }
+                        else if (i >= (quiz.Length / 100.0) * 70 || validQuestions.Where(e => e.Topic == topic).Count() == topicCount)
+                        {
+                            topic = (topic + 1) % 4; ;
+                            topicCount = 0;
+                        }
+                        else if (validQuestions.Where(e => e.Topic == topic).Count() == topicCount)
+                        {
+                            topic = (topic + 1) % 4; ;
+                            topicCount = 0;
+                        }
+                    }
+                    else
+                    {
+                        i--;
+                        topic = (topic + 1) % 4;
+                        continue;
+                    }
                 }
             }
             return output;
