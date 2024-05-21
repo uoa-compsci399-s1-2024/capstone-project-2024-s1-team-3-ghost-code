@@ -49,7 +49,6 @@ export default function AdminSetting() {
   const [adminfirstName, setAdminFirstName] = useState("");
   const [adminlastName, setAdminLastName] = useState("");
   const [adminEmail, setAdminEmail] = useState("");
-  const [adminPassword, setAdminPassword] = useState("");
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const dropdownRef = useRef(null); // Reference to the admin info box
 
@@ -71,7 +70,6 @@ export default function AdminSetting() {
         setAdminFirstName(data.firstName);
         setAdminLastName(data.lastName);
         setAdminEmail(data.email);
-        setAdminPassword(data.password);
       })
       .catch((error) => {
         console.error("Error fetching admin information:", error);
@@ -100,8 +98,7 @@ export default function AdminSetting() {
       adminID: adminID,
       firstName: adminfirstName,
       lastName: adminlastName,
-      email: adminEmail,
-      password: adminPassword, // You may need to handle password update separately if needed
+      email: adminEmail, // You may need to handle password update separately if needed
     };
     const requestOptions = {
       method: "PUT",
@@ -283,15 +280,6 @@ export default function AdminSetting() {
                   onChange={(e) => setAdminEmail(e.target.value)}
                   required
                 />
-                <input //this is for testing purposes
-                  type="text"
-                  className="input-box-settings"
-                  id="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setAdminPassword(e.target.value)}
-                  required
-                />
                 <button onSubmit={handleSubmit} className="btn-settings">
                   Save Changes
                 </button>
@@ -303,10 +291,10 @@ export default function AdminSetting() {
                 <i className="fa-solid fa-caret-up"></i>
               </a>
               <div className="information-text">
-                {/* <p>
+                <p>
                   Once you submit this information the recipient will be
                   notified with their login information.
-                </p> */}
+                </p>
               </div>
               <form onSubmit={handleSubmitNewAdmin} className="information">
                 <input
