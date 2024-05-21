@@ -11,7 +11,7 @@ body {
 }
 
 .flex {
-  display: flex;
+  display: wrap;
   height: 100%; /* Ensure the flex container covers the entire height */
   padding: 0; /* Remove padding to ensure full height */
   background-color: #BDDEDE;  

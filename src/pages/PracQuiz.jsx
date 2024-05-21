@@ -34,6 +34,33 @@ const PracQuiz = () => {
   const navigate = useNavigate();
 
 
+  useEffect(() => {
+    const fetchModuleAccessStatus = async () => {
+      try {
+        const response = await redaxios.get(`https://api.tmstrainingquizzes.com/webapi/CheckAccess/${moduleID}`, {
+          headers: {
+            "Authorization": `Bearer ${cliniciantoken}`
+          }
+        });
+      
+        const finalPassed = response.data.finalPassed;
+        const practicePassed = response.data.practicePassed;
+        if (quizID % 2 == 0) {
+          if (!practicePassed || finalPassed) {
+            navigate('/quizDashboard'); // Redirect to quiz dashboard if practice quiz is not passed or final exam is already completed
+          }
+
+        }
+
+      } catch (error) {
+        console.error('Error fetching module access status:', error);
+        // Handle error
+      }
+    };
+
+    fetchModuleAccessStatus();
+  }, [moduleID, cliniciantoken, navigate]);
+
   
 
   useEffect(() => {
@@ -255,9 +282,25 @@ const storeSelectedAnswersForQuestion = (selectedAnswers, questionIndex) => {
         const submissionResult = submissionResponse.data;
         // Calculate score based on submission result
         const score = submissionResult.score;
-        const correctAnswers = submissionResult.missedCorrectAID.filter(answer => answer.length === 0).length;
-        const wrongAnswers = submissionResult.missedCorrectAID.filter(answer => answer.length > 0).length;
+        //const correctAnswers = submissionResult.missedCorrectAID.filter(answer => answer.length === 0).length;
+        //const wrongAnswers = submissionResult.missedCorrectAID.filter(answer => answer.length > 0).length;
         console.log(submissionResult)
+
+        let correctCount = 0;
+        let wrongCount = 0;
+        submissionResult.selectedCorrect.forEach((questionResults, index) => {
+          const allCorrect = questionResults.every(result => result === true);
+          const noMissedAnswers = submissionResult.missedCorrectAID[index].length === 0;
+      
+          if (allCorrect && noMissedAnswers) {
+            correctCount++;
+          } else {
+            wrongCount++;
+          }
+        });
+
+        const correctAnswers = correctCount;
+        const wrongAnswers = wrongCount;
       
        
         
@@ -283,7 +326,24 @@ const storeSelectedAnswersForQuestion = (selectedAnswers, questionIndex) => {
   const addLeadingZero = (number) => (number > 9 ? number : `0${number}`);
 
   if (questions.length === 0) {
-    return <div>Loading...</div>;
+    return (<div className='loadingpage'>
+      <head><title>404 - Page Not Found</title></head>
+      <body>
+        <div className='loadingbody'>
+          <div className='loadingtextcont'>
+            <h1 className='loadingh1'>404 - Page Not Found</h1>
+            <p className='loadingp'>The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
+
+              <div className="cont-return-but">
+                <Link to="/quizDashboard" style={{ textDecoration: "none" }}>
+                  <button className="btn return-button">Back to Modules</button>
+                </Link>
+              </div>
+              
+          </div>
+        </div>
+      </body>
+    </div>);
   }
 
  
@@ -357,7 +417,7 @@ return (
 
               </div>
           ) : (
-            <div className='cont-feedback'>
+            <div className='cont-results'>
               <div className="cont-return-but">
                 <Link to="/quizDashboard" style={{ textDecoration: "none" }}>
                   <button className="btn return-button">Back to Modules</button>
@@ -369,22 +429,54 @@ return (
                 <p>Total Questions: <span>{questions.length}</span></p>
                 <p>Total Score: <span>{result.score}</span></p>
                 <p>Correct Answers: <span>{result.correctAnswers}</span></p>
-                <p>Wrong Answers: <span>{result.wrongAnswers}</span></p>
+              <p>Wrong Answers: <span>{result.wrongAnswers}</span></p>
+              
+            </div>
+            <div className='button-alignment'>
+                <div className="button-container">
+                  <button onClick={onClickPrevious} disabled={activeQuestion === 0} className="btn feedback-prev-ques">Previous</button>
+                  <button onClick={onClickNext} disabled={activeQuestion === questions.length - 1} className="btn feedback-next-ques">Next</button>
+                </div>
               </div>
+          
     
               <div className='feedback-qs'>
-                <div key={questions[activeQuestion].questionID} className={`question-answer-container ${submissionResult.missedCorrectAID[activeQuestion].length === 0 ? 'correct' : 'wrong'}`}>
+
+                  <div key={questions[activeQuestion].questionID} className="question-answer-container">
                   <div className="question-answer-wrapper">
-                    <h4>{questions[activeQuestion].title}</h4>
-                    <ul>
+                  <div className='sep-qs'>
+                    <h2>{questions[activeQuestion].title}</h2>
+
+                   {/* This changing colour section changes the colour of the selected question, but idk how to change it to red if it was wrong*/}
+                    <ul className='feedback-options'>
                       {questions[activeQuestion].answers.map(answer => (
-                        <li key={answer.answerID} style={{ color: '#808080' }}>
+                        <li 
+                          key={answer.answerID} 
+                          style={{ 
+                            color: selectedAnswersLists[activeQuestion]?.includes(answer.answerID) ? 
+
+
+
+                              submissionResult.selectedCorrect[activeQuestion].every(val => val) && submissionResult.missedCorrectAID[activeQuestion].length === 0 ? 'green' : 'red'
+                              : 
+                              (submissionResult.missedCorrectAID[activeQuestion].includes(answer.answerID) ? '' : '') 
+                          }}
+                        >
                           {answer.answerText}
                         </li>
                       ))}
                     </ul>
-                    <p>Selected Answer(s):</p>
-                    <ul>
+                  </div>
+                </div>
+                </div>
+
+
+                  {/*IDK which part of the code is displaying the answered question, I want to remove it and ONLY show the feedback, but I think they depend on each other? I'm not too sure about what I can remove.*/}
+                <div className="cont-feedback">
+                  <div className="cont-feedback-writing">
+
+
+                  <ul>
                     {selectedAnswersLists[activeQuestion]?.map((selectedAnswerID, index) => (
                     <li key={selectedAnswerID} style={{ color: '#808080' }}>
                       {questions[activeQuestion].answers.find(answer => answer.answerID === selectedAnswerID)?.answerText}
@@ -402,12 +494,15 @@ return (
                   ))}
 
                   </ul>
+
+
+                    
                   </div>
                 </div>
-                <div className="button-container">
-                  <button onClick={onClickPrevious} disabled={activeQuestion === 0} className="btn prev-ques">Previous</button>
-                  <button onClick={onClickNext} disabled={activeQuestion === questions.length - 1} className="btn next-ques">Next</button>
-                </div>
+
+
+
+                
               </div>
             </div>
           )}
