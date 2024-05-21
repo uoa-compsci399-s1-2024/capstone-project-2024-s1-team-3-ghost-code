@@ -12,6 +12,9 @@ import QuizCreation from "./pages/CreatingQuiz";
 import Quiz from "./pages/Quiz";
 import AdminModuleReview from "./pages/AdminModuleReview";
 import PracQuiz from "./pages/PracQuiz";
+import PasswordReset from "./pages/PasswordReset";
+import PasswordCode from "./pages/PasswordCode";
+import PasswordSubmit from "./pages/PasswordSubmit";
 
 const getAdminToken = () => sessionStorage.getItem("adminToken");
 
@@ -80,7 +83,11 @@ function App() {
 
           <Route path="/adminmodulereview" element={<AdminModuleReview />} />
     
+          <Route path="/passwordreset" element={<PasswordReset />} />
 
+          <Route path="/passwordcode" element={<PasswordCode />} />
+
+          <Route path="/passwordsubmit" element={<PasswordSubmit />} />
           
         </Routes>
       </BrowserRouter>
