@@ -420,7 +420,7 @@ namespace OTTER.Controllers
 
         [SwaggerOperation(
             Summary = "Returns the list of current organizations",
-            Tags = new[] { "ClinicianFunctions" }
+            Tags = new[] { "ClinicianFunctions", "AdminUserFunctions" }
         )]
         [SwaggerResponse(200, "Organizations retrieved", typeof(IEnumerable<Organization>))]
         [HttpGet("GetOrganizations")]
@@ -431,7 +431,7 @@ namespace OTTER.Controllers
 
         [SwaggerOperation(
             Summary = "Returns the list of current roles",
-            Tags = new[] { "ClinicianFunctions" }
+            Tags = new[] { "ClinicianFunctions", "AdminUserFunctions" }
         )]
         [SwaggerResponse(200, "Roles retrieved", typeof(IEnumerable<Role>))]
         [HttpGet("GetRoles")]
@@ -582,9 +582,10 @@ namespace OTTER.Controllers
         [HttpDelete("DeleteOrganization/{orgID}")]
         public ActionResult DeleteOrganization(int orgID)
         {
-            if (_repo.GetOrganizationByID(orgID) != null)
+            Organization organization = _repo.GetOrganizationByID(orgID);
+            if (organization != null)
             {
-                _repo.DeleteOrganization(orgID);
+                _repo.DeleteOrganization(organization);
                 return Ok("Organization deleted.");
             }
             else
@@ -650,12 +651,13 @@ namespace OTTER.Controllers
         [SwaggerResponse(403, "Token is not authorized to view resource")]
         [SwaggerResponse(404, "Role with submitted ID not found")]
         [Authorize(Roles = "Admin")]
-        [HttpDelete("DeleteRole/{orgID}")]
+        [HttpDelete("DeleteRole/{roleID}")]
         public ActionResult DeleteRole(int roleID)
         {
-            if (_repo.GetRoleByID(roleID) != null)
+            Role role = _repo.GetRoleByID(roleID);
+            if (role != null)
             {
-                _repo.DeleteRole(roleID);
+                _repo.DeleteRole(role);
                 return Ok("Role deleted.");
             }
             else

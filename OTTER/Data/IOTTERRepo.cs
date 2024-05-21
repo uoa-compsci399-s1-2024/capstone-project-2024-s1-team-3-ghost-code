@@ -44,13 +44,13 @@ namespace OTTER.Data
         Organization GetOrganizationByID(int id);
         Organization GetOrganizationByNameLower(string name);
         Organization AddOrganization(Organization organization);
-        void DeleteOrganization(int id);
+        void DeleteOrganization(Organization organization);
         Organization EditOrganization(Organization organization);
         IEnumerable<Role> GetRoles();
         Role GetRoleByID(int id);
         Role GetRoleByNameLower(string name);
         Role AddRole(Role role);
-        void DeleteRole(int id);
+        void DeleteRole(Role role);
         Role EditRole(Role role);
         bool validAdmin(string email, string password);
         IEnumerable<Admin> GetAdmins();

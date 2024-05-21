@@ -15,6 +15,7 @@ using Amazon.Runtime;
 using Amazon.S3;
 using Amazon.S3.Transfer;
 using System;
+using System.Data;
 
 namespace OTTER.Data
 {
@@ -512,14 +513,16 @@ namespace OTTER.Data
             return o.Entity;
         }
 
-        public void DeleteOrganization(int id)
+        public void DeleteOrganization(Organization organization)
         {
-            Organization o = _dbContext.Organizations.FirstOrDefault(o => o.OrgID == id);
-            if (o != null)
+            IEnumerable<User> usersWithOrg = _dbContext.Users.Where(u => u.Organization == organization);
+            Organization other = _dbContext.Organizations.First(r => r.OrgName == "Other");
+            foreach (User u in usersWithOrg)
             {
-                _dbContext.Organizations.Remove(o);
-                _dbContext.SaveChanges();
+                u.Organization = other;
             }
+            _dbContext.Organizations.Remove(organization);
+            _dbContext.SaveChanges();
         }
 
         public Organization EditOrganization(Organization organization)
@@ -559,14 +562,16 @@ namespace OTTER.Data
             return r.Entity;
         }
         
-        public void DeleteRole(int id)
+        public void DeleteRole(Role role)
         {
-            Role r = _dbContext.Roles.FirstOrDefault(e => e.RoleID == id);
-            if (r != null)
+            IEnumerable<User> usersWithRole = _dbContext.Users.Where(u => u.Role == role);
+            Role other = _dbContext.Roles.First(r => r.RoleName == "Other");
+            foreach (User u in usersWithRole)
             {
-                _dbContext.Roles.Remove(r);
-                _dbContext.SaveChanges();
+                u.Role = other;
             }
+            _dbContext.Roles.Remove(role);
+            _dbContext.SaveChanges();
         }
         
         public Role EditRole(Role role)
