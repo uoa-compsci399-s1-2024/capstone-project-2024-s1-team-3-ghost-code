@@ -61,7 +61,8 @@
     display: none;
 }
 
-.information {
+.information
+ {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -75,7 +76,32 @@
     margin-left: 100px;
 
 }
+.roles-org-container{
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 100px;
+    margin-right: 2rem;
+    background-color: darkgrey;
+    transition: max-height 650ms;
+}
 
+.information-roles-org {
+    
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin: 1rem;
+        flex: 1;
+        overflow: hidden;
+
+}
+
+.information-roles-org input {
+    font-size: .8rem;
+    color: black;
+    padding: 1.5rem;
+}
 .information-text {
     display: flex;
     flex-direction: column;
@@ -88,16 +114,10 @@
     transition: max-height 650ms;
 }
 
-/* .information::before{
-    content: "";
-    position: absolute;
-    width: .6rem;
-    height: 90%;
-    background-color: teal;
-    top:50%;
-    left: 0;
-    transform: translateY(-50%);
-} */
+.accordion-item:target .information-roles-org{
+    max-height: 20rem;
+
+}
 
 .information input {
     font-size: .8rem;
@@ -189,6 +209,7 @@
     border-radius: 15px; /* Add curved edges */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
     cursor: pointer;
+    overflow-y: auto
   }
 
   .admin-search-Container {

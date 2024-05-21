@@ -104,13 +104,13 @@ export default function AdminSetting() {
   }, [adminToken, navigate]);
 
   //TO UPDATE ADMIN INFORMATION currently not working
-
   const handleSubmit = async () => {
     const requestBody = {
-      adminID: admindetails.adminID,
-      firstName: admindetails.firstName,
-      lastName: admindetails.lastName,
-      adminEmail: admindetails.adminEmail,
+      adminID: adminID,
+      firstName: adminfirstName,
+      lastName: adminlastName,
+      email: adminEmail,
+      password: "", // You may need to handle password update separately if needed
     };
     const requestOptions = {
       method: "PUT",
@@ -126,6 +126,8 @@ export default function AdminSetting() {
         requestOptions
       );
       if (response.ok) {
+        // Update admin details state with the new values
+        setAdmindetails(requestBody);
         alert("Admin updated successfully!");
       } else if (response.status === 409) {
         throw new Error("A user with this email already exists.");
@@ -138,47 +140,112 @@ export default function AdminSetting() {
     }
   };
 
+  //FUNCTION TO MAKE A NEW ADMIN -works
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleSubmitNewAdmin = async (event) => {
+    event.preventDefault();
+
+    const data = {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      password: password,
+    };
+
+    try {
+      const response = await fetch(
+        "https://api.tmstrainingquizzes.com/webapi/AddAdmin",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${adminToken}`,
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      if (response.ok) {
+        setMessage("Admin user created successfully.");
+        // Optionally, reset form fields
+        setFirstName("");
+        setLastName("");
+        setEmail("");
+        setPassword("");
+      } else {
+        const errorData = await response.json();
+        setMessage(`Error: ${errorData.message}`);
+      }
+    } catch (error) {
+      setMessage(`Error: ${error.message}`);
+    }
+  };
+
   //ADDING A NEW ROLE AND ORGANISATION currently not working
   const [newRoleName, setNewRoleName] = useState("");
   const [newOrgName, setNewOrgName] = useState("");
+  const [roleMessage, setRoleMessage] = useState("");
+  const [organizationMessage, setOrganizationMessage] = useState("");
 
-  const handleRoleSubmit = () => {
-    fetch("https://api.tmstrainingquizzes.com/webapi/AddRole", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ roleName: newRoleName }),
-    })
-      .then((response) => response.text())
-      .then((data) => {
-        console.log("New role added successfully:", data);
-        // Optionally, you can perform any additional actions upon successful addition
-      })
-      .catch((error) => {
-        console.error("Error adding new role:", error);
+  const handleRoleSubmit = async (e) => {
+    e.preventDefault();
+    // replace with actual admin token retrieval method
+    const roleApiUrl = "https://api.tmstrainingquizzes.com/auth/Login"; // replace with your role API endpoint
+
+    try {
+      const response = await fetch(roleApiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${adminToken}`,
+        },
+        body: JSON.stringify({ role: newRoleName }),
       });
+
+      if (response.ok) {
+        setRoleMessage("Role added successfully!");
+        setNewRoleName("");
+      } else {
+        const errorData = await response.json();
+        setRoleMessage(`Error adding role: ${errorData.message}`);
+      }
+    } catch (error) {
+      setRoleMessage(`Error adding role: ${error.message}`);
+    }
   };
 
-  const handleOrgSubmit = () => {
-    fetch("https://api.tmstrainingquizzes.com/webapi/AddOrganization", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ organizationName: newOrgName }),
-    })
-      .then((response) => response.text())
-      .then((data) => {
-        console.log("New organization added successfully:", data);
+  const handleOrgSubmit = async (e) => {
+    e.preventDefault();
+    const organizationApiUrl = "https://api.tmstrainingquizzes.com/auth/Login";
 
-        // Optionally, you can perform any additional actions upon successful addition
-      })
-      .catch((error) => {
-        console.error("Error adding new organization:", error);
+    try {
+      const response = await fetch(organizationApiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${adminToken}`,
+        },
+        body: JSON.stringify({ organization: newOrgName }),
       });
-  };
 
+      if (response.ok) {
+        setOrganizationMessage("Organization added successfully!");
+        setNewOrgName("");
+      } else {
+        const errorData = await response.json();
+        setOrganizationMessage(
+          `Error adding organization: ${errorData.message}`
+        );
+      }
+    } catch (error) {
+      setOrganizationMessage(`Error adding organization: ${error.message}`);
+    }
+  };
   return (
     <>
       <div className="admin-body"></div>
@@ -236,35 +303,53 @@ export default function AdminSetting() {
                 <i className="fa-solid fa-caret-up"></i>
               </a>
               <div className="information-text">
-                <p>
+                {/* <p>
                   Once you submit this information the recipient will be
-                  notified with their login information and set a password
-                </p>
+                  notified with their login information.
+                </p> */}
               </div>
-              <div className="information">
+              <form onSubmit={handleSubmitNewAdmin} className="information">
                 <input
                   type="text"
                   className="input-box-settings"
                   id="firstname"
                   placeholder="First Name"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
                   required
-                ></input>
+                />
                 <input
                   type="text"
                   className="input-box-settings"
                   id="lastname"
                   placeholder="Last Name"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
                   required
-                ></input>
+                />
                 <input
                   type="text"
                   className="input-box-settings"
                   id="email"
                   placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
-                ></input>
-                <button className="btn-settings">Submit</button>
-              </div>
+                />
+                <input
+                  type="text"
+                  className="input-box-settings"
+                  id="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+                <button type="submit" className="btn-settings">
+                  Submit
+                </button>
+              </form>
+              {message && <p>{message}</p>}
             </div>
             <div className="accordion-item" id="admins">
               <a className="accordion-link" href="#admins">
@@ -278,11 +363,6 @@ export default function AdminSetting() {
                     <div
                       key={adminSearchs.adminID}
                       className="admin-search-item"
-                      onClick={() =>
-                        navigate(
-                          `https://api.tmstrainingquizzes.com/webapi/GetAdminByID/${adminSearchs.sequence}`
-                        )
-                      }
                     >
                       <div className="adminName">
                         {adminSearchs.firstName} {adminSearchs.lastName}
@@ -313,10 +393,12 @@ export default function AdminSetting() {
                   placeholder="Add New Discipline"
                   value={newRoleName}
                   onChange={(e) => setNewRoleName(e.target.value)}
-                ></input>
+                />
                 <button className="btn-settings" onClick={handleRoleSubmit}>
-                  Add New Role
+                  Add New Discipline
                 </button>
+                {roleMessage && <p>{roleMessage}</p>}
+
                 <input
                   type="text"
                   className="input-box-settings"
@@ -324,8 +406,11 @@ export default function AdminSetting() {
                   placeholder="Add New Site"
                   value={newOrgName}
                   onChange={(e) => setNewOrgName(e.target.value)}
-                ></input>
-                <button className="btn-settings">Add New Organization</button>
+                />
+                <button className="btn-settings" onClick={handleOrgSubmit}>
+                  Add New Site
+                </button>
+                {organizationMessage && <p>{organizationMessage}</p>}
               </div>
             </div>
           </div>
