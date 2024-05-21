@@ -367,7 +367,7 @@ export default function AdminSetting() {
             </div>
             <div className="accordion-item" id="changeRegistration">
               <a className="accordion-link" href="#changeRegistration">
-                Clinician Registration
+                Sites & Disciplines
                 <i className="fa-solid fa-caret-down"></i>
                 <i className="fa-solid fa-caret-up"></i>
               </a>
