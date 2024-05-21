@@ -99,7 +99,9 @@ export function AdminLoginForm() {
                 <input type="submit" className="input-submit" value="Sign In" />
               </div>
               <div className="forgot">
-                <a href="#">Forgot password?</a>
+                      <Link style={{ textDecoration: "none" }} to="/passwordreset">
+                  <div className="back-to-home-text">Forgot password</div>
+                </Link>
               </div>
             </div>
           </div>
