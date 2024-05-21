@@ -98,8 +98,7 @@
               "RelativeToolTip": "Data\\DBOTTERRepo.cs",
               "ViewState": "AQIAAPcBAAAAAAAAAAA9wAgCAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-07T09:35:45.448Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-07T09:35:45.448Z"
             },
             {
               "$type": "Document",
@@ -111,8 +110,7 @@
               "RelativeToolTip": "Models\\Question.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-11T10:37:14.373Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-11T10:37:14.373Z"
             },
             {
               "$type": "Document",
@@ -124,8 +122,7 @@
               "RelativeToolTip": "Dtos\\QuizSubmissionDto.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAA4AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-09T23:12:23.019Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-09T23:12:23.019Z"
             },
             {
               "$type": "Document",
@@ -137,8 +134,7 @@
               "RelativeToolTip": "Models\\AttemptQuestion.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-10T03:54:59.603Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-10T03:54:59.603Z"
             },
             {
               "$type": "Document",
@@ -150,8 +146,7 @@
               "RelativeToolTip": "Controllers\\FunctionController.cs",
               "ViewState": "AQIAAHsCAAAAAAAAAAAswJACAAAyAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-11T10:51:18.792Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-11T10:51:18.792Z"
             },
             {
               "$type": "Document",
@@ -163,8 +158,7 @@
               "RelativeToolTip": "Data\\OTTERDBContext.cs",
               "ViewState": "AQIAAAoAAAAAAAAAAAAywBoAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-15T04:19:52.032Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-15T04:19:52.032Z"
             },
             {
               "$type": "Document",
@@ -174,7 +168,7 @@
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAAA8AAAAjAAAA",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAABEAAAA/AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-11T03:42:47.772Z",
               "EditorCaption": ""
@@ -189,8 +183,7 @@
               "RelativeToolTip": "Data\\IOTTERRepo.cs",
               "ViewState": "AQIAACkAAAAAAAAAAAAxwDIAAAAtAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-10T04:13:36.208Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-10T04:13:36.208Z"
             },
             {
               "$type": "Document",
@@ -202,8 +195,7 @@
               "RelativeToolTip": "Dtos\\QuizSubMarksDto.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-10T03:45:09.049Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-10T03:45:09.049Z"
             },
             {
               "$type": "Document",
@@ -215,8 +207,7 @@
               "RelativeToolTip": "appsettings.json",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAACXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-05-15T01:30:43.7Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-15T01:30:43.7Z"
             },
             {
               "$type": "Document",
@@ -228,8 +219,7 @@
               "RelativeToolTip": "Dtos\\AdminInputDto.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-09T23:21:40.803Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-09T23:21:40.803Z"
             },
             {
               "$type": "Document",
@@ -241,8 +231,7 @@
               "RelativeToolTip": "Models\\Attempt.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-10T03:31:24.328Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-10T03:31:24.328Z"
             },
             {
               "$type": "Document",
@@ -254,8 +243,7 @@
               "RelativeToolTip": "Models\\Certification.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-11T06:42:04.722Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-11T06:42:04.722Z"
             },
             {
               "$type": "Document",
@@ -267,8 +255,7 @@
               "RelativeToolTip": "Models\\Organization.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-15T04:07:55.049Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-15T04:07:55.049Z"
             },
             {
               "$type": "Document",
@@ -280,8 +267,7 @@
               "RelativeToolTip": "Models\\Quiz.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-10T03:31:33.431Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-10T03:31:33.431Z"
             },
             {
               "$type": "Document",
@@ -293,8 +279,7 @@
               "RelativeToolTip": "Controllers\\AuthController.cs",
               "ViewState": "AQIAABcAAAAAAAAAAAAxwAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-07T06:54:34.372Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-07T06:54:34.372Z"
             },
             {
               "$type": "Document",
@@ -306,8 +291,7 @@
               "RelativeToolTip": "Dtos\\AdminEditDto.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-10T22:15:59.209Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-10T22:15:59.209Z"
             },
             {
               "$type": "Document",
@@ -319,8 +303,7 @@
               "RelativeToolTip": "Models\\Answer.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-10T04:14:02.311Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-10T04:14:02.311Z"
             }
           ]
         }

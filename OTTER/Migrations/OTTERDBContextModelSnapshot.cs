@@ -260,13 +260,12 @@ namespace OTTER.Migrations
                     b.Property<int>("QuestionType")
                         .HasColumnType("int");
 
-                    b.Property<string>("Stage")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Topic")
+                        .HasColumnType("int");
 
                     b.HasKey("QuestionID");
 
