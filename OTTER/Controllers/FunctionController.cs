@@ -748,31 +748,33 @@ namespace OTTER.Controllers
             Tags = new[] { "AdminQuizFunctions" }
         )]
         [SwaggerResponse(200, "Image successfully uploaded")]
-        [SwaggerResponse(400, "File invalid OR Environment is not production")]
+        [SwaggerResponse(400, "File invalid OR Other Bad Request")]
         [SwaggerResponse(401, "Token is invalid")]
         [SwaggerResponse(403, "Token not authorized to use resource")]
         [SwaggerResponse(404, "Question with submitted ID not found")]
         [SwaggerResponse(413, "The file size is too large - reduce size to no larger than 1 MB")]
+        [SwaggerResponse(415, "The file is not of type 'image'")]
         [Authorize(Roles = "Admin")]
         [HttpPost("QuestionImageUpload/{questionID}")]
         public ActionResult QuestionImageUpload(IFormFile file, int questionID)
         {
             Question q = _repo.GetQuestionByID(questionID);
-            if (q != null)
+            if (q == null)
             {
-                string uploadOutcome = _repo.UploadQuestionImage(file, q);
-                if (uploadOutcome.StartsWith("Success"))
-                {
-                    return Ok(uploadOutcome);
-                }
-                else
-                {
-                    return BadRequest(uploadOutcome);
-                }
+                return NotFound("Question with ID " + questionID + " not found.");
+            }
+            if (!file.ContentType.Contains("image"))
+            {
+                return StatusCode(StatusCodes.Status415UnsupportedMediaType, "File is not of type 'image'.");
+            }
+            string uploadOutcome = _repo.UploadQuestionImage(file, q);
+            if (uploadOutcome.StartsWith("Success"))
+            {
+                return Ok(uploadOutcome);
             }
             else
             {
-                return NotFound("Question with ID " + questionID + " not found.");
+                return BadRequest(uploadOutcome);
             }
         }
 
