@@ -13,7 +13,7 @@ namespace OTTER.Dtos
         [Required]
         public int QuestionType { get; set; }
         [Required]
-        public string Stage { get; set; }
+        public int Topic { get; set; }
         [Required]
         public IEnumerable<AnswerInputDto> Answers { get; set; }
     }

@@ -16,7 +16,7 @@ namespace OTTER.Dtos
         [Required]
         public int QuestionType { get; set; }
         [Required]
-        public string Stage { get; set; }
+        public int Topic { get; set; }
         [Required]
         public List<AdminAnswerOutputDto> Answers { get; set; }
     }

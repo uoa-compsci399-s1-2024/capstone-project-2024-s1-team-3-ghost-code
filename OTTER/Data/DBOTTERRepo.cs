@@ -158,7 +158,7 @@ namespace OTTER.Data
             IEnumerable<Question> Qs = _dbContext.Questions.Where(e => e.Module.ModuleID == id && e.Deleted == false).ToList<Question>();
             foreach (Question q in Qs)
             {
-                AdminQuestionOutputDto adminQuestionOutputDto = new AdminQuestionOutputDto { QuestionID = q.QuestionID, ModID = id, Title = q.Title, Description = q.Description, ImageURL = q.ImageURL, QuestionType = q.QuestionType, Stage = q.Stage, Answers = new List<AdminAnswerOutputDto>() };
+                AdminQuestionOutputDto adminQuestionOutputDto = new AdminQuestionOutputDto { QuestionID = q.QuestionID, ModID = id, Title = q.Title, Description = q.Description, ImageURL = q.ImageURL, QuestionType = q.QuestionType, Topic = q.Topic, Answers = new List<AdminAnswerOutputDto>() };
                 IEnumerable<Answer> As = _dbContext.Answers.Include(e => e.Question).Where(e => e.Question.QuestionID == q.QuestionID).ToList<Answer>();
                 foreach (Answer a in As)
                 {
@@ -176,18 +176,20 @@ namespace OTTER.Data
             Attempt attempt = AddAttempt(new Attempt { Quiz = quiz, User = GetUserByID(quizInput.UserID), DateTime = DateTime.UtcNow, Completed = "INCOMPLETE" });
             Random random = new Random();
             IEnumerable<Question> validMod = GetQuestionsByModule(quizInput.ModuleID);
-            IEnumerable<Question> validStage = validMod.Where(e => e.Stage == quiz.Stage && e.Deleted == false);
+            IEnumerable<Question> validStage = validMod.Where(e => e.Deleted == false);
             List<QuestionOutputDto> output = new List<QuestionOutputDto>();
-            for (int i = 0; i < quiz.Length; i++)
+            int topic = 1;
+            int topicCount = 0;
+            for (int i = 1; i < quiz.Length + 1; i++)
             {
-                int randnum = random.Next(0,validStage.Count());
-                Question randq = validStage.ElementAt(randnum);
+                int randnum = random.Next(0,validStage.Where(e => e.Topic == topic).Count());
+                Question randq = validStage.Where(e => e.Topic == topic).ElementAt(randnum);
                 if (output.FirstOrDefault(e => e.QuestionID == randq.QuestionID) != null)
                 {
                     i--;
                     continue;
                 }
-                QuestionOutputDto qOutputDto = new QuestionOutputDto { QuestionID = randq.QuestionID, Title = randq.Title, Description = randq.Description, ImageURL = randq.ImageURL, QuestionType = randq.QuestionType, Stage = randq.Stage };
+                QuestionOutputDto qOutputDto = new QuestionOutputDto { QuestionID = randq.QuestionID, Title = randq.Title, Description = randq.Description, ImageURL = randq.ImageURL, QuestionType = randq.QuestionType, Topic = randq.Topic };
                 List<AnswerOutputDto> aOutputDto = new List<AnswerOutputDto>();
                 foreach (Answer answer in _dbContext.Answers.Where(e => e.Question.QuestionID == randq.QuestionID))
                 {
@@ -195,10 +197,24 @@ namespace OTTER.Data
                     aOutputDto.Add(a);
                 }
                 qOutputDto.Answers = aOutputDto;
-                AttemptQuestion attemptq = new AttemptQuestion { Attempt = GetAttemptByID(attempt.AttemptID), Question = GetQuestionByID(randq.QuestionID), Sequence = i + 1, Answers = new List<Answer>() };
+                AttemptQuestion attemptq = new AttemptQuestion { Attempt = GetAttemptByID(attempt.AttemptID), Question = GetQuestionByID(randq.QuestionID), Sequence = i, Answers = new List<Answer>() };
                 AddAttemptQuestion(attemptq);
                 qOutputDto.AttemptID = attempt.AttemptID;
                 output.Add(qOutputDto);
+                topicCount++;
+                if (i >= (quiz.Length / 100.0) * 40 || validStage.Where(e => e.Topic == topic).Count() == topicCount )
+                {
+                    topic = 2;
+                    topicCount = 0;
+                } else if (i >= (quiz.Length / 100.0) * 70 || validStage.Where(e => e.Topic == topic).Count() == topicCount)
+                {
+                    topic = 3;
+                    topicCount = 0;
+                } else if (validStage.Where(e => e.Topic == topic).Count() == topicCount)
+                {
+                    topic = 1;
+                    topicCount = 0;
+                }
             }
             return output;
         }
@@ -230,7 +246,7 @@ namespace OTTER.Data
             if (oldQ != null)
             {
                 DeleteQuestion(oldQ.QuestionID);
-                Question newQ = new Question { Module = oldQ.Module, Title = question.Title, Description = question.Description, QuestionType = oldQ.QuestionType, Stage = oldQ.Stage, Deleted = false };
+                Question newQ = new Question { Module = oldQ.Module, Title = question.Title, Description = question.Description, QuestionType = oldQ.QuestionType, Topic = oldQ.Topic, Deleted = false };
                 AddQuestion(newQ);
                 _dbContext.SaveChanges();
                 foreach(EditAnswerInputDto answer in question.Answers)

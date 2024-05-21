@@ -240,7 +240,7 @@ namespace OTTER.Controllers
         [HttpPost("AddQuestion")]
         public ActionResult<Question> CreateQuestion(QuestionInputDto newQuestion)
         {
-            Question q = new Question { Module = _repo.GetModuleByID(newQuestion.ModID), Title = newQuestion.Title, Description = newQuestion.Description, QuestionType = newQuestion.QuestionType, Stage = newQuestion.Stage, Deleted = false};
+            Question q = new Question { Module = _repo.GetModuleByID(newQuestion.ModID), Title = newQuestion.Title, Description = newQuestion.Description, QuestionType = newQuestion.QuestionType, Topic = newQuestion.Topic, Deleted = false};
             _repo.AddQuestion(q);
             foreach (AnswerInputDto newAnswer in newQuestion.Answers)
             {

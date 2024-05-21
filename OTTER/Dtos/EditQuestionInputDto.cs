@@ -10,7 +10,7 @@ namespace OTTER.Dtos
         public string Title { get; set; }
         public string? Description { get; set; }
         [Required]
-        public string Stage { get; set; }
+        public int Topic { get; set; }
         [Required]
         public IEnumerable<EditAnswerInputDto> Answers { get; set; }
     }
