@@ -5,17 +5,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "redaxios";
 
-export function AdminName() {
-  return (
-    <>
-      <div className="admin">
-        <div className="admin-image"></div>
-        <div className="admin-name">John Smith</div>
-      </div>
-    </>
-  );
-}
-
 export default function AdminSetting() {
   const navigate = useNavigate();
   const adminToken = sessionStorage.getItem("adminToken");
