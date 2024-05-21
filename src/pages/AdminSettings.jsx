@@ -92,8 +92,9 @@ export default function AdminSetting() {
     };
   }, [adminToken, navigate]);
 
-  //TO UPDATE ADMIN INFORMATION currently not working
-  const handleSubmit = async () => {
+  //TO UPDATE ADMIN INFORMATION - works
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     const requestBody = {
       adminID: adminID,
       firstName: adminfirstName,
@@ -280,11 +281,12 @@ export default function AdminSetting() {
                   onChange={(e) => setAdminEmail(e.target.value)}
                   required
                 />
-                <button onSubmit={handleSubmit} className="btn-settings">
+                <button type="submit" className="btn-settings">
                   Save Changes
                 </button>
               </form>
             </div>
+            {/* ADD NEW ADMIN */}
             <div className="accordion-item" id="addnewadmin">
               <a className="accordion-link" href="#addnewadmin">
                 Add New Admin <i className="fa-solid fa-caret-down"></i>
@@ -292,8 +294,9 @@ export default function AdminSetting() {
               </a>
               <div className="information-text">
                 <p>
-                  Once you submit this information the recipient will be
-                  notified with their login information.
+                  Once you submit this information, please contact the recipient
+                  with their login information and prompt them to reset their
+                  password
                 </p>
               </div>
               <form onSubmit={handleSubmitNewAdmin} className="information">
@@ -339,6 +342,7 @@ export default function AdminSetting() {
               </form>
               {message && <p>{message}</p>}
             </div>
+            {/* SHOWS A LIST OF ADMINS */}
             <div className="accordion-item" id="admins">
               <a className="accordion-link" href="#admins">
                 Admins <i className="fa-solid fa-caret-down"></i>

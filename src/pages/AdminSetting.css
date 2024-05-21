@@ -213,17 +213,14 @@
   }
 
   .admin-search-Container {
-    margin-left: 1%; /* Ensure it starts after the ClientDashboard */
-    flex: 1; /* Take remaining space */
-    overflow-y: auto; /* Enable vertical scrolling */
-
+    margin-left: 1%;
+    flex: 1;
     max-height: 0;
     overflow: hidden;
     transition: max-height 650ms;
-    
 }
-
 .accordion-item:target .admin-search-Container{
     max-height: 20rem;
+    overflow-y: auto;
 
 }
