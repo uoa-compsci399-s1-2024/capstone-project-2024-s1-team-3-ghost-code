@@ -8,6 +8,7 @@ using System.Runtime;
 using Swashbuckle.AspNetCore.Annotations;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using Amazon.S3.Model;
 
 namespace OTTER.Controllers
 {
@@ -740,5 +741,40 @@ namespace OTTER.Controllers
                 return NotFound("A module with ID " + modID + " does not exist.");
             }
         }
+
+        [SwaggerOperation(
+            Summary = "Uploads an image for a given question",
+            Description = "Admin priviliges required. NOTE: This API will automatically attach the image to the provided question. If the question does not yet exist, the question should be created first, then the new question ID submitted to this endpoint.",
+            Tags = new[] { "AdminQuizFunctions" }
+        )]
+        [SwaggerResponse(200, "Image successfully uploaded")]
+        [SwaggerResponse(400, "File invalid OR Environment is not production")]
+        [SwaggerResponse(401, "Token is invalid")]
+        [SwaggerResponse(403, "Token not authorized to use resource")]
+        [SwaggerResponse(404, "Question ID is invalid")]
+        [SwaggerResponse(413, "The file size is too large - reduce size to no larger than 1 MB")]
+        [Authorize(Roles = "Admin")]
+        [HttpPost("QuestionImageUpload/{questionID}")]
+        public ActionResult QuestionImageUpload(IFormFile file, int questionID)
+        {
+            Question q = _repo.GetQuestionByID(questionID);
+            if (q != null)
+            {
+                string uploadOutcome = _repo.UploadQuestionImage(file, q);
+                if (uploadOutcome.StartsWith("Success"))
+                {
+                    return Ok(uploadOutcome);
+                }
+                else
+                {
+                    return BadRequest(uploadOutcome);
+                }
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
     }
 }

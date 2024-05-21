@@ -16,6 +16,7 @@ using Amazon.S3;
 using Amazon.S3.Transfer;
 using System;
 using System.Data;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace OTTER.Data
 {
@@ -23,6 +24,7 @@ namespace OTTER.Data
     {
         private readonly OTTERDBContext _dbContext;
         private readonly string _emailApiUri = "https://script.google.com/macros/s/AKfycbxju7WbjRdS5w3e_PNTmuVgGU0l-ZA3L_Lu_FVkjAnSb1h0BTg_cDwY0czF8BWOig6z/exec";
+        private readonly string _bucketURL = "https://s3.ap-southeast-2.amazonaws.com/certificate.tmstrainingquizzes.com/";
         public DBOTTERRepo(OTTERDBContext dbContext)
         {
             _dbContext = dbContext;
@@ -46,10 +48,8 @@ namespace OTTER.Data
 
         public string CreateCertitificate(string name, Module module, DateTime date)
         {
-            string bucketURL = "https://s3.ap-southeast-2.amazonaws.com/certificate.tmstrainingquizzes.com/";
-
             // Load the template PDF
-            using (var reader = new PdfReader(bucketURL + "certtemplate.pdf"))
+            using (var reader = new PdfReader(_bucketURL + "certtemplate.pdf"))
             {
                 using (var stream = new MemoryStream())
                 {
@@ -75,11 +75,37 @@ namespace OTTER.Data
                     {
                         UploadToS3(bytes, certURI);
 
-                        return bucketURL + certURI;
+                        return _bucketURL + certURI;
                     } else // If not production, certificate not found
                     {
-                        return bucketURL + "404.html";
+                        return _bucketURL + "404.html";
                     }
+                }
+            }
+        }
+
+        public string UploadQuestionImage(IFormFile file, Question question)
+        {
+            using (var stream = new MemoryStream())
+            {
+                file.CopyTo(stream);
+                byte[] bytes = stream.ToArray();
+
+                // Upload to S3
+                string imageURI = $"quizimages/{DateTime.UtcNow.ToString("yyyyMMddhhmmss")}QID{question.QuestionID}-{file.FileName}";
+
+                if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production") // Only uploads if the environment is production to get accurate AWS credentials
+                {
+                    UploadToS3(bytes, imageURI);
+
+                    question.ImageURL = _bucketURL + imageURI;
+                    _dbContext.SaveChanges();
+
+                    return "Success - " + _bucketURL + imageURI;
+                }
+                else // If not production, certificate not found
+                {
+                    return "Failed - Non Production Environment";
                 }
             }
         }

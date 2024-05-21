@@ -8,6 +8,7 @@ namespace OTTER.Data
     {
         void SendEmail(string email, string subject, string body);
         string CreateCertitificate(string name, Module module, DateTime date);
+        string UploadQuestionImage(IFormFile file, Question question);
         IEnumerable<Module> GetModules();
         Module GetModuleByID(int id);
         IEnumerable<Quiz> GetQuizzesByID(int id);
