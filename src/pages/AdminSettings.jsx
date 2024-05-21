@@ -165,7 +165,7 @@ export default function AdminSetting() {
         setFirstName("");
         setLastName("");
         setEmail("");
-        setPassword("");
+        // setPassword(""); //THOUGHT THIS WAS THE ISSUE
       } else {
         const errorData = await response.json();
         setMessage(`Error: ${errorData.message}`);
@@ -175,7 +175,7 @@ export default function AdminSetting() {
     }
   };
 
-  //ADDING A NEW ROLE AND ORGANISATION currently not working
+  //ADDING A NEW ROLE AND ORGANISATION - working
   const [newRoleName, setNewRoleName] = useState("");
   const [newOrgName, setNewOrgName] = useState("");
   const [roleMessage, setRoleMessage] = useState("");
@@ -237,7 +237,7 @@ export default function AdminSetting() {
   };
   return (
     <>
-      <div className="admin-body"></div>
+      <div className="admin-body-settings"></div>
       <AdminInfo />
       <div className="dashboard-container">
         <AdminDashboard />
