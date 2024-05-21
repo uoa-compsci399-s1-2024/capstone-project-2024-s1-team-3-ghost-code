@@ -240,7 +240,7 @@ namespace OTTER.Controllers
         [HttpPost("AddQuestion")]
         public ActionResult<Question> CreateQuestion(QuestionInputDto newQuestion)
         {
-            Question q = new Question { Module = _repo.GetModuleByID(newQuestion.ModID), Title = newQuestion.Title, Description = newQuestion.Description, ImageURL = newQuestion.ImageURL, QuestionType = newQuestion.QuestionType, Stage = newQuestion.Stage, Deleted = false};
+            Question q = new Question { Module = _repo.GetModuleByID(newQuestion.ModID), Title = newQuestion.Title, Description = newQuestion.Description, QuestionType = newQuestion.QuestionType, Stage = newQuestion.Stage, Deleted = false};
             _repo.AddQuestion(q);
             foreach (AnswerInputDto newAnswer in newQuestion.Answers)
             {
@@ -751,7 +751,7 @@ namespace OTTER.Controllers
         [SwaggerResponse(400, "File invalid OR Environment is not production")]
         [SwaggerResponse(401, "Token is invalid")]
         [SwaggerResponse(403, "Token not authorized to use resource")]
-        [SwaggerResponse(404, "Question ID is invalid")]
+        [SwaggerResponse(404, "Question with submitted ID not found")]
         [SwaggerResponse(413, "The file size is too large - reduce size to no larger than 1 MB")]
         [Authorize(Roles = "Admin")]
         [HttpPost("QuestionImageUpload/{questionID}")]
@@ -772,7 +772,7 @@ namespace OTTER.Controllers
             }
             else
             {
-                return NotFound();
+                return NotFound("Question with ID " + questionID + " not found.");
             }
         }
 

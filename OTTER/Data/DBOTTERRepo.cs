@@ -230,7 +230,7 @@ namespace OTTER.Data
             if (oldQ != null)
             {
                 DeleteQuestion(oldQ.QuestionID);
-                Question newQ = new Question { Module = oldQ.Module, Title = question.Title, Description = question.Description, ImageURL = question.ImageURL, QuestionType = oldQ.QuestionType, Stage = oldQ.Stage, Deleted = false };
+                Question newQ = new Question { Module = oldQ.Module, Title = question.Title, Description = question.Description, QuestionType = oldQ.QuestionType, Stage = oldQ.Stage, Deleted = false };
                 AddQuestion(newQ);
                 _dbContext.SaveChanges();
                 foreach(EditAnswerInputDto answer in question.Answers)
@@ -664,7 +664,6 @@ namespace OTTER.Data
             a.FirstName = admin.FirstName;
             a.LastName = admin.LastName;
             a.Email = admin.Email;
-            a.Password = BCrypt.Net.BCrypt.HashPassword(admin.Password);
             _dbContext.SaveChanges();
             a = _dbContext.Admins.First(e => e.AdminID == admin.AdminID);
             AdminOutputDto newAdmin = new AdminOutputDto { AdminID = a.AdminID, FirstName = a.FirstName, LastName = a.LastName, Email = a.Email };
