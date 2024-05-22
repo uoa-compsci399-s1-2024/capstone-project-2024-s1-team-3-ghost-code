@@ -283,6 +283,9 @@ export default function CreatingQuiz() {
     try {
       let response;
       if (questionID) {
+        if (imageFile) {
+            await handleImageUpload(imageFile);
+        }
         // Editing an existing question
         response = await redaxios.put(
           `https://api.tmstrainingquizzes.com/webapi/EditQuestion/`,
@@ -293,9 +296,7 @@ export default function CreatingQuiz() {
             },
           }
         );
-        if (imageFile) {
-            await handleImageUpload(imageFile);
-        }
+
 
       } else {
 
