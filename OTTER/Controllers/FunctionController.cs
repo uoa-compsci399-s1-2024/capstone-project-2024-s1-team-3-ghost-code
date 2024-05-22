@@ -716,7 +716,7 @@ namespace OTTER.Controllers
 
         [SwaggerOperation(
             Summary = "Determines if the practice quiz and final quiz have been completed for a given module",
-            Description = "Clinician priviliges required",
+            Description = "Clinician privileges required",
             Tags = new[] {"ClinicianFunctions"}
         )]
         [SwaggerResponse(200, "Success",typeof(QuizAccessDto))]
@@ -775,7 +775,7 @@ namespace OTTER.Controllers
 
         [SwaggerOperation(
             Summary = "Uploads an image for a given question",
-            Description = "Admin priviliges required. NOTE: This API will automatically attach the image to the provided question. If the question does not yet exist, the question should be created first, then the new question ID submitted to this endpoint.",
+            Description = "Admin privileges required. NOTE: This API will automatically attach the image to the provided question. If the question does not yet exist, the question should be created first, then the new question ID submitted to this endpoint.",
             Tags = new[] { "AdminQuizFunctions" }
         )]
         [SwaggerResponse(200, "Image successfully uploaded")]

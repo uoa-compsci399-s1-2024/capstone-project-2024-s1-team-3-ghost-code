@@ -19,5 +19,11 @@ namespace OTTER.Dtos
         public int Topic { get; set; }
         [Required]
         public List<AdminAnswerOutputDto> Answers { get; set; }
+        [Required]
+        public int attemptTotal { get; set; }
+        [Required]
+        public int correctTotal { get; set; }
+        [Required]
+        public int correctRate { get; set; }
     }
 }

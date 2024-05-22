@@ -171,7 +171,16 @@ namespace OTTER.Data
             IEnumerable<Question> Qs = _dbContext.Questions.Where(e => e.Module.ModuleID == id && e.Deleted == false).ToList<Question>();
             foreach (Question q in Qs)
             {
-                AdminQuestionOutputDto adminQuestionOutputDto = new AdminQuestionOutputDto { QuestionID = q.QuestionID, ModID = id, Title = q.Title, Description = q.Description, ImageURL = q.ImageURL, QuestionType = q.QuestionType, Topic = q.Topic, Answers = new List<AdminAnswerOutputDto>() };
+                int correctRate;
+                if (q.attemptTotal > 0)
+                {
+                    correctRate = (q.correctTotal / q.attemptTotal) * 100;
+                } else
+                {
+                    correctRate = 0;
+                }
+                
+                AdminQuestionOutputDto adminQuestionOutputDto = new AdminQuestionOutputDto { QuestionID = q.QuestionID, ModID = id, Title = q.Title, Description = q.Description, ImageURL = q.ImageURL, QuestionType = q.QuestionType, Topic = q.Topic, Answers = new List<AdminAnswerOutputDto>(), attemptTotal = q.attemptTotal, correctTotal = q.correctTotal, correctRate = correctRate };
                 IEnumerable<Answer> As = _dbContext.Answers.Include(e => e.Question).Where(e => e.Question.QuestionID == q.QuestionID).ToList<Answer>();
                 foreach (Answer a in As)
                 {
@@ -208,6 +217,7 @@ namespace OTTER.Data
                             i--;
                             continue;
                         }
+                        randq.attemptTotal = randq.attemptTotal + 1;
                         QuestionOutputDto qOutputDto = new QuestionOutputDto { QuestionID = randq.QuestionID, Title = randq.Title, Description = randq.Description, ImageURL = randq.ImageURL, QuestionType = randq.QuestionType, Topic = randq.Topic };
                         List<AnswerOutputDto> aOutputDto = new List<AnswerOutputDto>();
                         foreach (Answer answer in _dbContext.Answers.Where(e => e.Question.QuestionID == randq.QuestionID))
@@ -424,6 +434,8 @@ namespace OTTER.Data
                 }
                 if (multiMark == multiCount)
                 {
+                    Question correctQ = GetQuestionByID(submission.QuestionID.ElementAt(sequence - 1));
+                    correctQ.correctTotal = correctQ.correctTotal + 1;
                     mark++;
                 } 
             }
