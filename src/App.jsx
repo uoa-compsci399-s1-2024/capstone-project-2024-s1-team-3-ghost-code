@@ -10,6 +10,7 @@ import AClinicianProfile from "./pages/AClinicianProfile";
 import AdminSetting from "./pages/AdminSettings";
 import Quiz from "./pages/Quiz";
 import CreatingQuiz from "./pages/CreatingQuestions"
+import QuizCreation from "./pages/CreatingQuiz";
 
 import EditQuiz from "./pages/AEditQuiz";
 

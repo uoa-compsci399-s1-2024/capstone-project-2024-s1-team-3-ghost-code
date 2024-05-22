@@ -218,7 +218,7 @@ export default function CreatingQuiz() {
 
    // Check if stage is selected
    if (!stage.trim()) {
-    alert("Please select a stage.");
+    alert("Please select a topic.");
     return;
   }
 
