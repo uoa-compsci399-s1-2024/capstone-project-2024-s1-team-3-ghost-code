@@ -267,6 +267,12 @@ namespace OTTER.Migrations
                     b.Property<int>("Topic")
                         .HasColumnType("int");
 
+                    b.Property<int>("attemptTotal")
+                        .HasColumnType("int");
+
+                    b.Property<int>("correctTotal")
+                        .HasColumnType("int");
+
                     b.HasKey("QuestionID");
 
                     b.HasIndex("ModuleID");

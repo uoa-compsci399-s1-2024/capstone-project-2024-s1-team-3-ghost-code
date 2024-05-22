@@ -12,18 +12,13 @@ C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-cod
 C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Release\net8.0\linux-x64\Microsoft.CodeAnalysis.CSharp.dll
 C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Release\net8.0\linux-x64\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
 C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Release\net8.0\linux-x64\Microsoft.CodeAnalysis.Workspaces.dll
-C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Release\net8.0\linux-x64\Microsoft.Data.Sqlite.dll
 C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Release\net8.0\linux-x64\Microsoft.EntityFrameworkCore.dll
 C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Release\net8.0\linux-x64\Microsoft.EntityFrameworkCore.Abstractions.dll
 C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Release\net8.0\linux-x64\Microsoft.EntityFrameworkCore.Design.dll
 C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Release\net8.0\linux-x64\Microsoft.EntityFrameworkCore.Relational.dll
-C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Release\net8.0\linux-x64\Microsoft.EntityFrameworkCore.Sqlite.dll
 C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Release\net8.0\linux-x64\Microsoft.Extensions.DependencyModel.dll
 C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Release\net8.0\linux-x64\Microsoft.OpenApi.dll
 C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Release\net8.0\linux-x64\Mono.TextTemplating.dll
-C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Release\net8.0\linux-x64\SQLitePCLRaw.batteries_v2.dll
-C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Release\net8.0\linux-x64\SQLitePCLRaw.core.dll
-C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Release\net8.0\linux-x64\SQLitePCLRaw.provider.e_sqlite3.dll
 C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Release\net8.0\linux-x64\Swashbuckle.AspNetCore.Annotations.dll
 C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Release\net8.0\linux-x64\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Release\net8.0\linux-x64\Swashbuckle.AspNetCore.SwaggerGen.dll
@@ -86,7 +81,6 @@ C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-cod
 C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Release\net8.0\linux-x64\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Release\net8.0\linux-x64\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Release\net8.0\linux-x64\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Release\net8.0\linux-x64\libe_sqlite3.so
 C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Release\net8.0\linux-x64\Microsoft.CSharp.dll
 C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Release\net8.0\linux-x64\Microsoft.VisualBasic.Core.dll
 C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Release\net8.0\linux-x64\Microsoft.VisualBasic.dll

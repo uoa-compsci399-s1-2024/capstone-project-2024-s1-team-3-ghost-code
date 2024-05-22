@@ -18,6 +18,7 @@ namespace OTTER.Models
         public int Topic {  get; set; }
         [Required]
         public bool Deleted { get; set; }
-
+        public int attemptTotal { get; set; } = 0;
+        public int correctTotal { get; set; } = 0;
     }
 }
