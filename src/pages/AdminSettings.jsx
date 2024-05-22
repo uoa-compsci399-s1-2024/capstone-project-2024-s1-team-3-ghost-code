@@ -4,7 +4,8 @@ import AdminInfo from "../components/AdminComponent/adminInfo";
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "redaxios";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 export default function AdminSetting() {
   const navigate = useNavigate();
   const adminToken = sessionStorage.getItem("adminToken");
@@ -180,14 +181,53 @@ export default function AdminSetting() {
   };
 
   //ADDING A NEW ROLE AND ORGANISATION - working
-  const [newRoleName, setNewRoleName] = useState("");
-  const [newOrgName, setNewOrgName] = useState("");
+  const [roles, setRoles] = useState([]);
+  const [organizations, setOrganizations] = useState([]);
+  const [searchRole, setSearchRole] = useState("");
+  const [searchOrg, setSearchOrg] = useState("");
   const [roleMessage, setRoleMessage] = useState("");
   const [organizationMessage, setOrganizationMessage] = useState("");
 
-  const handleRoleSubmit = async (e) => {
-    e.preventDefault();
-    const roleApiUrl = "https://api.tmstrainingquizzes.com/auth/Login"; // replace with your role API endpoint
+  useEffect(() => {
+    fetchRoles();
+    fetchOrganizations();
+  }, []);
+
+  const fetchRoles = async () => {
+    const rolesApiUrl = "https://api.tmstrainingquizzes.com/webapi/GetRoles";
+    try {
+      const response = await fetch(rolesApiUrl, {
+        headers: {
+          Authorization: `Bearer ${adminToken}`,
+        },
+      });
+      const data = await response.json();
+      setRoles(data);
+    } catch (error) {
+      console.error("Error fetching roles:", error);
+    }
+  };
+
+  const fetchOrganizations = async () => {
+    const organizationsApiUrl =
+      "https://api.tmstrainingquizzes.com/webapi/GetOrganizations";
+    try {
+      const response = await fetch(organizationsApiUrl, {
+        headers: {
+          Authorization: `Bearer ${adminToken}`,
+        },
+      });
+      const data = await response.json();
+      setOrganizations(data);
+    } catch (error) {
+      console.error("Error fetching organizations:", error);
+    }
+  };
+
+  //HANDLING SUBMIT NEW ROLE
+  const handleRoleSubmit = async () => {
+    const roleApiUrl = "https://api.tmstrainingquizzes.com/webapi/AddRole";
+    const rolePayload = { roleName: searchRole };
 
     try {
       const response = await fetch(roleApiUrl, {
@@ -196,12 +236,13 @@ export default function AdminSetting() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${adminToken}`,
         },
-        body: JSON.stringify({ role: newRoleName }),
+        body: JSON.stringify(rolePayload),
       });
 
       if (response.ok) {
         setRoleMessage("Role added successfully!");
-        setNewRoleName("");
+        setSearchRole("");
+        fetchRoles();
       } else {
         const errorData = await response.json();
         setRoleMessage(`Error adding role: ${errorData.message}`);
@@ -210,10 +251,12 @@ export default function AdminSetting() {
       setRoleMessage(`Error adding role: ${error.message}`);
     }
   };
+  //HANDLING SUBMIT NEW ORGANISATION
 
-  const handleOrgSubmit = async (e) => {
-    e.preventDefault();
-    const organizationApiUrl = "https://api.tmstrainingquizzes.com/auth/Login";
+  const handleOrgSubmit = async () => {
+    const organizationApiUrl =
+      "https://api.tmstrainingquizzes.com/webapi/AddOrganization";
+    const organizationPayload = { orgName: searchOrg };
 
     try {
       const response = await fetch(organizationApiUrl, {
@@ -222,12 +265,13 @@ export default function AdminSetting() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${adminToken}`,
         },
-        body: JSON.stringify({ organization: newOrgName }),
+        body: JSON.stringify(organizationPayload),
       });
 
       if (response.ok) {
         setOrganizationMessage("Organization added successfully!");
-        setNewOrgName("");
+        setSearchOrg("");
+        fetchOrganizations();
       } else {
         const errorData = await response.json();
         setOrganizationMessage(
@@ -238,6 +282,71 @@ export default function AdminSetting() {
       setOrganizationMessage(`Error adding organization: ${error.message}`);
     }
   };
+
+  //HANDLING DELETING ROLE
+  const handleDeleteRole = async (roleID) => {
+    const deleteRoleApiUrl = `https://api.tmstrainingquizzes.com/webapi/DeleteRole/${parseInt(
+      roleID
+    )}`;
+
+    try {
+      const response = await fetch(deleteRoleApiUrl, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${adminToken}`,
+        },
+      });
+
+      if (response.ok) {
+        setRoleMessage("Role deleted successfully!");
+        fetchRoles();
+      } else {
+        const errorData = await response.json();
+        setRoleMessage(`Error deleting role: ${errorData.message}`);
+      }
+    } catch (error) {
+      setRoleMessage(`Error deleting role: ${error.message}`);
+    }
+  };
+
+  //HANDLING DELETE ORGANISATION
+  const handleDeleteOrg = async (orgID) => {
+    const deleteOrgApiUrl = `https://api.tmstrainingquizzes.com/webapi/DeleteOrganization/${parseInt(
+      orgID
+    )}`;
+
+    try {
+      const response = await fetch(deleteOrgApiUrl, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${adminToken}`,
+        },
+      });
+
+      if (response.ok) {
+        setOrganizationMessage("Organization deleted successfully!");
+        fetchOrganizations();
+      } else {
+        const errorData = await response.json();
+        setOrganizationMessage(
+          `Error deleting organization: ${errorData.message}`
+        );
+      }
+    } catch (error) {
+      setOrganizationMessage(`Error deleting organization: ${error.message}`);
+    }
+  };
+
+  const filteredRoles = roles.filter((role) =>
+    role.roleName.toLowerCase().includes(searchRole.toLowerCase())
+  );
+
+  const filteredOrganizations = organizations.filter((org) =>
+    org.orgName.toLowerCase().includes(searchOrg.toLowerCase())
+  );
+
   return (
     <>
       <div className="admin-body-settings"></div>
@@ -381,32 +490,68 @@ export default function AdminSetting() {
                   information in the boxes below and submitting it.
                 </p>
               </div>
-              <div className="information">
-                <input
-                  type="text"
-                  className="input-box-settings"
-                  id="firstname"
-                  placeholder="Add New Discipline"
-                  value={newRoleName}
-                  onChange={(e) => setNewRoleName(e.target.value)}
-                />
-                <button className="btn-settings" onClick={handleRoleSubmit}>
-                  Add New Discipline
-                </button>
-                {roleMessage && <p>{roleMessage}</p>}
+              <div className="information-container">
+                <div className="information-ro">
+                  <h3>Disciplines</h3>
+                  <div className="input-container">
+                    <input
+                      type="text"
+                      className="input-box-settings"
+                      placeholder="Search or Add Disciplines"
+                      value={searchRole}
+                      onChange={(e) => setSearchRole(e.target.value)}
+                    />
+                    <button
+                      className="btn-settings"
+                      onClick={() => handleRoleSubmit()}
+                      disabled={filteredRoles.length > 0}
+                    >
+                      Add Discipline
+                    </button>
+                  </div>
+                  <ul>
+                    {filteredRoles.map((role) => (
+                      <li key={role.roleID}>
+                        {role.roleName}
+                        <button onClick={() => handleDeleteRole(role.roleID)}>
+                          Delete
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                  {roleMessage && <p>{roleMessage}</p>}
+                </div>
 
-                <input
-                  type="text"
-                  className="input-box-settings"
-                  id="lastname"
-                  placeholder="Add New Site"
-                  value={newOrgName}
-                  onChange={(e) => setNewOrgName(e.target.value)}
-                />
-                <button className="btn-settings" onClick={handleOrgSubmit}>
-                  Add New Site
-                </button>
-                {organizationMessage && <p>{organizationMessage}</p>}
+                <div className="information-ro">
+                  <h3>Sites</h3>
+                  <div className="input-container">
+                    <input
+                      type="text"
+                      className="input-box-settings"
+                      placeholder="Search or Add Sites"
+                      value={searchOrg}
+                      onChange={(e) => setSearchOrg(e.target.value)}
+                    />
+                    <button
+                      className="btn-settings"
+                      onClick={() => handleOrgSubmit()}
+                      disabled={filteredOrganizations.length > 0}
+                    >
+                      Add Site
+                    </button>
+                  </div>
+                  <ul>
+                    {filteredOrganizations.map((org) => (
+                      <li key={org.orgID}>
+                        {org.orgName}
+                        <button onClick={() => handleDeleteOrg(org.orgID)}>
+                          <FontAwesomeIcon icon="fa-solid fa-trash" />
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                  {organizationMessage && <p>{organizationMessage}</p>}
+                </div>
               </div>
             </div>
           </div>

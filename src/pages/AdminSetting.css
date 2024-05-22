@@ -76,31 +76,45 @@
     margin-left: 100px;
 
 }
-.roles-org-container{
-    overflow: hidden;
-    display: flex;
-    justify-content: space-between;
-    margin-left: 100px;
-    margin-right: 2rem;
-    background-color: darkgrey;
-    transition: max-height 650ms;
-}
 
-.information-roles-org {
+.information-ro {
     
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        margin: 1rem;
+         margin-left: 1rem; 
         flex: 1;
         overflow: hidden;
+        max-height: 0;
+    overflow: hidden;
+    position: relative;
+    background-color: darkgrey;
+    transition: max-height 650ms;
+    /* margin-left: 100px; */
 
 }
+.information-container{
+    display: flex;
+}
 
-.information-roles-org input {
+.input-box-settings {
+    flex: 1; /* Let the input box take up remaining space */
+    margin-right: 10px; /* Add some space between input and button */
+    margin-bottom: 10px;
+  }
+
+  .input-container{
+    display: flex;
+  }
+
+.information-ro input {
     font-size: .8rem;
     color: black;
     padding: 1.5rem;
+}
+
+.information-ro li{
+    list-style-type: none;
 }
 .information-text {
     display: flex;
@@ -112,10 +126,6 @@
     position: relative;
     background-color: darkgrey;
     transition: max-height 650ms;
-}
-
-.accordion-item:target .information-roles-org{
-    max-height: 20rem;
 
 }
 
@@ -126,6 +136,10 @@
 }
 
 .accordion-item:target .information{
+    max-height: 20rem;
+
+}
+.accordion-item:target .information-ro{
     max-height: 20rem;
 
 }
@@ -224,3 +238,5 @@
     overflow-y: auto;
 
 }
+
+  
