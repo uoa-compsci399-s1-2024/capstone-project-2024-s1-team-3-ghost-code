@@ -568,15 +568,16 @@ namespace OTTER.Controllers
         [HttpPut("EditOrganization")]
         public ActionResult<Organization> EditOrganization(Organization org)
         {
-            if (_repo.GetOrganizationByID(org.OrgID) != null)
-            {
-                _repo.EditOrganization(org);
-                return Ok("Organization updated.");
-            }
-            else
+            if (_repo.GetOrganizationByID(org.OrgID) == null)
             {
                 return NotFound("Organization with ID " + org.OrgID + " not found.");
             }
+            if (org.OrgID == 1)
+            {
+                return BadRequest("Cannot edit 'Other' organisation.");
+            }
+            _repo.EditOrganization(org);
+            return Ok("Organization updated.");
         }
 
         [SwaggerOperation(
@@ -593,19 +594,20 @@ namespace OTTER.Controllers
         public ActionResult DeleteOrganization(int orgID)
         {
             Organization organization = _repo.GetOrganizationByID(orgID);
-            if (organization != null)
-            {
-                _repo.DeleteOrganization(organization);
-                return Ok("Organization deleted.");
-            }
-            else
+            if (organization == null)
             {
                 return NotFound("Organization with ID " + orgID + " not found.");
             }
+            if (organization.OrgID == 1)
+            {
+                return BadRequest("Cannot delete 'Other' organisation.");
+            }
+            _repo.DeleteOrganization(organization);
+            return Ok("Organization deleted.");
         }
        
         [SwaggerOperation(
-            Summary = "Adds a role to the current lsit of roles",
+            Summary = "Adds a role to the current list of roles",
             Description = "Admin privileges required",
             Tags = new[] { "AdminUserFunctions" }
         )]
@@ -640,15 +642,16 @@ namespace OTTER.Controllers
         [HttpPut("EditRole")]
         public ActionResult<Role> EditRole(Role role)
         {
-            if (_repo.GetRoleByID(role.RoleID) != null)
-            {
-                _repo.EditRole(role);
-                return Ok("Role updated.");
-            }
-            else
+            if (_repo.GetRoleByID(role.RoleID) == null)
             {
                 return NotFound("Role with ID " + role.RoleID + " not found.");
             }
+            if (role.RoleID == 1)
+            {
+                return BadRequest("Cannot edit 'Other' role.");
+            }
+            _repo.EditRole(role);
+            return Ok("Role updated.");
         }
 
         [SwaggerOperation(
@@ -665,15 +668,16 @@ namespace OTTER.Controllers
         public ActionResult DeleteRole(int roleID)
         {
             Role role = _repo.GetRoleByID(roleID);
-            if (role != null)
-            {
-                _repo.DeleteRole(role);
-                return Ok("Role deleted.");
-            }
-            else
+            if (role == null)
             {
                 return NotFound("Role with ID " + roleID + " not found.");
             }
+            if (role.RoleID == 1)
+            {
+                return BadRequest("Cannot delete 'Other' role.");
+            }
+            _repo.DeleteRole(role);
+            return Ok("Role deleted.");
         }
 
         [SwaggerOperation(
@@ -686,7 +690,7 @@ namespace OTTER.Controllers
         [SwaggerResponse(401, "Token is invalid")]
         [SwaggerResponse(403, "Token not authorized to view resource")]
         [Authorize(Roles = "Admin")]
-        [HttpGet("GetStats")]
+        [HttpPost("GetStats")]
         public ActionResult GetStats(StatRequestDto statIn)
         {
             if (statIn.SearchStart != null && statIn.SearchEnd != null && DateTime.Compare(statIn.SearchStart, statIn.SearchEnd) <= 0)

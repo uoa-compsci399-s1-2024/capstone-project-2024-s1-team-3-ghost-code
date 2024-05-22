@@ -23,6 +23,7 @@ namespace OTTER.Data
     public class DBOTTERRepo : IOTTERRepo
     {
         private readonly OTTERDBContext _dbContext;
+        private readonly string _adminEmail = "angus@wrightfamily.nz";
         private readonly string _emailApiUri = "https://script.google.com/macros/s/AKfycbxju7WbjRdS5w3e_PNTmuVgGU0l-ZA3L_Lu_FVkjAnSb1h0BTg_cDwY0czF8BWOig6z/exec";
         private readonly string _bucketURL = "https://s3.ap-southeast-2.amazonaws.com/certificate.tmstrainingquizzes.com/";
         public DBOTTERRepo(OTTERDBContext dbContext)
@@ -481,6 +482,14 @@ namespace OTTER.Data
         {
             EntityEntry<User> u = _dbContext.Users.Add(user);
             _dbContext.SaveChanges();
+            if (user.Role == GetRoleByID(1) || user.Organization == GetOrganizationByID(1))
+            {
+                SendEmail(_adminEmail, "New Clinician Registered with 'Other' Discipline or Site", $"Hi Admin,<br><br>" +
+                    $"A new clinician has registered on the site and has selected the 'Other' option for either their Discipline or Site. " +
+                    $"You should contact them to find out what option they wanted to select, and manually add the option to the list of Disciplines or Sites." +
+                    $"<br><br>Clinician Name: {user.FirstName} {user.LastName}<br>Clinician Email: {user.UserEmail}<br>Discipline: {user.Role.RoleName}<br>" +
+                    $"Site: {user.Organization.OrgName}<br><br>This is a system generated email.");
+            }
             return u.Entity;
         }
 
