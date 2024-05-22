@@ -407,7 +407,7 @@ export default function AdminSetting() {
                 <i className="fa-solid fa-caret-up"></i>
               </a>
               <div className="information-text">
-                <p>Edit your details</p>
+                <p className="information-text">Edit your details.</p>
               </div>
               <form className="information" onSubmit={handleSubmit}>
                 <input
@@ -449,10 +449,10 @@ export default function AdminSetting() {
                 <i className="fa-solid fa-caret-up"></i>
               </a>
               <div className="information-text">
-                <p>
+                <p className="information-text">
                   Once you submit this information, please contact the recipient
                   with their login information and prompt them to reset their
-                  password
+                  password.
                 </p>
               </div>
               <form onSubmit={handleSubmitNewAdmin} className="information">
@@ -529,7 +529,7 @@ export default function AdminSetting() {
                 <i className="fa-solid fa-caret-up"></i>
               </a>
               <div className="information-text">
-                <p>
+                <p className="information-text">
                   You may add new Sites and Disciplines by entering relevant
                   information in the boxes below and submitting it.
                 </p>
