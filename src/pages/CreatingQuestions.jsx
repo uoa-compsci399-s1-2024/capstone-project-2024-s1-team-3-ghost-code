@@ -269,7 +269,7 @@ export default function CreatingQuiz() {
       description: "",
       //imageURL: "",
       //questionType: questionType,
-      stage: stage,
+      topic: parseInt(stage),
       answers: answers.map((answer, index) => ({
         //answerID: answer.answerID, // Include answer ID for editing
         answerText: answer.answerText,
@@ -308,7 +308,7 @@ export default function CreatingQuiz() {
             title: question,
             description: "",
             questionType: questionTypeV,
-            stage: stage,
+            topic: parseInt(stage),
             answers: answers.map((answer, index) => ({
               answerType: questionTypeV,
               answerText: answer.answerText,
@@ -383,9 +383,10 @@ export default function CreatingQuiz() {
           value={stage}
           onChange={(event) => setStage(event.target.value)}
         >
-          <option value="">Select Stage</option>
-          <option value="Practice">Practice</option>
-          <option value="Final">Final</option>
+          <option value="">Select Topic</option>
+          <option value="1">Topic One</option>
+          <option value="2">Topic Two</option>
+          <option value="3">Topic Three</option>
         </select>
         <div className="new-answers">
           {answers.map((answer, index) => (

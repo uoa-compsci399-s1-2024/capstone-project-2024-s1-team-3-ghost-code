@@ -138,30 +138,46 @@ function QuizDashboard() {
     const handleFinalQuizClick = async (module) => {
       try {
         const accessStatus = await fetchModuleAccessStatus(module.moduleID);
-        if (accessStatus.practicePassed && !accessStatus.finalPassed) {
-          const response = await redaxios.get(`https://api.tmstrainingquizzes.com/webapi/GetQuizzesByModID/${module.moduleID}`, {
-            headers: {
-              "Authorization": `Bearer ${clinicianToken}`
+        if (module.sequence === 7) {
+          if (accessStatus.practicePassed && accessStatus.finalPassed) {
+            const response = await redaxios.get(`https://api.tmstrainingquizzes.com/webapi/GetQuizzesByModID/${module.moduleID}`, {
+              headers: {
+                "Authorization": `Bearer ${clinicianToken}`
+              }
+            });
+            const finalQuizID = response.data[0]?.quizID; // Assume first quiz ID is for the recertification
+            if (finalQuizID) {
+              navigateToQuizPage(finalQuizID);
+            } else {
+              console.error("Final quiz ID not found.");
             }
-          });
-          const finalQuizID = response.data[1]?.quizID;
-          if (finalQuizID) {
-            navigateToQuizPage(finalQuizID);
           } else {
-            console.error("Final quiz ID not found.");
+            alert(accessStatus.description);
           }
-        } else if (!accessStatus.practicePassed) {
-          console.log("Complete practice quiz first.");
-          alert(accessStatus.description)
-          
-        } else if (accessStatus.finalPassed) {
-          console.log("Final quiz has already been completed.");
-          alert(accessStatus.description)
+        } else {
+          if (accessStatus.practicePassed && !accessStatus.finalPassed) {
+            const response = await redaxios.get(`https://api.tmstrainingquizzes.com/webapi/GetQuizzesByModID/${module.moduleID}`, {
+              headers: {
+                "Authorization": `Bearer ${clinicianToken}`
+              }
+            });
+            const finalQuizID = response.data[1]?.quizID;
+            if (finalQuizID) {
+              navigateToQuizPage(finalQuizID);
+            } else {
+              console.error("Final quiz ID not found.");
+            }
+          } else if (!accessStatus.practicePassed) {
+            alert(accessStatus.description);
+          } else if (accessStatus.finalPassed) {
+            alert(accessStatus.description);
+          }
         }
       } catch (error) {
         console.error('Error handling final quiz click:', error);
       }
     };
+  
     
 
   const navigateToQuizPage = (quizID) => {
@@ -195,29 +211,27 @@ function QuizDashboard() {
                   color: moduleAccessStatusList[module.sequence - 1]?.finalPassed === true ? "#4CAF50" : "#ccc",
                 }}
               />
-
               {selectedModule &&
                 selectedModule.moduleID === module.moduleID && (
                   <div className="module-buttons">
-                    <button
-                      className="module-button practice"
-                      onClick={() => handlePracticeQuizClick(module)}
-                  
-                    >
-                      Practice Quiz
-                    </button>
+                    {module.sequence !== 7 && (
+                      <button
+                        className="module-button practice"
+                        onClick={() => handlePracticeQuizClick(module)}
+                      >
+                        Practice Quiz
+                      </button>
+                    )}
                     <div className="tooltip">
-                    <button
-                      className={`module-button final ${!practisePassed || finalPassed ? 'disabled-button' : ''}`}
-                      onClick={() => handleFinalQuizClick(module)}
-                      disabled={!practisePassed || finalPassed}
-                    >
-                      Final Quiz
-                    </button>
-                    <span className="tooltiptext">{selectedModule && selectedModule.moduleID === module.moduleID ? currentAccessDescription : ''}</span>
-                  </div>
-
-                 
+                      <button
+                        className={`module-button final ${(module.sequence === 7 && (!practisePassed || !finalPassed)) || (!practisePassed && module.sequence !== 7) || finalPassed ? 'disabled-button' : ''}`}
+                        onClick={() => handleFinalQuizClick(module)}
+                        disabled={(module.sequence === 7 && (!practisePassed || !finalPassed)) || (!practisePassed && module.sequence !== 7) || finalPassed}
+                      >
+                        Final Quiz
+                      </button>
+                      <span className="tooltiptext">{selectedModule && selectedModule.moduleID === module.moduleID ? currentAccessDescription : ''}</span>
+                    </div>
                   </div>
                 )}
             </div>

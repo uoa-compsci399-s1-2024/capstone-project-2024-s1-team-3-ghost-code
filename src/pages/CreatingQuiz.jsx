@@ -158,12 +158,14 @@ export function QuestionsDisplay() {
             {searchResults.map((result) => (
               <div key={result.questionID} className="AdminClientSearchResultsItemQuiz">
                 <div className="AdminClientSearchResultName">{result.title}</div>
+                <div className="buttons">
                 <button className="edit-button" onClick={() => handleEditQuestion(result.questionID)}>
                   Edit Question
                 </button>
                 <button className="delete-button" onClick={() => handleDeleteQuestion(result.questionID)}>
                   Delete Question
                 </button>
+                </div>
               </div>
             ))}
           </div>

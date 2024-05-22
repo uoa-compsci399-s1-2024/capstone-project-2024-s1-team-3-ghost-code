@@ -20,11 +20,22 @@ function ClientDashboard() {
       >
         <button className="clientButton">Verify Training</button>
       </Link>
+      <br></br>
+      <br></br>
 
       <Link to="/quizDashboard" style={{ textDecoration: "none" }}>
         <button className="clientButton">Dashboard</button>
       </Link>
 
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
       <br></br>
       <br></br>
       <br></br>
