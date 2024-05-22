@@ -9,7 +9,7 @@ const PracQuiz = () => {
   
   const [questions, setQuestions] = useState([]);
   const [activeQuestion, setActiveQuestion] = useState(0);
-  const [selectedAnswers, setSelectedAnswers] = useState([]);
+  
   const [showResult, setShowResult] = useState(false);
   const [selectedAnswerIndexes, setSelectedAnswerIndexes] = useState([]);
   const cliniciantoken = sessionStorage.getItem('cliniciantoken');
@@ -427,7 +427,7 @@ return (
               <div className="result">
                 <h3>Result</h3>
                 <p>Total Questions: <span>{questions.length}</span></p>
-                <p>Total Score: <span>{result.score}</span></p>
+                <p>Total Score: <span>{result.score+"%"}</span></p>
                 <p>Correct Answers: <span>{result.correctAnswers}</span></p>
               <p>Wrong Answers: <span>{result.wrongAnswers}</span></p>
               
@@ -492,17 +492,9 @@ return (
                       )}
                     </li>
                   ))}
-
-                  </ul>
-
-
-                    
+                  </ul>                    
                   </div>
                 </div>
-
-
-
-                
               </div>
             </div>
           )}

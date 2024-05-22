@@ -236,7 +236,7 @@
         }
 
         .btn-terms-accept.enabled {
-          cursor: pointer;
+        cursor: pointer;
         opacity: 1;
         background-color: pink;
         color: orange;
@@ -271,4 +271,18 @@
           .btn-terms-message.visible {
             top: -65px;
             opacity: 1;
+          }
+
+          .modal-background {
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+          }
+          .checkbox-container {
+            z-index: 1050; /* High z-index to ensure visibility */
+          }
+
+          .terms-link {
+            cursor: pointer;
+          }
+          .cb {
+            cursor: pointer;
           }

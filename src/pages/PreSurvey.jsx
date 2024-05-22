@@ -13,7 +13,7 @@ function Presurvey() {
   const [organisations, setOrganisations] = useState([]);
   const [orgIDs, setOrgsID] = useState([]);
   const [roleIDs, setRolesID] = useState([]);
-  const [showModal, setShowModal] = useState(false); // State to manage modal visibility
+  const [showModal, setShowModal] = useState(true); // State to manage modal visibility
 
   const navigate = useNavigate();
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -201,12 +201,12 @@ function Presurvey() {
                 <div className="tc ">
                   <input type="checkbox" className="cb" required />
                   By ticking the box, you agree to the
-                  <span className="terms-link" onClick={() => setShowModal(true)}> Terms and Conditions </span>
+                  <span className="terms-link" onClick={() => setShowModal(true)}> <font color="#485696" ><strong><u>Privacy Disclosure</u></strong></font> </span>
                   of the Verify Quiz Platform.
                 </div>
                 <div className="forgot">
                   <Link to="/cliniciansign">
-                    Already did the survey? continue here
+                  <font color="#485696"><strong><u>Already did the survey? continue here</u></strong></font>
                   </Link>
                 </div>
               </div>
