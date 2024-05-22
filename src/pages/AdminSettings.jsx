@@ -119,6 +119,7 @@ export default function AdminSetting() {
         // Update admin details state with the new values
         setAdmindetails(requestBody);
         alert("Admin updated successfully!");
+        showMessage("Admin updated successfully!", "role");
       } else if (response.status === 409) {
         throw new Error("A user with this email already exists.");
       } else {
@@ -162,6 +163,7 @@ export default function AdminSetting() {
 
       if (response.ok) {
         setMessage("Admin user created successfully.");
+        showMessage("Admin user created successfully.", "role");
         // Optionally, reset form fields
         setFirstName("");
         setLastName("");
@@ -245,6 +247,7 @@ export default function AdminSetting() {
 
       if (response.ok) {
         setRoleMessage("Role added successfully!");
+        showMessage("Role added successfully!", "role");
         setSearchRole("");
         fetchRoles();
       } else {
@@ -274,6 +277,7 @@ export default function AdminSetting() {
 
       if (response.ok) {
         setOrganizationMessage("Organization added successfully!");
+        showMessage("Organization added successfully!", "organization");
         setSearchOrg("");
         fetchOrganizations();
       } else {
@@ -286,6 +290,39 @@ export default function AdminSetting() {
       setOrganizationMessage(`Error adding organization: ${error.message}`);
     }
   };
+  const [showRoleMessage, setShowRoleMessage] = useState(false);
+  const [showOrganizationMessage, setShowOrganizationMessage] = useState(false);
+
+  // Function to show message and hide it after 3 seconds
+  const showMessage = (message, type) => {
+    switch (type) {
+      case "role":
+        setShowRoleMessage(true);
+        break;
+      case "organization":
+        setShowOrganizationMessage(true);
+        break;
+    }
+    setTimeout(() => {
+      switch (type) {
+        case "role":
+          setShowRoleMessage(false);
+          break;
+        case "organization":
+          setShowOrganizationMessage(false);
+          break;
+      }
+    }, 3000); // Hide message after 3 seconds
+  };
+
+  // JSX rendering remains largely unchanged
+  // Ensure to conditionally render messages based on showRoleMessage and showOrganizationMessage
+  {
+    showRoleMessage && <p>{roleMessage}</p>;
+  }
+  {
+    showOrganizationMessage && <p>{organizationMessage}</p>;
+  }
 
   //HANDLING DELETING ROLE
   const handleDeleteRole = async (roleID) => {
@@ -304,6 +341,7 @@ export default function AdminSetting() {
 
       if (response.ok) {
         setRoleMessage("Role deleted successfully!");
+        showMessage("Role deleted successfully!", "role");
         fetchRoles();
       } else {
         const errorData = await response.json();
@@ -331,6 +369,8 @@ export default function AdminSetting() {
 
       if (response.ok) {
         setOrganizationMessage("Organization deleted successfully!");
+        showMessage("Organization deleted successfully!", "organization");
+
         fetchOrganizations();
       } else {
         const errorData = await response.json();
@@ -513,6 +553,7 @@ export default function AdminSetting() {
                       Add Discipline
                     </button>
                   </div>
+                  {showRoleMessage && <p>{roleMessage}</p>}
                   <ul className="scrollable-list">
                     {filteredRoles.map((role) => (
                       <li key={role.roleID}>
@@ -533,8 +574,6 @@ export default function AdminSetting() {
                       </li>
                     ))}
                   </ul>
-
-                  {roleMessage && <p>{roleMessage}</p>}
                 </div>
 
                 <div className="information-ro">
@@ -555,6 +594,7 @@ export default function AdminSetting() {
                       Add Site
                     </button>
                   </div>
+                  {showOrganizationMessage && <p>{organizationMessage}</p>}
                   <ul className="scrollable-list">
                     {filteredOrganizations.map((org) => (
                       <li key={org.orgID}>
@@ -575,8 +615,6 @@ export default function AdminSetting() {
                       </li>
                     ))}
                   </ul>
-
-                  {organizationMessage && <p>{organizationMessage}</p>}
                 </div>
               </div>
             </div>
