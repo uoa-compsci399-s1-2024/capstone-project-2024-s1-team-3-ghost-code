@@ -181,6 +181,7 @@ export default function AdminSetting() {
   };
 
   //ADDING A NEW ROLE AND ORGANISATION - working
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [roles, setRoles] = useState([]);
   const [organizations, setOrganizations] = useState([]);
   const [searchRole, setSearchRole] = useState("");
@@ -301,6 +302,7 @@ export default function AdminSetting() {
       if (response.ok) {
         setRoleMessage("Role deleted successfully!");
         fetchRoles();
+        setShowDeleteModal(false);
       } else {
         const errorData = await response.json();
         setRoleMessage(`Error deleting role: ${errorData.message}`);
@@ -328,6 +330,7 @@ export default function AdminSetting() {
       if (response.ok) {
         setOrganizationMessage("Organization deleted successfully!");
         fetchOrganizations();
+        setShowDeleteModal(false);
       } else {
         const errorData = await response.json();
         setOrganizationMessage(
@@ -346,6 +349,14 @@ export default function AdminSetting() {
   const filteredOrganizations = organizations.filter((org) =>
     org.orgName.toLowerCase().includes(searchOrg.toLowerCase())
   );
+
+  const closeDeleteModal = () => {
+    console.log("Closing delete modal");
+    setShowDeleteModal(false);
+    setQuestionToDelete(null);
+  };
+
+  console.log("showDeleteModal:", showDeleteModal);
 
   return (
     <>
@@ -545,7 +556,7 @@ export default function AdminSetting() {
                       <li key={org.orgID}>
                         {org.orgName}
                         <button onClick={() => handleDeleteOrg(org.orgID)}>
-                          <FontAwesomeIcon icon="fa-solid fa-trash" />
+                          Delete
                         </button>
                       </li>
                     ))}
@@ -554,6 +565,23 @@ export default function AdminSetting() {
                 </div>
               </div>
             </div>
+            {showDeleteModal && (
+              <div className="modal">
+                <div className="modal-content">
+                  <h2>Confirm Deletion</h2>
+                  <p>Are you sure you want to delete this question?</p>
+                  <button
+                    className="confirm-button"
+                    onClick={confirmDeleteQuestion}
+                  >
+                    Yes, delete
+                  </button>
+                  <button className="cancel-button" onClick={closeDeleteModal}>
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
