@@ -315,15 +315,6 @@ export default function AdminSetting() {
     }, 3000); // Hide message after 3 seconds
   };
 
-  // JSX rendering remains largely unchanged
-  // Ensure to conditionally render messages based on showRoleMessage and showOrganizationMessage
-  {
-    showRoleMessage && <p>{roleMessage}</p>;
-  }
-  {
-    showOrganizationMessage && <p>{organizationMessage}</p>;
-  }
-
   //HANDLING DELETING ROLE
   const handleDeleteRole = async (roleID) => {
     const deleteRoleApiUrl = `https://api.tmstrainingquizzes.com/webapi/DeleteRole/${parseInt(
