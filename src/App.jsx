@@ -8,12 +8,10 @@ import AClinicianSearch from "./pages/AClinicianSearch";
 import QuizDashboard from "./pages/QuizDashboard";
 import AClinicianProfile from "./pages/AClinicianProfile";
 import AdminSetting from "./pages/AdminSettings";
+import QuizCreation from "./pages/CreatingQuiz";
 import Quiz from "./pages/Quiz";
 import CreatingQuiz from "./pages/CreatingQuestions";
-import QuizCreation from "./pages/CreatingQuiz";
 import AClinicianMyProfile from "./pages/ClinicianMyProfile";
-import EditQuiz from "./pages/AEditQuiz";
-
 const getAdminToken = () => sessionStorage.getItem("adminToken");
 
 // ProtectedRoute component to protect admin-only routes
@@ -48,7 +46,14 @@ function App() {
           <Route path="/adminlogin" element={<AdminLoginComponents />} />
           <Route path="/presurvey" element={<Presurvey />} />
           <Route path="/cliniciansign" element={<ClinicianSignComponents />} />
-
+          <Route
+            path="/createquestion"
+            element={<ProtectedRoute element={<CreatingQuiz />} />}
+          />
+          <Route
+            path="/createquiz"
+            element={<ProtectedRoute element={<QuizCreation />} />}
+          />
           <Route
             path="/adminSettings"
             element={<ProtectedRoute element={<AdminSetting />} />}
@@ -60,16 +65,9 @@ function App() {
           />
 
           <Route
-            path="/clinicianMyProfile"
-            element={
-              <ClinicianProtectedRoute element={<AClinicianMyProfile />} />
-            }
-          />
-
-          <Route
             path="/clinicianProfile"
             element={
-              <ClinicianProtectedRoute element={<AClinicianProfile />} />
+              <ClinicianProtectedRoute element={<AClinicianMyProfile />} />
             }
           />
           <Route
@@ -88,26 +86,6 @@ function App() {
           />
 
           <Route path="/quiz" element={<Quiz />} />
-
-          <Route
-            path="/createquiz/:moduleID"
-            element={<ProtectedRoute element={<QuizCreation />} />}
-          />
-
-          <Route
-            path="/EditQuiz"
-            element={<ProtectedRoute element={<EditQuiz />} />}
-          />
-
-          <Route
-            path="/createquestion/:moduleID"
-            element={<ProtectedRoute element={<CreatingQuiz mode="add" />} />}
-          />
-
-          <Route
-            path="/createquestion/:moduleID/:questionID"
-            element={<ProtectedRoute element={<CreatingQuiz mode="edit" />} />}
-          />
         </Routes>
       </BrowserRouter>
     </div>
