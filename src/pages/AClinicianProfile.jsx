@@ -18,16 +18,24 @@ function AClinicianProfile() {
 
     const [organizations, setOrganizations] = useState([]);
     const [positions, setPositions] = useState([]);
+
+
+    const [modules, setModules] = useState([]);
+
+    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
+    const [selectedModule, setSelectedModule] = useState("");
+    const [quizType, setQuizType] = useState("");
+    const [completionStatus, setCompletionStatus] = useState("");
+    const [attempts, setAttempts] = useState([]);
+    const [filteredAttempts, setFilteredAttempts] = useState([]);
+
+
     const adminToken = sessionStorage.getItem('adminToken');
-
-    
-  
-
-    
-
-
-
     const navigate = useNavigate();
+
+
+
 
     useEffect(() => {
         const fetchDetails = async () => {
@@ -63,13 +71,18 @@ function AClinicianProfile() {
             const rolesData = await rolesResponse.json();
             setPositions(rolesData.map(role => ({ name: role.roleName, id: role.roleID })));
 
+            // Fetch modules
+            const modulesResponse = await fetch('https://api.tmstrainingquizzes.com/webapi/GetModules', requestOptions);
+            const modulesData = await modulesResponse.json();
+            setModules(modulesData.map(module => ({ id: module.moduleID, name: module.name, description: module.description, sequence: module.sequence })));
+
            
         };
 
         fetchDetails();
     }, [clinicianId, adminToken, navigate]);
 
-
+   
     useEffect(() => {
         if (clinicianDetails) {
             const fetchCertificationStatus = async () => {
@@ -112,6 +125,9 @@ function AClinicianProfile() {
 }, [clinicianDetails, adminToken]);
 
 
+
+
+
     async function setClinicianCertificationStatus() {
         const url = 'https://api.tmstrainingquizzes.com/webapi/SetClinicianCertificationStatus';
         const data = {
@@ -139,6 +155,7 @@ function AClinicianProfile() {
             console.error('Error updating certification status:', error);
         }
     }
+
 
 
 
@@ -189,6 +206,63 @@ function AClinicianProfile() {
     
 };
 
+
+const handleGetStats = async () => {
+    if (!startDate || !endDate) {
+        alert('Please select both start and end dates.');
+        return;
+    }
+
+    const formattedStartDate = new Date(startDate).toISOString().split('T')[0] + 'T00:00:00.000Z';
+    const formattedEndDate = new Date(endDate).toISOString().split('T')[0] + 'T23:59:59.999Z';
+
+    const url = 'https://api.tmstrainingquizzes.com/webapi/GetStats';
+    const params = {
+        searchStart: formattedStartDate,
+        searchEnd: formattedEndDate,
+        quizID: null,  // Assuming that this logic will be handled elsewhere or isn't needed as per your current setup
+        userID: clinicianDetails.userID,
+        complete: null
+    };
+
+    const requestOptions = {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${adminToken}`
+        },
+        body: JSON.stringify(params)
+    };
+
+    try {
+        const response = await fetch(url, requestOptions);
+        if (response.ok) {
+            const statsData = await response.json();
+            setAttempts(statsData); // This now only sets the fetched attempts
+        } else if (response.status === 400) {
+            alert('Start or end date is not valid. Please double-check your dates.');
+            throw new Error('Start or end date is not valid. Please double-check your dates.');
+            
+        } else {
+            throw new Error('Failed to fetch stats');
+        }
+    } catch (error) {
+        console.error('Error fetching stats:', error);
+    }
+};
+
+console.log(attempts);
+useEffect(() => {
+    
+    const filtered = attempts.filter(attempt => {
+        return (!selectedModule || attempt.quiz.module.moduleID === parseInt(selectedModule)) &&
+               (!quizType || attempt.quiz.stage.toLowerCase() === quizType.toLowerCase()) &&
+               (!completionStatus || attempt.completed === completionStatus);
+    });
+    setFilteredAttempts(filtered); // Update the state with filtered results
+}, [attempts, selectedModule, quizType, completionStatus]);
+
+
 return (
     <div className="flex">
         <div className="dashboard-container">
@@ -224,6 +298,46 @@ return (
                                 </select>
                                 <button onClick={handleSaveChanges}>Save Changes</button>
                             </div>
+                        </div>
+
+                        <div className="stats-container">
+                            <h3>User Results</h3>
+                            <label>Start Date:</label>
+                            <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+                            <label>End Date:</label>
+                            <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+
+                            <button onClick={handleGetStats}>Get Stats</button>
+                            <br></br>
+                            <label>Module:</label>
+                            <select value={selectedModule} onChange={(e) => setSelectedModule(e.target.value)}>
+                                <option value="">All Modules</option>
+                                {modules.map(module => (
+                                    <option key={module.id} value={module.id}>{module.name}</option>
+                                ))}
+                            </select>
+                            <label>Quiz Type:</label>
+                            <select value={quizType} onChange={(e) => setQuizType(e.target.value)}>
+                                <option value="">All Types</option>
+                                <option value="final">Final</option>
+                                <option value="practice">Practice</option>
+                            </select>
+                            <label>Completion Status:</label>
+                            <select value={completionStatus} onChange={(e) => setCompletionStatus(e.target.value)}>
+                                <option value ="">All Statuses</option>
+                                <option value="PASS">PASS</option>
+                                <option value="FAIL">FAIL</option>
+                            </select>
+                            
+                            <br></br>
+                            <br></br>
+
+                            {filteredAttempts.map(attempt => (
+                            <div key={attempt.attemptID} className={`stats-result ${attempt.completed === 'PASS' ? 'pass' : 'fail'}`}>
+                                <h4>{attempt.quiz.name} - {attempt.completed}</h4>
+                                <p>Date: {new Date(attempt.dateTime).toLocaleString()}</p>
+                            </div>
+                        ))}
                         </div>
                     </div>
                 )}

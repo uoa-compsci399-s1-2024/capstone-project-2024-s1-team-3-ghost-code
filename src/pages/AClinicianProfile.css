@@ -60,3 +60,31 @@
 /*.view-grades-box {
     /* Style the view grades box as needed */
 /*}
+
+/* testing */
+.stats-result {
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.stats-result h4 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.stats-result p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.stats-result.pass {
+    background-color: rgba(144, 238, 144, 0.5); /* Nice transparent shade of green */
+}
+
+.stats-result.fail {
+    background-color: rgba(255, 99, 71, 0.5); /* Nice transparent shade of red */
+}
+
