@@ -8,7 +8,6 @@ import AClinicianSearch from "./pages/AClinicianSearch";
 import QuizDashboard from "./pages/QuizDashboard";
 import AClinicianProfile from "./pages/AClinicianProfile";
 import AdminSetting from "./pages/AdminSettings";
-import QuizCreation from "./pages/CreatingQuiz";
 import Quiz from "./pages/Quiz";
 import CreatingQuiz from "./pages/CreatingQuestions"
 
@@ -101,11 +100,6 @@ function App() {
             path="/createquestion/:moduleID/:questionID"
             element={<ProtectedRoute element={<CreatingQuiz mode="edit" />} />}
           />
-
-
-
-
-
         </Routes>
       </BrowserRouter>
     </div>

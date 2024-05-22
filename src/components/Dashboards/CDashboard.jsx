@@ -32,17 +32,7 @@ function ClientDashboard() {
       <br></br>
       <br></br>
       <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
+
       <Link to="/quizClientSettings" style={{ textDecoration: "none" }}>
         <button className="clientButton">Settings</button>
       </Link>

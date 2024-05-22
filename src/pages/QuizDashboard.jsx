@@ -1,17 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import redaxios from 'redaxios';
-import ClientDashboard from '../components/Dashboards/CDashboard'; // Assuming this sidebar is appropriate
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'; // Icon for module completion
-import { Link, useNavigate} from "react-router-dom";
-import { Tooltip as ReactTooltip } from 'react-tooltip';
+import React, { useState, useEffect } from "react";
+import redaxios from "redaxios";
+import ClientDashboard from "../components/Dashboards/CDashboard"; // Assuming this sidebar is appropriate
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleCheck } from "@fortawesome/free-solid-svg-icons"; // Icon for module completion
+import { Link, useNavigate } from "react-router-dom";
 import "./QuizDashboard.css";
 
-
 function QuizDashboard() {
-    const navigate = useNavigate();
-    const clinicianToken = sessionStorage.getItem('cliniciantoken');
-   
+  const navigate = useNavigate();
+  const clinicianToken = sessionStorage.getItem("cliniciantoken");
 
   const [modules, setModules] = useState([]);
   const [selectedModule, setSelectedModule] = useState(null);
@@ -25,39 +22,37 @@ function QuizDashboard() {
   const [moduleAccessStatusList, setModuleAccessStatusList] = useState([]);
   const [currentAccessDescription, setCurrentAccessDescription] = useState("");
 
-
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await redaxios.get('https://api.tmstrainingquizzes.com/webapi/GetModules', {
-                    headers: {
-                        "Authorization": `Bearer ${clinicianToken}` // Include token in headers
-                    }
-                });
-                setModules(response.data);
-            } catch (error) {
-              
-                if (error.status) {
-                    const { status } = error.status;
-                    if (status === 401) {
-                    
-                        // Token is invalid or expired, log the user out
-                        sessionStorage.removeItem('cliniciantoken');
-                        navigate('/cliniciansign'); // Redirect to login page
-                    } else if (status === 403) {
-                        // Not authorized to access resource, redirect to appropriate dashboard
-                        navigate('/quizDashboard'); // Redirect to appropriate dashboard
-                    }
-                } else {
-                    console.error('Error fetching modules:', error);
-                }
-            }
-        };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await redaxios.get(
+          "https://api.tmstrainingquizzes.com/webapi/GetModules",
+          {
+            headers: {
+              Authorization: `Bearer ${clinicianToken}`, // Include token in headers
+            },
+          }
+        );
+        setModules(response.data);
+      } catch (error) {
+        if (error.status) {
+          const { status } = error.status;
+          if (status === 401) {
+            // Token is invalid or expired, log the user out
+            sessionStorage.removeItem("cliniciantoken");
+            navigate("/cliniciansign"); // Redirect to login page
+          } else if (status === 403) {
+            // Not authorized to access resource, redirect to appropriate dashboard
+            navigate("/quizDashboard"); // Redirect to appropriate dashboard
+          }
+        } else {
+          console.error("Error fetching modules:", error);
+        }
+      }
+    };
 
     fetchData();
   }, [clinicianToken, navigate]);
-
 
   useEffect(() => {
     const fetchModuleAccessStatuses = async () => {
@@ -69,34 +64,31 @@ function QuizDashboard() {
         }
         setModuleAccessStatusList(moduleAccessStatusList);
       } catch (error) {
-        console.error('Error fetching module access statuses:', error);
+        console.error("Error fetching module access statuses:", error);
       }
     };
-  
+
     fetchModuleAccessStatuses();
   }, [modules]);
 
-  
-
-
   const fetchModuleAccessStatus = async (moduleID) => {
     try {
-      const response = await redaxios.get(`https://api.tmstrainingquizzes.com/webapi/CheckAccess/${moduleID}`, {
-        headers: {
-          "Authorization": `Bearer ${clinicianToken}`
+      const response = await redaxios.get(
+        `https://api.tmstrainingquizzes.com/webapi/CheckAccess/${moduleID}`,
+        {
+          headers: {
+            Authorization: `Bearer ${clinicianToken}`,
+          },
         }
-      });
+      );
       return response.data;
-      
-
     } catch (error) {
-      console.error('Error fetching module access status:', error);
+      console.error("Error fetching module access status:", error);
       return {};
     }
-  };  
+  };
 
-
-  const handleModuleClick = async (module) => {  
+  const handleModuleClick = async (module) => {
     // If the clicked module is already selected, deselect it
     if (selectedModule && selectedModule.moduleID === module.moduleID) {
       setSelectedModule(null);
@@ -107,86 +99,88 @@ function QuizDashboard() {
     } else {
       // Otherwise, select the clicked module
       setSelectedModule(module);
-      const access = await fetchModuleAccessStatus(module.moduleID)
+      const access = await fetchModuleAccessStatus(module.moduleID);
       setFinalPassed(access.finalPassed);
       setpractisePassed(access.practicePassed);
       setCurrentAccessDescription(access.description); // Set new description
       console.log(currentAccessDescription);
-    
     }
   };
 
-
-    const handlePracticeQuizClick = async (module) => {
-        try {
-            const response = await redaxios.get(`https://api.tmstrainingquizzes.com/webapi/GetQuizzesByModID/${module.moduleID}`, {
-                headers: {
-                    "Authorization": `Bearer ${clinicianToken}` // Include token in headers
-                }
-            });
-            const practiceQuizID = response.data[0]?.quizID;
-            if (practiceQuizID) {
-                navigateToQuizPage(practiceQuizID);
-            } else {
-                console.error("Practice quiz ID not found.");
-            }
-        } catch (error) {
-            console.error('Error fetching practice quiz ID:', error);
+  const handlePracticeQuizClick = async (module) => {
+    try {
+      const response = await redaxios.get(
+        `https://api.tmstrainingquizzes.com/webapi/GetQuizzesByModID/${module.moduleID}`,
+        {
+          headers: {
+            Authorization: `Bearer ${clinicianToken}`, // Include token in headers
+          },
         }
-    };
+      );
+      const practiceQuizID = response.data[0]?.quizID;
+      if (practiceQuizID) {
+        navigateToQuizPage(practiceQuizID);
+      } else {
+        console.error("Practice quiz ID not found.");
+      }
+    } catch (error) {
+      console.error("Error fetching practice quiz ID:", error);
+    }
+  };
 
-    const handleFinalQuizClick = async (module) => {
-      try {
-        const accessStatus = await fetchModuleAccessStatus(module.moduleID);
-        if (module.sequence === 7) {
-          if (accessStatus.practicePassed && accessStatus.finalPassed) {
-            const response = await redaxios.get(`https://api.tmstrainingquizzes.com/webapi/GetQuizzesByModID/${module.moduleID}`, {
+  const handleFinalQuizClick = async (module) => {
+    try {
+      const accessStatus = await fetchModuleAccessStatus(module.moduleID);
+      if (module.sequence === 7) {
+        if (accessStatus.practicePassed && accessStatus.finalPassed) {
+          const response = await redaxios.get(
+            `https://api.tmstrainingquizzes.com/webapi/GetQuizzesByModID/${module.moduleID}`,
+            {
               headers: {
-                "Authorization": `Bearer ${clinicianToken}`
-              }
-            });
-            const finalQuizID = response.data[0]?.quizID; // Assume first quiz ID is for the recertification
-            if (finalQuizID) {
-              navigateToQuizPage(finalQuizID);
-            } else {
-              console.error("Final quiz ID not found.");
+                Authorization: `Bearer ${clinicianToken}`,
+              },
             }
+          );
+          const finalQuizID = response.data[0]?.quizID; // Assume first quiz ID is for the recertification
+          if (finalQuizID) {
+            navigateToQuizPage(finalQuizID);
           } else {
-            alert(accessStatus.description);
+            console.error("Final quiz ID not found.");
           }
         } else {
-          if (accessStatus.practicePassed && !accessStatus.finalPassed) {
-            const response = await redaxios.get(`https://api.tmstrainingquizzes.com/webapi/GetQuizzesByModID/${module.moduleID}`, {
-              headers: {
-                "Authorization": `Bearer ${clinicianToken}`
-              }
-            });
-            const finalQuizID = response.data[1]?.quizID;
-            if (finalQuizID) {
-              navigateToQuizPage(finalQuizID);
-            } else {
-              console.error("Final quiz ID not found.");
-            }
-          } else if (!accessStatus.practicePassed) {
-            alert(accessStatus.description);
-          } else if (accessStatus.finalPassed) {
-            alert(accessStatus.description);
-          }
+          alert(accessStatus.description);
         }
-      } catch (error) {
-        console.error('Error handling final quiz click:', error);
+      } else {
+        if (accessStatus.practicePassed && !accessStatus.finalPassed) {
+          const response = await redaxios.get(
+            `https://api.tmstrainingquizzes.com/webapi/GetQuizzesByModID/${module.moduleID}`,
+            {
+              headers: {
+                Authorization: `Bearer ${clinicianToken}`,
+              },
+            }
+          );
+          const finalQuizID = response.data[1]?.quizID;
+          if (finalQuizID) {
+            navigateToQuizPage(finalQuizID);
+          } else {
+            console.error("Final quiz ID not found.");
+          }
+        } else if (!accessStatus.practicePassed) {
+          alert(accessStatus.description);
+        } else if (accessStatus.finalPassed) {
+          alert(accessStatus.description);
+        }
       }
-    };
-  
-    
+    } catch (error) {
+      console.error("Error handling final quiz click:", error);
+    }
+  };
 
   const navigateToQuizPage = (quizID) => {
     // Navigate to the quiz page with the retrieved quiz ID
     navigate(`/quiz/${quizID}/${selectedModule.moduleID}`);
   };
-
-
-
 
   return (
     <div className="flex">
@@ -208,7 +202,11 @@ function QuizDashboard() {
                 icon={faCircleCheck}
                 style={{
                   fontSize: "24px",
-                  color: moduleAccessStatusList[module.sequence - 1]?.finalPassed === true ? "#4CAF50" : "#ccc",
+                  color:
+                    moduleAccessStatusList[module.sequence - 1]?.finalPassed ===
+                    true
+                      ? "#4CAF50"
+                      : "#ccc",
                 }}
               />
               {selectedModule &&
@@ -224,13 +222,30 @@ function QuizDashboard() {
                     )}
                     <div className="tooltip">
                       <button
-                        className={`module-button final ${(module.sequence === 7 && (!practisePassed || !finalPassed)) || (!practisePassed && module.sequence !== 7) || finalPassed ? 'disabled-button' : ''}`}
+                        className={`module-button final ${
+                          (module.sequence === 7 &&
+                            (!practisePassed || !finalPassed)) ||
+                          (!practisePassed && module.sequence !== 7) ||
+                          finalPassed
+                            ? "disabled-button"
+                            : ""
+                        }`}
                         onClick={() => handleFinalQuizClick(module)}
-                        disabled={(module.sequence === 7 && (!practisePassed || !finalPassed)) || (!practisePassed && module.sequence !== 7) || finalPassed}
+                        disabled={
+                          (module.sequence === 7 &&
+                            (!practisePassed || !finalPassed)) ||
+                          (!practisePassed && module.sequence !== 7) ||
+                          finalPassed
+                        }
                       >
                         Final Quiz
                       </button>
-                      <span className="tooltiptext">{selectedModule && selectedModule.moduleID === module.moduleID ? currentAccessDescription : ''}</span>
+                      <span className="tooltiptext">
+                        {selectedModule &&
+                        selectedModule.moduleID === module.moduleID
+                          ? currentAccessDescription
+                          : ""}
+                      </span>
                     </div>
                   </div>
                 )}
