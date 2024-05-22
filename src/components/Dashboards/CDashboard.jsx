@@ -33,7 +33,7 @@ function ClientDashboard() {
       <br></br>
       <br></br>
 
-      <Link to="/clinicianProfile" style={{ textDecoration: "none" }}>
+      <Link to="/clinicianMyProfile" style={{ textDecoration: "none" }}>
         <button className="clientButton">My Profile</button>
       </Link>
     </div>
