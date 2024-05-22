@@ -7,7 +7,7 @@ export function BackToHomeLink() {
     <>
       <div className="back-to-home">
         <i className="fa-solid fa-arrow-left" id="back-arrow"></i>
-        <Link style={{ textDecoration: "none" }} to="/home">
+        <Link style={{ textDecoration: "none", color: "black" }} to="/home">
           <div className="back-to-home-text">Back to Home</div>
         </Link>
       </div>
