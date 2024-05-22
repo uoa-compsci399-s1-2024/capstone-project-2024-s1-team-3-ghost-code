@@ -8,11 +8,10 @@ import AClinicianSearch from "./pages/AClinicianSearch";
 import QuizDashboard from "./pages/QuizDashboard";
 import AClinicianProfile from "./pages/AClinicianProfile";
 import AdminSetting from "./pages/AdminSettings";
-import QuizCreation from "./pages/CreatingQuiz";
 import Quiz from "./pages/Quiz";
 import CreatingQuiz from "./pages/CreatingQuestions";
-import AClinicianMyProfile from "./pages/ClinicianMyProfile";import QuizCreation from "./pages/CreatingQuiz";
-import CreatingQuiz from "./pages/CreatingQuestions";
+import AClinicianMyProfile from "./pages/ClinicianMyProfile";
+import QuizCreation from "./pages/CreatingQuiz";
 import EditQuiz from "./pages/AEditQuiz";
 
 const getAdminToken = () => sessionStorage.getItem("adminToken");
@@ -109,11 +108,6 @@ function App() {
             path="/createquestion/:moduleID/:questionID"
             element={<ProtectedRoute element={<CreatingQuiz mode="edit" />} />}
           />
-
-
-
-
-
         </Routes>
       </BrowserRouter>
     </div>

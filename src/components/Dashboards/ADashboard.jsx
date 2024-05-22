@@ -15,11 +15,7 @@ function AdminDashboard() {
         />
       </div>
       <button className="Adminbutton">Dashboard</button>
-<<<<<<< HEAD
-      <Link style={{ textDecoration: "none", color: "white" }} to="/createquiz">
-=======
       <Link style={{ textDecoration: "none", color: "white" }} to="/EditQuiz">
->>>>>>> sahil-branch
         <button className="Adminbutton">Edit Quiz</button>
       </Link>
 
