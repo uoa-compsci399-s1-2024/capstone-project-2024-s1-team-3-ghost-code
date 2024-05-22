@@ -7,7 +7,7 @@ namespace OTTER.Data
     public interface IOTTERRepo
     {
         void SendEmail(string email, string subject, string body);
-        string CreateCertitificate(string name, Module module, DateTime date);
+        string CreateCertitificate(Certification certification, Module module);
         string UploadQuestionImage(IFormFile file, Question question);
         IEnumerable<Module> GetModules();
         Module GetModuleByID(int id);
@@ -39,6 +39,7 @@ namespace OTTER.Data
         void DeleteUser(string email);
         User EditUser(int id, User user);
         IEnumerable<Certification> GetCertificationByID(int id);
+        IEnumerable<Certification> GetCertifications();
         Certification AddCertification(Certification certification);
         Certification EditCertification(Certification certification);
         IEnumerable<Organization> GetOrganizations();

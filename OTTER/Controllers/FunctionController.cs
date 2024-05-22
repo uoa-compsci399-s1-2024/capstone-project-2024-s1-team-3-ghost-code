@@ -729,26 +729,44 @@ namespace OTTER.Controllers
         {
             if (_repo.GetModuleByID(modID) != null)
             {
-                IEnumerable<Attempt> attempts = _repo.GetAttempts();
-                IEnumerable<Attempt> userAttempts = attempts.Where(e => e.User.UserEmail == User.FindFirstValue(ClaimTypes.Email));
-                IEnumerable<Attempt> moduleAttempts = userAttempts.Where(e => e.Quiz.Module.ModuleID == modID);
-                IEnumerable<Attempt> practiceAttempts = moduleAttempts.Where(e => e.Quiz.Name.Contains("Practice") && e.Completed == "PASS");
-                IEnumerable<Attempt> finalAttempts = moduleAttempts.Where(e => e.Quiz.Name.Contains("Final") && e.Completed == "PASS");
-                if (practiceAttempts.Count() > 0)
+                if (modID == 7)
                 {
-                    if (finalAttempts.Count() == 0)
+                    IEnumerable<Certification> certifications = _repo.GetCertifications().ToList<Certification>();
+                    IEnumerable<Certification> userCerts = certifications.Where(e => e.User.UserEmail == User.FindFirstValue(ClaimTypes.Email)).ToList<Certification>();
+                    IEnumerable<Certification> validCerts = userCerts.Where(e => e.Type == "InitCertification" || e.Type == "Recert").ToList<Certification>();
+                    Certification current = certifications.ElementAt(validCerts.Count() - 1);
+                    DateTime issueDate = current.DateTime;
+                    if (current != null && DateTime.Compare(issueDate.AddMonths(11), DateTime.UtcNow) <= 0)
                     {
-                        return Ok(new QuizAccessDto { PracticePassed = true, FinalPassed = false, Description = "You have passed the practice quiz, but not a final quiz. The final quiz is available." });
+                        return Ok(new QuizAccessDto { PracticePassed = true, FinalPassed = true, Description = "You have passed the final quiz from each module. The recertification quiz is available to complete." });
+                    } else
+                    {
+                        return Ok(new QuizAccessDto { PracticePassed = true, FinalPassed = false, Description = "You have not passed the final quiz from each module. The recertification quiz is not available to complete." });
+                    }
+                } else
+                {
+                    IEnumerable<Attempt> attempts = _repo.GetAttempts();
+                    IEnumerable<Attempt> userAttempts = attempts.Where(e => e.User.UserEmail == User.FindFirstValue(ClaimTypes.Email));
+                    IEnumerable<Attempt> moduleAttempts = userAttempts.Where(e => e.Quiz.Module.ModuleID == modID);
+                    IEnumerable<Attempt> practiceAttempts = moduleAttempts.Where(e => e.Quiz.Name.Contains("Practice") && e.Completed == "PASS");
+                    IEnumerable<Attempt> finalAttempts = moduleAttempts.Where(e => e.Quiz.Name.Contains("Final") && e.Completed == "PASS");
+                    if (practiceAttempts.Count() > 0)
+                    {
+                        if (finalAttempts.Count() == 0)
+                        {
+                            return Ok(new QuizAccessDto { PracticePassed = true, FinalPassed = false, Description = "You have passed the practice quiz, but not a final quiz. The final quiz is available." });
+                        }
+                        else
+                        {
+                            return Ok(new QuizAccessDto { PracticePassed = true, FinalPassed = true, Description = "You have already passed the final quiz. The final quiz is unavailable." });
+                        }
                     }
                     else
                     {
-                        return Ok(new QuizAccessDto { PracticePassed = true, FinalPassed = true, Description = "You have already passed the final quiz. The final quiz is unavailable." });
+                        return Ok(new QuizAccessDto { PracticePassed = false, FinalPassed = false, Description = "You have not passed a practice quiz. The final quiz is unavailable." });
                     }
                 }
-                else
-                {
-                    return Ok(new QuizAccessDto { PracticePassed = false, FinalPassed = false, Description = "You have not passed a practice quiz. The final quiz is unavailable." });
-                }
+                
             } else
             {
                 return NotFound("A module with ID " + modID + " does not exist.");

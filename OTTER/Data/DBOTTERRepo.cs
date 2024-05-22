@@ -47,7 +47,7 @@ namespace OTTER.Data
             client.PostAsync(endpoint, payload);
         }
 
-        public string CreateCertitificate(string name, Module module, DateTime date)
+        public string CreateCertitificate(Certification certification, Module module)
         {
             // Load the template PDF
             using (var reader = new PdfReader(_bucketURL + "certtemplate.pdf"))
@@ -57,10 +57,21 @@ namespace OTTER.Data
                     var stamper = new PdfStamper(reader, stream);
                     var form = stamper.AcroFields;
 
+                    string name = certification.User.FirstName + " " + certification.User.LastName;
+                    string acheivedText = $"VERIFY: {module.Name}";
+                    if (module.ModuleID <= 6)
+                    {
+                        acheivedText = acheivedText + " module";
+                    }
+
                     // Populate fields with data
-                    form.SetField("Name", name);
-                    form.SetField("Module", $"VERIFY: {module.Name} module");
-                    form.SetField("Date", date.ToString("dd MMMM yyyy"));
+                    form.SetField("Name", $"{name}");
+                    form.SetField("Module", acheivedText);
+                    form.SetField("Date", certification.DateTime.ToString("dd MMMM yyyy"));
+                    if (module.ModuleID == 7 || module.ModuleID == 8)
+                    {
+                        form.SetField("Expiry", "Expiry: " + certification.ExpiryDateTime.ToString("dd MMMM yyyy"));
+                    }
 
                     // Flatten the form (optional)
                     stamper.FormFlattening = true;
@@ -70,14 +81,15 @@ namespace OTTER.Data
                     byte[] bytes = stream.ToArray();
 
                     // Upload to S3
-                    string certURI = $"certificates/{date.ToString("yyyyMMddhhmmss")}{name.Replace(" ", "")}{module.Name.Replace(" ", "")}.pdf";
+                    string certURI = $"certificates/{certification.DateTime.ToString("yyyyMMddhhmmss")}{name.Replace(" ", "")}{module.Name.Replace(" ", "")}.pdf";
 
                     if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production") // Only uploads if the environment is production to get accurate AWS credentials
                     {
                         UploadToS3(bytes, certURI);
 
                         return _bucketURL + certURI;
-                    } else // If not production, certificate not found
+                    }
+                    else // If not production, certificate not found
                     {
                         return _bucketURL + "404.html";
                     }
@@ -421,7 +433,7 @@ namespace OTTER.Data
                 
                 _dbContext.Attempts.FirstOrDefault(e => e.AttemptID == submission.AttemptID).Completed = "PASS";
                 Certification cert = new Certification { User = GetUserByID(submission.UserID), Type = GetAttemptByID(submission.AttemptID).Quiz.Name, DateTime = DateTime.UtcNow, ExpiryDateTime = DateTime.UtcNow.AddYears(1)};
-                string certificateURL = CreateCertitificate($"{cert.User.FirstName} {cert.User.LastName}", GetQuestionByID(submission.QuestionID.ElementAt(0)).Module, cert.DateTime);
+                string certificateURL = CreateCertitificate(cert, GetQuestionByID(submission.QuestionID.ElementAt(0)).Module);
                 cert.CertificateURL = certificateURL;
                 AddCertification(cert);
                 if (cert.Type.Contains("Final") && GetCertificationByID(cert.User.UserID).Where(e => e.Type.Contains("Final")).Count() == 6)
@@ -450,8 +462,11 @@ namespace OTTER.Data
             {
                 _dbContext.Attempts.FirstOrDefault(e => e.AttemptID == submission.AttemptID).Completed = "PASS";
                 Certification cert = new Certification { User = GetUserByID(submission.UserID), Type = GetAttemptByID(submission.AttemptID).Quiz.Name, DateTime = DateTime.UtcNow, ExpiryDateTime = DateTime.UtcNow.AddYears(1) };
+                string certificateURL = CreateCertitificate(cert, GetQuestionByID(submission.QuestionID.ElementAt(0)).Module);
+                cert.CertificateURL = certificateURL;
                 SendEmail(cert.User.UserEmail, $"Passed {GetAttemptByID(submission.AttemptID).Quiz.Name} quiz", $"Hi {cert.User.FirstName},<br><br>Congratulations on passing the " +
-                    $"{GetAttemptByID(submission.AttemptID).Quiz.Name} quiz.<Br>You are now recertified until {cert.ExpiryDateTime.ToString("dd/MM/yyyy")}." +
+                    $"{GetAttemptByID(submission.AttemptID).Quiz.Name} quiz.<Br>You are now recertified until {cert.ExpiryDateTime.ToString("dd/MM/yyyy")}. " +
+                    $"To view your certificate for this module, <a href = '{cert.CertificateURL}'>click here</a>." +
                     $"<Br><Br>Thanks,<Br>The VERIFY Team");
             }
 
@@ -524,17 +539,26 @@ namespace OTTER.Data
             return _dbContext.Certifications.Include(e => e.User).ThenInclude(e => e.Organization).Include(e => e.User).ThenInclude(e => e.Role).Where(e => e.User.UserID == id && (e.Type == "InitCertification" || e.Type == "Recert"));
         }
 
+        public IEnumerable<Certification> GetCertifications()
+        {
+            return _dbContext.Certifications.Include(e => e.User).ThenInclude(e => e.Organization).Include(e => e.User).ThenInclude(e => e.Role);
+        }
+
         public Certification AddCertification(Certification certification)
         {
-            EntityEntry<Certification> c = _dbContext.Certifications.Add(certification);
-            _dbContext.SaveChanges();
+            
             if (certification.Type == "InitCertification")
             {
+                string certificateURL = CreateCertitificate(certification, new Module {ModuleID = 8, Name = "Final Certification"});
+                certification.CertificateURL = certificateURL;
                 SendEmail(certification.User.UserEmail, $"You are now fully certified with the VERIFY study!", $"Hi {certification.User.FirstName},<br><br>Congratulations on passing the " +
                     $"practical test.<Br>An admin has already entered you certifcation status and you are now certified until {certification.ExpiryDateTime.ToString("dd/MM/yyyy")}." +
+                    $"<Br><Br>To view your certificate for this module, <a href = '{certification.CertificateURL}'>click here</a>" +
                     $"<Br><Br>To remain certified, you must complete the Recertification Quiz which is now accessible via the quiz dashboard." +
                     $"<Br><Br>Thanks,<Br>The VERIFY Team");
             }
+            EntityEntry<Certification> c = _dbContext.Certifications.Add(certification);
+            _dbContext.SaveChanges();
             return c.Entity;
         }
 
