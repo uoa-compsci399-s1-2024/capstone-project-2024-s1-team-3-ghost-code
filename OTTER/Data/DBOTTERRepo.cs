@@ -217,7 +217,6 @@ namespace OTTER.Data
                             i--;
                             continue;
                         }
-                        randq.attemptTotal = randq.attemptTotal + 1;
                         QuestionOutputDto qOutputDto = new QuestionOutputDto { QuestionID = randq.QuestionID, Title = randq.Title, Description = randq.Description, ImageURL = randq.ImageURL, QuestionType = randq.QuestionType, Topic = randq.Topic };
                         List<AnswerOutputDto> aOutputDto = new List<AnswerOutputDto>();
                         foreach (Answer answer in _dbContext.Answers.Where(e => e.Question.QuestionID == randq.QuestionID))
@@ -392,6 +391,8 @@ namespace OTTER.Data
                 List<string> feedback = new List<string>();
                 List<int> missedCorrectAID = new List<int>();
                 List<int> selectedAID = new List<int>();
+                Question submittedQ = GetQuestionByID(submission.QuestionID.ElementAt(sequence - 1));
+                submittedQ.attemptTotal = submittedQ.attemptTotal + 1;
                 foreach (int AID in submission.AnswerID.ElementAt(sequence - 1))
                 {
                     selectedAID.Add(AID);
