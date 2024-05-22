@@ -11,6 +11,7 @@ import AdminSetting from "./pages/AdminSettings";
 import QuizCreation from "./pages/CreatingQuiz";
 import Quiz from "./pages/Quiz";
 import CreatingQuiz from "./pages/CreatingQuestions";
+import AClinicianMyProfile from "./pages/ClinicianMyProfile";
 const getAdminToken = () => sessionStorage.getItem("adminToken");
 
 // ProtectedRoute component to protect admin-only routes
@@ -63,6 +64,12 @@ function App() {
             element={<ClinicianProtectedRoute element={<QuizDashboard />} />}
           />
 
+          <Route
+            path="/clinicianProfile"
+            element={
+              <ClinicianProtectedRoute element={<AClinicianMyProfile />} />
+            }
+          />
           <Route
             path="/quiz/:quizID/:moduleID"
             element={<ClinicianProtectedRoute element={<Quiz />} />}

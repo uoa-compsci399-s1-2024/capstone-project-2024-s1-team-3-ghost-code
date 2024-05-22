@@ -13,12 +13,14 @@ function ClientDashboard() {
           alt="DashboardLogo"
         />
       </div>
-      <Link
-        to="https://www.verifytraining.auckland.ac.nz/s"
+      <a
+        href="https://www.verifytraining.auckland.ac.nz/s"
+        target="_blank"
+        rel="noopener noreferrer"
         style={{ textDecoration: "none" }}
       >
         <button className="clientButton">Verify Training</button>
-      </Link>
+      </a>
 
       <Link to="/quizDashboard" style={{ textDecoration: "none" }}>
         <button className="clientButton">Dashboard</button>
@@ -31,8 +33,8 @@ function ClientDashboard() {
       <br></br>
       <br></br>
       <br></br>
-      <Link to="/quizClientSettings" style={{ textDecoration: "none" }}>
-        <button className="clientButton">Settings</button>
+      <Link to="/clinicianProfile" style={{ textDecoration: "none" }}>
+        <button className="clientButton">My Profile</button>
       </Link>
     </div>
   );
