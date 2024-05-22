@@ -140,10 +140,10 @@ export default function AdminSetting() {
     event.preventDefault();
 
     const data = {
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      password: password,
+      firstName,
+      lastName,
+      email,
+      password,
     };
 
     try {
@@ -165,7 +165,11 @@ export default function AdminSetting() {
         setFirstName("");
         setLastName("");
         setEmail("");
-        setPassword(""); //THOUGHT THIS WAS THE ISSUE
+        setPassword("");
+      } else if (response.status === 409) {
+        alert(
+          "The email you entered already exists. Please use a different email."
+        );
       } else {
         const errorData = await response.json();
         setMessage(`Error: ${errorData.message}`);
@@ -183,7 +187,6 @@ export default function AdminSetting() {
 
   const handleRoleSubmit = async (e) => {
     e.preventDefault();
-    // replace with actual admin token retrieval method
     const roleApiUrl = "https://api.tmstrainingquizzes.com/auth/Login"; // replace with your role API endpoint
 
     try {
@@ -365,6 +368,7 @@ export default function AdminSetting() {
                 </div>
               </div>
             </div>
+            {/* SITES AND DISCIPLINES */}
             <div className="accordion-item" id="changeRegistration">
               <a className="accordion-link" href="#changeRegistration">
                 Sites & Disciplines
