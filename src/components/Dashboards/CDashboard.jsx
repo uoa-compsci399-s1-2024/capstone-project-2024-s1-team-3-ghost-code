@@ -33,8 +33,8 @@ function ClientDashboard() {
       <br></br>
       <br></br>
 
-      <Link to="/quizClientSettings" style={{ textDecoration: "none" }}>
-        <button className="clientButton">Settings</button>
+      <Link to="/clinicianProfile" style={{ textDecoration: "none" }}>
+        <button className="clientButton">My Profile</button>
       </Link>
     </div>
   );
