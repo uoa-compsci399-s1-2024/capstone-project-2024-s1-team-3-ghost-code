@@ -1,168 +1,187 @@
 import "./CreatingQuiz.css";
-import axios from "redaxios";
-import React, { useState, useEffect, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import redaxios from "redaxios";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import AdminDashboard from "../components/Dashboards/ADashboard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
-export function QuestionSearch() {}
-
-export function Modules() {
-  const navigate = useNavigate();
-  const adminToken = sessionStorage.getItem("adminToken");
-
-  const [modules, setModules] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://api.tmstrainingquizzes.com/webapi/GetModules",
-          {
-            headers: {
-              Authorization: `Bearer ${adminToken}`, // Include token in headers
-            },
-          }
-        );
-        setModules(response.data);
-      } catch (error) {
-        if (error.response) {
-          const { status } = error.response;
-          if (status === 401) {
-            // Token is invalid or expired, log the user out
-            sessionStorage.removeItem("adminLogin");
-            navigate("/adminlogin"); // Redirect to login page
-          } else if (status === 403) {
-            // Not authorized to access resource, redirect to appropriate dashboard
-            navigate("/adminlogin"); // Redirect to appropriate dashboard
-          }
-        } else {
-          console.error("Error fetching modules:", error);
-        }
-      }
-    };
-
-    fetchData();
-  }, [adminToken, navigate]);
-
-  return (
-    <div className="flex">
-      <div className="dashboard-container"></div>
-      <div className="quizModuleContainer">
-        <div className="quizModuleresults">
-          {modules.map((module) => (
-            <div
-              key={module.moduleID}
-              className="module-item"
-              onClick={() =>
-                navigate(
-                  `https://api.tmstrainingquizzes.com/webapi/GetModuleByID/${module.sequence}`
-                )
-              }
-            >
-              <div className="moduleId">{"Module " + module.sequence}</div>
-              <div className="moduleName">{module.name}</div>
-              <div className="moduleDescription">{module.description}</div>
-              <FontAwesomeIcon
-                icon={faCircleCheck}
-                style={{
-                  color: module.completion === 100 ? "#4CAF50" : "#ccc",
-                }}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export function QuestionsDisplay() {
-  const [questions, setQuestions] = useState("");
+  const [questions, setQuestions] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [adminName, setAdminName] = useState("");
-  const dropdownRef = useRef(null); // Reference to the admin info box
-
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [questionToDelete, setQuestionToDelete] = useState(null);
+  const { moduleID } = useParams();
   const adminToken = sessionStorage.getItem("adminToken");
   const navigate = useNavigate();
 
-  // This useEffect fetches modules initially to display, and then for each module, it fetches questions
+  const handleErrorResponse = (status) => {
+    if (status === 401) {
+      if (sessionStorage.getItem('adminToken')) {
+        sessionStorage.removeItem('adminToken');
+        console.log('Token found and removed due to 401 Unauthorized status.');
+      } else {
+        console.log('No token found when handling 401 status.');
+      }
+      navigate('/adminlogin');
+    } else if (status === 403) {
+      navigate('/quizDashboard');
+    }
+  };
+  
+
   useEffect(() => {
-    if (questions.trim() !== "") {
-      // Make HTTP request to backend API with search query
+    if (moduleID) {
       fetch(
-        `https://api.tmstrainingquizzes.com/webapi/GetQuestions/${questions}`,
+        `https://api.tmstrainingquizzes.com/webapi/GetQuestions/${moduleID}`,
         {
           headers: {
-            Authorization: `Bearer ${adminToken}`, // Include token in headers
+            Authorization: `Bearer ${adminToken}`,
           },
         }
       )
         .then((response) => {
           if (!response.ok) {
             if (response.status === 401) {
-              // Token is invalid or expired, log the admin out
               sessionStorage.removeItem("adminToken");
-              navigate("/adminlogin"); // Redirect to admin login page
+              navigate("/adminlogin");
             }
             throw new Error("Network response was not ok");
           }
           return response.json();
         })
         .then((data) => {
+          console.log(data);
+          setQuestions(data);
           setSearchResults(data);
         })
         .catch((error) => {
-          console.error("Error fetching search results:", error);
+          handleErrorResponse(error.status);
+          console.error("Error fetching questions:", error);
         });
-    } else {
-      setSearchResults([]);
     }
-  }, [questions, adminToken, navigate]);
+  }, [moduleID, adminToken, navigate]);
 
   const handleSearchInputChange = (event) => {
-    setQuestions(event.target.value);
+    const { value } = event.target;
+    setSearchTerm(value);
   };
 
-  // Now you have questions grouped by modules in the 'questions' state
+  useEffect(() => {
+    if (searchTerm.trim() !== "") {
+      const filteredResults = questions.filter((question) =>
+        question.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setSearchResults(filteredResults);
+    } else {
+      setSearchResults(questions);
+    }
+  }, [searchTerm, questions]);
+
+  const handleEditQuestion = (questionID) => {
+    navigate(`/createquestion/${moduleID}/${questionID}`);
+  };
+
+  const handleDeleteQuestion = (questionID) => {
+    console.log("Delete button clicked for question ID:", questionID);
+    setQuestionToDelete(questionID);
+    setShowDeleteModal(true);
+  };
+
+  const handleAddQuestion = () => {
+    navigate(`/createquestion/${moduleID}`);
+  }
+
+  const confirmDeleteQuestion = async () => {
+    try {
+      console.log("Confirm delete for question ID:", questionToDelete);
+      const response = await redaxios.delete(
+        `https://api.tmstrainingquizzes.com/webapi/DeleteQuestion/${questionToDelete}`,
+        {
+          headers: {
+            Authorization: `Bearer ${adminToken}`,
+          },  
+        }
+      );
+  
+      // Log the response to see if the deletion was successful
+      console.log("Delete response:", response);
+  
+      if (response.status === 200 || response.status === 204) {
+        // Assuming 200 or 204 means the deletion was successful
+        setQuestions(questions.filter((q) => q.questionID !== questionToDelete));
+        setSearchResults(searchResults.filter((q) => q.questionID !== questionToDelete));
+        setShowDeleteModal(false);
+        setQuestionToDelete(null);
+        console.log("Question deleted successfully");
+        alert("Question deleted successfully");
+      } else {
+        console.error("Failed to delete question:", response);
+        alert("Failed to delete question");
+      }
+    } catch (error) {
+      console.error("Error deleting question:", error);
+      alert("Error deleting question");
+    }
+  };
+  
+  const closeDeleteModal = () => {
+    console.log("Closing delete modal");
+    setShowDeleteModal(false);
+    setQuestionToDelete(null);
+  };
+
+  console.log("showDeleteModal:", showDeleteModal);
 
   return (
     <>
       <div className="flex">
-        <div className="dashboard-container"></div>
-        <div className="AdminClientSearchContainer">
-          <div className="AdminClientSearchInput">
+        <div className="dashboard-container">
+          <AdminDashboard />
+        </div>
+        <div className="AdminClientSearchContainerQuiz">
+          <div className="AdminClientSearchInputQuiz">
+          <FontAwesomeIcon icon={faSearch} className="search-iconQuiz" />
             <input
               type="text"
-              value={questions}
+              value={searchTerm}
               onChange={handleSearchInputChange}
               placeholder="Search..."
+              
             />
-            <FontAwesomeIcon icon={faSearch} className="search-icon" />
           </div>
-          <Link to="/createquestion">
-            <button className="add-question"> + </button>
-          </Link>
-
-          <div className="AdminClientSearchResults">
+        
+            <button className="add-question" onClick={() => handleAddQuestion()}> + </button>
+          
+          <div className="AdminClientSearchResultsQuiz">
             {searchResults.map((result) => (
-              <Link
-                key={result.questionID}
-                to={`/clinician/${result.questionID}`} //change to link to editting quiz
-                className="link"
-              >
-                <div className="adminClientSearchResultItem">
-                  <div className="AdminClientSearchResultName">
-                    {result.title}
-                  </div>
+              <div key={result.questionID} className="AdminClientSearchResultsItemQuiz">
+                <div className="AdminClientSearchResultName">{result.title}</div>
+                <div className="buttons">
+                <button className="edit-button" onClick={() => handleEditQuestion(result.questionID)}>
+                  Edit Question
+                </button>
+                <button className="delete-button" onClick={() => handleDeleteQuestion(result.questionID)}>
+                  Delete Question
+                </button>
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
         </div>
       </div>
+
+      {showDeleteModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <h2>Confirm Deletion</h2>
+            <p>Are you sure you want to delete this question?</p>
+            <button className="confirm-button" onClick={confirmDeleteQuestion}>Yes, delete</button>
+            <button className="cancel-button" onClick={closeDeleteModal}>Cancel</button>
+          </div>
+        </div>
+      )}
     </>
   );
 }
@@ -171,7 +190,6 @@ export default function QuizCreation() {
   return (
     <>
       <QuestionsDisplay />
-      {/* <Modules /> */}
       <AdminDashboard />
     </>
   );

@@ -19,20 +19,21 @@ body {
 
 
 .AdminClientSearchContainer {
-  flex: 1; /* Adjust the width of the search section */
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   padding-top: 5rem;
-  padding-bottom: 2rem;
-  margin: 0; /* Remove margin */
-  background-color: #BDDEDE;    
+  margin: 0;
+  background-color: #BDDEDE;
   border-left: 15px solid #BDDEDE;
   margin-left: 20%;
-  
-  margin-bottom: 1080px;
- 
+  min-height: max-content;
+  max-height: max-content;
+  /* margin-bottom: auto; */
+  overflow: auto;
+
 }
 
 .AdminClientSearchInput input[type="text"] {

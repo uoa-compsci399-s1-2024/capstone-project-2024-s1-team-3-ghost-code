@@ -11,7 +11,10 @@ import AdminSetting from "./pages/AdminSettings";
 import QuizCreation from "./pages/CreatingQuiz";
 import Quiz from "./pages/Quiz";
 import CreatingQuiz from "./pages/CreatingQuestions";
-import AClinicianMyProfile from "./pages/ClinicianMyProfile";
+import AClinicianMyProfile from "./pages/ClinicianMyProfile";import QuizCreation from "./pages/CreatingQuiz";
+import CreatingQuiz from "./pages/CreatingQuestions";
+import EditQuiz from "./pages/AEditQuiz";
+
 const getAdminToken = () => sessionStorage.getItem("adminToken");
 
 // ProtectedRoute component to protect admin-only routes
@@ -86,6 +89,31 @@ function App() {
           />
 
           <Route path="/quiz" element={<Quiz />} />
+
+          <Route
+            path="/createquiz/:moduleID"
+            element={<ProtectedRoute element={<QuizCreation />} />}
+          />
+
+          <Route
+            path="/EditQuiz"
+            element={<ProtectedRoute element={<EditQuiz />} />}
+          />
+
+          <Route
+            path="/createquestion/:moduleID"
+            element={<ProtectedRoute element={<CreatingQuiz mode="add" />} />}
+          />
+
+          <Route
+            path="/createquestion/:moduleID/:questionID"
+            element={<ProtectedRoute element={<CreatingQuiz mode="edit" />} />}
+          />
+
+
+
+
+
         </Routes>
       </BrowserRouter>
     </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import "./CDashboard.css";
 import { Link } from "react-router-dom";
+import logo from "../VERIFYLogo.jpg";
 
 function ClientDashboard() {
   return (
@@ -9,18 +10,18 @@ function ClientDashboard() {
         <img
           className="clientLogo"
           loading="lazy"
-          src="src/components/VERIFYLogo.jpg"
+          src={logo}
           alt="DashboardLogo"
         />
       </div>
-      <a
-        href="https://www.verifytraining.auckland.ac.nz/s"
-        target="_blank"
-        rel="noopener noreferrer"
+      <Link
+        to="https://www.verifytraining.auckland.ac.nz/s"
         style={{ textDecoration: "none" }}
       >
         <button className="clientButton">Verify Training</button>
-      </a>
+      </Link>
+      <br></br>
+      <br></br>
 
       <Link to="/quizDashboard" style={{ textDecoration: "none" }}>
         <button className="clientButton">Dashboard</button>
@@ -33,8 +34,17 @@ function ClientDashboard() {
       <br></br>
       <br></br>
       <br></br>
-      <Link to="/clinicianProfile" style={{ textDecoration: "none" }}>
-        <button className="clientButton">My Profile</button>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <Link to="/quizClientSettings" style={{ textDecoration: "none" }}>
+        <button className="clientButton">Settings</button>
       </Link>
     </div>
   );

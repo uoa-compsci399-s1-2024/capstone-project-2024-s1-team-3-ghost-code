@@ -5,23 +5,20 @@
     margin: 0;
 }
 
-
 .quizModuleContainer {
     margin-left: 20%; /* Ensure it starts after the ClientDashboard */
     flex: 1; /* Take remaining space */
     overflow-y: auto; /* Enable vertical scrolling */
     padding: 20px;
     background-color: #BDDEDE;  
-    
 }
 
 .quizModuleresults {
     padding-top: 20px;
-    
 }
 
 .module-item {
-    width:70%; /* Adjust the width as needed */
+    width: 70%; /* Adjust the width as needed */
     margin: 0 auto; /* Center the module boxes horizontally */
     padding: 60px; /* Add padding to the module boxes */
     margin-bottom: 20px; /* Add some space between module boxes */
@@ -36,7 +33,6 @@
 .moduleDescription {
     margin: 5px 0;
     font-size: 1.3rem;
-    
 }
 
 .moduleId {
@@ -53,9 +49,6 @@
     border-radius: 50%;
 }
 
-/* prac and final quiz buttons:
-/* QuizDashboard.css */
-
 /* Styling for the buttons */
 .module-buttons {
     display: flex;
@@ -64,10 +57,11 @@
 }
 
 .module-button {
-    padding: 10px 20px;
+    padding: 15px 30px; /* Increase padding for larger buttons */
     border: none;
-    border-radius: 5px;
+    border-radius: 8px; /* Slightly increase border-radius */
     cursor: pointer;
+    font-size: 1.2rem; /* Increase font size */
 }
 
 .module-button.practice {
@@ -82,4 +76,39 @@
 
 .module-button:hover {
     opacity: 0.8;
+}
+
+.disabled-button {
+    cursor: not-allowed;
+    opacity: 0.6; /* Adjust opacity to your preference */
+    background-color: #ccc; /* Change background color to indicate disabled state */
+    color: #999; /* Change text color to indicate disabled state */
+}
+
+/* Tooltip styles */
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
 }
