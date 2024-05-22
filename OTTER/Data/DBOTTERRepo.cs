@@ -259,7 +259,7 @@ namespace OTTER.Data
             if (oldQ != null)
             {
                 DeleteQuestion(oldQ.QuestionID);
-                Question newQ = new Question { Module = oldQ.Module, Title = question.Title, Description = question.Description, QuestionType = oldQ.QuestionType, Topic = oldQ.Topic, Deleted = false };
+                Question newQ = new Question { Module = oldQ.Module, Title = question.Title, Description = question.Description, QuestionType = oldQ.QuestionType, ImageURL = oldQ.ImageURL, Topic = oldQ.Topic, Deleted = false };
                 AddQuestion(newQ);
                 _dbContext.SaveChanges();
                 foreach(EditAnswerInputDto answer in question.Answers)
