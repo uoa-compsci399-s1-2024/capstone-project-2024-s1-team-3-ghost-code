@@ -9,45 +9,49 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 function AClinicianSearch() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [allClinicians, setAllClinicians] = useState([]);
   const [adminName, setAdminName] = useState("");
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-  const dropdownRef = useRef(null); // Reference to the admin info box
+  const dropdownRef = useRef(null);
 
   const adminToken = sessionStorage.getItem("adminToken");
   const navigate = useNavigate();
 
-// Function to fetch search results from backend API
-useEffect(() => {
-  if (searchQuery.trim() !== "") {
-    // Make HTTP request to backend API with search query
-    fetch(`https://api.tmstrainingquizzes.com/webapi/ClinicianSearch/${searchQuery}`, {
-      headers: {
-        "Authorization": `Bearer ${adminToken}` // Include token in headers
-      }
-    })
-    .then(response => {
-      if (!response.ok) {
-        if (response.status === 401) {
-          // Token is invalid or expired, log the admin out
-          sessionStorage.removeItem('adminToken');
-          navigate('/adminlogin'); // Redirect to admin login page
-        }
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then(data => {
-      setSearchResults(data);
-    })
-    .catch(error => {
-      console.error("Error fetching search results:", error);
-    });
-  } else {
-    setSearchResults([]);
-  }
-}, [searchQuery, adminToken, navigate]);
+  useEffect(() => {
+    fetchAllClinicians();
+  }, []);
 
- 
+  const fetchAllClinicians = async () => {
+    try {
+      const response = await fetch(
+        "https://api.tmstrainingquizzes.com/webapi/ClinicianSearch",
+        {
+          headers: {
+            Authorization: `Bearer ${adminToken}`,
+          },
+        }
+      );
+      const data = await response.json();
+      setAllClinicians(data);
+    } catch (error) {
+      console.error("Error fetching all clinicians:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (searchQuery.trim() !== "") {
+      const filteredResults = allClinicians.filter(
+        (clinician) =>
+          clinician.firstName
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase()) ||
+          clinician.userEmail.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setSearchResults(filteredResults);
+    } else {
+      setSearchResults(allClinicians);
+    }
+  }, [searchQuery, allClinicians]);
 
   const handleSearchInputChange = (event) => {
     setSearchQuery(event.target.value);

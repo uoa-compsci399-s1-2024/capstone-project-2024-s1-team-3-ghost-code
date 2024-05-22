@@ -72,7 +72,7 @@
     overflow: hidden;
     position: relative;
     background-color: lightgrey;
-    transition: max-height 650ms;
+    
     margin-left: 100px;
 
 }
@@ -136,7 +136,7 @@
 }
 
 .accordion-item:target .information{
-    max-height: 20rem;
+    max-height: 400px;
 
 }
 .accordion-item:target .information-ro{
@@ -161,9 +161,10 @@
     margin-right: 2rem;
 }
 
-.input-box-settings{
-    width: 55%;
-    height: 10px;
+.input-box-settings-change{
+    width: 400px;
+    height: 10px; /* Adjust as needed */
+     min-height: 10px;
     color: #040404;
     border: none;
     border-radius: 10px;
@@ -172,6 +173,19 @@
     outline: none;
     margin-top: 10px;
 }
+.input-box-settings{
+    width: 185px;
+    height: 10px; /* Adjust as needed */
+     min-height: 10px;
+    color: #040404;
+    border: none;
+    border-radius: 10px;
+    background: white;
+    backdrop-filter: blur(2px);
+    outline: none;
+    margin-top: 10px;
+}
+
 
 .btn-settings {
     width: 200px;
@@ -194,25 +208,6 @@
     background:  #006464;
     box-shadow: 0px 4px 20px rgba(62, 9, 9, 0.32);
 }
-
-.AdminSearchInput input[type="text"] {
-    width: 950px;
-    max-width: 700px;
-    padding: 1rem 1rem;
-    border: 2px solid #ddd;
-    border-radius: 1rem;
-    font-size: 1.5rem;
-    background: #ffffff;
-    transition: border-color 0.3s;
-    padding-left: 40px;
-      
-  }
-
-  .AdminSearchInput input[type="text"]:focus {
-    border-color: teal;
-    outline: none;
-    
-  }
 
   .admin-search-item {
     width:70%; /* Adjust the width as needed */
@@ -250,4 +245,33 @@
   color: red;
     
 
+  }
+
+  .card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 390px; /* Adjust based on your design needs */
+  }
+  
+  .card-content {
+    flex-grow: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  
+  .trash-container {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .scrollable-list {
+    max-height: 300px; /* Adjust based on your design needs */
+    overflow-y: auto; /* Enables vertical scrolling */
+    margin-bottom: 20px; /* Adds some spacing between lists */
   }

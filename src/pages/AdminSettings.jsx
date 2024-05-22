@@ -372,7 +372,7 @@ export default function AdminSetting() {
               <form className="information" onSubmit={handleSubmit}>
                 <input
                   type="text"
-                  className="input-box-settings"
+                  className="input-box-settings-change"
                   id="firstname"
                   value={adminfirstName}
                   placeholder="First Name"
@@ -381,7 +381,7 @@ export default function AdminSetting() {
                 />
                 <input
                   type="text"
-                  className="input-box-settings"
+                  className="input-box-settings-change"
                   id="lastname"
                   value={adminlastName}
                   placeholder="Last Name"
@@ -390,7 +390,7 @@ export default function AdminSetting() {
                 />
                 <input
                   type="email"
-                  className="input-box-settings"
+                  className="input-box-settings-change"
                   id="email"
                   value={adminEmail}
                   placeholder="Email"
@@ -418,7 +418,7 @@ export default function AdminSetting() {
               <form onSubmit={handleSubmitNewAdmin} className="information">
                 <input
                   type="text"
-                  className="input-box-settings"
+                  className="input-box-settings-change"
                   id="firstname"
                   placeholder="First Name"
                   value={firstName}
@@ -427,7 +427,7 @@ export default function AdminSetting() {
                 />
                 <input
                   type="text"
-                  className="input-box-settings"
+                  className="input-box-settings-change"
                   id="lastname"
                   placeholder="Last Name"
                   value={lastName}
@@ -436,7 +436,7 @@ export default function AdminSetting() {
                 />
                 <input
                   type="text"
-                  className="input-box-settings"
+                  className="input-box-settings-change"
                   id="email"
                   placeholder="Email"
                   value={email}
@@ -445,7 +445,7 @@ export default function AdminSetting() {
                 />
                 <input
                   type="text"
-                  className="input-box-settings"
+                  className="input-box-settings-change"
                   id="password"
                   placeholder="Password"
                   value={password}
@@ -513,19 +513,27 @@ export default function AdminSetting() {
                       Add Discipline
                     </button>
                   </div>
-                  <ul>
+                  <ul className="scrollable-list">
                     {filteredRoles.map((role) => (
                       <li key={role.roleID}>
-                        {role.roleName}
-                        <button
-                          className="trash-settings"
-                          onClick={() => handleDeleteRole(role.roleID)}
-                        >
-                          <FontAwesomeIcon icon={faTrash} />
-                        </button>
+                        <div className="card">
+                          <div className="card-content">{role.roleName}</div>
+                          <div className="trash-container">
+                            <button
+                              className="trash-settings"
+                              onClick={() => handleDeleteRole(role.roleID)}
+                            >
+                              <FontAwesomeIcon
+                                icon={faTrash}
+                                className="fa-lg"
+                              />
+                            </button>
+                          </div>
+                        </div>
                       </li>
                     ))}
                   </ul>
+
                   {roleMessage && <p>{roleMessage}</p>}
                 </div>
 
@@ -547,19 +555,27 @@ export default function AdminSetting() {
                       Add Site
                     </button>
                   </div>
-                  <ul>
+                  <ul className="scrollable-list">
                     {filteredOrganizations.map((org) => (
                       <li key={org.orgID}>
-                        {org.orgName}
-                        <button
-                          className="trash-settings"
-                          onClick={() => handleDeleteOrg(org.orgID)}
-                        >
-                          <FontAwesomeIcon icon={faTrash} />
-                        </button>
+                        <div className="card">
+                          <div className="card-content">{org.orgName}</div>
+                          <div className="trash-container">
+                            <button
+                              className="trash-settings"
+                              onClick={() => handleDeleteOrg(org.orgID)}
+                            >
+                              <FontAwesomeIcon
+                                icon={faTrash}
+                                className="fa-lg"
+                              />
+                            </button>
+                          </div>
+                        </div>
                       </li>
                     ))}
                   </ul>
+
                   {organizationMessage && <p>{organizationMessage}</p>}
                 </div>
               </div>
