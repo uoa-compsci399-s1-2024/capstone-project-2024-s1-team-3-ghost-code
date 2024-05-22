@@ -10,6 +10,12 @@ export function PasswordSubmit() {
   const [passwordVisible2, setPasswordVisible2] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
+  const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+
+  function validatePassword(password) {
+    return passwordRegex.test(password);
+  }
+
   const navigate = useNavigate();
 
   const togglePasswordVisibility1 = () => {
@@ -29,7 +35,13 @@ export function PasswordSubmit() {
       setErrorMessage(""); // Clear the error message if passwords match
     }
 
+    if (!validatePassword(newPassword)) {
+      alert("Please Ensure your password follows ");
+      return; 
+    }
+
     const code = sessionStorage.getItem('resetCode'); // Retrieve the code from sessionStorage
+    console.log(code);
 
     if (!code) {
       setErrorMessage("Verification code not found. Please retry the process.");
@@ -39,7 +51,7 @@ export function PasswordSubmit() {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ code, newPassword }), // Include the code and newPassword in the request body
+      body: JSON.stringify({ token: code, password: newPassword }), // Include the code and newPassword in the request body
     };
 
     try {
@@ -140,6 +152,12 @@ export function PasswordSubmit() {
           <p className="info-text">
             Make sure your password is strong and matches each other! You will be redirected to the login page on success.
             <br />
+                <p classname = "passinfo">Please Ensure the following is inclded in your password: <br />
+                Has minimum 8 characters in length. <br />
+                At least one uppercase English letter. <br />
+                At least one lowercase English letter. <br />
+                At least one digit. <br />
+                At least one special character.</p>
             <br />
             <br />
             <br />

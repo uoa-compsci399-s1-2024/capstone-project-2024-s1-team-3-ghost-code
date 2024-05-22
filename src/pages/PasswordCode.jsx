@@ -13,21 +13,20 @@ export function PasswordCodeForm() {
   const handleCodeVerification = async (event) => {
     event.preventDefault();
 
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, code }),
-    };
+    const url = `https://api.tmstrainingquizzes.com/auth/CheckPasswordReset/${code}`;
 
     try {
-      const response = await fetch(
-        "https://api.tmstrainingquizzes.com/auth/CheckPasswordReset",
-        requestOptions
-      );
+      const response = await fetch(url, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
 
       if (response.status === 200) {
-        sessionStorage.setItem('resetCode', code); // Store the code in sessionStorage
-        navigate("/passwordreset", { state: { email } }); // Navigate to the password reset page
+        // Store the code in sessionStorage
+        sessionStorage.setItem('resetCode', code);
+
+        // Navigate to the SubmitPasswordReset page
+        navigate("/passwordsubmit", { state: { email } });
       } else if (response.status === 400) {
         setError("This code is invalid");
       }
