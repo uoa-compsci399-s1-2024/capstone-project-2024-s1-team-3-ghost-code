@@ -178,15 +178,18 @@ namespace OTTER.Data
             {
                 Quiz quiz = GetQuizByID(quizInput.QuizID);
                 Attempt attempt = AddAttempt(new Attempt { Quiz = quiz, User = GetUserByID(quizInput.UserID), DateTime = DateTime.UtcNow, Completed = "INCOMPLETE" });
-                IEnumerable<Question> validQuestions = GetQuestionsByModule(quizInput.ModuleID).Where(e => e.Deleted == false);
+                IEnumerable<Question> validQuestions = GetQuestionsByModule(quizInput.ModuleID).Where(e => e.Deleted == false).ToList<Question>();
                 int topic = 1;
                 int topicCount = 0;
+                int percentage = 40;
                 for (int i = 1; i < quiz.Length + 1; i++)
                 {
-                    if (validQuestions.Where(e => e.Topic == topic) != null)
+                    IEnumerable<Question> validQuestions2 = validQuestions.Where(e => e.Topic == topic).ToList<Question>();
+                    Console.WriteLine(validQuestions2.Count());
+                    if (validQuestions2.Count() != 0)
                     {
-                        int randnum = random.Next(0, validQuestions.Where(e => e.Topic == topic).Count());
-                        Question randq = validQuestions.Where(e => e.Topic == topic).ElementAt(randnum);
+                        int randnum = random.Next(0,validQuestions2.Count());
+                        Question randq = validQuestions2.ElementAt(randnum);
                         if (output.FirstOrDefault(e => e.QuestionID == randq.QuestionID) != null)
                         {
                             i--;
@@ -205,15 +208,11 @@ namespace OTTER.Data
                         qOutputDto.AttemptID = attempt.AttemptID;
                         output.Add(qOutputDto);
                         topicCount++;
-                        if (i >= (quiz.Length / 100.0) * 40 || validQuestions.Where(e => e.Topic == topic).Count() == topicCount)
+                        if (i >= (quiz.Length / 100.0) * percentage)
                         {
                             topic = (topic + 1) % 4; ;
                             topicCount = 0;
-                        }
-                        else if (i >= (quiz.Length / 100.0) * 70 || validQuestions.Where(e => e.Topic == topic).Count() == topicCount)
-                        {
-                            topic = (topic + 1) % 4; ;
-                            topicCount = 0;
+                            percentage = percentage + 30;
                         }
                         else if (validQuestions.Where(e => e.Topic == topic).Count() == topicCount)
                         {
