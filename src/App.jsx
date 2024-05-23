@@ -11,6 +11,7 @@ import PracQuiz from "./pages/PracQuiz";
 import QuizCreation from "./pages/CreatingQuiz";
 import CreatingQuiz from "./pages/CreatingQuestions";
 import EditQuiz from "./pages/AEditQuiz";
+import AdminStatsReview from "./pages/AStatsPage";
 
 const getAdminToken = () => sessionStorage.getItem("adminToken");
 
@@ -86,6 +87,8 @@ function App() {
             path="/createquestion/:moduleID/:questionID"
             element={<ProtectedRoute element={<CreatingQuiz mode="edit" />} />}
           />
+
+          <Route path="/adminstats" element={<AdminStatsReview />} />
 
 
 
