@@ -15,6 +15,7 @@ import PracQuiz from "./pages/PracQuiz";
 import CreatingQuiz from "./pages/CreatingQuestions";
 import AClinicianMyProfile from "./pages/ClinicianMyProfile";
 import EditQuiz from "./pages/AEditQuiz";
+import PracQuiz from "./pages/PracQuiz";
 import AdminStatsReview from "./pages/AStatistics";
 import PasswordReset from "./pages/PasswordReset";
 import PasswordCode from "./pages/PasswordCode";
