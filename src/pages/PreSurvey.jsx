@@ -1,19 +1,19 @@
-import "./PreSurvey.css";
-import React, { useState, useEffect, useContext, useLocation } from "react";
-
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import PrivDiscM from './PrivDiscM'; // Import the Modal component
+import './PreSurvey.css';
 
 function Presurvey() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [position, setPosition] = useState("");
-  const [organisation, setOrganisation] = useState("");
-  const [positions, setPositions] = useState([]); // Array of positions from API
-  const [organisations, setOrganisations] = useState([]); // Array of organisations from API
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [position, setPosition] = useState('');
+  const [organisation, setOrganisation] = useState('');
+  const [positions, setPositions] = useState([]);
+  const [organisations, setOrganisations] = useState([]);
   const [orgIDs, setOrgsID] = useState([]);
   const [roleIDs, setRolesID] = useState([]);
-
+  const [showModal, setShowModal] = useState(true); // State to manage modal visibility
   const navigate = useNavigate();
 
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -145,6 +145,7 @@ function Presurvey() {
   };
 
   return (
+    <>
     <form onSubmit={handleSubmit}>
       <div className="split-survey left-survey">
         <div className="centered-survey">
@@ -241,22 +242,23 @@ function Presurvey() {
                 />
               </div>
               <div className="tc ">
-                <input type="checkbox" className="cb" required />
-                By ticking the box, you agree to the
-                <Link to="/home">Terms and Conditions</Link> of the Verify Quiz
-                Platform.
-              </div>
-
-              <div className="forgot">
-                <Link to="/cliniciansign">
-                  Already did the survey? continue here
-                </Link>
+                  <input type="checkbox" className="cb" required />
+                  By ticking the box, you agree to the
+                  <span className="terms-link" onClick={() => setShowModal(true)}> <font color="#485696" ><strong><u>Privacy Disclosure</u></strong></font> </span>
+                  of the Verify Quiz Platform.
+                </div>
+                <div className="forgot">
+                  <Link to="/cliniciansign">
+                  <font color="#485696"><strong><u>Already did the survey? continue here</u></strong></font>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </form>
+    </form >
+    <PrivDiscM show={showModal} handleClose={() => setShowModal(false)} />
+  </>
   );
 }
 
