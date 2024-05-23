@@ -385,6 +385,8 @@ const storeSelectedAnswersForQuestion = (selectedAnswers, questionIndex) => {
 
   console.log(questionImages);
 
+  
+
   const currentImage = questionImages[activeQuestion];
   const currentImageDimensions = imageDimensions[activeQuestion] || {};
 
@@ -446,7 +448,7 @@ const storeSelectedAnswersForQuestion = (selectedAnswers, questionIndex) => {
                     ) : (
                       <>
                       <div className='question-body'>
-                        <img src={currentImage} alt="Question Image" className='question-image' />
+                        
                         <ul>
                             {answers.map((answer, index) => (
                               <li
@@ -457,7 +459,8 @@ const storeSelectedAnswersForQuestion = (selectedAnswers, questionIndex) => {
                               </li>
                             ))}
                           </ul>
-                      </div>
+                       </div>
+                       <div><img src={currentImage} alt="Question Image" className='question-image' /></div>
                       </>
                     )}
                   </div>
