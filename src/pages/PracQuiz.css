@@ -1,13 +1,38 @@
 @import url('https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@100;200;300;400;500;600;700;800&display=swap');
 
-* {
-  font-family: Arial, Helvetica, sans-serif;
-  box-sizing: border-box;
+.quiz-loading {
+  height: 100%;
 }
 
-.quiz-loading{
-  height: 100vh;
+/* Progress bar code */
+.progress-bar-container {
+  width: 100%;
+  border: 2px solid #000; /* Outline of the full bar */
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
 
+.progress-bar {
+  background: linear-gradient(to right, #00b09b, #96c93d); /* Gradient colors */
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Align percentage text to the right */
+  color: white;
+  font-weight: bold;
+  position: relative;
+  padding-right: 10px; /* Add some padding to the right */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+  transition: width 0.5s ease-in-out; /* Add smooth transition for width */
+}
+
+.progress-percentage {
+  position: absolute;
+  right: 10px; /* Ensure it stays inside the bar */
+  pointer-events: none;
 }
 
 .quiz-body {
@@ -15,24 +40,32 @@
   color: #000000;
   padding: 1rem;
   margin: 0 auto;
-  height: 100vh;
-}
+  min-height: 100vh;
+  max-height: max-content+100vh;  /* Ensures it takes the full height if content is less */
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow: auto;
+} 
 
-.cont-main-quiz{
+.cont-main-quiz {
   width: 80%;
   margin: 0 auto;
+  flex-grow: 1; /* Ensures it grows to fill available space */
 }
-.cont-return-but{
+
+.cont-return-but {
   padding-top: 4%;
   padding-bottom: 2%;
 }
 
-h2{
+.module-title {
+  font-size: 20px;
   padding-top: 2%;
   padding-bottom: 2%;
 }
 
-/*Prev question button*/
+/* Prev question button */
 .btn.prev-ques {
   background: #757575;
   color: #FFFFFF;
@@ -47,11 +80,11 @@ h2{
 
 .btn.prev-ques:hover,
 .btn.prev-ques:focus-visible {
-  background: #1a1919;
+  background: #008080;
   color: #FFFFFF;
 }
 
-/*Next question button*/
+/* Next question button */
 .btn.next-ques {
   background: #757575;
   color: #FFFFFF;
@@ -66,30 +99,59 @@ h2{
 
 .btn.next-ques:hover,
 .btn.next-ques:focus-visible {
-  background: #1a1919;
+  background: #008080;
   color: #FFFFFF;
 }
 
-.button-container {
-  padding-top: 0%;
+/* Feedback buttons */
+.btn.feedback-prev-ques,
+.btn.feedback-next-ques {
+  background: #757575;
+  color: #FFFFFF;
+  border-color: #000000;
+  width: 15%;
+  height: 5%;
+  margin: 10px; /* Margin to separate the buttons */
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
-.question-body{
+.btn.feedback-prev-ques:hover,
+.btn.feedback-prev-ques:focus-visible,
+.btn.feedback-next-ques:hover,
+.btn.feedback-next-ques:focus-visible {
+  background: #008080;
+  color: #FFFFFF;
+}
+
+.btn.feedback-next-ques:disabled,
+.btn.feedback-prev-ques:disabled {
+  background: #e7e8e9;
+  color: #9fa3a9;
+  cursor: not-allowed;
+}
+
+.button-container {
+  text-align: center; /* Center the buttons */
+  margin-top: 20px; /* Add some margin at the top */
+}
+
+.question-body {
   margin-top: 7%;
   margin-left: 2%;
   margin-right: 2%;
   margin-bottom: 2%;
 }
 
-.cont-question{
+.cont-question {
   background: #FFFFFF;
   padding: 20px;
   border-radius: 25px;
   margin: 0 auto;
   width: 100%;
 }
-.quiz-container {
 
+.quiz-container {
   padding: 20px;
   margin: 0 auto;
   width: 100%;
@@ -98,7 +160,7 @@ h2{
 .quiz-container .active-question-no {
   font-size: 32px;
   font-weight: 500;
-  color: #800080;
+  color: #008080;
 }
 
 .quiz-container .total-question {
@@ -131,12 +193,12 @@ h2{
 }
 
 .quiz-container ul .selected-answer {
-  background: #ffd6ff;
-  border: 1px solid #800080;
+  background: #5790da46;
+  border: 3px solid #5790da;
 }
 
 .quiz-container button {
-  background: linear-gradient(90.04deg, #800080 0.03%, #ffc0cb 99.96%);
+  background: #008080;
   border-radius: 9px;
   font-size: 18px;
   color: #ffffff;
@@ -158,21 +220,49 @@ h2{
   justify-content: flex-end;
 }
 
-.cont-feedback{
-  
-}
-
-.feeback-qs{
+.feedback-qs {
+  width: 70%;
   float: left;
 }
+
+.cont-feedback {
+  background: #FFECEC;
+  border-radius: 0px 0px 25px 25px;
+  width: 100%;
+  margin-bottom: 1%;
+}
+
+.cont-feedback-writing {
+  padding: 2%;
+}
+
+.cont-results {
+  width: 80%;
+  margin: 0 auto;
+  height: 100%;
+}
+
+.feedback-options {
+  background-color: white;
+  padding: 2%;
+}
+
+.sep-qs {
+  background-color: #FFFFFF;
+  border-radius: 25px 25px 0px 0px;
+  padding-top: 5%;
+  width: 100%;
+  padding: 2%;
+}
+
 .result {
   background-color: white;
   border-radius: 25px;
   padding: 2%;
   float: right;
   width: 25%;
-  margin-top: -100px;
 }
+
 .result h3 {
   font-size: 24px;
   letter-spacing: 1.4px;
@@ -190,65 +280,37 @@ h2{
   font-size: 22px;
 }
 
-.progress-bar-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 10px; /* Adjust height as needed */
+.loadingbody {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #ff7e5f, #feb47b, #ffcc6f);
 }
 
-.progress-bar {
-  height: 100%;
-  background-color: #007bff; /* Adjust color as needed */
-}
-
-
-/* test */
-.feedback-qs {
-  background-color: #FFFFFF;
-  border-radius: 25px;
+.loadingtextcont {
+  background-color: rgba(255, 255, 255, 0.9);
   padding: 20px;
-  margin: 250px auto 20px; /* Adjust margin-top as needed */
-  width: 80%;
-
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
-.feedback-qs h3 {
-  font-size: 24px;
-  font-weight: 600;
-  text-align: center;
+.loadingh1 {
   margin-bottom: 20px;
+  color: #333;
 }
 
-.feedback-qs p {
-  font-size: 18px;
-  font-weight: 500;
+.loadingp {
+  color: #666;
   margin-bottom: 10px;
 }
 
-.feedback-qs p span {
-  color: #800080;
-  font-weight: 600;
-}
-
-.feedback-qs ul {
-  margin-top: 20px;
-}
-
-.feedback-qs ul li {
-  color: #2d264b;
-  font-size: 16px;
-  margin-bottom: 10px;
-}
-
-.button-container {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.button-container .btn {
-  background: linear-gradient(90.04deg, #800080 0.03%, #ffc0cb 99.96%);
+.loadingbody button {
+  background: #008080;
   border-radius: 9px;
   font-size: 18px;
   color: #ffffff;
@@ -259,26 +321,30 @@ h2{
   margin-top: 15px;
 }
 
-.button-container .btn:disabled {
+.loadingbody button:hover {
   background: #e7e8e9;
   color: #9fa3a9;
-  cursor: not-allowed;
+  cursor: pointer;
 }
 
-.correct {
-  background-color: green;
+.question-with-image.image-above {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.wrong {
-  background-color: red;
+.question-with-image.image-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.question-answer-container {
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 10px;
-}
+.question-image {
+  max-width: 100%;
+  width: 300px;
+  height: 300px;
+  margin: 10px;
 
-.question-answer-wrapper {
-  /* Your existing styles for the question-answer wrapper */
+  position: center;
+
 }

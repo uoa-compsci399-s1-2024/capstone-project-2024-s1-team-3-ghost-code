@@ -9,7 +9,7 @@ const PracQuiz = () => {
   
   const [questions, setQuestions] = useState([]);
   const [activeQuestion, setActiveQuestion] = useState(0);
-  const [selectedAnswers, setSelectedAnswers] = useState([]);
+  
   const [showResult, setShowResult] = useState(false);
   const [selectedAnswerIndexes, setSelectedAnswerIndexes] = useState([]);
   const cliniciantoken = sessionStorage.getItem('cliniciantoken');
@@ -29,11 +29,15 @@ const PracQuiz = () => {
 
   const [submissionResult, setSubmissionResult] = useState([]);
 
+  const [questionImages, setQuestionImages] = useState([]);
+  const [imageDimensions, setImageDimensions] = useState({});
+
+
 
   const [userID, setUserID] = useState(null);
   const navigate = useNavigate();
 
-  
+
   useEffect(() => {
     const fetchModuleAccessStatus = async () => {
       try {
@@ -60,11 +64,6 @@ const PracQuiz = () => {
 
     fetchModuleAccessStatus();
   }, [moduleID, cliniciantoken, navigate]);
-
-
-
-
-
 
   
 
@@ -143,6 +142,9 @@ const PracQuiz = () => {
          // Extract question IDs from the response data
         const IDs = data.map(question => question.questionID);
         setQuestionIDs(IDs);
+
+        const imageurls = data.map(question => question.imageURL);
+        setQuestionImages(imageurls);
        
         setQuestions(data);
         setattemptID(data[0].attemptID)
@@ -156,12 +158,32 @@ const PracQuiz = () => {
       }
     };
 
+    
+
+  
 
     
     if (userID !== null) {  
       fetchQuestions();
     }
-  }, [userID,quizID,moduleID, cliniciantoken, navigate]);
+  }, [userID, quizID, moduleID, cliniciantoken, navigate]);
+  
+
+  useEffect(() => {
+    // Load image dimensions
+    questionImages.forEach((url, index) => {
+      if (url) {
+        const img = new Image();
+        img.onload = () => {
+          setImageDimensions(prevDimensions => ({
+            ...prevDimensions,
+            [index]: { width: img.width, height: img.height }
+          }));
+        };
+        img.src = url;
+      }
+    });
+  }, [questionImages]);
 
 
   useEffect(() => {
@@ -243,16 +265,12 @@ const storeSelectedAnswersForQuestion = (selectedAnswers, questionIndex) => {
   
   
   
-  console.log(selectedAnswersList)
+
   
 
   const onClickNext = async () => {
 
-    console.log(selectedAnswersList)
-    console.log(sequence)
-    console.log(questionIDs)
-    console.log(userID)
-    console.log(attemptID)
+   
     const currentQuestion = questions[activeQuestion];
     
     if (activeQuestion !== questions.length - 1) {
@@ -307,7 +325,6 @@ const storeSelectedAnswersForQuestion = (selectedAnswers, questionIndex) => {
         const correctAnswers = correctCount;
         const wrongAnswers = wrongCount;
       
-      
        
         
   
@@ -332,7 +349,24 @@ const storeSelectedAnswersForQuestion = (selectedAnswers, questionIndex) => {
   const addLeadingZero = (number) => (number > 9 ? number : `0${number}`);
 
   if (questions.length === 0) {
-    return <div>Loading...</div>;
+    return (<div className='loadingpage'>
+      <head><title>404 - Page Not Found</title></head>
+      <body>
+        <div className='loadingbody'>
+          <div className='loadingtextcont'>
+            <h1 className='loadingh1'>404 - Page Not Found</h1>
+            <p className='loadingp'>The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
+
+              <div className="cont-return-but">
+                <Link to="/quizDashboard" style={{ textDecoration: "none" }}>
+                  <button className="btn return-button">Back to Modules</button>
+                </Link>
+              </div>
+              
+          </div>
+        </div>
+      </body>
+    </div>);
   }
 
  
@@ -348,65 +382,81 @@ const storeSelectedAnswersForQuestion = (selectedAnswers, questionIndex) => {
         console.log(activeQuestion)
     }
 };
-console.log(moduleName)
+
+  console.log(questionImages);
+
+  const currentImage = questionImages[activeQuestion];
+  const currentImageDimensions = imageDimensions[activeQuestion] || {};
 
 
-return (
-  <div className='quiz-body'>
+ return (
+    <div className='quiz-body'>
       <div className="quiz-container">
-          {!showResult ? (
-              <div className="cont-main-quiz">
+        {!showResult ? (
+          <div className="cont-main-quiz">
+            <div className="cont-return-but">
+              <Link to="/quizDashboard" style={{ textDecoration: "none" }}>
+                <button className="btn return-button">Back to Modules</button>
+              </Link>
+            </div>
 
-                  <div className="cont-return-but">
+            <div className="progress-bar-container">
+              <div className="progress-bar" style={{ width: `${(activeQuestion) / questions.length * 100}%` }}></div>
+            </div>
 
-                      <Link to="/quizDashboard" style={{ textDecoration: "none" }}>
-                          <button className="btn return-button">Back to Modules</button>
-                      </Link>
+            <h2>{moduleID}: {moduleName}</h2>
+
+            <div className='cont-question'>
+              <div className="button-container">
+                {activeQuestion !== 0 && (
+                  <button onClick={onClickPrevious} className="btn prev-ques">Previous</button>
+                )}
+
+                <button onClick={onClickNext} disabled={selectedAnswerIndexes.length === 0} className="btn next-ques">
+                  {activeQuestion === questions.length - 1 ? 'Finish' : 'Next'}
+                </button>
+              </div>
+
+              <div className='question-body'>
+                <div className='question-stage'>
+                  <span className="active-question-no">{addLeadingZero(activeQuestion + 1)}</span>
+                  <span className="total-question">/{addLeadingZero(questions.length)}</span>
+                </div>
+
+                {currentImage ? (
+                  <div className={`question-with-image ${currentImageDimensions.width > currentImageDimensions.height ? 'image-above' : 'image-right'}`}>
+                    {currentImageDimensions.width > currentImageDimensions.height ? (
+                      <>
+                        <img src={currentImage} alt="Question Image" className='question-image' />
+                        <h2>{title}</h2>
+                      </>
+                    ) : (
+                      <>
+                        <h2>{title}</h2>
+                        <img src={currentImage} alt="Question Image" className='question-image' />
+                      </>
+                    )}
                   </div>
-
-                  <div className="progress-bar-container">
-                      <div className="progress-bar" style={{ width: `${(activeQuestion) / questions.length * 100}%` }}></div>
-                  </div>
-
-                  {/*Need api or something*/}
-                  <h2>{moduleID}: {moduleName}</h2>
-                  
-
-                  <div className='cont-question'>
-                      <div className="button-container">
-                          {activeQuestion !== 0 && (
-                              <button onClick={onClickPrevious} className="btn prev-ques">Previous</button>
-                          )}
-
-                          <button onClick={onClickNext} disabled={selectedAnswerIndexes.length === 0} className="btn next-ques">
-                              {activeQuestion === questions.length - 1 ? 'Finish' : 'Next'}
-                          </button>
-                      </div>
-
-                      <div className='question-body'>
-
-                          <div className='question-stage'>
-                              <span className="active-question-no">{addLeadingZero(activeQuestion + 1)}</span>
-                              <span className="total-question">/{addLeadingZero(questions.length)}</span>
-                          </div>
-
-                          <h2>{title}</h2>
-                          <ul>
-                              {answers.map((answer, index) => (
-                                  <li
-                                      onClick={() => onAnswerSelected(answer.answerID, index)}
-                                      key={answer.answerID}
-                                      className={selectedAnswersLists[activeQuestion]?.includes(answer.answerID) ? 'selected-answer' : null}>
-                                      {answer.answerText}
-                                  </li>
-                              ))}
+                ) : (
+                  <h2>{title}</h2>
+                )}
+                
+                <ul>
+                  {answers.map((answer, index) => (
+                    <li
+                      onClick={() => onAnswerSelected(answer.answerID, index)}
+                      key={answer.answerID}
+                      className={selectedAnswersLists[activeQuestion]?.includes(answer.answerID) ? 'selected-answer' : null}>
+                      {answer.answerText}
+                    </li>
+                  ))}
                           </ul>
                       </div>
                   </div>
 
               </div>
           ) : (
-            <div className='cont-feedback'>
+            <div className='cont-results'>
               <div className="cont-return-but">
                 <Link to="/quizDashboard" style={{ textDecoration: "none" }}>
                   <button className="btn return-button">Back to Modules</button>
@@ -416,31 +466,56 @@ return (
               <div className="result">
                 <h3>Result</h3>
                 <p>Total Questions: <span>{questions.length}</span></p>
-                <p>Total Score: <span>{result.score}</span></p>
+                <p>Total Score: <span>{result.score+"%"}</span></p>
                 <p>Correct Answers: <span>{result.correctAnswers}</span></p>
-                <p>Wrong Answers: <span>{result.wrongAnswers}</span></p>
+              <p>Wrong Answers: <span>{result.wrongAnswers}</span></p>
+              
+            </div>
+            <div className='button-alignment'>
+                <div className="button-container">
+                  <button onClick={onClickPrevious} disabled={activeQuestion === 0} className="btn feedback-prev-ques">Previous</button>
+                  <button onClick={onClickNext} disabled={activeQuestion === questions.length - 1} className="btn feedback-next-ques">Next</button>
+                </div>
               </div>
+          
     
               <div className='feedback-qs'>
-              <div 
-                key={questions[activeQuestion].questionID}
-                className={`question-answer-container ${
-                  submissionResult.selectedCorrect[activeQuestion].every(val => val) && submissionResult.missedCorrectAID[activeQuestion].length === 0
-                  ? 'correct'
-                  : 'wrong'
-                }`}
-              >
+
+                  <div key={questions[activeQuestion].questionID} className="question-answer-container">
                   <div className="question-answer-wrapper">
-                    <h4>{questions[activeQuestion].title}</h4>
-                    <ul>
+                  <div className='sep-qs'>
+                    <h2>{questions[activeQuestion].title}</h2>
+
+                   {/* This changing colour section changes the colour of the selected question, but idk how to change it to red if it was wrong*/}
+                    <ul className='feedback-options'>
                       {questions[activeQuestion].answers.map(answer => (
-                        <li key={answer.answerID} style={{ color: '#808080' }}>
+                        <li 
+                          key={answer.answerID} 
+                          style={{ 
+                            color: selectedAnswersLists[activeQuestion]?.includes(answer.answerID) ? 
+
+
+
+                              submissionResult.selectedCorrect[activeQuestion].every(val => val) && submissionResult.missedCorrectAID[activeQuestion].length === 0 ? 'green' : 'red'
+                              : 
+                              (submissionResult.missedCorrectAID[activeQuestion].includes(answer.answerID) ? '' : '') 
+                          }}
+                        >
                           {answer.answerText}
                         </li>
                       ))}
                     </ul>
-                    <p>Selected Answer(s):</p>
-                    <ul>
+                  </div>
+                </div>
+                </div>
+
+
+                  {/*IDK which part of the code is displaying the answered question, I want to remove it and ONLY show the feedback, but I think they depend on each other? I'm not too sure about what I can remove.*/}
+                <div className="cont-feedback">
+                  <div className="cont-feedback-writing">
+
+
+                  <ul>
                     {selectedAnswersLists[activeQuestion]?.map((selectedAnswerID, index) => (
                     <li key={selectedAnswerID} style={{ color: '#808080' }}>
                       {questions[activeQuestion].answers.find(answer => answer.answerID === selectedAnswerID)?.answerText}
@@ -456,13 +531,8 @@ return (
                       )}
                     </li>
                   ))}
-
-                  </ul>
+                  </ul>                    
                   </div>
-                </div>
-                <div className="button-container">
-                  <button onClick={onClickPrevious} disabled={activeQuestion === 0} className="btn prev-ques">Previous</button>
-                  <button onClick={onClickNext} disabled={activeQuestion === questions.length - 1} className="btn next-ques">Next</button>
                 </div>
               </div>
             </div>
