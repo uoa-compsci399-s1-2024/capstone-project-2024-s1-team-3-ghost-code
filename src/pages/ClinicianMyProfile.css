@@ -1,0 +1,70 @@
+/* General Flex Container */
+.flex-profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Full viewport height */
+    background-color: #BDDEDE;
+}
+
+/* Profile Container */
+.my-profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 50%; /* Space between dashboard and profile */
+}
+
+/* Dashboard Container */
+.dashboard-container {
+    /* No specific styling applied */
+}
+
+/* Profile Content Container */
+.client-profile-contianer {
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    gap: 2px; /* Space between profile details */
+    background-color: white;
+    padding: 20px;
+   
+}
+
+/* Individual Profile Details */
+.client-profile {
+    display: flex;
+    flex-direction: column; /* Stack details vertically */
+    gap: 5px; /* Space between label and information */
+}
+
+/* Detail Containers */
+.client-details {
+    display: flex;
+    justify-content: space-between; /* Space between label and information */
+    align-items: center; /* Align items vertically */
+    gap: 10px; /* Optional: Add space between label and information */
+    width: 500px
+}
+
+/* Labels */
+.client-label {
+    font-weight: bold; /* Make labels bold */
+    text-transform: uppercase; /* Convert labels to uppercase */
+    text-align: right; /* Right-align labels */
+}
+
+/* Information */
+.clientFN,
+.clientLN,
+.clientEM,
+.clientsite,
+.clientrole {
+    font-size: 14px; /* Adjust font size as needed */
+}
+
+/* Contact Message */
+p {
+    text-align: center; /* Center-align the message */
+    font-size: 12px; /* Smaller font size for the message */
+}

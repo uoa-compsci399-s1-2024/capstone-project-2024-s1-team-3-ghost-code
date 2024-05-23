@@ -206,6 +206,7 @@ i{
     top: 0;
     margin-left: 20px;
     overflow-x: hidden;
+    text-decoration: none;
   }
   
   #back-arrow {
@@ -217,8 +218,8 @@ i{
   
   .back-to-home-text {
     margin-top: 26px;
-    text-decoration: underline;
     margin-left: 25px;
+
   }
   
   .split {
@@ -238,6 +239,9 @@ i{
     
   }
 
+  .info-text {
+    font-size: 16px;
+  }
   .info-content {
     text-align: center;
     padding:20px;
