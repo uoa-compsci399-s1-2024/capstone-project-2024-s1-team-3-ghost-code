@@ -157,7 +157,7 @@ namespace OTTER.Data
 
         public Question GetQuestionByID(int id)
         {
-            return _dbContext.Questions.FirstOrDefault(e => e.QuestionID == id);
+            return _dbContext.Questions.Include(e => e.Module).FirstOrDefault(e => e.QuestionID == id);
         }
 
         public IEnumerable<Question> GetQuestionsByModule(int id)

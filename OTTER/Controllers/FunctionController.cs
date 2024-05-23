@@ -734,15 +734,23 @@ namespace OTTER.Controllers
                     IEnumerable<Certification> certifications = _repo.GetCertifications().ToList<Certification>();
                     IEnumerable<Certification> userCerts = certifications.Where(e => e.User.UserEmail == User.FindFirstValue(ClaimTypes.Email)).ToList<Certification>();
                     IEnumerable<Certification> validCerts = userCerts.Where(e => e.Type == "InitCertification" || e.Type == "Recert").ToList<Certification>();
-                    Certification current = certifications.ElementAt(validCerts.Count() - 1);
-                    DateTime issueDate = current.DateTime;
-                    if (current != null && DateTime.Compare(issueDate.AddMonths(11), DateTime.UtcNow) <= 0)
+                    if (validCerts.Count() > 0)
                     {
-                        return Ok(new QuizAccessDto { PracticePassed = true, FinalPassed = true, Description = "You have passed the final quiz from each module. The recertification quiz is available to complete." });
+                        Certification current = certifications.ElementAt(validCerts.Count() - 1);
+                        DateTime issueDate = current.DateTime;
+                        if (current != null && DateTime.Compare(issueDate.AddMonths(11), DateTime.UtcNow) <= 0)
+                        {
+                            return Ok(new QuizAccessDto { PracticePassed = true, FinalPassed = true, Description = "You have passed the final quiz from each module. The recertification quiz is available to complete." });
+                        }
+                        else
+                        {
+                            return Ok(new QuizAccessDto { PracticePassed = true, FinalPassed = false, Description = "It is not within 1 month until your certification expires. The recertification quiz is not available to complete." });
+                        }
                     } else
                     {
-                        return Ok(new QuizAccessDto { PracticePassed = true, FinalPassed = false, Description = "You have not passed the final quiz from each module. The recertification quiz is not available to complete." });
+                        return Ok(new QuizAccessDto { PracticePassed = true, FinalPassed = false, Description = "You have not been previously certified. The recertification quiz is not available to complete." });
                     }
+                   
                 } else
                 {
                     IEnumerable<Attempt> attempts = _repo.GetAttempts();
