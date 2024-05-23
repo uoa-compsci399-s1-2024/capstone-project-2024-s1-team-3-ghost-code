@@ -149,7 +149,6 @@
   border-radius: 25px;
   margin: 0 auto;
   width: 100%;
-  overflow: auto;
 }
 
 .quiz-container {
@@ -260,7 +259,8 @@
   background-color: white;
   border-radius: 25px;
   padding: 2%;
-
+  float: right;
+  width: 25%;
 }
 
 .result h3 {
@@ -337,7 +337,6 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap:20px
   
 }
 

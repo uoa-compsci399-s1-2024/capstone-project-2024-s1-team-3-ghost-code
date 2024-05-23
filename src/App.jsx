@@ -12,6 +12,11 @@ import QuizCreation from "./pages/CreatingQuiz";
 import Quiz from "./pages/Quiz";
 import AdminModuleReview from "./pages/AdminModuleReview";
 import PracQuiz from "./pages/PracQuiz";
+import CreatingQuiz from "./pages/CreatingQuestions";
+import AClinicianMyProfile from "./pages/ClinicianMyProfile";
+import EditQuiz from "./pages/AEditQuiz";
+import PracQuiz from "./pages/PracQuiz";
+import AdminStatsReview from "./pages/AStatistics";
 import PasswordReset from "./pages/PasswordReset";
 import PasswordCode from "./pages/PasswordCode";
 import PasswordSubmit from "./pages/PasswordSubmit";
@@ -50,6 +55,18 @@ function App() {
           <Route path="/adminlogin" element={<AdminLoginComponents />} />
           <Route path="/presurvey" element={<Presurvey />} />
           <Route path="/cliniciansign" element={<ClinicianSignComponents />} />
+
+          <Route path="/passwordreset" element={<PasswordReset />} />
+
+          <Route path="/passwordcode" element={<PasswordCode />} />
+
+          <Route path="/passwordsubmit" element={<PasswordSubmit />} />
+
+
+          <Route
+            path="/createquestion"
+            element={<ProtectedRoute element={<CreatingQuiz />} />}
+          />
           <Route
             path="/createquiz"
             element={<ProtectedRoute element={<QuizCreation />} />}
@@ -60,27 +77,51 @@ function App() {
           />
 
           <Route
+            path="/adminStats"
+            element={<ProtectedRoute element={<AdminStatsReview  />} />}
+          />
+
+          <Route
             path="/quizDashboard"
             element={<ClinicianProtectedRoute element={<QuizDashboard />} />}
           />
 
           <Route
-            path="/quiz/:quizID/:moduleID"
-            element={<ClinicianProtectedRoute element={<PracQuiz />} />}
+            path="/clinicianProfile"
+            element={
+              <ClinicianProtectedRoute element={<AClinicianMyProfile />} />
+            }
           />
 
           <Route
             path="/adminsearch"
             element={<ProtectedRoute element={<AClinicianSearch />} />}
           />
+          <Route
+            path="/createquiz/:moduleID"
+            element={<ProtectedRoute element={<QuizCreation />} />}
+          />
+
+          <Route
+            path="/EditQuiz"
+            element={<ProtectedRoute element={<EditQuiz />} />}
+          />
+
+          <Route
+            path="/createquestion/:moduleID"
+            element={<ProtectedRoute element={<CreatingQuiz mode="add" />} />}
+          />
+
+          <Route
+            path="/createquestion/:moduleID/:questionID"
+            element={<ProtectedRoute element={<CreatingQuiz mode="edit" />} />}
+          />
 
           <Route
             path="/clinician/:clinicianId"
             element={<ProtectedRoute element={<AClinicianProfile />} />}
           />
-
-          <Route path="/quiz" element={<Quiz  />} />
-
+          
           <Route path="/adminmodulereview" element={<AdminModuleReview />} />
     
           <Route path="/passwordreset" element={<PasswordReset />} />
@@ -89,6 +130,11 @@ function App() {
 
           <Route path="/passwordsubmit" element={<PasswordSubmit />} />
           
+          <Route path="/quiz" element={<Quiz />} />
+          <Route
+            path="/quiz/:quizID/:moduleID"
+            element={<ClinicianProtectedRoute element={<PracQuiz />} />}
+          />
         </Routes>
       </BrowserRouter>
     </div>
