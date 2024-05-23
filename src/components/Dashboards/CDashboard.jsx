@@ -14,12 +14,14 @@ function ClientDashboard() {
           alt="DashboardLogo"
         />
       </div>
-      <Link
-        to="https://www.verifytraining.auckland.ac.nz/s"
-        style={{ textDecoration: "none" }}
+      <a
+        href="https://www.verifytraining.auckland.ac.nz/s"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ textDecoration: "none", color: "white" }} // Apply any additional styles here
       >
         <button className="clientButton">Verify Training</button>
-      </Link>
+      </a>
       <br></br>
       <br></br>
 
