@@ -24,7 +24,6 @@ function AdminDashboard() {
         to="/adminsearch"
       >
         <button className="Adminbutton">Clinicians</button>
-
       </Link>
       <button className="Adminbutton">Statistics</button>
       <br></br>
