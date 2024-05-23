@@ -31,7 +31,7 @@ const PracQuiz = () => {
 
   const [questionImages, setQuestionImages] = useState([]);
   const [imageDimensions, setImageDimensions] = useState({});
-
+  const [imageDisplayPositions, setImageDisplayPositions] = useState({});
 
 
   const [userID, setUserID] = useState(null);
@@ -179,6 +179,11 @@ const PracQuiz = () => {
             ...prevDimensions,
             [index]: { width: img.width, height: img.height }
           }));
+          const aspectRatio = img.width / img.height;
+        setImageDisplayPositions(prevPositions => ({
+         ...prevPositions,
+          [index]: aspectRatio > 16? 'right' : 'above'
+        }));
         };
         img.src = url;
       }
@@ -427,13 +432,13 @@ const storeSelectedAnswersForQuestion = (selectedAnswers, questionIndex) => {
               
 
 
-                {currentImage ? (
-                  <div className={`question-with-image ${currentImageDimensions.width > currentImageDimensions.height ? 'image-above' : 'image-right'}`}>
-                    {currentImageDimensions.width > currentImageDimensions.height ? (
-                      <>
-                      <div className='question-body'>
-                        <img src={currentImage} alt="Question Image" className='question-image' />
-                        <ul>
+              {currentImage? (
+        <div className={`question-with-image ${imageDisplayPositions[activeQuestion]}`}>
+          {imageDisplayPositions[activeQuestion] === 'above'? (
+            <>
+              <div className='question-body'>
+                <img src={currentImage} alt="Question Image" className='question-image' />
+                <ul>
                             {answers.map((answer, index) => (
                               <li
                                 onClick={() => onAnswerSelected(answer.answerID, index)}

@@ -351,9 +351,12 @@
 
 .question-image {
   max-width: 100%;
-  max-height: 200px; /* Set a default height */
+  max-height: 300px; /* Set a default height */
   object-fit: contain; /* This will ensure the image scales properly */
   margin-bottom: 10px; /* Add some spacing between the image and text */
+  z-index: 1;
+  position: relative;
+  top: 100px;
 }
 
 
