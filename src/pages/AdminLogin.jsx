@@ -99,7 +99,7 @@ export function AdminLoginForm() {
                 <input type="submit" className="input-submit" value="Sign In" />
               </div>
               <div className="forgot">
-                <a href="#">Forgot password?</a>
+                <a href="/passwordreset">Forgot password?</a>
               </div>
             </div>
           </div>

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import "./AStatsPage.css";
+import "./AStatistics.css";
 import redaxios from "redaxios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import AdminDashboard from "../components/Dashboards/ADashboard";
+import AdminInfo from "../components/AdminComponent/adminInfo";
 
 function AdminStatsReview() {
   const navigate = useNavigate();
@@ -134,6 +135,7 @@ function AdminStatsReview() {
         <AdminDashboard />
       </div>
       <div className="amr-container">
+      <AdminInfo />
         <div className="amr-results">
           <div className="side-by-side">
             <h3>Module:</h3>

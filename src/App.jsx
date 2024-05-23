@@ -15,6 +15,9 @@ import AClinicianMyProfile from "./pages/ClinicianMyProfile";
 import EditQuiz from "./pages/AEditQuiz";
 import PracQuiz from "./pages/PracQuiz";
 import AdminStatsReview from "./pages/AStatistics";
+import PasswordReset from "./pages/PasswordReset";
+import PasswordCode from "./pages/PasswordCode";
+import PasswordSubmit from "./pages/PasswordSubmit";
 
 const getAdminToken = () => sessionStorage.getItem("adminToken");
 
@@ -50,6 +53,14 @@ function App() {
           <Route path="/adminlogin" element={<AdminLoginComponents />} />
           <Route path="/presurvey" element={<Presurvey />} />
           <Route path="/cliniciansign" element={<ClinicianSignComponents />} />
+
+          <Route path="/passwordreset" element={<PasswordReset />} />
+
+          <Route path="/passwordcode" element={<PasswordCode />} />
+
+          <Route path="/passwordsubmit" element={<PasswordSubmit />} />
+
+
           <Route
             path="/createquestion"
             element={<ProtectedRoute element={<CreatingQuiz />} />}

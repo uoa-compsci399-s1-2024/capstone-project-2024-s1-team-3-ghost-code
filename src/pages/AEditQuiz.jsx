@@ -3,6 +3,7 @@ import redaxios from "redaxios";
 import AdminDashboard from "../components/Dashboards/ADashboard";
 import { Link, useNavigate } from "react-router-dom";
 import "./AEditQuiz.css";
+import AdminInfo from "../components/AdminComponent/adminInfo";
 
 function EditQuiz() {
   const navigate = useNavigate();
@@ -46,6 +47,7 @@ function EditQuiz() {
         <AdminDashboard />
       </div>
       <div className="quizModuleContainer">
+      <AdminInfo />
         <div className="quizModuleresults">
           {modules.map((module) => (
             <Link
