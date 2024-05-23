@@ -260,7 +260,8 @@
   background-color: white;
   border-radius: 25px;
   padding: 2%;
-
+  float: right;
+  width: 25%;
 }
 
 .result h3 {
