@@ -417,41 +417,68 @@ const storeSelectedAnswersForQuestion = (selectedAnswers, questionIndex) => {
                 </button>
               </div>
 
-              <div className='question-body'>
-                <div className='question-stage'>
+              <div className='question-stage'>
                   <span className="active-question-no">{addLeadingZero(activeQuestion + 1)}</span>
                   <span className="total-question">/{addLeadingZero(questions.length)}</span>
-                </div>
+              </div>
+
+              
+
 
                 {currentImage ? (
                   <div className={`question-with-image ${currentImageDimensions.width > currentImageDimensions.height ? 'image-above' : 'image-right'}`}>
                     {currentImageDimensions.width > currentImageDimensions.height ? (
                       <>
+                      <div className='question-body'>
                         <img src={currentImage} alt="Question Image" className='question-image' />
-                        <h2>{title}</h2>
+                        <ul>
+                            {answers.map((answer, index) => (
+                              <li
+                                onClick={() => onAnswerSelected(answer.answerID, index)}
+                                key={answer.answerID}
+                                className={selectedAnswersLists[activeQuestion]?.includes(answer.answerID) ? 'selected-answer' : null}>
+                                {answer.answerText}
+                              </li>
+                            ))}
+                          </ul>
+                      </div>
                       </>
                     ) : (
                       <>
-                        <h2>{title}</h2>
+                      <div className='question-body'>
                         <img src={currentImage} alt="Question Image" className='question-image' />
+                        <ul>
+                            {answers.map((answer, index) => (
+                              <li
+                                onClick={() => onAnswerSelected(answer.answerID, index)}
+                                key={answer.answerID}
+                                className={selectedAnswersLists[activeQuestion]?.includes(answer.answerID) ? 'selected-answer' : null}>
+                                {answer.answerText}
+                              </li>
+                            ))}
+                          </ul>
+                      </div>
                       </>
                     )}
                   </div>
                 ) : (
-                  <h2>{title}</h2>
+                  <div className='question-body'>
+                    <h2>{title}</h2>
+                    <ul>
+                      {answers.map((answer, index) => (
+                        <li
+                          onClick={() => onAnswerSelected(answer.answerID, index)}
+                          key={answer.answerID}
+                          className={selectedAnswersLists[activeQuestion]?.includes(answer.answerID) ? 'selected-answer' : null}>
+                          {answer.answerText}
+                        </li>
+                      ))}
+                          </ul>
+                  </div>
                 )}
                 
-                <ul>
-                  {answers.map((answer, index) => (
-                    <li
-                      onClick={() => onAnswerSelected(answer.answerID, index)}
-                      key={answer.answerID}
-                      className={selectedAnswersLists[activeQuestion]?.includes(answer.answerID) ? 'selected-answer' : null}>
-                      {answer.answerText}
-                    </li>
-                  ))}
-                          </ul>
-                      </div>
+
+                      
                   </div>
 
               </div>

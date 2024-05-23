@@ -134,11 +134,15 @@
 .button-container {
   text-align: center; /* Center the buttons */
   margin-top: 20px; /* Add some margin at the top */
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .question-body {
-  margin-top: 7%;
-  margin-left: 2%;
+  margin-top: 1%;
+  margin-left: 1%;
   margin-right: 2%;
   margin-bottom: 2%;
 }
@@ -325,6 +329,13 @@
   background: #e7e8e9;
   color: #9fa3a9;
   cursor: pointer;
+}
+
+.question-stage {
+  text-align: left;
+  margin-top: 20px; /* Adjust margin as needed */
+  margin-left: 20px;
+  font-size: 18px; /* Ensure font size is appropriate */
 }
 
 .question-with-image.image-above {
