@@ -14,6 +14,7 @@ export default function CreatingQuiz() {
   const [stage, setStage] = useState(""); // Define the stage state variable
   const [questionToEdit, setQuestionToEdit] = useState([]);
   const [imageFile, setImageFile] = useState(null);
+  const [fileLabel, setFileLabel] = useState("No file chosen"); // State to manage the display text for file input
   const navigate = useNavigate();
 
   const handleErrorResponse = (status) => {
@@ -53,6 +54,7 @@ export default function CreatingQuiz() {
       const questions = response.data;
 
       const questionToEdit = questions.find((q) => q.questionID === parseInt(questionID));
+      console.log(questionToEdit)
 
       if (questionToEdit) {
         // Populate state with question details for editing
@@ -68,12 +70,28 @@ export default function CreatingQuiz() {
           []
         );
         setCorrectAnswerIndices(correctIndices);
+        if (questionToEdit.imageURL) {
+          const imageUrlSegments = questionToEdit.imageURL.split('-');
+          console.log(imageUrlSegments)
+          const imageName = imageUrlSegments[imageUrlSegments.length - 1];
+          setFileLabel(imageName);
+          console.log(imageName)
+        }
+
       } else {
         console.error("Question not found");
       }
     } catch (error) {
       console.error("Error fetching questions for module", error);
       handleErrorResponse(error.status);
+    }
+  };
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setImageFile(file);
+      setFileLabel(file.name);
     }
   };
 
@@ -104,10 +122,6 @@ export default function CreatingQuiz() {
       ? correctAnswerIndices.filter((i) => i !== index)
       : [...correctAnswerIndices, index];
     setCorrectAnswerIndices(newCorrectAnswerIndices);
-  };
-
-  const handleImageChange = (event) => {
-    setImageFile(event.target.files[0]);
   };
 
 
@@ -374,11 +388,13 @@ export default function CreatingQuiz() {
           value={question}
           onChange={(event) => setQuestion(event.target.value)}
         />
+        {fileLabel}
         <input
             type="file"
             accept=".jpg, .jpeg, .png"
             onChange={handleImageChange}
-        /> <br></br>
+             // Hide default input
+        />   {/* Display custom label */} <br></br>
         <select
           value={stage}
           onChange={(event) => setStage(event.target.value)}
