@@ -151,6 +151,11 @@
     margin-bottom: 2px;
 }
 
+.next-to-group{
+  display: flex;
+  justify-content: space-between;
+}
+
   .input-field select {
   
     -moz-appearance: none;

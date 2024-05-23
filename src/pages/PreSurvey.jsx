@@ -171,29 +171,31 @@ function Presurvey() {
                 <div className="divider"></div>
               </div>
               <div className="input-group">
-                <div className="input-field next-to">
-                  <input
-                    type="text"
-                    className="input-box"
-                    id="survey-firstName"
-                    // placeholder="First Name"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    required
-                  />
-                  <label htmlFor="logEmail">First Name</label>
-                </div>
-                <div className="input-field next-to">
-                  <input
-                    type="text"
-                    className="input-box"
-                    id="survey-lastName"
-                    // placeholder="Last Name"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    required
-                  />
-                  <label htmlFor="logEmail">Last Name</label>
+                <div className="next-to-group">
+                  <div className="input-field next-to">
+                    <input
+                      type="text"
+                      className="input-box"
+                      id="survey-firstName"
+                      // placeholder="First Name"
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                      required
+                    />
+                    <label htmlFor="logEmail">First Name</label>
+                  </div>
+                  <div className="input-field next-to">
+                    <input
+                      type="text"
+                      className="input-box"
+                      id="survey-lastName"
+                      // placeholder="Last Name"
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                      required
+                    />
+                    <label htmlFor="logEmail">Last Name</label>
+                  </div>
                 </div>
 
                 <div className="input-field">
