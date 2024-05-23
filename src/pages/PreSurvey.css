@@ -272,3 +272,16 @@
             top: -65px;
             opacity: 1;
           }
+          .PrivDiscM-background {
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+          }
+          .checkbox-container {
+            z-index: 1050; /* High z-index to ensure visibility */
+          }
+
+          .terms-link {
+            cursor: pointer;
+          }
+          .cb {
+            cursor: pointer;
+          }
