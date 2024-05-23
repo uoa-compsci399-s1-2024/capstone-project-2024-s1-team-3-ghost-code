@@ -1,4 +1,4 @@
-.modal {
+.PrivDiscM.show {
     display: none; 
     position: fixed; 
     z-index: 1; 
@@ -11,11 +11,15 @@
     background-color: rgba(0,0,0,0.4); 
   }
   
-  .modal.show {
+  .PrivDiscM.show {
     display: block;
   }
+
+  .PrivDiscM{
+    display: none;
+  }
   
-  .modal-content {
+  .PrivDiscM-content {
     background-color: #fefefe;
     margin: 15% auto;
     padding: 20px;

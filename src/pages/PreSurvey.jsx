@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Modal from './Modal'; // Import the Modal component
+import PrivDiscM from './PrivDiscM'; // Import the Modal component
 import './PreSurvey.css';
 
 function Presurvey() {
@@ -214,7 +214,7 @@ function Presurvey() {
           </div>
         </div>
       </form>
-      <Modal show={showModal} handleClose={() => setShowModal(false)} />
+      <PrivDiscM show={showModal} handleClose={() => setShowModal(false)} />
     </>
   );
 }
