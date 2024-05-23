@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import './Quiz.css';
-import redaxios from 'redaxios';
-import {Link, useNavigate, useParams } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import "./Quiz.css";
+import redaxios from "redaxios";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const PracQuiz = () => {
   const { quizID, moduleID } = useParams();
@@ -317,6 +317,8 @@ const PracQuiz = () => {
         const correctAnswers = correctCount;
         const wrongAnswers = wrongCount;
 
+        setActiveQuestion(0);
+        
         // Show result with score
         setResult((prev) => ({
           ...prev,
@@ -420,70 +422,82 @@ const PracQuiz = () => {
                 </button>
               </div>
 
-              <div className="question-body">
-                <div className="question-stage">
-                  <span className="active-question-no">
-                    {addLeadingZero(activeQuestion + 1)}
-                  </span>
-                  <span className="total-question">
-                    /{addLeadingZero(questions.length)}
-                  </span>
-                </div>
+          <div className="question-body">
+          <div className="question-stage">
+            <span className="active-question-no">
+              {addLeadingZero(activeQuestion + 1)}
+            </span>
+            <span className="total-question">
+              /{addLeadingZero(questions.length)}
+            </span>
+          </div>
 
-                {currentImage ? (
-                  <div
-                    className={`question-with-image ${
-                      currentImageDimensions.width >
-                      currentImageDimensions.height
-                        ? "image-above"
-                        : "image-right"
-                    }`}
-                  >
-                    {currentImageDimensions.width >
-                    currentImageDimensions.height ? (
-                      <>
-                        <img
-                          src={currentImage}
-                          alt="Question Image"
-                          className="question-image"
-                        />
-                        <h2>{title}</h2>
-                      </>
-                    ) : (
-                      <>
-                        <h2>{title}</h2>
-                        <img
-                          width={250}
-                          height={300}
-                          src={currentImage}
-                          alt="Question Image"
-                          className="question-image"
-                        />
-                      </>
-                    )}
-                  </div>
+          {currentImage ? (
+            <div
+              className={`question-with-image ${
+                currentImageDimensions.width > currentImageDimensions.height
+                  ? "image-above"
+                  : "image-right"
+              }`}
+            >
+              <div className="content">
+                {currentImageDimensions.width > currentImageDimensions.height ? (
+                  <>
+                    <img
+                      src={currentImage}
+                      alt="Question Image"
+                      className="question-image"
+                    />
+                    <h2>{title}</h2>
+                  </>
                 ) : (
-                  <h2>{title}</h2>
+                  <>
+                    <h2>{title}</h2>
+                    <img
+                      src={currentImage}
+                      alt="Question Image"
+                      className="question-image"
+                    />
+                  </>
                 )}
-
-                <ul>
-                  {answers.map((answer, index) => (
-                    <li
-                      onClick={() => onAnswerSelected(answer.answerID, index)}
-                      key={answer.answerID}
-                      className={
-                        selectedAnswersLists[activeQuestion]?.includes(
-                          answer.answerID
-                        )
-                          ? "selected-answer"
-                          : null
-                      }
-                    >
-                      {answer.answerText}
-                    </li>
-                  ))}
-                </ul>
               </div>
+              <ul className="answer-list">
+                {answers.map((answer, index) => (
+                  <li
+                    onClick={() => onAnswerSelected(answer.answerID, index)}
+                    key={answer.answerID}
+                    className={
+                      selectedAnswersLists[activeQuestion]?.includes(answer.answerID)
+                        ? "selected-answer"
+                        : null
+                    }
+                  >
+                    {answer.answerText}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            <>
+              <h2>{title}</h2>
+              <ul>
+                {answers.map((answer, index) => (
+                  <li
+                    onClick={() => onAnswerSelected(answer.answerID, index)}
+                    key={answer.answerID}
+                    className={
+                      selectedAnswersLists[activeQuestion]?.includes(answer.answerID)
+                        ? "selected-answer"
+                        : null
+                    }
+                  >
+                    {answer.answerText}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </div>
             </div>
           </div>
         ) : (
@@ -535,10 +549,39 @@ const PracQuiz = () => {
               >
                 <div className="question-answer-wrapper">
                   <div className="sep-qs">
-                    <h2>{questions[activeQuestion].title}</h2>
 
-                    {/* This changing colour section changes the colour of the selected question, but idk how to change it to red if it was wrong*/}
-                    <ul className="feedback-options">
+
+
+                  {currentImage ? (
+            <div
+              className={`question-with-image ${
+                currentImageDimensions.width > currentImageDimensions.height
+                  ? "image-above"
+                  : "image-right"
+              }`}
+            >
+              <div className="content">
+                {currentImageDimensions.width > currentImageDimensions.height ? (
+                  <>
+                    <img
+                      src={currentImage}
+                      alt="Question Image"
+                      className="question-image"
+                    />
+                    <h2>{questions[activeQuestion].title}</h2>
+                  </>
+                ) : (
+                  <>
+                    <h2>{questions[activeQuestion].title}</h2>
+                    <img
+                      src={currentImage}
+                      alt="Question Image"
+                      className="question-image"
+                    />
+                  </>
+                )}
+              </div>
+              <ul className="feedback-options">
                       {questions[activeQuestion].answers.map((answer) => (
                         <li
                           key={answer.answerID}
@@ -565,6 +608,40 @@ const PracQuiz = () => {
                         </li>
                       ))}
                     </ul>
+            </div>
+          ) : (
+            <>
+              <h2>{questions[activeQuestion].title}</h2>
+              <ul className="feedback-options">
+                      {questions[activeQuestion].answers.map((answer) => (
+                        <li
+                          key={answer.answerID}
+                          style={{
+                            color: selectedAnswersLists[
+                              activeQuestion
+                            ]?.includes(answer.answerID)
+                              ? submissionResult.selectedCorrect[
+                                  activeQuestion
+                                ].every((val) => val) &&
+                                submissionResult.missedCorrectAID[
+                                  activeQuestion
+                                ].length === 0
+                                ? "green"
+                                : "red"
+                              : submissionResult.missedCorrectAID[
+                                  activeQuestion
+                                ].includes(answer.answerID)
+                              ? ""
+                              : "",
+                          }}
+                        >
+                          {answer.answerText}
+                        </li>
+                      ))}
+                    </ul>
+            </>
+          )}
+          
                   </div>
                 </div>
               </div>
