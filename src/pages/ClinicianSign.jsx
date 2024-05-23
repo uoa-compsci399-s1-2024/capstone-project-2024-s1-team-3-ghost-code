@@ -8,7 +8,7 @@ export function BackToHomeLink() {
     <>
       <div className="back-to-home">
         <i className="fa-solid fa-arrow-left" id="back-arrow"></i>
-        <Link style={{ textDecoration: "none", color: "black" }} to="/home">
+        <Link style={{ textDecoration: "none" }} to="/home">
           <div className="back-to-home-text">Back to Home</div>
         </Link>
       </div>
@@ -17,7 +17,7 @@ export function BackToHomeLink() {
 }
 
 export function ClinicianLoginForm() {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
 
   const navigate = useNavigate();
 
@@ -38,12 +38,13 @@ export function ClinicianLoginForm() {
 
       // Example handling of the response text
       if (!text.includes("Email does not exist")) {
-        sessionStorage.setItem("cliniciantoken", text); // Store the token// Store token (or whatever the response indicates)
+        sessionStorage.setItem('cliniciantoken', text); // Store the token// Store token (or whatever the response indicates)
         navigate("/quizDashboard"); // Redirect using navigate instead of updating state
       } else {
         if (text.includes("Email does not exist")) {
           handleErrorResponse(401);
         }
+        
       }
     } catch (error) {
       if (error.status) {
@@ -57,10 +58,11 @@ export function ClinicianLoginForm() {
 
   const handleErrorResponse = (status) => {
     if (status === 401) {
-      console.log("Email does not exist");
-      navigate("/presurvey");
-    }
+      console.log('Email does not exist');
+      navigate('/presurvey');
+    } 
   };
+  
 
   return (
     <>

@@ -146,12 +146,9 @@
 }
 
 .next-to {
+    display: inline-block;
+    margin-right: 9px;
     margin-bottom: 2px;
-}
-
-.next-to-group{
-  display: flex;
-  justify-content: space-between;
 }
 
   .input-field select {
@@ -274,17 +271,4 @@
           .btn-terms-message.visible {
             top: -65px;
             opacity: 1;
-          }
-          .PrivDiscM-background {
-            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
-          }
-          .checkbox-container {
-            z-index: 1050; /* High z-index to ensure visibility */
-          }
-
-          .terms-link {
-            cursor: pointer;
-          }
-          .cb {
-            cursor: pointer;
           }

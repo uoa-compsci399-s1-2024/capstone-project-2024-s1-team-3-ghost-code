@@ -1,6 +1,9 @@
 .clinician-profile-container {
     flex: 1;
     display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     padding-top: 5rem;
     padding-bottom: 2rem;
     margin: 0;
@@ -11,22 +14,13 @@
 }
 
 .clinician-details {
-    width: 800px;
+    width: 950px;
     max-width: 950px;
     margin-top: 1rem;
     padding-top: 20px;
 }
 
-.each-detail {
-    display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px; 
-}
 
-.personal-details-box label{
-    margin-right: 20px;
-}
 
 .personal-details-container {
     margin-top: 20px;
@@ -39,7 +33,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
+    align-items: center;
 }
 
 .personal-details-box h3 {
@@ -47,119 +41,22 @@
 }
 
 .personal-details-box input {
-    width: 300px;
+    width: 500px;
     max-width: 950px;
     padding: 1rem 1rem;
-    border: 1px solid #ddd;
-    border-radius: .5rem;
-    font-size:1rem;
+    border: 2px solid #ddd;
+    border-radius: 1rem;
+    font-size: 1.5rem;
     background: #ffffff;
     transition: border-color 0.3s;
-    /* padding-left: px; */
+    padding-left: 40px;
     margin-bottom: 10px;
-    height: 20px;
-}
-.personal-details-box select {
-    width: 300px;
-     max-width: 950px; 
-    padding-left:1rem;
-    border: 1px solid #ddd;
-    border-radius: .5rem;
-    font-size:1rem;
-    background: #ffffff;
-    transition: border-color 0.3s;
-    margin-bottom: 10px;  
-    height: 35px;
-
 }
 
 .personal-details-box button {
     margin-top: 10px;
-    background-color: teal;
-    color: white;
-
 }
 
-.personal-details-box button:hover {
-    margin-top: 10px;
-    background-color: rgb(0, 86, 86);
-    color: white;
-
-}
-
-
-/* testing */
-.stats-result {
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-}
-
-.stats-result h4 {
-    margin: 0;
-    font-size: 16px;
-}
-
-.stats-result p {
-    margin: 5px 0;
-    font-size: 14px;
-}
-
-.stats-result.pass {
-    background-color: rgba(144, 238, 144, 0.5); /* Nice transparent shade of green */
-}
-
-.stats-result.fail {
-    background-color: rgba(255, 99, 71, 0.5); /* Nice transparent shade of red */
-}
-
-/* FILTERS */
-.filters-container {
-    display: flex;
-    justify-content: space-between;
-    
-}
-  
-  .stats-filter {
-    width: 45%; /* Adjusts the width of each filter */
-    margin-right: 5%; /* Adds some right margin to separate filters */
-  }
-  
-  /* Optional: Add some padding to the inputs and selects for better appearance */
-  
-  .date-filter input,
-  .stats-filter select {
-    padding: 10px;
-  }
-
-  .stats-filter select,
-  .date-filter input {
-   width: 200px;
-  }
-
-  .date-filter-container {
-    display: flex;
-    justify-content: space-between;
-    
-  }
-
-  .get-stats-btn {
-    background-color: teal;
-    color: white;
-    height: 45px;
-    width: 200px;
-    margin-top: 24px;
-  }
-
-  .get-stats-btn:hover{
-    background-color:  rgb(0, 86, 86);
-  }
-  .date-filter {
-    display: flex;
-    flex-direction: column; /* Aligns items vertically */
-    align-items: flex-start; /* Aligns items to the start of the container */
-    /* gap: 5px; Adds some space between the label and the input field */
-  }
-  
+/*.view-grades-box {
+    /* Style the view grades box as needed */
+/*}
