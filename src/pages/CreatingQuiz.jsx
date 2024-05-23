@@ -5,6 +5,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import AdminDashboard from "../components/Dashboards/ADashboard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import AdminInfo from "../components/AdminComponent/adminInfo";
 
 export function QuestionsDisplay() {
   const [questions, setQuestions] = useState([]);
@@ -191,6 +192,7 @@ export default function QuizCreation() {
     <>
       <QuestionsDisplay />
       <AdminDashboard />
+      <AdminInfo />
     </>
   );
 }

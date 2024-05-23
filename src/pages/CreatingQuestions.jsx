@@ -14,6 +14,7 @@ export default function CreatingQuiz() {
   const [stage, setStage] = useState(""); // Define the stage state variable
   const [questionToEdit, setQuestionToEdit] = useState([]);
   const [imageFile, setImageFile] = useState(null);
+  const [fileLabel, setFileLabel] = useState(""); // State to manage the display text for file input
   const navigate = useNavigate();
 
   const handleErrorResponse = (status) => {
@@ -68,12 +69,27 @@ export default function CreatingQuiz() {
           []
         );
         setCorrectAnswerIndices(correctIndices);
+        if (questionToEdit.imageURL) {
+          const imageUrlSegments = questionToEdit.imageURL.split('-');
+          console.log(imageUrlSegments)
+          const imageName = imageUrlSegments[imageUrlSegments.length - 1];
+          setFileLabel(imageName);
+          console.log(imageName)
+        }
+
       } else {
         console.error("Question not found");
       }
     } catch (error) {
       console.error("Error fetching questions for module", error);
       handleErrorResponse(error.status);
+    }
+  };
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setImageFile(file);
+      setFileLabel(file.name);
     }
   };
 
@@ -106,9 +122,7 @@ export default function CreatingQuiz() {
     setCorrectAnswerIndices(newCorrectAnswerIndices);
   };
 
-  const handleImageChange = (event) => {
-    setImageFile(event.target.files[0]);
-  };
+ 
 
   const handleImageUpload = async (imageFile) => {
     try {
@@ -378,6 +392,7 @@ export default function CreatingQuiz() {
           value={question}
           onChange={(event) => setQuestion(event.target.value)}
         />
+          {fileLabel} <br></br>
         <input
           type="file"
           accept=".jpg, .jpeg, .png"
