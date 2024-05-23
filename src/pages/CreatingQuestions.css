@@ -1,34 +1,130 @@
-.flex-questions {
-    display: flex;
-    height: 100vh; /* Full height of the viewport */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    background-color: #BDDEDE; 
-  }
+/* General styles for the application */
 
-  
-  .make-a-new-question-container {
-    display: flex;
-    width: 700px;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .new-question,
-  .new-answers {
-    margin-bottom: 10px;
-  }
-  
-  input[name="Question"] {
-    margin-bottom: 10px;
-    padding: 10px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  
+/* Styles for the main flex container */
+.flex-questions {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background-color: #BDDEDE;
+}
+
+/* Dashboard container styling */
+.dashboard-container-create-quiz {
+  width: 300px;
+  border-right: 1px solid lightgray;
+  padding: 20px;
+}
+
+/* Container for creating a new question */
+.make-a-new-question-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border: none;
+  border-radius: 8px;
+  background-color: lightgrey;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 900px;
+}
+
+/* Styling for the new question input */
+.new-question {
+  margin-bottom: 10px;
+}
+
+input[name="Question"] {
+  margin-bottom: 10px;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Styling for the answer section */
+.new-answers {
+  margin-top: 20px;
+  justify-content: space-between;
+  gap: 5px;
+  /* display: flex; */
+}
+
+/* Individual answer container styling */
+.answer-container {
+  display: flex;
+  /* align-items: center; */
+  margin-bottom: 10px;
+}
+
+/* Correct answer indicator */
+.correct-answer {
+  background-color: #D4EDDA;
+  color: #155724;
+}
+
+/* Button styling */
+.answer-button,.remove-answer-button,.add-answer,.publish-question {
+  margin-left: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  width: 200px;
+}
+
+.remove-answer-button{
+  background-color: rgb(211, 0, 0);
+  color: white;
+}
+.publish-question{
+  background-color: teal;
+  color: white;
+  height: 50px;
+}
+
+.publish-question:hover{
+  background-color: rgb(0, 86, 86);
+}
+/* Select dropdown styling */
+.select-dropdown {
+  margin-bottom: 10px;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* File input styling */
+.file-input {
+  margin-bottom: 10px;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input-box-createq{
+  width: 100%;
+  height: 50px;
+  font-size: 15px;
+  color: #040404;
+  border: none;
+  border-radius: 10px;
+   padding: 0px 0px 0px 10px;
+  backdrop-filter: blur(2px);
+  outline: 1px solid darkgrey;
+}
+
+.feedback-box {
+  margin-left: 10px;
+}
+
+.select-stage{
+  border-radius: 10px;
+  padding:0px 0px 0px 10px;
+  height: 30px;
+  width: 150px;
+}
+
+#forward-arrow-cq {
+  width: 25px;
+  right: 15px;
+  margin-top: 4px;
+  color: black;
+}

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import AdminDashboard from "../components/Dashboards/ADashboard";
 import { useParams } from "react-router-dom";
-import redaxios from 'redaxios';
+import redaxios from "redaxios";
 import "./CreatingQuestions.css";
-import { Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function CreatingQuiz() {
   const { moduleID, questionID } = useParams();
@@ -18,19 +18,17 @@ export default function CreatingQuiz() {
 
   const handleErrorResponse = (status) => {
     if (status === 401) {
-      if (sessionStorage.getItem('adminToken')) {
-        sessionStorage.removeItem('adminToken');
-        console.log('Token found and removed due to 401 Unauthorized status.');
+      if (sessionStorage.getItem("adminToken")) {
+        sessionStorage.removeItem("adminToken");
+        console.log("Token found and removed due to 401 Unauthorized status.");
       } else {
-        console.log('No token found when handling 401 status.');
+        console.log("No token found when handling 401 status.");
       }
-      navigate('/adminlogin');
+      navigate("/adminlogin");
     } else if (status === 403) {
-      navigate('/quizDashboard');
+      navigate("/quizDashboard");
     }
   };
-  
-  
 
   useEffect(() => {
     if (questionID) {
@@ -49,10 +47,12 @@ export default function CreatingQuiz() {
           },
         }
       );
-  
+
       const questions = response.data;
 
-      const questionToEdit = questions.find((q) => q.questionID === parseInt(questionID));
+      const questionToEdit = questions.find(
+        (q) => q.questionID === parseInt(questionID)
+      );
 
       if (questionToEdit) {
         // Populate state with question details for editing
@@ -110,48 +110,46 @@ export default function CreatingQuiz() {
     setImageFile(event.target.files[0]);
   };
 
-
-
   const handleImageUpload = async (imageFile) => {
     try {
       // Check if an image file is selected
       if (!imageFile) {
         return;
       }
-  
+
       // Check file extension and size
       const fileName = imageFile.name;
-      const fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
+      const fileExtension = fileName
+        .substring(fileName.lastIndexOf(".") + 1)
+        .toLowerCase();
       const allowedExtensions = ["jpg", "jpeg", "png"];
       const maxFileSize = 1024 * 1024; // 1MB
-  
+
       if (!allowedExtensions.includes(fileExtension)) {
         alert("Only JPG, JPEG, and PNG files are allowed.");
         return;
       }
-  
+
       if (imageFile.size > maxFileSize) {
         alert("Image size exceeds 1MB.");
         return;
       }
-  
+
       // Upload image
       const formData = new FormData();
-     
+
       formData.append("file", imageFile);
-     
-  
+
       const response = await redaxios.post(
         `https://api.tmstrainingquizzes.com/webapi/QuestionImageUpload/${questionID}`,
         formData,
         {
           headers: {
             Authorization: `Bearer ${adminToken}`,
-            
           },
         }
       );
-  
+
       // Optionally, handle response
       console.log("Image uploaded successfully", response.data);
     } catch (error) {
@@ -160,46 +158,46 @@ export default function CreatingQuiz() {
     }
   };
 
-  const handleImageUploadNewQ= async (imageFile, ID) => {
+  const handleImageUploadNewQ = async (imageFile, ID) => {
     try {
       // Check if an image file is selected
       if (!imageFile) {
         return;
       }
-  
+
       // Check file extension and size
       const fileName = imageFile.name;
-      const fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
+      const fileExtension = fileName
+        .substring(fileName.lastIndexOf(".") + 1)
+        .toLowerCase();
       const allowedExtensions = ["jpg", "jpeg", "png"];
       const maxFileSize = 1024 * 1024; // 1MB
-  
+
       if (!allowedExtensions.includes(fileExtension)) {
         alert("Only JPG, JPEG, and PNG files are allowed.");
         return;
       }
-  
+
       if (imageFile.size > maxFileSize) {
         alert("Image size exceeds 1MB.");
         return;
       }
-  
+
       // Upload image
       const formData = new FormData();
-     
+
       formData.append("file", imageFile);
-     
-  
+
       const response = await redaxios.post(
         `https://api.tmstrainingquizzes.com/webapi/QuestionImageUpload/${ID}`,
         formData,
         {
           headers: {
             Authorization: `Bearer ${adminToken}`,
-            
           },
         }
       );
-  
+
       // Optionally, handle response
       console.log("Image uploaded successfully", response.data);
     } catch (error) {
@@ -207,62 +205,57 @@ export default function CreatingQuiz() {
       // Optionally, handle error
     }
   };
-  
 
   const handlePublishQuestion = async () => {
-      // Check if question title is provided
-  if (!question.trim()) {
-    alert("Please enter a question title.");
-    return;
-  }
+    // Check if question title is provided
+    if (!question.trim()) {
+      alert("Please enter a question title.");
+      return;
+    }
 
-   // Check if stage is selected
-   if (!stage.trim()) {
-    alert("Please select a topic.");
-    return;
-  }
+    // Check if stage is selected
+    if (!stage.trim()) {
+      alert("Please select a topic.");
+      return;
+    }
 
-  // Check if at least one answer is provided
-  if (answers.length === 0 || answers.every(answer => !answer.answerText.trim())) {
-    alert("Please provide at least one answer.");
-    return;
-  }
+    // Check if at least one answer is provided
+    if (
+      answers.length === 0 ||
+      answers.every((answer) => !answer.answerText.trim())
+    ) {
+      alert("Please provide at least one answer.");
+      return;
+    }
 
-  // Check if at least one correct answer is selected
-  if (correctAnswerIndices.length === 0) {
-    alert("Please select at least one correct answer.");
-    return;
-  }
-
-
-
+    // Check if at least one correct answer is selected
+    if (correctAnswerIndices.length === 0) {
+      alert("Please select at least one correct answer.");
+      return;
+    }
 
     // Count the number of correct answers
     const numCorrectAnswers = correctAnswerIndices.length;
 
-
-
     const correctAnswers = answers.map((answer, index) =>
-        correctAnswerIndices.includes(index)
-      );
-    
-      if (questionID) {   
-        const questionType = questionToEdit.questionType;
-        console.log(questionType)
+      correctAnswerIndices.includes(index)
+    );
 
-        if (questionType == 1 && correctAnswerIndices.length > 1) {
-        alert("This question is only single correct answer")
-        return;
-        }
+    if (questionID) {
+      const questionType = questionToEdit.questionType;
+      console.log(questionType);
 
-        if (questionType == 2 && correctAnswerIndices.length < 2) {
-        alert("This question is only MCQ, please add another correct answer.")
+      if (questionType == 1 && correctAnswerIndices.length > 1) {
+        alert("This question is only single correct answer");
         return;
-        }
       }
 
-      
-  
+      if (questionType == 2 && correctAnswerIndices.length < 2) {
+        alert("This question is only MCQ, please add another correct answer.");
+        return;
+      }
+    }
+
     const newQuestion = {
       questionID: questionID,
       title: question,
@@ -278,13 +271,13 @@ export default function CreatingQuiz() {
         feedback: answer.feedback,
       })),
     };
-    console.log(newQuestion)
-  
+    console.log(newQuestion);
+
     try {
       let response;
       if (questionID) {
         if (imageFile) {
-            await handleImageUpload(imageFile);
+          await handleImageUpload(imageFile);
         }
         // Editing an existing question
         response = await redaxios.put(
@@ -296,27 +289,24 @@ export default function CreatingQuiz() {
             },
           }
         );
-
-
       } else {
-
         // Determine the question type based on the number of correct answers
         const questionTypeV = numCorrectAnswers > 1 ? 2 : 1;
 
         const newQuestion = {
-            modID: moduleID,
-            title: question,
-            description: "",
-            questionType: questionTypeV,
-            topic: parseInt(stage),
-            answers: answers.map((answer, index) => ({
-              answerType: questionTypeV,
-              answerText: answer.answerText,
-              //answerCoordinates: "",
-              correctAnswer: correctAnswers[index],
-              feedback: answer.feedback,
-            })),
-          };
+          modID: moduleID,
+          title: question,
+          description: "",
+          questionType: questionTypeV,
+          topic: parseInt(stage),
+          answers: answers.map((answer, index) => ({
+            answerType: questionTypeV,
+            answerText: answer.answerText,
+            //answerCoordinates: "",
+            correctAnswer: correctAnswers[index],
+            feedback: answer.feedback,
+          })),
+        };
         // Adding a new question
         response = await redaxios.post(
           "https://api.tmstrainingquizzes.com/webapi/AddQuestion",
@@ -328,58 +318,74 @@ export default function CreatingQuiz() {
           }
         );
         if (imageFile) {
-            const fetchResponse = await redaxios.get(
-                `https://api.tmstrainingquizzes.com/webapi/GetQuestions/${moduleID}`,
-                {
-                  headers: {
-                    Authorization: `Bearer ${adminToken}`,
-                  },
-                }
-              );
-            const questions = fetchResponse.data;
-            const newQuestionFromList = questions.find((q) => q.title === newQuestion.title);
-            if (newQuestionFromList) {
-                await handleImageUploadNewQ(imageFile, newQuestionFromList.questionID);
-              }
+          const fetchResponse = await redaxios.get(
+            `https://api.tmstrainingquizzes.com/webapi/GetQuestions/${moduleID}`,
+            {
+              headers: {
+                Authorization: `Bearer ${adminToken}`,
+              },
+            }
+          );
+          const questions = fetchResponse.data;
+          const newQuestionFromList = questions.find(
+            (q) => q.title === newQuestion.title
+          );
+          if (newQuestionFromList) {
+            await handleImageUploadNewQ(
+              imageFile,
+              newQuestionFromList.questionID
+            );
+          }
+        }
       }
-    }
-      
+
       alert("Question uploaded!");
       navigate(`/createquiz/${moduleID}`);
       console.log("Question published successfully", response.data);
 
-  
       // Reset state after publishing
-     // setQuestion("");
+      // setQuestion("");
       //setAnswers([{ answerText: "", feedback: "" }]);
       //setCorrectAnswerIndices([]);
       //setStage("");
-    
     } catch (error) {
       console.error("Error publishing question", error);
     }
   };
-  
+
   return (
     <div className="flex-questions">
-      <div className="dashboard-container">
+      <div className="dashboard-container-create-quiz">
         <AdminDashboard />
+      </div>
+      <div className="to-admin-login">
+        <i className="fa-solid fa-arrow-right" id="forward-arrow-cq"></i>
+        <Link
+          style={{ textDecoration: "none", color: "black" }}
+          key={moduleID}
+          to={`/createquiz/${moduleID}`}
+        >
+          <div className="admin-login-text">Back To Questions</div>
+        </Link>
       </div>
       <div className="make-a-new-question-container">
         <div className="new-question"></div>
         <input
           type="text"
           name="Question"
+          className="input-box-createq"
           placeholder="Add a Question"
           value={question}
           onChange={(event) => setQuestion(event.target.value)}
         />
         <input
-            type="file"
-            accept=".jpg, .jpeg, .png"
-            onChange={handleImageChange}
-        /> <br></br>
+          type="file"
+          accept=".jpg, .jpeg, .png"
+          onChange={handleImageChange}
+        />{" "}
+        <br></br>
         <select
+          className="select-stage"
           value={stage}
           onChange={(event) => setStage(event.target.value)}
         >
@@ -398,12 +404,16 @@ export default function CreatingQuiz() {
                 value={answer.answerText}
                 onChange={(event) => handleAnswerChange(index, event)}
                 className={
-                  correctAnswerIndices.includes(index) ? "correct-answer" : ""
+                  correctAnswerIndices.includes(index)
+                    ? "correct-answer input-box-createq"
+                    : "input-box-createq"
                 }
               />
               <input
+                contenteditable="true"
                 type="text"
                 name="feedback"
+                className="input-box-createq feedback-box"
                 placeholder="Add Feedback (optional)"
                 value={answer.feedback}
                 onChange={(event) => handleAnswerChange(index, event)}
@@ -434,4 +444,4 @@ export default function CreatingQuiz() {
       </div>
     </div>
   );
-};
+}
