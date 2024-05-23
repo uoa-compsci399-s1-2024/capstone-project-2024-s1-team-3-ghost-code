@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import PrivDiscM from './PrivDiscM'; // Import the Modal component
-import './PreSurvey.css';
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import PrivDiscM from "./PrivDiscM"; // Import the Modal component
+import "./PreSurvey.css";
 
 function Presurvey() {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [position, setPosition] = useState('');
-  const [organisation, setOrganisation] = useState('');
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [position, setPosition] = useState("");
+  const [organisation, setOrganisation] = useState("");
   const [positions, setPositions] = useState([]);
   const [organisations, setOrganisations] = useState([]);
   const [orgIDs, setOrgsID] = useState([]);
@@ -146,119 +146,138 @@ function Presurvey() {
 
   return (
     <>
-    <form onSubmit={handleSubmit}>
-      <div className="split-survey left-survey">
-        <div className="centered-survey">
-          <p>Please fill out the pre-training survey before continuing.</p>
-          <p>If you've already filled in the pre-training quiz click here.</p>
-          <p>
-            By filling out this survey you will be able to come back to the quiz
-            at any time to continue where you left off.
-          </p>
+      <form onSubmit={handleSubmit}>
+        <div className="split-survey left-survey">
+          <div className="centered-survey info-text">
+            <p className="info-text">
+              Please fill out the registration before continuing.
+            </p>
+            <p className="info-text">
+              If you've already filled in the pre-training quiz click the
+              "continue here" prompt.
+            </p>
+            <p className="info-text">
+              By filling out this registration you will be able to come back to
+              the quiz at any time to continue where you left off.
+            </p>
+          </div>
         </div>
-      </div>
 
-      <div className="container-survey split-survey right-survey">
-        <div className="box-survey">
-          <div className="box-survey-details" id="register-form">
-            <div className="top-header">
-              <h3>Pre-Training Survey</h3>
-              <div className="divider"></div>
-            </div>
-            <div className="input-group">
-              <div className="input-field next-to">
-                <input
-                  type="text"
-                  className="input-box"
-                  id="survey-firstName"
-                  // placeholder="First Name"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  required
-                />
-                <label htmlFor="logEmail">First Name</label>
+        <div className="container-survey split-survey right-survey">
+          <div className="box-survey">
+            <div className="box-survey-details" id="register-form">
+              <div className="top-header">
+                <h3>Registration</h3>
+                <div className="divider"></div>
               </div>
-              <div className="input-field next-to">
-                <input
-                  type="text"
-                  className="input-box"
-                  id="survey-lastName"
-                  // placeholder="Last Name"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  required
-                />
-                <label htmlFor="logEmail">Last Name</label>
-              </div>
+              <div className="input-group">
+                <div className="input-field next-to">
+                  <input
+                    type="text"
+                    className="input-box"
+                    id="survey-firstName"
+                    // placeholder="First Name"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    required
+                  />
+                  <label htmlFor="logEmail">First Name</label>
+                </div>
+                <div className="input-field next-to">
+                  <input
+                    type="text"
+                    className="input-box"
+                    id="survey-lastName"
+                    // placeholder="Last Name"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    required
+                  />
+                  <label htmlFor="logEmail">Last Name</label>
+                </div>
 
-              <div className="input-field">
-                <input
-                  type="text"
-                  className="input-box"
-                  id="survey-email"
-                  // placeholder="Email Address"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-                <label htmlFor="logEmail">Email Address</label>
-              </div>
-              <div className="input-field">
-                <select
-                  className="input-box"
-                  value={position}
-                  onChange={(e) => setPosition(e.target.value)}
-                  required
-                >
-                  {positions.map((pos) => (
-                    <option key={pos} value={pos}>
-                      {pos}
-                    </option>
-                  ))}
-                </select>
-              </div>
+                <div className="input-field">
+                  <input
+                    type="text"
+                    className="input-box"
+                    id="survey-email"
+                    // placeholder="Email Address"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                  <label htmlFor="logEmail">Email Address</label>
+                </div>
+                <div className="input-field">
+                  <select
+                    className="input-box"
+                    value={position}
+                    onChange={(e) => setPosition(e.target.value)}
+                    required
+                  >
+                    {positions.map((pos) => (
+                      <option key={pos} value={pos}>
+                        {pos}
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
-              <div className="input-field">
-                <select
-                  className="input-box"
-                  value={organisation}
-                  onChange={(e) => setOrganisation(e.target.value)}
-                  required
-                >
-                  {organisations.map((org) => (
-                    <option key={org} value={org}>
-                      {org}
-                    </option>
-                  ))}
-                </select>
-              </div>
+                <div className="input-field">
+                  <select
+                    className="input-box"
+                    value={organisation}
+                    onChange={(e) => setOrganisation(e.target.value)}
+                    required
+                  >
+                    {organisations.map((org) => (
+                      <option key={org} value={org}>
+                        {org}
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
-              <div className="input-field">
-                <input
-                  type="submit"
-                  className="input-submit"
-                  value="Submit"
-                  required
-                />
-              </div>
-              <div className="tc ">
+                <div className="input-field">
+                  <input
+                    type="submit"
+                    className="input-submit"
+                    value="Submit"
+                    required
+                  />
+                </div>
+                <div className="tc ">
                   <input type="checkbox" className="cb" required />
                   By ticking the box, you agree to the
-                  <span className="terms-link" onClick={() => setShowModal(true)}> <font color="#485696" ><strong><u>Privacy Disclosure</u></strong></font> </span>
+                  <span
+                    className="terms-link"
+                    onClick={() => setShowModal(true)}
+                  >
+                    {" "}
+                    <font color="#485696">
+                      <strong>
+                        <u>Privacy Disclosure</u>
+                      </strong>
+                    </font>{" "}
+                  </span>
                   of the Verify Quiz Platform.
                 </div>
                 <div className="forgot">
                   <Link to="/cliniciansign">
-                  <font color="#485696"><strong><u>Already did the survey? continue here</u></strong></font>
+                    <font color="#485696">
+                      <strong>
+                        <u>Already did the survey? continue here</u>
+                      </strong>
+                    </font>
                   </Link>
                 </div>
               </div>
             </div>
           </div>
         </div>
-    </form >
-    <PrivDiscM show={showModal} handleClose={() => setShowModal(false)} />
-  </>
+      </form>
+      <PrivDiscM show={showModal} handleClose={() => setShowModal(false)} />
+    </>
   );
 }
 
