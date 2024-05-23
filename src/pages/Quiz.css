@@ -134,15 +134,11 @@
 .button-container {
   text-align: center; /* Center the buttons */
   margin-top: 20px; /* Add some margin at the top */
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  box-sizing: border-box;
 }
 
 .question-body {
-  margin-top: 1%;
-  margin-left: 1%;
+  margin-top: 7%;
+  margin-left: 2%;
   margin-right: 2%;
   margin-bottom: 2%;
 }
@@ -331,40 +327,24 @@
   cursor: pointer;
 }
 
-.question-stage {
-  text-align: left;
-  margin-top: 20px; /* Adjust margin as needed */
-  margin-left: 20px;
-  font-size: 18px; /* Ensure font size is appropriate */
-}
-
 .question-with-image.image-above {
-  display: block;
-  margin: 0 auto 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .question-with-image.image-right {
-  display: inline-block;
-  vertical-align: top;
-  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .question-image {
   max-width: 100%;
-  max-height: 300px; /* Set a default height */
-  object-fit: contain; /* This will ensure the image scales properly */
-  margin-bottom: 10px; /* Add some spacing between the image and text */
-  z-index: 1;
-  position: relative;
-  top: 100px;
-}
+  width: 300px;
+  height: 300px;
+  margin: 10px;
 
+  position: center;
 
-.question-container {
-  display: flex;
-  flex-direction: column;
-}
-
-.question-container.row {
-  flex-direction: row;
 }

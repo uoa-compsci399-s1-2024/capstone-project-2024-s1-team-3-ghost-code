@@ -182,8 +182,9 @@ const PracQuiz = () => {
           const aspectRatio = img.width / img.height;
         setImageDisplayPositions(prevPositions => ({
          ...prevPositions,
-          [index]: aspectRatio > 16? 'right' : 'above'
+          [index]: aspectRatio > 1? 'right' : 'above'
         }));
+          
         };
         img.src = url;
       }
