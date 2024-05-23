@@ -10,10 +10,11 @@ import AClinicianProfile from "./pages/AClinicianProfile";
 import AdminSetting from "./pages/AdminSettings";
 import QuizCreation from "./pages/CreatingQuiz";
 import Quiz from "./pages/Quiz";
+import AdminModuleReview from "./pages/AdminModuleReview";
+import PracQuiz from "./pages/PracQuiz";
 import CreatingQuiz from "./pages/CreatingQuestions";
 import AClinicianMyProfile from "./pages/ClinicianMyProfile";
 import EditQuiz from "./pages/AEditQuiz";
-import PracQuiz from "./pages/PracQuiz";
 import AdminStatsReview from "./pages/AStatistics";
 import PasswordReset from "./pages/PasswordReset";
 import PasswordCode from "./pages/PasswordCode";
@@ -119,7 +120,15 @@ function App() {
             path="/clinician/:clinicianId"
             element={<ProtectedRoute element={<AClinicianProfile />} />}
           />
+          
+          <Route path="/adminmodulereview" element={<AdminModuleReview />} />
+    
+          <Route path="/passwordreset" element={<PasswordReset />} />
 
+          <Route path="/passwordcode" element={<PasswordCode />} />
+
+          <Route path="/passwordsubmit" element={<PasswordSubmit />} />
+          
           <Route path="/quiz" element={<Quiz />} />
           <Route
             path="/quiz/:quizID/:moduleID"

@@ -34,7 +34,7 @@ function Presurvey() {
         const roleName = data.map((role) => role.roleName);
         const roleID = data.map((role) => role.roleID);
         setPositions(roleName || []); // Ensure your API returns an object with a 'positions' key
-        setPosition(roleName[0]); // Set default position
+        setPosition("Doctor"); // Set default position
 
         setRolesID(roleID);
       } catch (error) {
