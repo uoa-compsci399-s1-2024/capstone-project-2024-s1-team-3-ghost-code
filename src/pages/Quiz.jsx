@@ -222,70 +222,33 @@ const Quiz = () => {
             </div>
           </div>
         ) : (
-          <div className='cont-results'>
-          <div className="cont-return-but">
-          <Link to="/quizDashboard" style={{ textDecoration: "none" }}>    
-            <button className="btn return-button">Back to Modules</button>
-            </Link>
+          <div className="cont-feedback">
+            <div className="cont-return-but">
+              <Link to="/quizDashboard" style={{ textDecoration: "none" }}>
+                <button className="btn return-button">Back to Modules</button>
+              </Link>
+            </div>
+
+            <div className="result">
+              <h3>Result</h3>
+              <p>
+                Total Questions: <span>{questions.length}</span>
+              </p>
+              <p>
+                Total Score:<span> {result.score}</span>
+              </p>
+              <p>
+                Correct Answers:<span> {result.correctAnswers}</span>
+              </p>
+              <p>
+                Wrong Answers:<span> {result.wrongAnswers}</span>
+              </p>
+            </div>
+
+            <div className="feedback-qs">
+              {/*individual questions here for feedback, along with blurb at the bottom of each. APIS: */}
+            </div>
           </div>
-
-          <div className="result">
-            <h3>Result</h3>
-            <p>
-              Total Questions: <span>{questions.length}</span>
-            </p>
-            <p>
-              Total Score:<span> {result.score}</span>
-            </p>
-            <p>
-              Correct Answers:<span> {result.correctAnswers}</span>
-            </p>
-            <p>
-              Wrong Answers:<span> {result.wrongAnswers}</span>
-            </p>
-          </div>
-
-          <div className='feedback-qs'>
-            {/*individual questions here for feedback, along with blurb at the bottom of each. APIS: */}
-            <div className='sep-qs'>
-              <h2>Question 1</h2>
-              <h3>What region of the brain is the TMS coil applied over to indirectly activate neurons that form the corticospinal tract?</h3>
-            </div>
-
-            <div className="cont-feedback">
-            <div className="cont-feedback-writing">
-                <p>Detailed feedback for practice quiz</p>
-                <p>Little feedback for final quiz</p>
-            </div>
-            </div>
-
-            <div className='sep-qs'>
-              <h2>Question 2</h2>
-              <h3>If someone asks you "What is TMS like? Is it painful?" What information could be included in your response? Tick all appropriate answers.</h3>
-            </div>
-
-            <div className="cont-feedback">
-            <div className="cont-feedback-writing">
-                <p>Detailed feedback for practice quiz</p>
-                <p>Little feedback for final quiz</p>
-            </div>
-            </div>
-
-            <div className='sep-qs'>
-              <h2>Question 3</h2>
-              <h3>Does single-pulse TMS provide any treatment for the patient?</h3>
-            </div>
-
-            <div className="cont-feedback">
-            <div className="cont-feedback-writing">
-                <p>Detailed feedback for practice quiz</p>
-                <p>Little feedback for final quiz</p>
-            </div>
-            </div>
-
-          </div>
-
-        </div>
         )}
       </div>
     </div>
