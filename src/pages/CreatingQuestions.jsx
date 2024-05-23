@@ -59,7 +59,7 @@ export default function CreatingQuiz() {
         // Populate state with question details for editing
         setQuestionToEdit(questionToEdit);
         setQuestion(questionToEdit.title || "");
-        setStage(questionToEdit.stage || "");
+        setStage(questionToEdit.topic || "");
         setAnswers(questionToEdit.answers);
         const correctIndices = questionToEdit.answers.reduce(
           (indices, answer, index) => {
