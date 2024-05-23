@@ -20,6 +20,20 @@ const Quiz = () => {
 
   const [userID, setUserID] = useState(null);
 
+  const handleErrorResponse = (status) => {
+    if (status === 401) {
+      if (sessionStorage.getItem('cliniciantoken')) {
+        sessionStorage.removeItem('cliniciantoken');
+        console.log('Token found and removed due to 401 Unauthorized status.');
+      } else {
+        console.log('No token found when handling 401 status.');
+      }
+      navigate('/cliniciansign');
+    } else if (status === 403) {
+      navigate('/quizDashboard');
+    }
+  };
+
   useEffect(() => {
     const fetchClinicianData = async () => {
       try {
@@ -34,6 +48,9 @@ const Quiz = () => {
         const { userID } = clinicianResponse.data;
         setUserID(userID);
       } catch (error) {
+        if (error.status) {
+          handleErrorResponse(error.status);
+        }
         console.error("Error fetching current clinician data:", error);
       }
     };

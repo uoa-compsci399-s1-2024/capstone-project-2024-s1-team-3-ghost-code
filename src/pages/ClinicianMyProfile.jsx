@@ -19,6 +19,20 @@ function AClinicianMyProfile() {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const dropdownRef = useRef(null); // Reference to the admin info box
 
+  const handleErrorResponse = (status) => {
+    if (status === 401) {
+      if (sessionStorage.getItem('cliniciantoken')) {
+        sessionStorage.removeItem('cliniciantoken');
+        console.log('Token found and removed due to 401 Unauthorized status.');
+      } else {
+        console.log('No token found when handling 401 status.');
+      }
+      navigate('/cliniciansign');
+    } else if (status === 403) {
+      navigate('/quizDashboard');
+    }
+  };
+
   // Function to fetch admin information from backend API
   useEffect(() => {
     fetch("https://api.tmstrainingquizzes.com/auth/GetCurrentClinician", {
@@ -42,6 +56,9 @@ function AClinicianMyProfile() {
         setUserSite(data.organization.orgName); // Assuming orgName is the correct property
       })
       .catch((error) => {
+        if (error.status){
+          handleErrorResponse(error.status);
+        }
         console.error("Error fetching user information:", error);
       });
   }, [userToken, navigate]);

@@ -16,6 +16,20 @@ function AClinicianSearch() {
   const adminToken = sessionStorage.getItem('adminToken');
   const navigate = useNavigate();
 
+  const handleErrorResponse = (status) => {
+    if (status === 401) {
+      if (sessionStorage.getItem('adminToken')) {
+        sessionStorage.removeItem('adminToken');
+        console.log('Token found and removed due to 401 Unauthorized status.');
+      } else {
+        console.log('No token found when handling 401 status.');
+      }
+      navigate('/adminlogin');
+    } else if (status === 403) {
+      navigate('/quizDashboard');
+    }
+  };
+
 // Function to fetch search results from backend API
 useEffect(() => {
   if (searchQuery.trim() !== "") {
@@ -40,6 +54,9 @@ useEffect(() => {
       setSearchResults(data);
     })
     .catch(error => {
+      if (error.status){
+        handleErrorResponse(error.status);
+      }
       console.error("Error fetching search results:", error);
     });
   } else {

@@ -25,7 +25,10 @@ function AdminDashboard() {
       >
         <button className="Adminbutton">Clinicians</button>
       </Link>
+
+      <Link style={{ textDecoration: "none", color: "white" }} to="/adminStats">
       <button className="Adminbutton">Statistics</button>
+      </Link>
       <br></br>
 
       <Link

@@ -31,6 +31,20 @@ function AClinicianProfile() {
   const adminToken = sessionStorage.getItem("adminToken");
   const navigate = useNavigate();
 
+  const handleErrorResponse = (status) => {
+    if (status === 401) {
+      if (sessionStorage.getItem('cliniciantoken')) {
+        sessionStorage.removeItem('cliniciantoken');
+        console.log('Token found and removed due to 401 Unauthorized status.');
+      } else {
+        console.log('No token found when handling 401 status.');
+      }
+      navigate('/cliniciansign');
+    } else if (status === 403) {
+      navigate('/quizDashboard');
+    }
+  };
+
   useEffect(() => {
     const fetchDetails = async () => {
       const requestOptions = {
@@ -55,6 +69,9 @@ function AClinicianProfile() {
           navigate("/adminlogin");
         }
       } catch (error) {
+        if (error.status) {
+          handleErrorResponse(error.status);
+        }
         console.error("Failed to fetch clinician details:", error);
       }
 

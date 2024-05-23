@@ -14,6 +14,8 @@ import CreatingQuiz from "./pages/CreatingQuestions";
 import AClinicianMyProfile from "./pages/ClinicianMyProfile";
 import EditQuiz from "./pages/AEditQuiz";
 import PracQuiz from "./pages/PracQuiz";
+import AdminStatsReview from "./pages/AStatistics";
+
 const getAdminToken = () => sessionStorage.getItem("adminToken");
 
 // ProtectedRoute component to protect admin-only routes
@@ -59,6 +61,11 @@ function App() {
           <Route
             path="/adminSettings"
             element={<ProtectedRoute element={<AdminSetting />} />}
+          />
+
+          <Route
+            path="/adminStats"
+            element={<ProtectedRoute element={<AdminStatsReview  />} />}
           />
 
           <Route
