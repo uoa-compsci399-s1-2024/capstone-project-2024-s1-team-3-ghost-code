@@ -239,6 +239,9 @@ i{
     
   }
 
+  .info-text {
+    font-size: 16px;
+  }
   .info-content {
     text-align: center;
     padding:20px;
