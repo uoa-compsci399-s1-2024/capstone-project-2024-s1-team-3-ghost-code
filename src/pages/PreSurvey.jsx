@@ -85,8 +85,7 @@ function Presurvey() {
     const organisationID =
       organisationIndex !== -1 ? orgIDs[organisationIndex] : null;
 
-    console.log(organisationID);
-
+  
     const clinicianData = {
       userEmail: email,
       firstName: firstName,
@@ -95,7 +94,6 @@ function Presurvey() {
       organizationID: organisationID,
     };
 
-    console.log(clinicianData);
 
     try {
       const registrationResponse = await fetch(
