@@ -93,7 +93,7 @@ useEffect(() => {
           {searchResults.map(result => (
             <Link key={result.userID} to={`/clinician/${result.userEmail}`} className="link">
               <div className="adminClientSearchResultItem">
-                <div className="AdminClientSearchResultName">{result.firstName}</div>
+                <div className="AdminClientSearchResultName">{result.firstName} {result.lastName}</div>
                 <div className="AdminClientSearchResultEmail">{result.userEmail}</div>
               </div>
             </Link>
