@@ -7,12 +7,14 @@ function ClientDashboard() {
   return (
     <div className="clientDashboardContainer">
       <div className="clientLogoContainer">
+      <a href="/home">
         <img
           className="clientLogo"
           loading="lazy"
           src={logo}
           alt="DashboardLogo"
         />
+      </a>
       </div>
       <a
         href="https://www.verifytraining.auckland.ac.nz/s"

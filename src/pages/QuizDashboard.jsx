@@ -4,6 +4,7 @@ import ClientDashboard from "../components/Dashboards/CDashboard"; // Assuming t
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons"; // Icon for module completion
 import { Link, useNavigate } from "react-router-dom";
+import ClientInfo from "../components/ClientComponent/clientInfo"; 
 import "./QuizDashboard.css";
 
 function QuizDashboard() {
@@ -188,6 +189,7 @@ function QuizDashboard() {
         <ClientDashboard />
       </div>
       <div className="quizModuleContainer">
+      <ClientInfo />
         <div className="quizModuleresults">
           {modules.map((module) => (
             <div

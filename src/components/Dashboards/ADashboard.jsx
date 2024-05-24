@@ -7,12 +7,14 @@ function AdminDashboard() {
   return (
     <div className="Admindashboard-container">
       <div className="Adminlogo-container">
+      <a href="/home">
         <img
           className="Adminlogo"
           loading="lazy"
           src={logo}
           alt="DashboardLogo"
         />
+      </a>
       </div>
       <Link style={{ textDecoration: "none", color: "white" }} to="/EditQuiz">
         <button className="Adminbutton">Edit Quiz</button>
