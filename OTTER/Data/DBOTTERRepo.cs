@@ -171,10 +171,10 @@ namespace OTTER.Data
             IEnumerable<Question> Qs = _dbContext.Questions.Where(e => e.Module.ModuleID == id && e.Deleted == false).ToList<Question>();
             foreach (Question q in Qs)
             {
-                int correctRate;
+                double correctRate;
                 if (q.attemptTotal > 0)
                 {
-                    correctRate = (q.correctTotal / q.attemptTotal) * 100;
+                    correctRate = ((double)q.correctTotal / (double)q.attemptTotal) * 100;
                 } else
                 {
                     correctRate = 0;

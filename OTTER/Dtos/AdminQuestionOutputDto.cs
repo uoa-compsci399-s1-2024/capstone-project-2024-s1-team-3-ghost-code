@@ -24,6 +24,6 @@ namespace OTTER.Dtos
         [Required]
         public int correctTotal { get; set; }
         [Required]
-        public int correctRate { get; set; }
+        public double correctRate { get; set; }
     }
 }
