@@ -53,7 +53,7 @@ export function QuestionsDisplay() {
           return response.json();
         })
         .then((data) => {
-          console.log(data);
+         
           setQuestions(data);
           setSearchResults(data);
         })
@@ -85,7 +85,7 @@ export function QuestionsDisplay() {
   };
 
   const handleDeleteQuestion = (questionID) => {
-    console.log("Delete button clicked for question ID:", questionID);
+    
     setQuestionToDelete(questionID);
     setShowDeleteModal(true);
   };
@@ -96,7 +96,6 @@ export function QuestionsDisplay() {
 
   const confirmDeleteQuestion = async () => {
     try {
-      console.log("Confirm delete for question ID:", questionToDelete);
       const response = await redaxios.delete(
         `https://api.tmstrainingquizzes.com/webapi/DeleteQuestion/${questionToDelete}`,
         {
@@ -107,7 +106,7 @@ export function QuestionsDisplay() {
       );
   
       // Log the response to see if the deletion was successful
-      console.log("Delete response:", response);
+     
   
       if (response.status === 200 || response.status === 204) {
         // Assuming 200 or 204 means the deletion was successful
@@ -115,7 +114,7 @@ export function QuestionsDisplay() {
         setSearchResults(searchResults.filter((q) => q.questionID !== questionToDelete));
         setShowDeleteModal(false);
         setQuestionToDelete(null);
-        console.log("Question deleted successfully");
+        
         alert("Question deleted successfully");
       } else {
         console.error("Failed to delete question:", response);
@@ -128,12 +127,12 @@ export function QuestionsDisplay() {
   };
   
   const closeDeleteModal = () => {
-    console.log("Closing delete modal");
+   
     setShowDeleteModal(false);
     setQuestionToDelete(null);
   };
 
-  console.log("showDeleteModal:", showDeleteModal);
+  
 
   return (
     <>

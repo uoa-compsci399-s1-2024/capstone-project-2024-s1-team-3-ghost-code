@@ -118,7 +118,7 @@ function AdminStatsReview() {
     ? sortedQuestions.filter(question => question.topic === selectedTopic)
     : sortedQuestions;
 
-  console.log(questions);
+  
 
   return (
     <div className="flex">

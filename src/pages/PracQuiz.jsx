@@ -3,6 +3,7 @@ import "./Quiz.css";
 import redaxios from "redaxios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
+
 const PracQuiz = () => {
   const { quizID, moduleID } = useParams();
 
@@ -85,7 +86,7 @@ const PracQuiz = () => {
           handleErrorResponse(error.status);
         } else {
           console.error("Error fetching practice quiz ID:", error);
-          console.log(error.status);
+          
         }
       }
     };
@@ -138,7 +139,7 @@ const PracQuiz = () => {
           throw new Error("Failed to fetch questions");
         }
         const data = response.data;
-        console.log(response.data);
+      
 
         // Extract question IDs from the response data
         const IDs = data.map((question) => question.questionID);
@@ -298,7 +299,7 @@ const PracQuiz = () => {
         const score = submissionResult.score;
         //const correctAnswers = submissionResult.missedCorrectAID.filter(answer => answer.length === 0).length;
         //const wrongAnswers = submissionResult.missedCorrectAID.filter(answer => answer.length > 0).length;
-        console.log(submissionResult);
+       
 
         let correctCount = 0;
         let wrongCount = 0;
@@ -367,11 +368,10 @@ const PracQuiz = () => {
       const prevSelectedIndexes =
         selectedAnswersLists[activeQuestion - 1] || [];
       setSelectedAnswerIndexes(prevSelectedIndexes);
-      console.log(activeQuestion);
+     
     }
   };
 
-  console.log(questionImages);
 
    // Inside your component
 const isQuestionFullyCorrect = (questionIndex) => {

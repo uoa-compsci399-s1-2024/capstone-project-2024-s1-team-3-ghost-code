@@ -129,13 +129,13 @@ function AClinicianProfile() {
           );
           if (certResponse.ok) {
             const certData = await certResponse.json();
-            console.log(certData);
+            
 
             // Check if certification has expired
             const expiryDateTime = new Date(
               certData[certData.length - 1].expiryDateTime
             );
-            console.log(expiryDateTime);
+       
             const currentDateTime = new Date();
 
             if (currentDateTime > expiryDateTime) {
@@ -180,7 +180,7 @@ function AClinicianProfile() {
         throw new Error("Failed to update certification status");
 
       const result = await response.json();
-      console.log("Certification status updated:", result);
+     
       setStatus("Certified");
       setInitialStatus("Certified");
     } catch (error) {
@@ -192,8 +192,7 @@ function AClinicianProfile() {
     // Find the selected role and organization IDs
     const selectedRole = positions.find((role) => role.name === position);
     const selectedOrg = organizations.find((org) => org.name === organization);
-    console.log(selectedOrg);
-    console.log(selectedRole);
+ 
 
     const requestBody = {
       userID: clinicianDetails.userID,
@@ -284,7 +283,7 @@ function AClinicianProfile() {
     }
   };
 
-  console.log(attempts);
+
   useEffect(() => {
     const filtered = attempts.filter((attempt) => {
       return (

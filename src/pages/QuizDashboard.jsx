@@ -96,7 +96,7 @@ function QuizDashboard() {
       setFinalPassed(false);
       setpractisePassed(false);
       setCurrentAccessDescription(""); // Clear description when deselecting
-      console.log(currentAccessDescription);
+      
     } else {
       // Otherwise, select the clicked module
       setSelectedModule(module);
@@ -104,7 +104,7 @@ function QuizDashboard() {
       setFinalPassed(access.finalPassed);
       setpractisePassed(access.practicePassed);
       setCurrentAccessDescription(access.description); // Set new description
-      console.log(currentAccessDescription);
+     
     }
   };
 

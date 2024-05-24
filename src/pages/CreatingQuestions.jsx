@@ -71,10 +71,10 @@ export default function CreatingQuiz() {
         setCorrectAnswerIndices(correctIndices);
         if (questionToEdit.imageURL) {
           const imageUrlSegments = questionToEdit.imageURL.split('-');
-          console.log(imageUrlSegments)
+         
           const imageName = imageUrlSegments[imageUrlSegments.length - 1];
           setFileLabel(imageName);
-          console.log(imageName)
+        
         }
 
       } else {
@@ -165,7 +165,7 @@ export default function CreatingQuiz() {
       );
 
       // Optionally, handle response
-      console.log("Image uploaded successfully", response.data);
+      
     } catch (error) {
       console.error("Error uploading image", error);
       // Optionally, handle error
@@ -213,7 +213,7 @@ export default function CreatingQuiz() {
       );
 
       // Optionally, handle response
-      console.log("Image uploaded successfully", response.data);
+
     } catch (error) {
       console.error("Error uploading image", error);
       // Optionally, handle error
@@ -228,7 +228,7 @@ export default function CreatingQuiz() {
     }
 
     // Check if stage is selected
-    if (!stage.trim()) {
+    if (stage == "") {
       alert("Please select a topic.");
       return;
     }
@@ -257,8 +257,7 @@ export default function CreatingQuiz() {
 
     if (questionID) {
       const questionType = questionToEdit.questionType;
-      console.log(questionType);
-
+     
       if (questionType == 1 && correctAnswerIndices.length > 1) {
         alert("This question is only single correct answer");
         return;
@@ -285,7 +284,7 @@ export default function CreatingQuiz() {
         feedback: answer.feedback,
       })),
     };
-    console.log(newQuestion);
+   
 
     try {
       let response;
@@ -355,7 +354,7 @@ export default function CreatingQuiz() {
 
       alert("Question uploaded!");
       navigate(`/createquiz/${moduleID}`);
-      console.log("Question published successfully", response.data);
+      
 
       // Reset state after publishing
       // setQuestion("");
