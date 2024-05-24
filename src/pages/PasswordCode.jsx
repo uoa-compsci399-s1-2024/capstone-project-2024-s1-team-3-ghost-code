@@ -81,12 +81,7 @@ export function PasswordCodeForm() {
 
       <div className="admin-login-info split right">
         <div className="info-content">
-          <img
-            loading="lazy"
-            src="path/to/your/logo.jpg" // Update with actual path to the logo
-            alt="Dashboard Logo"
-            className="verify-logo"
-          />
+     
           <p className="info-text">
             Please note your code will be valid for 30 minutes from when you requested it. Check your junk folder as well!
             <br />

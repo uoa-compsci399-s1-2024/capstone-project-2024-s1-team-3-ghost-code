@@ -10,7 +10,7 @@ export function PasswordSubmit() {
   const [passwordVisible2, setPasswordVisible2] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+  const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
 
   function validatePassword(password) {
     return passwordRegex.test(password);
@@ -157,7 +157,7 @@ export function PasswordSubmit() {
                 At least one uppercase English letter. <br />
                 At least one lowercase English letter. <br />
                 At least one digit. <br />
-                At least one special character.</p>
+                </p>
             <br />
             <br />
             <br />

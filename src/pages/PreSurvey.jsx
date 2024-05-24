@@ -153,7 +153,7 @@ function Presurvey() {
               Please fill out the registration before continuing.
             </p>
             <p className="info-text">
-              If you've already filled in the pre-training quiz click the
+              If you've already filled in the registration quiz click the
               "continue here" prompt.
             </p>
             <p className="info-text">
@@ -268,7 +268,7 @@ function Presurvey() {
                   <Link to="/cliniciansign">
                     <font color="#485696">
                       <strong>
-                        <u>Already did the survey? continue here</u>
+                        <u>Already did the registration? continue here</u>
                       </strong>
                     </font>
                   </Link>
