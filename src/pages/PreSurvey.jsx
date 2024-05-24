@@ -34,7 +34,7 @@ function Presurvey() {
         const roleName = data.map((role) => role.roleName);
         const roleID = data.map((role) => role.roleID);
         setPositions(roleName || []); // Ensure your API returns an object with a 'positions' key
-        setPosition("Doctor"); // Set default position
+        setPosition(roleName[0]); // Set default position
 
         setRolesID(roleID);
       } catch (error) {
@@ -78,9 +78,7 @@ function Presurvey() {
 
     // Get the index of the selected position and organization
     const positionIndex = positions.findIndex((pos) => pos === position);
-    const organisationIndex = organisations.findIndex(
-      (org) => org === organisation
-    );
+    const organisationIndex = organisations.findIndex((org) => org === organisation);
 
     // Retrieve the corresponding IDs using the indexes
     const roleID = positionIndex !== -1 ? roleIDs[positionIndex] : null;
