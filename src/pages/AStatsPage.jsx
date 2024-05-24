@@ -14,6 +14,8 @@ function AdminStatsReview() {
   const [stats, setStats] = useState([]);
   const [averageAttempts, setAverageAttempts] = useState(null);
   const [sortOrder, setSortOrder] = useState('asc');
+  const [topics, setTopics] = useState([]);
+  const [selectedTopic, setSelectedTopic] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,7 +37,7 @@ function AdminStatsReview() {
           if (status === 401) {
             // Token is invalid or expired, log the user out
             sessionStorage.removeItem('adminToken');
-            navigate('/cliniciansign'); // Redirect to login page
+            navigate('/adminlogin'); // Redirect to login page
           } else if (status === 403) {
             // Not authorized to access resource, redirect to appropriate dashboard
             navigate('/quizDashboard'); // Redirect to appropriate dashboard
@@ -49,9 +51,6 @@ function AdminStatsReview() {
     fetchData();
   }, [adminToken, navigate]);
 
- 
-
-
   useEffect(() => {
     const fetchQuestionsAndStats = async () => {
       if (selectedModule) {
@@ -62,6 +61,9 @@ function AdminStatsReview() {
             }
           });
           setQuestions(questionsResponse.data);
+
+          const uniqueTopics = [...new Set(questionsResponse.data.map(question => question.topic))];
+          setTopics(uniqueTopics);
 
           const statsResponse = await redaxios.post(`https://api.tmstrainingquizzes.com/webapi/GetStats`, {
             searchStart: "2000-01-01T00:00:00.000Z",
@@ -75,11 +77,8 @@ function AdminStatsReview() {
             }
           });
 
-          
-
           setStats(statsResponse.data);
           
-
           const totalAttempts = statsResponse.data.length;  // Corrected to count the number of attempts
           const numberOfUsers = new Set(statsResponse.data.map(attempt => attempt.user.userID)).size;
           const average = totalAttempts / numberOfUsers;
@@ -103,6 +102,10 @@ function AdminStatsReview() {
     setSortOrder(order);
   };
 
+  const handleTopicFilterChange = (topic) => {
+    setSelectedTopic(topic);
+  };
+
   const sortedQuestions = [...questions].sort((a, b) => {
     if (sortOrder === 'asc') {
       return a.correctRate - b.correctRate;
@@ -111,8 +114,11 @@ function AdminStatsReview() {
     }
   });
 
+  const filteredQuestions = selectedTopic
+    ? sortedQuestions.filter(question => question.topic === selectedTopic)
+    : sortedQuestions;
 
-  console.log(questions)
+  console.log(questions);
 
   return (
     <div className="flex">
@@ -138,26 +144,38 @@ function AdminStatsReview() {
             <div className="cont-overview-module">
               <h2>{selectedModule.name}</h2>
               <p>{selectedModule.description}</p>
-          
-              {/* Example of how you might want to display some aggregated stats */}
               <div>
-                Average attempts taken to pass: {averageAttempts !== null ? averageAttempts : 'Module not attempted.'}
+              Average attempts taken to pass: {averageAttempts !== null && !isNaN(averageAttempts) ? Math.round(averageAttempts) : 'Module not attempted.'}
               </div>
             </div>
           )}
-          <div className="flags">
+         <div className="flags">
             <div className="side-by-side">
               <h3>Flags:</h3>
-              <div className="dropdown">
-                <span className="amr-span">Sort by:</span>
-                <div className="dropdown-content">
-                  <p onClick={() => handleSortChange('asc')}>Ascending</p>
-                  <p onClick={() => handleSortChange('desc')}>Descending</p>
+              {/* Wrap both dropdowns in a div */}
+              <div className="dropdown-group">
+                <div className="dropdown">
+                  <span className="amr-span">Sort by:</span>
+                  <div className="dropdown-content">
+                    <p onClick={() => handleSortChange('asc')}>Ascending</p>
+                    <p onClick={() => handleSortChange('desc')}>Descending</p>
+                  </div>
+                </div>
+                <div className="dropdown">
+                  <span className="amr-span">Filter by Topic</span>
+                  <div className="dropdown-content">
+                    {topics.map((topic, index) => (
+                      <p key={index} onClick={() => handleTopicFilterChange(topic)}>
+                        {topic}
+                      </p>
+                    ))}
+                    <p onClick={() => handleTopicFilterChange(null)}>All Topics</p>
+                  </div>
                 </div>
               </div>
             </div>
             <div className="cont-overview-qs">
-              {sortedQuestions.map((question) => (
+              {filteredQuestions.map((question) => (
                 <div className="cont-overview-sep-qs" key={question.questionID}>
                   <h4>{question.title}</h4>
                   Accuracy: {question.correctRate}%
@@ -165,6 +183,7 @@ function AdminStatsReview() {
               ))}
             </div>
           </div>
+
         </div>
       </div>
     </div>
