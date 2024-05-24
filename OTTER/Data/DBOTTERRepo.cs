@@ -17,14 +17,15 @@ using Amazon.S3.Transfer;
 using System;
 using System.Data;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Amazon.SimpleEmail;
+using Amazon.SimpleEmail.Model;
 
 namespace OTTER.Data
 {
     public class DBOTTERRepo : IOTTERRepo
     {
         private readonly OTTERDBContext _dbContext;
-        private readonly string _adminEmail = "angus@wrightfamily.nz";
-        private readonly string _emailApiUri = "https://script.google.com/macros/s/AKfycbxju7WbjRdS5w3e_PNTmuVgGU0l-ZA3L_Lu_FVkjAnSb1h0BTg_cDwY0czF8BWOig6z/exec";
+        private readonly string _adminEmail = "gc@anguswright.com";
         private readonly string _bucketURL = "https://s3.ap-southeast-2.amazonaws.com/certificate.tmstrainingquizzes.com/";
         public DBOTTERRepo(OTTERDBContext dbContext)
         {
@@ -33,18 +34,53 @@ namespace OTTER.Data
 
         public void SendEmail(string requestEmail, string requestSubject, string requestBody)
         {
-            var client = new HttpClient();
-            var endpoint = new Uri(_emailApiUri);
-            var newEmail = new EmailContentDto()
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production") // Only sends if the environment is production to get accurate AWS credentials
             {
-                email = requestEmail,
-                subject = requestSubject,
-                body = requestBody
-            };
-            var newEmailJson = JsonConvert.SerializeObject(newEmail);
-            var payload = new StringContent(newEmailJson, Encoding.UTF8, "application/json");
+                var senderName = "VERIFY Study";
+                var senderEmail = "noreply@tmstrainingquizzes.com";
+                var templatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Dtos", "emailTemplate.html");
 
-            client.PostAsync(endpoint, payload);
+                // Read the HTML template
+                var htmlTemplate = File.ReadAllText(templatePath);
+                var htmlBody = htmlTemplate.Replace("{{subject}}", requestSubject).Replace("{{body}}", requestBody);
+
+                // Initialize Amazon SES client using InstanceProfileAWSCredentials
+                var credentials = new InstanceProfileAWSCredentials();
+                using (var client = new AmazonSimpleEmailServiceClient(credentials, RegionEndpoint.APSoutheast2))
+                {
+                    var sendRequest = new SendEmailRequest
+                    {
+                        Source = $"{senderName} <{senderEmail}>",
+                        ReplyToAddresses = new List<string> { _adminEmail },
+                        Destination = new Destination
+                        {
+                            ToAddresses = new List<string> { requestEmail }
+                        },
+                        Message = new Message
+                        {
+                            Subject = new Content(requestSubject),
+                            Body = new Body
+                            {
+                                Html = new Content
+                                {
+                                    Charset = "UTF-8",
+                                    Data = htmlBody
+                                }
+                            }
+                        }
+                    };
+
+                    try
+                    {
+                        var response = client.SendEmailAsync(sendRequest);
+                        Console.WriteLine("Email Sent");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Failed to send email. Error: {ex.Message}");
+                    }
+                }
+            }
         }
 
         public string CreateCertitificate(Certification certification, Module module)
