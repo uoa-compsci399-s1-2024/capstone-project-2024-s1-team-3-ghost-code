@@ -340,17 +340,12 @@ const PracQuiz = () => {
     return (
       <div className="loadingpage">
         <head>
-          <title>404 - Page Not Found</title>
+          <title>Loading</title>
         </head>
         <body>
           <div className="loadingbody">
             <div className="loadingtextcont">
-              <h1 className="loadingh1">404 - Page Not Found</h1>
-              <p className="loadingp">
-                The page you are looking for might have been removed, had its
-                name changed, or is temporarily unavailable.
-              </p>
-
+              <h1 className="loadingh1">Loading Questions</h1>
               <div className="cont-return-but">
                 <Link to="/quizDashboard" style={{ textDecoration: "none" }}>
                   <button className="btn return-button">Back to Modules</button>
@@ -377,6 +372,15 @@ const PracQuiz = () => {
   };
 
   console.log(questionImages);
+
+   // Inside your component
+const isQuestionFullyCorrect = (questionIndex) => {
+  // Assuming submissionResult.selectedCorrect tracks whether each selected answer is correct
+  return (
+    submissionResult.selectedCorrect[questionIndex]?.every((val) => val) &&
+    submissionResult.missedCorrectAID[questionIndex]?.length === 0
+  );
+};
 
   const currentImage = questionImages[activeQuestion];
   const currentImageDimensions = imageDimensions[activeQuestion] || {};
@@ -647,7 +651,7 @@ const PracQuiz = () => {
               </div>
 
               {/*IDK which part of the code is displaying the answered question, I want to remove it and ONLY show the feedback, but I think they depend on each other? I'm not too sure about what I can remove.*/}
-              <div className="cont-feedback">
+              <div className="cont-feedback" style={{ backgroundColor: isQuestionFullyCorrect(activeQuestion) ? '#AEEE95' : '#E27891' }}>
                 <div className="cont-feedback-writing">
                   <ul>
                     {selectedAnswersLists[activeQuestion]?.map(
