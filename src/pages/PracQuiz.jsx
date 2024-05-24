@@ -382,6 +382,15 @@ const isQuestionFullyCorrect = (questionIndex) => {
   );
 };
 
+const isQuestionPartiallyCorrect = (questionIndex) => {
+  const selectedAnswers = selectedAnswersList[questionIndex];
+  const correctAnswers =  submissionResult.selectedCorrect[questionIndex];
+  return (
+    submissionResult.selectedCorrect[questionIndex]?.some((val) => val) &&
+    !isQuestionFullyCorrect(questionIndex)
+  );
+};
+
   const currentImage = questionImages[activeQuestion];
   const currentImageDimensions = imageDimensions[activeQuestion] || {};
 
@@ -651,7 +660,7 @@ const isQuestionFullyCorrect = (questionIndex) => {
               </div>
 
               {/*IDK which part of the code is displaying the answered question, I want to remove it and ONLY show the feedback, but I think they depend on each other? I'm not too sure about what I can remove.*/}
-              <div className="cont-feedback" style={{ backgroundColor: isQuestionFullyCorrect(activeQuestion) ? '#AEEE95' : '#E27891' }}>
+              <div className="cont-feedback" style={{backgroundColor: isQuestionFullyCorrect(activeQuestion) ? '#AEEE95' : isQuestionPartiallyCorrect(activeQuestion) ? '#FFFF85' : '#E27891 '}}>
                 <div className="cont-feedback-writing">
                   <ul>
                     {selectedAnswersLists[activeQuestion]?.map(
