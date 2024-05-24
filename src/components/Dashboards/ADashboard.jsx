@@ -7,7 +7,7 @@ function AdminDashboard() {
   return (
     <div className="Admindashboard-container">
       <div className="Adminlogo-container">
-      <a href="/home">
+      <a href="/adminsearch">
         <img
           className="Adminlogo"
           loading="lazy"

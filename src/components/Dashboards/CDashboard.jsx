@@ -7,7 +7,7 @@ function ClientDashboard() {
   return (
     <div className="clientDashboardContainer">
       <div className="clientLogoContainer">
-      <a href="/home">
+      <a href="/quizDashboard ">
         <img
           className="clientLogo"
           loading="lazy"

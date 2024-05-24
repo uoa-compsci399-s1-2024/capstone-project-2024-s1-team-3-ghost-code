@@ -197,8 +197,8 @@ function QuizDashboard() {
               className="module-item"
               onClick={() => handleModuleClick(module)}
             >
-              <div className="moduleId">{"Module " + module.sequence}</div>
-              <div className="moduleName">{module.name}</div>
+              <div className="moduleId">{module.name + " Module"}</div>
+              <div className="moduleName">{/*module.name*/}</div>
               <div className="moduleDescription">{module.description}</div>
               <FontAwesomeIcon
                 icon={faCircleCheck}
