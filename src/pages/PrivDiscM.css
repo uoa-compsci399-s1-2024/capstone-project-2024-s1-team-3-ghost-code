@@ -20,23 +20,28 @@
   }
   
   .PrivDiscM-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  flex-direction: column;
   }
   
-  .close-button {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+  .priv-close-button {
+    background-color: teal;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15%; /* Take up full width of its parent */
+    height: 50%; /* Take up full height of its parent */
   }
-  
-  .close-button:hover,
-  .close-button:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
+
+  .priv-close-button:hover{
+   background-color:  #006464;
+   box-shadow: 0px 4px 20px rgba(62, 9, 9, 0.32);
   }
