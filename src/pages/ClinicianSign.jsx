@@ -120,8 +120,9 @@ export function ClinicianLoginInfo() {
             <br />
             <br />
             <br />
-            If you have trouble logging in, please contact
-            techsupportverify@gmail.com
+            If you have any questions or need assistance with the registration
+            process, please contact our support team at{" "}
+            <b>verify.study.tms@gmail.com</b>.
           </p>
         </div>
       </div>

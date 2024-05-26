@@ -13,8 +13,7 @@ const PrivDiscM = ({ show, handleClose }) => {
           the TMS Training Quiz platform. We prioritize the protection and
           privacy of your data and will only disclose it for legitimate purposes
           consistent with our Privacy Policy. You have the right to withdraw
-          your consent or update your preferences at any time. For more
-          information, please review our Privacy Policy.
+          your consent or update your preferences at any time.
         </p>
         <button className="priv-close-button" onClick={handleClose}>
           Okay

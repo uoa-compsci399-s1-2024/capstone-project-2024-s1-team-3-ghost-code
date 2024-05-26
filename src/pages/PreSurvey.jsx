@@ -78,14 +78,15 @@ function Presurvey() {
 
     // Get the index of the selected position and organization
     const positionIndex = positions.findIndex((pos) => pos === position);
-    const organisationIndex = organisations.findIndex((org) => org === organisation);
+    const organisationIndex = organisations.findIndex(
+      (org) => org === organisation
+    );
 
     // Retrieve the corresponding IDs using the indexes
     const roleID = positionIndex !== -1 ? roleIDs[positionIndex] : null;
     const organisationID =
       organisationIndex !== -1 ? orgIDs[organisationIndex] : null;
 
-  
     const clinicianData = {
       userEmail: email,
       firstName: firstName,
@@ -93,7 +94,6 @@ function Presurvey() {
       roleID: roleID,
       organizationID: organisationID,
     };
-
 
     try {
       const registrationResponse = await fetch(
@@ -144,17 +144,19 @@ function Presurvey() {
     <>
       <form onSubmit={handleSubmit}>
         <div className="split-survey left-survey">
-          <div className="centered-survey info-text">
+          <div className="centered-survey">
             <p className="info-text">
-              Please fill out the registration before continuing.
+              Join our platform to take your first steps and completing your
+              certification for TMS.
             </p>
             <p className="info-text">
               If you've already filled in the registration quiz click the
               "continue here" prompt.
             </p>
             <p className="info-text">
-              By filling out this registration you will be able to come back to
-              the quiz at any time to continue where you left off.
+              Need Help? If you have any questions or need assistance with the
+              registration process, please contact our support team at{" "}
+              <b>verify.study.tms@gmail.com</b>.
             </p>
           </div>
         </div>

@@ -103,7 +103,7 @@ export function AdminLoginForm() {
                 <input type="submit" className="input-submit" value="Sign In" />
               </div>
               <div className="forgot">
-                      <Link style={{ textDecoration: "none" }} to="/passwordreset">
+                <Link style={{ textDecoration: "none" }} to="/passwordreset">
                   <div className="back-to-home-text">Forgot password</div>
                 </Link>
               </div>
@@ -128,8 +128,9 @@ export function AdminLoginInfo() {
             <br />
             <br />
             <br />
-            If you have trouble logging in, please contact
-            techsupportverify@gmail.com
+            If you have any questions or need assistance with the registration
+            process, please contact our support team at{" "}
+            <b>verify.study.tms@gmail.com</b>.
           </p>
         </div>
       </div>
