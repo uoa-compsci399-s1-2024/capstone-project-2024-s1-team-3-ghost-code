@@ -1,39 +1,40 @@
 import React from "react";
 import "./ADashboard.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../VERIFYLogo.jpg";
 
 function AdminDashboard() {
+  const location = useLocation();
+
+  const isActive = (path) => {
+    return location.pathname === path ? "active" : "";
+  };
+
   return (
     <div className="Admindashboard-container">
       <div className="Adminlogo-container">
-      <a href="/home">
-        <img
-          className="Adminlogo"
-          loading="lazy"
-          src={logo}
-          alt="DashboardLogo"
-        />
-      </a>
+        <a href="/home">
+          <img
+            className="Adminlogo"
+            loading="lazy"
+            src={logo}
+            alt="DashboardLogo"
+          />
+        </a>
       </div>
-      <button className="Adminbutton">Dashboard</button>
-      <Link style={{ textDecoration: "none", color: "white" }} to="/EditQuiz">
-        <button className="Adminbutton">Edit Quiz</button>
+      <Link style={{ textDecoration: "none", color: "white" }} to="/admin">
+        <button className={`Adminbutton ${isActive("/admin")}`}>Dashboard</button>
       </Link>
-
-      <Link
-        style={{ textDecoration: "none", color: "white" }}
-        to="/adminsearch"
-      >
-        <button className="Adminbutton">Clinicians</button>
+      <Link style={{ textDecoration: "none", color: "white" }} to="/EditQuiz">
+        <button className={`Adminbutton ${isActive("/EditQuiz")}`}>Edit Quiz</button>
+      </Link>
+      <Link style={{ textDecoration: "none", color: "white" }} to="/adminsearch">
+        <button className={`Adminbutton ${isActive("/adminsearch")}`}>Clinicians</button>
       </Link>
       <button className="Adminbutton">Statistics</button>
-      <br></br>
-      <Link
-        style={{ textDecoration: "none", color: "white" }}
-        to="/adminSettings"
-      >
-        <button className="Adminbutton">Settings</button>
+      <br />
+      <Link style={{ textDecoration: "none", color: "white" }} to="/adminSettings">
+        <button className={`Adminbutton ${isActive("/adminSettings")}`}>Settings</button>
       </Link>
     </div>
   );
