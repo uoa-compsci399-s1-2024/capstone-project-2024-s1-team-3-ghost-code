@@ -276,3 +276,50 @@
     overflow-y: auto; /* Enables vertical scrolling */
     margin-bottom: 20px; /* Adds some spacing between lists */
   }
+
+
+  /* Styles for the confirmation modal */
+.modalSettings {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    z-index: 1000; /* Ensure it appears above other elements */
+}
+
+.modal-contentSettings {
+    text-align: center;
+}
+
+.modal-contentSettings h2 {
+    margin-bottom: 20px;
+}
+
+.modal-contentSettings button {
+    margin: 5px;
+}
+
+.modal-contentSettings button.confirm-button {
+    background-color: #f44336;
+    color: white;
+}
+
+.modal-contentSettings button.confirm-button:hover {
+    background-color: #da190b;
+}
+
+.modal-contentSettings button.cancel-button {
+    background-color: #A3A3A3; /* Green */
+    color: white;
+}
+
+.modal-contentSettings button.cancel-button:hover {
+    background-color: #808080;
+}

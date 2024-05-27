@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "redaxios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+
 export default function AdminSetting() {
   const navigate = useNavigate();
   const adminToken = sessionStorage.getItem("adminToken");
@@ -191,6 +192,7 @@ export default function AdminSetting() {
   const [organizationMessage, setOrganizationMessage] = useState("");
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
+  
 
   useEffect(() => {
     fetchRoles();
@@ -293,6 +295,11 @@ export default function AdminSetting() {
   const [showRoleMessage, setShowRoleMessage] = useState(false);
   const [showOrganizationMessage, setShowOrganizationMessage] = useState(false);
 
+  const [showDeleteRoleModal, setShowDeleteRoleModal] = useState(false);
+  const [roleToDelete, setRoleToDelete] = useState(null);
+  const [showDeleteOrgModal, setShowDeleteOrgModal] = useState(false);
+  const [orgToDelete, setOrgToDelete] = useState(null);
+
   // Function to show message and hide it after 3 seconds
   const showMessage = (message, type) => {
     switch (type) {
@@ -317,8 +324,15 @@ export default function AdminSetting() {
 
   //HANDLING DELETING ROLE
   const handleDeleteRole = async (roleID) => {
+    setRoleToDelete(roleID);
+    setShowDeleteRoleModal(true);
+  };
+
+
+  const confirmDeleteRole = async () => {
+
     const deleteRoleApiUrl = `https://api.tmstrainingquizzes.com/webapi/DeleteRole/${parseInt(
-      roleID
+      roleToDelete
     )}`;
 
     try {
@@ -341,12 +355,19 @@ export default function AdminSetting() {
     } catch (error) {
       setRoleMessage(`Error deleting role: ${error.message}`);
     }
+    setShowDeleteRoleModal(false);
+    setRoleToDelete(null);
   };
 
   //HANDLING DELETE ORGANISATION
   const handleDeleteOrg = async (orgID) => {
+    setOrgToDelete(orgID);
+    setShowDeleteOrgModal(true);
+  };
+
+  const confirmDeleteOrg = async () => {
     const deleteOrgApiUrl = `https://api.tmstrainingquizzes.com/webapi/DeleteOrganization/${parseInt(
-      orgID
+      orgToDelete
     )}`;
 
     try {
@@ -372,6 +393,8 @@ export default function AdminSetting() {
     } catch (error) {
       setOrganizationMessage(`Error deleting organization: ${error.message}`);
     }
+    setShowDeleteOrgModal(false);
+    setOrgToDelete(null); 
   };
 
   const filteredRoles = roles.filter((role) =>
@@ -612,6 +635,29 @@ export default function AdminSetting() {
           </div>
         </div>
       </section>
+       {/* Role Deletion Modal */}
+       {showDeleteRoleModal && (
+        <div className="modalSettings">
+          <div className="modal-contentSettings">
+            <h2>Confirm Deletion</h2>
+            <p>Are you sure you want to delete this role?</p>
+            <button className="confirm-button" onClick={confirmDeleteRole}>Yes, delete</button>
+            <button className="cancel-button" onClick={() => setShowDeleteRoleModal(false)}>Cancel</button>
+          </div>
+        </div>
+      )}
+
+      {/* Organization Deletion Modal */}
+      {showDeleteOrgModal && (
+        <div className="modalSettings">
+          <div className="modal-contentSettings">
+            <h2>Confirm Deletion</h2>
+            <p>Are you sure you want to delete this organization?</p>
+            <button className="confirm-button" onClick={confirmDeleteOrg}>Yes, delete</button>
+            <button className="cancel-button" onClick={() => setShowDeleteOrgModal(false)}>Cancel</button>
+          </div>
+        </div>
+      )}
     </>
   );
 }
