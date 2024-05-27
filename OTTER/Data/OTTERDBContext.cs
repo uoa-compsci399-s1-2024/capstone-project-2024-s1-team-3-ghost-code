@@ -6,6 +6,7 @@ namespace OTTER.Data
     public class OTTERDBContext : DbContext
     {
         public OTTERDBContext(DbContextOptions<OTTERDBContext> options) : base(options) { }
+        public DbSet<AdminDeleteRequest> AdminDeleteRequests { get; set; }
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Attempt> Attempts { get; set; }

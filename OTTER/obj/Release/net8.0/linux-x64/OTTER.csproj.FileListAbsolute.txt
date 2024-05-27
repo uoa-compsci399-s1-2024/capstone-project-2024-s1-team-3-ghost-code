@@ -460,3 +460,4 @@ C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-cod
 C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Release\net8.0\linux-x64\System.Windows.Extensions.dll
 C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Release\net8.0\linux-x64\AWSSDK.SimpleEmail.dll
 C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Release\net8.0\linux-x64\Dtos\emailTemplate.html
+C:\Users\Angus Wright\Documents\GitHub\capstone-project-2024-s1-team-3-ghost-code\OTTER\bin\Release\net8.0\linux-x64\Dtos\actionResult.html
