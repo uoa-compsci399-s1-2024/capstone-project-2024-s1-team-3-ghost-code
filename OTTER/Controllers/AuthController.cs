@@ -125,7 +125,7 @@ namespace OTTER.Controllers
         public ActionResult<CurrentAdminOutputDto> GetCurrentAdmin()
         {
             Admin admin = _repo.GetAdminByID(int.Parse(User.FindFirstValue(ClaimTypes.SerialNumber)));
-            return Ok(new CurrentAdminOutputDto { AdminID = admin.AdminID, FirstName = admin.FirstName, LastName = admin.LastName, Email = admin.Email, PreviousLogin = (DateTime)admin.PreviousLogin });
+            return Ok(new CurrentAdminOutputDto { AdminID = admin.AdminID, FirstName = admin.FirstName, LastName = admin.LastName, Email = admin.Email, PreviousLogin = admin.PreviousLogin });
         }
 
         [SwaggerOperation(
