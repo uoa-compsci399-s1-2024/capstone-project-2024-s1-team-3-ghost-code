@@ -83,7 +83,7 @@ function AdminStatsReview() {
           const numberOfUsers = new Set(statsResponse.data.map(attempt => attempt.user.userID)).size;
           const average = totalAttempts / numberOfUsers;
           
-          setAverageAttempts(numberOfUsers > 0 ? average : 'Module not attempted.');
+          setAverageAttempts(numberOfUsers > 0 ? average : 'Final quiz has not been passed yet.');
 
         } catch (error) {
           console.error('Failed to fetch questions or stats:', error);
@@ -145,7 +145,7 @@ function AdminStatsReview() {
               <h2>{selectedModule.name}</h2>
               <p>{selectedModule.description}</p>
               <div>
-              Average attempts taken to pass: {averageAttempts !== null && !isNaN(averageAttempts) ? Math.round(averageAttempts) : 'Module not attempted.'}
+              Average attempts taken to pass: {averageAttempts !== null && !isNaN(averageAttempts) ? Math.round(averageAttempts) : 'Final quiz has not been passed yet.'}
               </div>
             </div>
           )}
