@@ -115,7 +115,7 @@ export function ClinicianLoginInfo() {
             className="verify-logo"
           />
           <p className="info-text">
-            Welcome Back! Please provide your email before continueing.
+            Welcome Back! Please provide your email before continuing.
             <br />
             <br />
             <br />
