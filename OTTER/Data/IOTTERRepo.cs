@@ -24,7 +24,6 @@ namespace OTTER.Data
         Answer GetAnswerByID(int id);
         Answer AddAnswer(Answer answer);
         void DeleteAnswer(int id);
-        /*Answer EditAnswer(EditAnswerInputDto answer);*/
         IEnumerable<Attempt> GetAttempts();
         Attempt GetAttemptByID(int id);
         Attempt AddAttempt(Attempt attempt);

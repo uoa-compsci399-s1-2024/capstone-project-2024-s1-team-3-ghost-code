@@ -316,7 +316,7 @@ namespace OTTER.Data
             if (oldQ != null)
             {
                 DeleteQuestion(oldQ.QuestionID);
-                Question newQ = new Question { Module = oldQ.Module, Title = question.Title, Description = question.Description, QuestionType = oldQ.QuestionType, ImageURL = oldQ.ImageURL, Topic = oldQ.Topic, Deleted = false };
+                Question newQ = new Question { Module = oldQ.Module, Title = question.Title, Description = question.Description, QuestionType = oldQ.QuestionType, ImageURL = oldQ.ImageURL, Topic = question.Topic, Deleted = false };
                 AddQuestion(newQ);
                 _dbContext.SaveChanges();
                 foreach(EditAnswerInputDto answer in question.Answers)
@@ -357,21 +357,6 @@ namespace OTTER.Data
                 _dbContext.SaveChanges();
             }
         }
-
-        /*public Answer EditAnswer(EditAnswerInputDto answer)
-        {
-            Answer a = _dbContext.Answers.FirstOrDefault(e => e.AnswerID == answer.AnswerID);
-            if (a != null)
-            {
-                a.AnswerText = answer.AnswerText;
-                a.AnswerCoordinates = answer.AnswerCoordinates;
-                a.CorrectAnswer = answer.CorrectAnswer;
-                a.Feedback = answer.Feedback;
-                _dbContext.SaveChanges();
-                a = _dbContext.Answers.FirstOrDefault(e => e.AnswerID == answer.AnswerID);
-            }
-            return a;
-        }*/
 
         public IEnumerable<Attempt> GetAttempts()
         {

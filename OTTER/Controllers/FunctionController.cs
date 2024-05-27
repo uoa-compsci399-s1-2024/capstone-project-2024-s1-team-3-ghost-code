@@ -298,18 +298,6 @@ namespace OTTER.Controllers
             }
         }
 
-        /*[HttpGet("ClinicianLogin/{email}")]
-        public ActionResult ClinicianLogin(string email)
-        {
-            if(_repo.GetUserByEmail(email) != null)
-            {
-                return Ok(_repo.GetUserByEmail(email));
-            } else
-            {
-                return NotFound("No user with email " + email + " exists.");
-            }
-        }*/
-
         [SwaggerOperation(
             Summary = "Gets the certification status of a clinician",
             Description = "Admin privileges required",
