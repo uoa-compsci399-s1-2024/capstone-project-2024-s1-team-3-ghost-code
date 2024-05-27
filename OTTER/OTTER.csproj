@@ -32,6 +32,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Dtos\actionResult.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Dtos\emailTemplate.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

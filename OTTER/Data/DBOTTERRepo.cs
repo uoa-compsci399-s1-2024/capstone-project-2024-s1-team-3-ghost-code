@@ -743,14 +743,38 @@ namespace OTTER.Data
             return a.Entity;
         }
 
-        public void DeleteAdmin(int id)
+        public void DeleteAdminRequest(Admin requestor, Admin admin)
         {
-            Admin admin = _dbContext.Admins.FirstOrDefault(e => e.AdminID == id);
-            if (admin != null)
+            AdminDeleteRequest request = new AdminDeleteRequest { Admin = admin, Requestor = requestor, Expiry = DateTime.UtcNow.AddHours(1), Token = Guid.NewGuid().ToString() };
+            _dbContext.AdminDeleteRequests.Add(request);
+            _dbContext.SaveChanges();
+            SendEmail(_adminEmail, $"Request to delete admin {admin.FirstName} {admin.LastName}", $"ACTION REQUIRED<br><br>" +
+                $"A request to delete the following admin has been lodged by {requestor.FirstName} {requestor.LastName} ({requestor.Email}).<br><br>" +
+                $"Please use either of the links below to approve or deny this request.<br><br>" +
+                $"Admin to delete: {admin.FirstName} {admin.LastName}<br>" +
+                $"Email: {admin.Email}<br><br>" +
+                $"<a href='https://api.tmstrainingquizzes.com/action/ApproveAdminDelete?token={request.Token}'>Approve Request (Delete)</a><br><br>" +
+                $"<a href='https://api.tmstrainingquizzes.com/action/DenyAdminDelete?token={request.Token}'>Deny Request (Do Not Delete)</a><br><br>" +
+                $"If you do nothing, this request will expire within 1 hour.<br><br>" +
+                $"This is a system generated email. For security reasons, do not forward.");
+        }
+
+        public void DeleteAdmin(AdminDeleteRequest request)
+        {
+            IEnumerable<AdminDeleteRequest> adminDeleteRequests = _dbContext.AdminDeleteRequests.Where(e => e.Admin == request.Admin);
+            foreach (AdminDeleteRequest adr in adminDeleteRequests)
             {
-                _dbContext.Admins.Remove(admin);
-                _dbContext.SaveChanges();
+                _dbContext.AdminDeleteRequests.Remove(adr);
             }
+            _dbContext.SaveChanges();
+            _dbContext.Admins.Remove(request.Admin);
+            _dbContext.SaveChanges();
+        }
+
+        public void RemoveAdminDeleteRequest(AdminDeleteRequest request)
+        {
+            _dbContext.AdminDeleteRequests.Remove(request);
+            _dbContext.SaveChanges();
         }
 
         public AdminOutputDto EditAdmin(AdminEditDto admin)
@@ -814,6 +838,11 @@ namespace OTTER.Data
             Admin a = _dbContext.Admins.FirstOrDefault(e => e.AdminID == id);
             a.LastLogin = DateTime.Now;
             _dbContext.SaveChanges();
+        }
+
+        public AdminDeleteRequest GetAdminDeleteRequest(string token)
+        {
+            return _dbContext.AdminDeleteRequests.Include(e => e.Admin).Include(e => e.Requestor).FirstOrDefault(e => e.Token == token);
         }
     }
 }

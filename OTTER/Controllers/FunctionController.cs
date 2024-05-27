@@ -119,6 +119,7 @@ namespace OTTER.Controllers
             Tags = new[] { "Admins" }
         )]
         [SwaggerResponse(200, "Admin deleted")]
+        [SwaggerResponse(400, "Current admin cannot be deleted")]
         [SwaggerResponse(401, "Token is invalid")]
         [SwaggerResponse(403, "Token is not authorized to view resource")]
         [SwaggerResponse(404, "Admin with submitted ID does not exist")]
@@ -126,14 +127,18 @@ namespace OTTER.Controllers
         [HttpDelete("DeleteAdmin/{id}")]
         public ActionResult DeleteAdmin(int id)
         {
-            Admin a = _repo.GetAdminByID(id);
-            if (a == null)
-                return NotFound("No admin with the ID " + id + " exists!");
-            else
+            Admin requestor = _repo.GetAdminByID(int.Parse(User.FindFirstValue(ClaimTypes.SerialNumber)));
+            Admin admin = _repo.GetAdminByID(id);
+            if (admin == requestor)
             {
-                _repo.DeleteAdmin(id);
-                return Ok("Admin successfully deleted!");
+                return BadRequest("Cannot delete current admin!");
             }
+            if (admin == null)
+            {
+                return NotFound("No admin with the ID " + id + " exists!");
+            }
+            _repo.DeleteAdminRequest(requestor, admin);
+            return Ok("Request to delete admin has been sent to system admin!");
         }
 
         [SwaggerOperation(
