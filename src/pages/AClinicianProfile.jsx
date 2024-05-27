@@ -297,6 +297,7 @@ function AClinicianProfile() {
     setFilteredAttempts(filtered); // Update the state with filtered results
   }, [attempts, selectedModule, quizType, completionStatus]);
 
+  console.log(attempts)
   return (
     <div className="flex">
       <div className="dashboard-container">
@@ -446,7 +447,7 @@ function AClinicianProfile() {
                     }`}
                   >
                     <h4>
-                      {attempt.quiz.name} - {attempt.completed}
+                      {attempt.quiz.module.name} {attempt.quiz.stage} - {attempt.completed}
                     </h4>
                     <p>Date: {new Date(attempt.dateTime).toLocaleString()}</p>
                   </div>
