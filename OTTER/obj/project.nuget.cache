@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "P0N9w3F41qEJcYU4559O/crC0W26W+HuPKueWHD/H3Vf0Ee1YtWrKpWcgqsDNADmWOpD8CyJDKUHRpJNyTzkew==",
+  "dgSpecHash": "JDgEXdoNLjI2yomVA+nZoK+T8JRUMlj7pH+86CnrgK8kZoduA1p0rJWC+zbjGM7vVvb9Bz+9weZXdzluUzqiTQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Angus Wright\\Documents\\GitHub\\capstone-project-2024-s1-team-3-ghost-code\\OTTER\\OTTER.csproj",
   "expectedPackageFiles": [
@@ -96,7 +96,10 @@
     "C:\\Users\\Angus Wright\\.nuget\\packages\\system.text.json\\8.0.0\\system.text.json.8.0.0.nupkg.sha512",
     "C:\\Users\\Angus Wright\\.nuget\\packages\\system.threading.channels\\6.0.0\\system.threading.channels.6.0.0.nupkg.sha512",
     "C:\\Users\\Angus Wright\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
-    "C:\\Users\\Angus Wright\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
+    "C:\\Users\\Angus Wright\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
+    "C:\\Users\\Angus Wright\\.nuget\\packages\\microsoft.netcore.app.runtime.linux-x64\\8.0.5\\microsoft.netcore.app.runtime.linux-x64.8.0.5.nupkg.sha512",
+    "C:\\Users\\Angus Wright\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.linux-x64\\8.0.5\\microsoft.aspnetcore.app.runtime.linux-x64.8.0.5.nupkg.sha512",
+    "C:\\Users\\Angus Wright\\.nuget\\packages\\microsoft.netcore.app.host.linux-x64\\8.0.5\\microsoft.netcore.app.host.linux-x64.8.0.5.nupkg.sha512"
   ],
   "logs": [
     {
@@ -106,7 +109,8 @@
       "message": "Detected package version outside of dependency constraint: AWSSDK.SecretsManager 3.3.103 requires AWSSDK.Core (>= 3.3.107.23 && < 3.4.0) but version AWSSDK.Core 3.7.304.5 was resolved.",
       "libraryId": "AWSSDK.Core",
       "targetGraphs": [
-        "net8.0"
+        "net8.0",
+        "net8.0/linux-x64"
       ]
     },
     {

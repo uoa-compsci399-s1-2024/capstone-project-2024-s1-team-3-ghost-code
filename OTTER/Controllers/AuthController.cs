@@ -117,15 +117,15 @@ namespace OTTER.Controllers
             Description = "Requires admin privileges",
             Tags = new[] { "AdminAuth" }
         )]
-        [SwaggerResponse(200, "Query for Admin was successful", typeof(AdminOutputDto))]
+        [SwaggerResponse(200, "Query for Admin was successful", typeof(CurrentAdminOutputDto))]
         [SwaggerResponse(401, "Token is invalid")]
         [SwaggerResponse(403, "Token is not authorized to view resource")]
         [Authorize(Roles = "Admin")]
         [HttpGet("GetCurrentAdmin")]
-        public ActionResult<AdminOutputDto> GetCurrentAdmin()
+        public ActionResult<CurrentAdminOutputDto> GetCurrentAdmin()
         {
             Admin admin = _repo.GetAdminByID(int.Parse(User.FindFirstValue(ClaimTypes.SerialNumber)));
-            return Ok(new AdminOutputDto { AdminID = admin.AdminID, FirstName = admin.FirstName, LastName = admin.LastName, Email = admin.Email });
+            return Ok(new CurrentAdminOutputDto { AdminID = admin.AdminID, FirstName = admin.FirstName, LastName = admin.LastName, Email = admin.Email, PreviousLogin = (DateTime)admin.PreviousLogin });
         }
 
         [SwaggerOperation(

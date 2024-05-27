@@ -15,6 +15,7 @@ namespace OTTER.Models
         [Required]
         public string Password { get; set; }
         public DateTime? LastLogin { get; set; }
+        public DateTime? PreviousLogin { get; set; }
         public string? PasswordResetToken { get; set; }
         public DateTime? ResetTokenExpires { get; set; }
     }

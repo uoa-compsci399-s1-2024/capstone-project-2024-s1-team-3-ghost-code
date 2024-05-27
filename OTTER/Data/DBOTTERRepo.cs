@@ -841,6 +841,7 @@ namespace OTTER.Data
         public void SetLastAdminLogin(int id)
         {
             Admin a = _dbContext.Admins.FirstOrDefault(e => e.AdminID == id);
+            a.PreviousLogin = a.LastLogin;
             a.LastLogin = DateTime.Now;
             _dbContext.SaveChanges();
         }
