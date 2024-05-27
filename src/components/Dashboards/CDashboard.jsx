@@ -1,9 +1,17 @@
 import React from "react";
 import "./CDashboard.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../VERIFYLogo.jpg";
 
+
 function ClientDashboard() {
+
+  const location = useLocation();
+
+  const isActive = (path) => {
+    return location.pathname === path ? "active" : "";
+  };
+
   return (
     <div className="clientDashboardContainer">
       <div className="clientLogoContainer">
@@ -28,7 +36,7 @@ function ClientDashboard() {
       <br></br>
 
       <Link to="/quizDashboard" style={{ textDecoration: "none" }}>
-        <button className="clientButton">Dashboard</button>
+        <button className={`clientButton ${isActive("/quizDashboard")}`}>Home</button>
       </Link>
 
       <br></br>
@@ -38,7 +46,7 @@ function ClientDashboard() {
       <br></br>
 
       <Link to="/clinicianProfile" style={{ textDecoration: "none" }}>
-        <button className="clientButton">My Profile</button>
+      <button className={`clientButton ${isActive("/clinicianProfile")}`}>My Profile</button>
       </Link>
     </div>
   );

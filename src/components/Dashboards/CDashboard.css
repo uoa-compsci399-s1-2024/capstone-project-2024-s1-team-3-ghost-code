@@ -57,12 +57,13 @@ img.clientLogo {
 }
 
 .clientButton:hover {
-  background-color: #006666;
+  background-color: #027575;
   box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15); /* Darker shadow on hover */
 }
 
-.clientButton:active {
-  background-color: #004d4d;
+.clientButton.active {
+  background-color: #006666;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Pressed button effect */
   transform: translateY(2px); /* Slightly moves button down on click */
 }
+
