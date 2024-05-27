@@ -446,7 +446,7 @@ function AClinicianProfile() {
                     }`}
                   >
                     <h4>
-                      {attempt.quiz.name} - {attempt.completed}
+                      {attempt.quiz.module.name} - {attempt.completed}
                     </h4>
                     <p>Date: {new Date(attempt.dateTime).toLocaleString()}</p>
                   </div>
