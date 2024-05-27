@@ -637,8 +637,8 @@ export default function AdminSetting() {
       </section>
        {/* Role Deletion Modal */}
        {showDeleteRoleModal && (
-        <div className="modal">
-          <div className="modal-content">
+        <div className="modalSettings">
+          <div className="modal-contentSettings">
             <h2>Confirm Deletion</h2>
             <p>Are you sure you want to delete this role?</p>
             <button className="confirm-button" onClick={confirmDeleteRole}>Yes, delete</button>
@@ -649,8 +649,8 @@ export default function AdminSetting() {
 
       {/* Organization Deletion Modal */}
       {showDeleteOrgModal && (
-        <div className="modal">
-          <div className="modal-content">
+        <div className="modalSettings">
+          <div className="modal-contentSettings">
             <h2>Confirm Deletion</h2>
             <p>Are you sure you want to delete this organization?</p>
             <button className="confirm-button" onClick={confirmDeleteOrg}>Yes, delete</button>
