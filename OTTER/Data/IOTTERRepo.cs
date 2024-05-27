@@ -37,6 +37,7 @@ namespace OTTER.Data
         User AddUser(User user);
         void DeleteUser(string email);
         User EditUser(int id, User user);
+        IEnumerable<Certification> GetAllCertificationsByUser(int id);
         IEnumerable<Certification> GetCertificationByID(int id);
         IEnumerable<Certification> GetCertifications();
         Certification AddCertification(Certification certification);

@@ -568,6 +568,11 @@ namespace OTTER.Data
             return u;
         }
 
+        public IEnumerable<Certification> GetAllCertificationsByUser(int id)
+        {
+            return _dbContext.Certifications.Include(e => e.User).ThenInclude(e => e.Organization).Include(e => e.User).ThenInclude(e => e.Role).Where(e => e.User.UserID == id);
+        }
+
         public IEnumerable<Certification> GetCertificationByID(int id)
         {
             return _dbContext.Certifications.Include(e => e.User).ThenInclude(e => e.Organization).Include(e => e.User).ThenInclude(e => e.Role).Where(e => e.User.UserID == id && (e.Type == "InitCertification" || e.Type == "Recert"));

@@ -303,6 +303,38 @@ namespace OTTER.Controllers
             }
         }
 
+
+        [SwaggerOperation(
+            Summary = "Retrieves all the certifications for a user",
+            Description = "Admin privileges required. NOTE: This endpoint is different to the GetClinicianCertificationStatus endpoint as it returns ALL certifications for a user",
+            Tags = new[] { "AdminUserFunctions" }
+        )]
+        [SwaggerResponse(200, "Certifications successfully retireved")]
+        [SwaggerResponse(401, "Token is invalid")]
+        [SwaggerResponse(403, "Token not authorized to use resource")]
+        [SwaggerResponse(404, "A user with submitted ID could not be found or the user is not certified")]
+        [Authorize(Roles = "Admin")]
+        [HttpGet("GetClinicianAllCertifications/{id}")]
+        public ActionResult<IEnumerable<Certification>> GetClinicianAllCertifications(int id)
+        {
+            IEnumerable<Certification> cert = _repo.GetAllCertificationsByUser(id);
+            if (cert.Count() != 0)
+            {
+                IEnumerable<Certification> hasURL = cert.Where(e => e.CertificateURL != null);
+                if (hasURL.Count() != 0)
+                {
+                    return Ok(hasURL); 
+                } else
+                {
+                    return Ok("This user has no certificates to their name.");
+                }
+            }
+            else
+            {
+                return NotFound("This user is not certified or does not exist.");
+            }
+        }
+
         [SwaggerOperation(
             Summary = "Gets the certification status of a clinician",
             Description = "Admin privileges required",
@@ -809,6 +841,5 @@ namespace OTTER.Controllers
                 return BadRequest(uploadOutcome);
             }
         }
-
     }
 }
