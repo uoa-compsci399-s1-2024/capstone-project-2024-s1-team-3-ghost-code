@@ -13,32 +13,39 @@ export default function AdminSetting() {
 
   const [adminSearch, setAdminSearch] = useState([]);
 
+  const fetchAdmin = async () => {
+    try {
+      const response = await axios.get(
+        "https://api.tmstrainingquizzes.com/webapi/GetAdmins",
+        {
+          headers: {
+            Authorization: `Bearer ${adminToken}`, // Include token in headers
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        const { status } = error.response;
+        if (status === 401 || status === 403) {
+          // Handle unauthorized errors
+          sessionStorage.removeItem("adminLogin");
+          navigate("/adminlogin"); // Redirect to login page
+        }
+      } else {
+        console.error("Error fetching admins:", error);
+      }
+      throw error; // Rethrow the error to handle it in the calling function
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "https://api.tmstrainingquizzes.com/webapi/GetAdmins",
-          {
-            headers: {
-              Authorization: `Bearer ${adminToken}`, // Include token in headers
-            },
-          }
-        );
-        setAdminSearch(response.data);
+        const data = await fetchAdmin();
+        setAdminSearch(data);
       } catch (error) {
-        if (error.response) {
-          const { status } = error.response;
-          if (status === 401) {
-            // Token is invalid or expired, log the user out
-            sessionStorage.removeItem("adminLogin");
-            navigate("/adminlogin"); // Redirect to login page
-          } else if (status === 403) {
-            // Not authorized to access resource, redirect to appropriate dashboard
-            navigate("/adminlogin"); // Redirect to appropriate dashboard
-          }
-        } else {
-          console.error("Error fetching admins:", error);
-        }
+        console.error("Error inside useEffect:", error);
       }
     };
 
@@ -138,6 +145,8 @@ export default function AdminSetting() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [showDeleteAdminModal, setShowDeleteAdminModal] = useState(false);
+  const [adminToDeleteId, setAdminToDeleteId] = useState(null);
 
   const handleSubmitNewAdmin = async (event) => {
     event.preventDefault();
@@ -183,6 +192,42 @@ export default function AdminSetting() {
     }
   };
 
+  //DELETING AN ADMIN
+  const handleDeleteAdmin = async (adminID) => {
+    setAdminToDeleteId(adminID);
+    setShowDeleteAdminModal(true);
+  };
+
+  const confirmDeleteAdmin = async () => {
+    if (!adminToDeleteId) return; // Ensure an admin ID is selected
+
+    const deleteAdminApiUrl = `https://api.tmstrainingquizzes.com/webapi/DeleteAdmin/${parseInt(
+      adminToDeleteId
+    )}`;
+
+    try {
+      const response = await fetch(deleteAdminApiUrl, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${adminToken}`,
+        },
+      });
+
+      if (response.ok) {
+        // Refresh the admin list after successful deletion
+        fetchAdmin(); // Assuming fetchAdm is a function that fetches the admin list
+        setShowDeleteAdminModal(false); // Close the modal
+        setAdminToDeleteId(null); // Reset the selected admin ID
+      } else {
+        const errorData = await response.json();
+        setRoleMessage(`Error deleting admin: ${errorData.message}`);
+      }
+    } catch (error) {
+      setRoleMessage(`Error deleting admin: ${error.message}`);
+    }
+  };
+
   //ADDING A NEW ROLE AND ORGANISATION - working
   const [roles, setRoles] = useState([]);
   const [organizations, setOrganizations] = useState([]);
@@ -192,7 +237,6 @@ export default function AdminSetting() {
   const [organizationMessage, setOrganizationMessage] = useState("");
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
-  
 
   useEffect(() => {
     fetchRoles();
@@ -328,9 +372,7 @@ export default function AdminSetting() {
     setShowDeleteRoleModal(true);
   };
 
-
   const confirmDeleteRole = async () => {
-
     const deleteRoleApiUrl = `https://api.tmstrainingquizzes.com/webapi/DeleteRole/${parseInt(
       roleToDelete
     )}`;
@@ -394,7 +436,7 @@ export default function AdminSetting() {
       setOrganizationMessage(`Error deleting organization: ${error.message}`);
     }
     setShowDeleteOrgModal(false);
-    setOrgToDelete(null); 
+    setOrgToDelete(null);
   };
 
   const filteredRoles = roles.filter((role) =>
@@ -526,10 +568,22 @@ export default function AdminSetting() {
                       key={adminSearchs.adminID}
                       className="admin-search-item"
                     >
-                      <div className="adminName">
-                        {adminSearchs.firstName} {adminSearchs.lastName}
+                      <div className="admin-search-details">
+                        <div className="adminName">
+                          {adminSearchs.firstName} {adminSearchs.lastName}
+                        </div>
+                        <div className="adminEmail">{adminSearchs.email}</div>
                       </div>
-                      <div className="adminEmail">{adminSearchs.email}</div>
+                      <div className="trash-container-admin">
+                        <button
+                          className="trash-settings-admin"
+                          onClick={() =>
+                            handleDeleteAdmin(adminSearchs.adminID)
+                          }
+                        >
+                          <FontAwesomeIcon icon={faTrash} className="fa-lg" />
+                        </button>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -635,14 +689,21 @@ export default function AdminSetting() {
           </div>
         </div>
       </section>
-       {/* Role Deletion Modal */}
-       {showDeleteRoleModal && (
+      {/* Role Deletion Modal */}
+      {showDeleteRoleModal && (
         <div className="modalSettings">
           <div className="modal-contentSettings">
             <h2>Confirm Deletion</h2>
             <p>Are you sure you want to delete this role?</p>
-            <button className="confirm-button" onClick={confirmDeleteRole}>Yes, delete</button>
-            <button className="cancel-button" onClick={() => setShowDeleteRoleModal(false)}>Cancel</button>
+            <button className="confirm-button" onClick={confirmDeleteRole}>
+              Yes, delete
+            </button>
+            <button
+              className="cancel-button"
+              onClick={() => setShowDeleteRoleModal(false)}
+            >
+              Cancel
+            </button>
           </div>
         </div>
       )}
@@ -653,8 +714,37 @@ export default function AdminSetting() {
           <div className="modal-contentSettings">
             <h2>Confirm Deletion</h2>
             <p>Are you sure you want to delete this organization?</p>
-            <button className="confirm-button" onClick={confirmDeleteOrg}>Yes, delete</button>
-            <button className="cancel-button" onClick={() => setShowDeleteOrgModal(false)}>Cancel</button>
+            <button className="confirm-button" onClick={confirmDeleteOrg}>
+              Yes, delete
+            </button>
+            <button
+              className="cancel-button"
+              onClick={() => setShowDeleteOrgModal(false)}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
+      {/* ADMIN DELETE MODAL */}
+      {showDeleteAdminModal && (
+        <div className="modalSettings">
+          <div className="modal-contentSettings">
+            <h2>Confirm Deletion</h2>
+            <p>Are you sure you want to delete this admin?</p>
+            <p>
+              once you click confirm an admin will decline or approve your
+              request.
+            </p>
+            <button className="confirm-button" onClick={confirmDeleteAdmin}>
+              Yes, delete
+            </button>
+            <button
+              className="cancel-button"
+              onClick={() => setShowDeleteAdminModal(false)}
+            >
+              Cancel
+            </button>
           </div>
         </div>
       )}

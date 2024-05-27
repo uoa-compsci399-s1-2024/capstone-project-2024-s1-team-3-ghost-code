@@ -211,17 +211,18 @@
 }
 
   .admin-search-item {
-    width:70%; /* Adjust the width as needed */
-    margin: 0 auto; /* Center the module boxes horizontally */
-    padding: 20px; /* Add padding to the module boxes */
-    margin-bottom: 20px; /* Add some space between module boxes */
-    background-color: #ffffff; /* Background color */
-    border-radius: 15px; /* Add curved edges */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
-    cursor: pointer;
-    overflow-y: auto
-  }
-
+  width: 70%; /* Adjust the width as needed */
+  margin: 0 auto; /* Center the module boxes horizontally */
+  padding: 20px; /* Add padding to the module boxes */
+  margin-bottom: 20px; /* Add some space between module boxes */
+  background-color: #ffffff; /* Background color */
+  border-radius: 15px; /* Add curved edges */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  /* cursor: pointer; */
+  display: flex;
+  justify-content: space-between; /* Ensure the icon is on the right */
+  align-items: center; /* Align items vertically centered */
+}
   .admin-search-Container {
     margin-left: 1%;
     flex: 1;
@@ -247,6 +248,16 @@
     
 
   }
+  .trash-settings-admin {
+  background-color: transparent; /* Makes the button background transparent */
+  border: none; /* Removes the border */
+  cursor: pointer; /* Changes the cursor to indicate it's clickable */
+  padding: 0; /* Removes padding */
+  outline: none; /* Removes focus outline */
+  width: 20px; /* Adjust based on your icon size */
+  height: 20px;
+  color: red;
+}
 
   .card {
     display: flex;
@@ -266,7 +277,15 @@
     white-space: nowrap;
     text-overflow: ellipsis;
   }
+  .trash-container-admin {
+  display: flex;
+  justify-content: flex-end;
+}
   
+.admin-search-details{
+  display: flex;
+  flex-direction: column;
+}
   .trash-container {
     display: flex;
     justify-content: flex-end;
