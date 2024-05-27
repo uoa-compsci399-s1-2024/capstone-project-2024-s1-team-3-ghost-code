@@ -12,6 +12,7 @@ import QuizCreation from "./pages/CreatingQuiz";
 import CreatingQuiz from "./pages/CreatingQuestions";
 import EditQuiz from "./pages/AEditQuiz";
 import AdminStatsReview from "./pages/AStatsPage";
+import AdminSetting from "./pages/AdminSettings";
 
 const getAdminToken = () => sessionStorage.getItem("adminToken");
 
@@ -89,6 +90,11 @@ function App() {
           />
 
           <Route path="/adminstats" element={<AdminStatsReview />} />
+
+          <Route
+            path="/adminSettings"
+            element={<ProtectedRoute element={<AdminSetting />} />}
+          />
 
 
 

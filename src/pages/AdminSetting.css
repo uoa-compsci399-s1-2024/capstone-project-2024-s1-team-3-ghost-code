@@ -1,9 +1,18 @@
-
+.admin-body-settings{
+    position: fixed;
+    background: #BDDEDE;
+    margin-bottom: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+}
 .settings {
     width: 100%;
     height: 100vh;
     display: flex;
     align-items:center;
+    
 
 }
 /* to change the body */
@@ -12,7 +21,7 @@
     max-width: 60rem;
     margin:0 auto;
     padding: 0 1.5rem;
-    margin-left: 29%;
+    margin-left: 33%;
   
 }
 
@@ -23,6 +32,7 @@
     margin-bottom: 1rem;
     padding: 0.3rem;
     box-shadow: .5rem 2px .5rem rgba(0,0,0,.1);
+    position: relative;
 
 }
 /* Title text */
@@ -30,7 +40,7 @@
     font-size: 1.6rem;
     color: white;
     text-decoration: none;
-    background-color: darkgray;
+    background-color: darkgrey;
     width: 100%;
     display: flex;
     align-items: center;
@@ -51,7 +61,8 @@
     display: none;
 }
 
-.information {
+.information
+ {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -61,33 +72,63 @@
     overflow: hidden;
     position: relative;
     background-color: darkgrey;
-    transition: max-height 650ms;
+    
     margin-left: 100px;
 
 }
 
+.information-ro {
+    
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+         margin-left: 1rem; 
+        flex: 1;
+        overflow: hidden;
+        max-height: 0;
+    overflow: hidden;
+    position: relative;
+    background-color: darkgrey;
+    transition: max-height 650ms;
+    /* margin-left: 100px; */
+
+}
+.information-container{
+    display: flex;
+}
+
+.input-box-settings {
+    flex: 1; /* Let the input box take up remaining space */
+    margin-right: 10px; /* Add some space between input and button */
+    margin-bottom: 10px;
+  }
+
+  .input-container{
+    display: flex;
+  }
+
+.information-ro input {
+    font-size: .8rem;
+    color: black;
+    padding: 1.5rem;
+}
+
+.information-ro li{
+    list-style-type: none;
+}
 .information-text {
     display: flex;
     flex-direction: column;
     align-items:flex-start;
-    margin-left: 1rem;
+    margin-left:5px;
     max-height: 0;
     overflow: hidden;
     position: relative;
     background-color: darkgrey;
     transition: max-height 650ms;
-}
+    font-size: 15px;
 
-/* .information::before{
-    content: "";
-    position: absolute;
-    width: .6rem;
-    height: 90%;
-    background-color: teal;
-    top:50%;
-    left: 0;
-    transform: translateY(-50%);
-} */
+}
 
 .information input {
     font-size: .8rem;
@@ -96,6 +137,10 @@
 }
 
 .accordion-item:target .information{
+    max-height: 400px;
+
+}
+.accordion-item:target .information-ro{
     max-height: 20rem;
 
 }
@@ -117,9 +162,10 @@
     margin-right: 2rem;
 }
 
-.input-box-settings{
-    width: 55%;
-    height: 10px;
+.input-box-settings-change{
+    width: 400px;
+    height: 10px; /* Adjust as needed */
+     min-height: 10px;
     color: #040404;
     border: none;
     border-radius: 10px;
@@ -128,6 +174,19 @@
     outline: none;
     margin-top: 10px;
 }
+.input-box-settings{
+    width: 185px;
+    height: 10px; /* Adjust as needed */
+     min-height: 10px;
+    color: #040404;
+    border: none;
+    border-radius: 10px;
+    background: white;
+    backdrop-filter: blur(2px);
+    outline: none;
+    margin-top: 10px;
+}
+
 
 .btn-settings {
     width: 200px;
@@ -151,21 +210,116 @@
     box-shadow: 0px 4px 20px rgba(62, 9, 9, 0.32);
 }
 
-.AdminSearchInput input[type="text"] {
-    width: 950px;
-    max-width: 700px;
-    padding: 1rem 1rem;
-    border: 2px solid #ddd;
-    border-radius: 1rem;
-    font-size: 1.5rem;
-    background: #ffffff;
-    transition: border-color 0.3s;
-    padding-left: 40px;
-      
+  .admin-search-item {
+    width:70%; /* Adjust the width as needed */
+    margin: 0 auto; /* Center the module boxes horizontally */
+    padding: 20px; /* Add padding to the module boxes */
+    margin-bottom: 20px; /* Add some space between module boxes */
+    background-color: #ffffff; /* Background color */
+    border-radius: 15px; /* Add curved edges */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    cursor: pointer;
+    overflow-y: auto
   }
 
-  .AdminSearchInput input[type="text"]:focus {
-    border-color: teal;
-    outline: none;
+  .admin-search-Container {
+    margin-left: 1%;
+    flex: 1;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 650ms;
+}
+.accordion-item:target .admin-search-Container{
+    max-height: 20rem;
+    overflow-y: auto;
+
+}
+
+  .trash-settings{
+    background-color: transparent; /* Makes the button background transparent */
+  border: none; /* Removes the border */
+  cursor: pointer; /* Changes the cursor to indicate it's clickable */
+  padding: 0; /* Removes padding */
+  outline: none; /* Removes focus outline */
+  width: 20px; /* Adjust based on your icon size */
+  height: 20px;
+  color: red;
     
+
   }
+
+  .card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 390px; /* Adjust based on your design needs */
+  }
+  
+  .card-content {
+    flex-grow: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  
+  .trash-container {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .scrollable-list {
+    max-height: 300px; /* Adjust based on your design needs */
+    overflow-y: auto; /* Enables vertical scrolling */
+    margin-bottom: 20px; /* Adds some spacing between lists */
+  }
+
+
+  /* Styles for the confirmation modal */
+.modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    z-index: 1000; /* Ensure it appears above other elements */
+}
+
+.modal-content {
+    text-align: center;
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+}
+
+.modal-content button {
+    margin: 5px;
+}
+
+.modal-content button.confirm-button {
+    background-color: #f44336;
+    color: white;
+}
+
+.modal-content button.confirm-button:hover {
+    background-color: #da190b;
+}
+
+.modal-content button.cancel-button {
+    background-color: #A3A3A3; /* Green */
+    color: white;
+}
+
+.modal-content button.cancel-button:hover {
+    background-color: #808080;
+}
