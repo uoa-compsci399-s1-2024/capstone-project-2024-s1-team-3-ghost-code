@@ -494,11 +494,11 @@ namespace OTTER.Controllers
                 TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
                 User newUser = new User { FirstName = textInfo.ToTitleCase(user.FirstName.ToLower()), LastName = textInfo.ToTitleCase(user.LastName.ToLower()), UserEmail = user.UserEmail, Organization = _repo.GetOrganizationByID(user.OrganizationID), Role = _repo.GetRoleByID(user.RoleID) };
                 _repo.AddUser(newUser);
-                _repo.SendEmail(newUser.UserEmail, $"Welcome to the VERIFY Study!", $"Hi {newUser.FirstName},<br><br>Welcome to the VERIFY Study's Online TMS Training Experience Reboot. We're so glad you've joined us in our quest to better" +
-                    $"understand the effects of a stroke on a patient, and also help to improve the recovery process for them.<Br>To become fully certified in the study, you must first pass the final quiz for each module, followed by the practical test. " +
-                    $"There is a practice quiz for each module that we recommend you attempt before attempting the final quiz." +
-                    $"<Br>Upon passing all the required tests, your newly awarded certification will be valid for 1 year. To remain certified, you must complete the Recertification Quiz every year you wish to remain certified." +
-                    $"<Br><Br>Once again we'd like to thank you for joining us, and we wish you the best of luck in your studies.<Br>The VERIFY Team");
+                //_repo.SendEmail(newUser.UserEmail, $"Welcome to the VERIFY Study!", $"Hi {newUser.FirstName},<br><br>Welcome to the VERIFY Study's Online TMS Training Experience Reboot. We're so glad you've joined us in our quest to better" +
+                //    $"understand the effects of a stroke on a patient, and also help to improve the recovery process for them.<Br>To become fully certified in the study, you must first pass the final quiz for each module, followed by the practical test. " +
+                //    $"There is a practice quiz for each module that we recommend you attempt before attempting the final quiz." +
+                //    $"<Br>Upon passing all the required tests, your newly awarded certification will be valid for 1 year. To remain certified, you must complete the Recertification Quiz every year you wish to remain certified." +
+                //    $"<Br><Br>Once again we'd like to thank you for joining us, and we wish you the best of luck in your studies.<Br>The VERIFY Team");
                 return Ok(_repo.GetUserByEmail(newUser.UserEmail));
             } else
             {
