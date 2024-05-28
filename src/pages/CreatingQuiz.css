@@ -70,6 +70,7 @@ button {
 button.edit-button {
     background-color: #4CAF50; /* Green */
     color: white;
+    width: 100px;
 }
 
 button.edit-button:hover {
@@ -77,6 +78,7 @@ button.edit-button:hover {
 }
 
 button.delete-button {
+    width: 100px;
     background-color: #f44336; /* Red */
     color: white;
 }
