@@ -20,6 +20,20 @@
     
 }
 
+.module-link{
+    text-decoration: none;
+    color: black;
+    display: block;
+    width:70%; /* Adjust the width as needed */
+    margin: 0 auto; /* Center the module boxes horizontally */
+    padding: 60px; /* Add padding to the module boxes */
+    margin-bottom: 20px; /* Add some space between module boxes */
+    background-color: #ffffff; /* Background color */
+    border-radius: 15px; /* Add curved edges */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    cursor: pointer;
+}
+
 .module-item {
     width:70%; /* Adjust the width as needed */
     margin: 0 auto; /* Center the module boxes horizontally */
