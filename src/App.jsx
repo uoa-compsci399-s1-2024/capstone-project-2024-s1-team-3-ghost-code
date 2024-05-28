@@ -17,6 +17,7 @@ import AdminStatsReview from "./pages/AStatistics";
 import PasswordReset from "./pages/PasswordReset";
 import PasswordCode from "./pages/PasswordCode";
 import PasswordSubmit from "./pages/PasswordSubmit";
+import NotFoundPage from "./pages/NotFoundPage";
 
 const getAdminToken = () => sessionStorage.getItem("adminToken");
 
@@ -52,6 +53,7 @@ function App() {
           <Route path="/adminlogin" element={<AdminLoginComponents />} />
           <Route path="/presurvey" element={<Presurvey />} />
           <Route path="/cliniciansign" element={<ClinicianSignComponents />} />
+          <Route path="*" element={<NotFoundPage />} />
 
           <Route path="/passwordreset" element={<PasswordReset />} />
 
