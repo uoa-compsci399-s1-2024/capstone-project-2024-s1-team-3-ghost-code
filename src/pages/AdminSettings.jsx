@@ -733,11 +733,11 @@ export default function AdminSetting() {
             <h2>Confirm Deletion</h2>
             <p>Are you sure you want to delete this admin?</p>
             <p>
-              once you click confirm an admin will decline or approve your
-              request.
+              Once you click request, a VERIFY study manager will approve or
+              deny your request.
             </p>
             <button className="confirm-button" onClick={confirmDeleteAdmin}>
-              Yes, delete
+              Yes, request deletion
             </button>
             <button
               className="cancel-button"
