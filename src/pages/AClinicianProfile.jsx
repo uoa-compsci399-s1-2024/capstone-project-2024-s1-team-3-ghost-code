@@ -28,6 +28,10 @@ function AClinicianProfile() {
   const [attempts, setAttempts] = useState([]);
   const [filteredAttempts, setFilteredAttempts] = useState([]);
 
+  const [certifications, setCertifications] = useState([]);
+  const [showStats, setShowStats] = useState(true);
+
+
   const adminToken = sessionStorage.getItem("adminToken");
   const navigate = useNavigate();
 
@@ -55,7 +59,7 @@ function AClinicianProfile() {
       };
       try {
         const response = await fetch(
-          `https://api.tmstrainingquizzes.com/webapi/ClinicianSearch/${clinicianId}`,
+          `https://api.tmstrainingquizzes.com/webapi/ClinicianSearch?term=${clinicianId}`,
           requestOptions
         );
         if (response.ok) {
@@ -297,7 +301,37 @@ function AClinicianProfile() {
     setFilteredAttempts(filtered); // Update the state with filtered results
   }, [attempts, selectedModule, quizType, completionStatus]);
 
-  console.log(attempts)
+  useEffect(() => {
+    const fetchCertifications = async () => {
+      if (clinicianDetails) {
+        const requestOptions = {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${adminToken}`,
+          },
+        };
+        try {
+          const response = await fetch(
+            `https://api.tmstrainingquizzes.com/webapi/GetClinicianAllCertifications/${clinicianDetails.userID}`,
+            requestOptions
+          );
+          if (response.ok) {
+            const certsData = await response.json();
+            console.log(certsData);
+            setCertifications(certsData);
+          } else {
+            console.error("Failed to fetch certifications:", response.statusText);
+          }
+        } catch (error) {
+          console.error("Failed to fetch certifications:", error);
+        }
+      }
+    };
+    fetchCertifications();
+  }, [clinicianDetails, adminToken]);
+
+  
+ 
   return (
     <div className="flex">
       <div className="dashboard-container">
@@ -369,7 +403,12 @@ function AClinicianProfile() {
                   <button onClick={handleSaveChanges}>Save Changes</button>
                 </div>
               </div>
-              {/* STATS FOR USERS */}
+              <div className="togglebuttons-container">
+                <button className="togglebuttons" onClick={() => setShowStats(true)}>Show Stats</button>
+                <button className="togglebuttons" onClick={() => setShowStats(false)}>Show Certifications</button>
+              </div>
+
+              {showStats ? (
               <div className="stats-container">
                 <h3>User Results</h3>
                 <div className="date-filter-container">
@@ -453,12 +492,40 @@ function AClinicianProfile() {
                   </div>
                 ))}
               </div>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
+                         ) : (
+                            <div className="certifications-container">
+                              <h3>Certifications</h3>
+                              {certifications.length > 0 ? (
+                                <ul>
+                                  {certifications.map((cert, index) => (
+                                    <li key={index}>
+                                    <a href={cert.certificateURL} target="_blank" rel="noopener noreferrer">
+                                      <p>Certification Name: {cert.type}</p>
+                                      <p>
+                                        Date Issued:{" "}
+                                        {new Date(cert.dateTime).toLocaleDateString()}
+                                      </p>
+                                      <p>
+                                        Expiry Date:{" "}
+                                        {new Date(cert.expiryDateTime).toLocaleDateString()}
+                                      </p>
+                                    </a>
+                                    </li>
+                                  ))}
+                                </ul>
+                              ) : (
+                                <p>No certifications found for this clinician.</p>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+            
+       
 
 export default AClinicianProfile;
