@@ -7,8 +7,11 @@ import { width } from "@fortawesome/free-solid-svg-icons/fa0";
 function AdminDashboard() {
   const location = useLocation();
 
-  const isActive = (path) => {
-    return location.pathname === path ? "active" : "";
+  const isActive = (basePaths) => {
+    const currentPath = location.pathname;
+    const basePathArray = Array.isArray(basePaths) ? basePaths : [basePaths];
+    // Using startsWith to handle base paths and dynamic subpaths
+    return basePathArray.some(path => currentPath.startsWith(path)) ? "active" : "";
   };
 
   return (
@@ -25,10 +28,10 @@ function AdminDashboard() {
       </div>
       <div className="ADashButtons">
         <Link className="AdminLink" to="/EditQuiz">
-          <button className={`Adminbutton ${isActive("/EditQuiz")}`}>Edit Quiz</button>
+          <button className={`Adminbutton ${isActive(["/EditQuiz", "/createquiz/", "/createquestion/"])}`}>Edit Quiz</button>
         </Link>
         <Link className="AdminLink" to="/adminsearch">
-          <button className={`Adminbutton ${isActive("/adminsearch")}`}>Clinicians</button>
+          <button className={`Adminbutton ${isActive(["/adminsearch", "/clinician/"])}`}>Clinicians</button>
         </Link>
         <Link className="AdminLink" to="/adminStats">
           <button className={`Adminbutton ${isActive("/adminStats")}`}>Statistics</button>
