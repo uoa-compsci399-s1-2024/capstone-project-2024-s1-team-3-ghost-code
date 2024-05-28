@@ -36,6 +36,7 @@
   font-size: 14px;
   color: #555;
   text-align: center; /* Center the text */
+  cursor: default;
 }
 
 .Admindropdown-item {
