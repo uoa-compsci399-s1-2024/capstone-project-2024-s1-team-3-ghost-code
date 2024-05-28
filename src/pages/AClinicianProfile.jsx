@@ -402,13 +402,13 @@ function AClinicianProfile() {
               </div>
               <div className="togglebuttons-container">
                 <button
-                  className="togglebuttons"
+                  className={`togglebuttons ${showStats ? "active" : ""}`}
                   onClick={() => setShowStats(true)}
                 >
                   Show Stats
                 </button>
                 <button
-                  className="togglebuttons"
+                  className={`togglebuttons ${!showStats ? "active" : ""}`}
                   onClick={() => setShowStats(false)}
                 >
                   Show Certifications
@@ -503,6 +503,9 @@ function AClinicianProfile() {
               ) : (
                 <div className="certifications-container">
                   <h3>Certifications</h3>
+                  <p className="click-on-cert-text">
+                    click on a certificate to view
+                  </p>
                   {certifications.length > 0 ? (
                     <ul>
                       {certifications.map((cert, index) => (
