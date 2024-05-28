@@ -51,16 +51,14 @@ function EditQuiz() {
         <div className="quizModuleresults">
           {modules.map((module) => (
             <Link
-              style={{ textDecoration: "none", color: "black" }}
               key={module.moduleID}
               to={`/createquiz/${module.moduleID}`}
               className="module-link"
             >
-              <div className="module-item">
                 <div className="moduleId">{"Module " + module.sequence}</div>
                 <div className="moduleName">{module.name}</div>
                 <div className="moduleDescription">{module.description}</div>
-              </div>
+
             </Link>
           ))}
         </div>
