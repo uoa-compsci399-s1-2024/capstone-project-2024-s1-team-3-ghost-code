@@ -24,30 +24,27 @@ function ClientDashboard() {
         />
       </a>
       </div>
-      <a
-        href="https://www.verifytraining.auckland.ac.nz/s"
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{ textDecoration: "none", color: "white" }} // Apply any additional styles here
-      >
-        <button className="clientButton">Verify Training</button>
-      </a>
-      <br></br>
-      <br></br>
+      <div className="CDashButtons">
 
-      <Link to="/quizDashboard" style={{ textDecoration: "none" }}>
-        <button className={`clientButton ${isActive("/quizDashboard")}`}>Home</button>
-      </Link>
+        <Link className="ClientLink"  to="/quizDashboard">
+          <button className={`clientButton ${isActive("/quizDashboard")}`}>Home</button>
+        </Link>
 
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
+        <Link className="ClientLink" to="/clinicianProfile">
+        <button className={`clientButton ${isActive("/clinicianProfile")}`}>My Profile</button>
+        </Link>
 
-      <Link to="/clinicianProfile" style={{ textDecoration: "none" }}>
-      <button className={`clientButton ${isActive("/clinicianProfile")}`}>My Profile</button>
-      </Link>
+        <a
+          href="https://www.verifytraining.auckland.ac.nz/s"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="ClientLink"
+          style={{marginTop:"50%"}}
+        >
+          <button className="clientButton">Verify Training</button>
+        </a>
+        
+      </div>
     </div>
   );
 }
