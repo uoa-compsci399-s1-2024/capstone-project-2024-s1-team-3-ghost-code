@@ -13,6 +13,7 @@ import CreatingQuiz from "./pages/CreatingQuestions";
 import EditQuiz from "./pages/AEditQuiz";
 import AdminStatsReview from "./pages/AStatsPage";
 import AdminSetting from "./pages/AdminSettings";
+import NotFoundPage from "./pages/NotFoundPage";
 
 const getAdminToken = () => sessionStorage.getItem("adminToken");
 
@@ -48,6 +49,7 @@ function App() {
           <Route path="/adminlogin" element={<AdminLoginComponents />} />
           <Route path="/presurvey" element={<Presurvey />} />
           <Route path="/cliniciansign" element={<ClinicianSignComponents />} />
+          <Route path="*" element={<NotFoundPage />} />
 
           <Route
             path="/quizDashboard"

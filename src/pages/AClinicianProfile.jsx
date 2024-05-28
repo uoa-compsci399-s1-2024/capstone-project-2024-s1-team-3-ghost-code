@@ -63,7 +63,9 @@ function AClinicianProfile() {
           requestOptions
         );
         if (response.ok) {
+        
           const data = await response.json();
+          
           setClinicianDetails(data[0]);
           setEmail(data[0].userEmail || "");
           setOrganization(data[0].organization.orgName);
