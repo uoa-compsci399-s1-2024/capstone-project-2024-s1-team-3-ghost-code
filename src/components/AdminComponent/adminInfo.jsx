@@ -11,19 +11,23 @@ function AdminInfo() {
 
   // Function to format the last login time to the browser's local time zone
   const formatLastLoginTime = (utcString) => {
-    // Append 'Z' if not present to ensure it's treated as UTC
-    if (!utcString.endsWith("Z")) {
-      utcString += "Z";
+    if (utcString == null) {
+      return "Never";
+    } else {
+      // Append 'Z' if not present to ensure it's treated as UTC
+      if (!utcString.endsWith("Z")) {
+        utcString += "Z";
+      }
+      const date = new Date(utcString); // This creates a Date object in local time
+      return date.toLocaleString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      });
     }
-    const date = new Date(utcString); // This creates a Date object in local time
-    return date.toLocaleString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true,
-    });
   };
 
   // Function to fetch admin information from backend API
