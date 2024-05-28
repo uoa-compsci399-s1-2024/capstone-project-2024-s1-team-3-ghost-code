@@ -250,6 +250,11 @@ namespace OTTER.Data
                         Question randq = validQuestions2.ElementAt(randnum);
                         if (output.FirstOrDefault(e => e.QuestionID == randq.QuestionID) != null)
                         {
+                            if (validQuestions2.Count() == output.Where(e => e.Topic == topic).Count()) ;
+                            {
+                                topicCount = 0;
+                                topic = (topic + 1) % 4;
+                            }
                             i--;
                             continue;
                         }
@@ -268,7 +273,7 @@ namespace OTTER.Data
                         topicCount++;
                         if (i >= (quiz.Length / 100.0) * percentage)
                         {
-                            topic = (topic + 1) % 4; ;
+                            topic = (topic + 1) % 4;
                             topicCount = 0;
                             percentage = percentage + 30;
                         }
