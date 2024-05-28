@@ -59,7 +59,7 @@ function AClinicianProfile() {
       };
       try {
         const response = await fetch(
-          `https://api.tmstrainingquizzes.com/webapi/ClinicianSearch/${clinicianId}`,
+          `https://api.tmstrainingquizzes.com/webapi/ClinicianSearch?term=${clinicianId}`,
           requestOptions
         );
         if (response.ok) {
@@ -403,9 +403,9 @@ function AClinicianProfile() {
                   <button onClick={handleSaveChanges}>Save Changes</button>
                 </div>
               </div>
-              <div className="toggle-buttons">
-                <button onClick={() => setShowStats(true)}>Show Stats</button>
-                <button onClick={() => setShowStats(false)}>Show Certifications</button>
+              <div className="togglebuttons-container">
+                <button className="togglebuttons" onClick={() => setShowStats(true)}>Show Stats</button>
+                <button className="togglebuttons" onClick={() => setShowStats(false)}>Show Certifications</button>
               </div>
 
               {showStats ? (
