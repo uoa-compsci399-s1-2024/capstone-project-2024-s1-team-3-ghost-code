@@ -227,8 +227,8 @@ namespace OTTER.Controllers
         [SwaggerResponse(401, "Token is invalid")]
         [SwaggerResponse(403, "Token is not authorized to view resource")]
         [Authorize(Roles = "Admin")]
-        [HttpGet("ClinicianSearch/{term}")]
-        public ActionResult<IEnumerable<User>> SearchUsers(string term)
+        [HttpGet("ClinicianSearch")]
+        public ActionResult<IEnumerable<User>> SearchUsers(string? term = "@")
         {
             return Ok(_repo.GetUserBySearch(term));
         }
