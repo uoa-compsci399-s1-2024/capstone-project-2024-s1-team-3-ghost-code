@@ -87,7 +87,7 @@ function AdminInfo() {
     <div className="admin-info" ref={dropdownRef} onClick={toggleDropdown}>
       <div className="admin-info-container">
         <span className="admin-name">{adminName}</span>
-        <FontAwesomeIcon icon={faCaretDown} />
+        <FontAwesomeIcon icon={faCaretDown} className="info-dropdown" style={{margin:0}}/>
       </div>
 
       {isDropdownVisible && (
