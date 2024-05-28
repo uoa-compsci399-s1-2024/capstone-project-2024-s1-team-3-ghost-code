@@ -163,3 +163,68 @@
     /* gap: 5px; Adds some space between the label and the input field */
   }
   
+
+  .certifications-container {
+    padding: 20px;
+  }
+  
+  .certifications-container h3 {
+    margin-bottom: 20px;
+    text-align: left; /* Align the heading to the left */
+    font-weight: bold; /* Make the h3 text bold */
+     
+  }
+  
+  .certifications-container ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .certifications-container li {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px; /* Increase the padding for better spacing */
+    width: 820px; /* Adjust the width based on how many cards you want per row */
+    box-sizing: border-box;
+    transition: transform 0.2s;
+  }
+  
+  .certifications-container li:hover {
+    transform: translateY(-5px);
+  }
+  
+  .certifications-container a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .certifications-container p {
+    margin: 10px 0;
+    text-align: left; /* Align the dates to the left */
+    font-size: 0.8em; /* Set a base font size for the paragraphs */
+    color: #666; /* Set the color of the paragraph text */
+  }
+  
+  .certifications-container p:first-child {
+    font-weight: bold; /* Make the certification name bold */
+    font-size: 1em; /* Slightly increase the font size of the certification name */
+    color: #000; /* Set the color of the certification name */
+  }
+  
+  @media (max-width: 768px) {
+    .certifications-container li {
+      width: calc(50% - 20px); /* Adjust the width for smaller screens */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .certifications-container li {
+      width: 100%;
+    }
+  }
+  

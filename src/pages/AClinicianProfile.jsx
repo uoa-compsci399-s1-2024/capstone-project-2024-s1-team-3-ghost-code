@@ -31,21 +31,20 @@ function AClinicianProfile() {
   const [certifications, setCertifications] = useState([]);
   const [showStats, setShowStats] = useState(true);
 
-
   const adminToken = sessionStorage.getItem("adminToken");
   const navigate = useNavigate();
 
   const handleErrorResponse = (status) => {
     if (status === 401) {
-      if (sessionStorage.getItem('cliniciantoken')) {
-        sessionStorage.removeItem('cliniciantoken');
-        console.log('Token found and removed due to 401 Unauthorized status.');
+      if (sessionStorage.getItem("cliniciantoken")) {
+        sessionStorage.removeItem("cliniciantoken");
+        console.log("Token found and removed due to 401 Unauthorized status.");
       } else {
-        console.log('No token found when handling 401 status.');
+        console.log("No token found when handling 401 status.");
       }
-      navigate('/cliniciansign');
+      navigate("/cliniciansign");
     } else if (status === 403) {
-      navigate('/quizDashboard');
+      navigate("/quizDashboard");
     }
   };
 
@@ -133,13 +132,12 @@ function AClinicianProfile() {
           );
           if (certResponse.ok) {
             const certData = await certResponse.json();
-            
 
             // Check if certification has expired
             const expiryDateTime = new Date(
               certData[certData.length - 1].expiryDateTime
             );
-       
+
             const currentDateTime = new Date();
 
             if (currentDateTime > expiryDateTime) {
@@ -184,7 +182,7 @@ function AClinicianProfile() {
         throw new Error("Failed to update certification status");
 
       const result = await response.json();
-     
+
       setStatus("Certified");
       setInitialStatus("Certified");
     } catch (error) {
@@ -196,7 +194,6 @@ function AClinicianProfile() {
     // Find the selected role and organization IDs
     const selectedRole = positions.find((role) => role.name === position);
     const selectedOrg = organizations.find((org) => org.name === organization);
- 
 
     const requestBody = {
       userID: clinicianDetails.userID,
@@ -287,7 +284,6 @@ function AClinicianProfile() {
     }
   };
 
-
   useEffect(() => {
     const filtered = attempts.filter((attempt) => {
       return (
@@ -320,7 +316,10 @@ function AClinicianProfile() {
             console.log(certsData);
             setCertifications(certsData);
           } else {
-            console.error("Failed to fetch certifications:", response.statusText);
+            console.error(
+              "Failed to fetch certifications:",
+              response.statusText
+            );
           }
         } catch (error) {
           console.error("Failed to fetch certifications:", error);
@@ -330,8 +329,6 @@ function AClinicianProfile() {
     fetchCertifications();
   }, [clinicianDetails, adminToken]);
 
-  
- 
   return (
     <div className="flex">
       <div className="dashboard-container">
@@ -404,128 +401,143 @@ function AClinicianProfile() {
                 </div>
               </div>
               <div className="togglebuttons-container">
-                <button className="togglebuttons" onClick={() => setShowStats(true)}>Show Stats</button>
-                <button className="togglebuttons" onClick={() => setShowStats(false)}>Show Certifications</button>
+                <button
+                  className="togglebuttons"
+                  onClick={() => setShowStats(true)}
+                >
+                  Show Stats
+                </button>
+                <button
+                  className="togglebuttons"
+                  onClick={() => setShowStats(false)}
+                >
+                  Show Certifications
+                </button>
               </div>
 
               {showStats ? (
-              <div className="stats-container">
-                <h3>User Results</h3>
-                <div className="date-filter-container">
-                  <div className="date-filter">
-                    <label>Start Date:</label>
-                    <input
-                      type="date"
-                      value={startDate}
-                      onChange={(e) => setStartDate(e.target.value)}
-                    />
+                <div className="stats-container">
+                  <h3>User Results</h3>
+                  <div className="date-filter-container">
+                    <div className="date-filter">
+                      <label>Start Date:</label>
+                      <input
+                        type="date"
+                        value={startDate}
+                        onChange={(e) => setStartDate(e.target.value)}
+                      />
+                    </div>
+                    <div className="date-filter">
+                      {" "}
+                      <label>End Date:</label>
+                      <input
+                        type="date"
+                        value={endDate}
+                        onChange={(e) => setEndDate(e.target.value)}
+                      />
+                    </div>
+                    <button className="get-stats-btn" onClick={handleGetStats}>
+                      Get Stats
+                    </button>
                   </div>
-                  <div className="date-filter">
-                    {" "}
-                    <label>End Date:</label>
-                    <input
-                      type="date"
-                      value={endDate}
-                      onChange={(e) => setEndDate(e.target.value)}
-                    />
-                  </div>
-                  <button className="get-stats-btn" onClick={handleGetStats}>
-                    Get Stats
-                  </button>
-                </div>
-                <br></br>
-                <div className="filters-container">
-                  <div className="stats-filter">
-                    <label>Module:</label>
-                    <select
-                      value={selectedModule}
-                      onChange={(e) => setSelectedModule(e.target.value)}
-                    >
-                      <option value="">All Modules</option>
-                      {modules.map((module) => (
-                        <option key={module.id} value={module.id}>
-                          {module.name}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                  <br></br>
+                  <div className="filters-container">
+                    <div className="stats-filter">
+                      <label>Module:</label>
+                      <select
+                        value={selectedModule}
+                        onChange={(e) => setSelectedModule(e.target.value)}
+                      >
+                        <option value="">All Modules</option>
+                        {modules.map((module) => (
+                          <option key={module.id} value={module.id}>
+                            {module.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
 
-                  <div className="stats-filter">
-                    <label>Quiz Type:</label>
-                    <select
-                      value={quizType}
-                      onChange={(e) => setQuizType(e.target.value)}
-                    >
-                      <option value="">All Types</option>
-                      <option value="final">Final</option>
-                      <option value="practice">Practice</option>
-                    </select>
-                  </div>
-                  <div className="stats-filter">
-                    <label>Completion Status:</label>
-                    <select
-                      value={completionStatus}
-                      onChange={(e) => setCompletionStatus(e.target.value)}
-                    >
-                      <option value="">All Statuses</option>
-                      <option value="PASS">PASS</option>
-                      <option value="FAIL">FAIL</option>
-                    </select>
-                  </div>
-                </div>
-                <br></br>
-
-                <br></br>
-                <br></br>
-
-                {filteredAttempts.map((attempt) => (
-                  <div
-                    key={attempt.attemptID}
-                    className={`stats-result ${
-                      attempt.completed === "PASS" ? "pass" : "fail"
-                    }`}
-                  >
-                    <h4>
-                      {attempt.quiz.module.name} {attempt.quiz.stage} - {attempt.completed}
-                    </h4>
-                    <p>Date: {new Date(attempt.dateTime).toLocaleString()}</p>
-                  </div>
-                ))}
-              </div>
-                         ) : (
-                            <div className="certifications-container">
-                              <h3>Certifications</h3>
-                              {certifications.length > 0 ? (
-                                <ul>
-                                  {certifications.map((cert, index) => (
-                                    <li key={index}>
-                                    <a href={cert.certificateURL} target="_blank" rel="noopener noreferrer">
-                                      <p>Certification Name: {cert.type}</p>
-                                      <p>
-                                        Date Issued:{" "}
-                                        {new Date(cert.dateTime).toLocaleDateString()}
-                                      </p>
-                                      <p>
-                                        Expiry Date:{" "}
-                                        {new Date(cert.expiryDateTime).toLocaleDateString()}
-                                      </p>
-                                    </a>
-                                    </li>
-                                  ))}
-                                </ul>
-                              ) : (
-                                <p>No certifications found for this clinician.</p>
-                              )}
-                            </div>
-                          )}
-                        </div>
-                      )}
+                    <div className="stats-filter">
+                      <label>Quiz Type:</label>
+                      <select
+                        value={quizType}
+                        onChange={(e) => setQuizType(e.target.value)}
+                      >
+                        <option value="">All Types</option>
+                        <option value="final">Final</option>
+                        <option value="practice">Practice</option>
+                      </select>
+                    </div>
+                    <div className="stats-filter">
+                      <label>Completion Status:</label>
+                      <select
+                        value={completionStatus}
+                        onChange={(e) => setCompletionStatus(e.target.value)}
+                      >
+                        <option value="">All Statuses</option>
+                        <option value="PASS">PASS</option>
+                        <option value="FAIL">FAIL</option>
+                      </select>
                     </div>
                   </div>
+                  <br></br>
+
+                  <br></br>
+                  <br></br>
+
+                  {filteredAttempts.map((attempt) => (
+                    <div
+                      key={attempt.attemptID}
+                      className={`stats-result ${
+                        attempt.completed === "PASS" ? "pass" : "fail"
+                      }`}
+                    >
+                      <h4>
+                        {attempt.quiz.module.name} {attempt.quiz.stage} -{" "}
+                        {attempt.completed}
+                      </h4>
+                      <p>Date: {new Date(attempt.dateTime).toLocaleString()}</p>
+                    </div>
+                  ))}
                 </div>
-              );
-            }
-            
-       
+              ) : (
+                <div className="certifications-container">
+                  <h3>Certifications</h3>
+                  {certifications.length > 0 ? (
+                    <ul>
+                      {certifications.map((cert, index) => (
+                        <li key={index}>
+                          <a
+                            href={cert.certificateURL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <p>Certification Name: {cert.type}</p>
+                            <p>
+                              Date Issued:{" "}
+                              {new Date(cert.dateTime).toLocaleDateString()}
+                            </p>
+                            <p>
+                              Expiry Date:{" "}
+                              {new Date(
+                                cert.expiryDateTime
+                              ).toLocaleDateString()}
+                            </p>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p>No certifications found for this clinician.</p>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default AClinicianProfile;
