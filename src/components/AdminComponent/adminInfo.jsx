@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import "./adminInfo.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 
 function AdminInfo() {
   const [adminName, setAdminName] = useState("");
@@ -83,7 +85,11 @@ function AdminInfo() {
 
   return (
     <div className="admin-info" ref={dropdownRef} onClick={toggleDropdown}>
-      <span className="admin-name">{adminName}</span>
+      <div className="admin-info-container">
+        <span className="admin-name">{adminName}</span>
+        <FontAwesomeIcon icon={faCaretDown} />
+      </div>
+
       {isDropdownVisible && (
         <div className="admin-dropdown">
           <div className="last-login-time" onClick={handleDateClick}>
