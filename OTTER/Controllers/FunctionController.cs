@@ -9,6 +9,7 @@ using Swashbuckle.AspNetCore.Annotations;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using Amazon.S3.Model;
+using System.Globalization;
 
 namespace OTTER.Controllers
 {
@@ -102,7 +103,8 @@ namespace OTTER.Controllers
         {
             if (_repo.GetAdmins().FirstOrDefault(e => e.Email == newadmin.Email) == null)
             {
-                Admin a = new Admin { FirstName = newadmin.FirstName, LastName = newadmin.LastName, Email = newadmin.Email, Password = BCrypt.Net.BCrypt.HashPassword(newadmin.Password) };
+                TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+                Admin a = new Admin { FirstName = textInfo.ToTitleCase(newadmin.FirstName.ToLower()), LastName = textInfo.ToTitleCase(newadmin.LastName.ToLower()), Email = newadmin.Email, Password = BCrypt.Net.BCrypt.HashPassword(newadmin.Password) };
                 _repo.AddAdmin(a);
                 AdminOutputDto aOut = new AdminOutputDto { AdminID = a.AdminID, FirstName = a.FirstName, LastName = a.LastName, Email = a.Email };
                 return CreatedAtAction(nameof(GetAdminByID), new { id = aOut.AdminID}, aOut);
@@ -159,6 +161,9 @@ namespace OTTER.Controllers
             {
                 if (_repo.GetAdminByEmail(updatedAdmin.Email) == null || _repo.GetAdminByEmail(updatedAdmin.Email).Email == _repo.GetAdminByID(updatedAdmin.AdminID).Email)
                 {
+                    TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+                    updatedAdmin.FirstName = textInfo.ToTitleCase(updatedAdmin.FirstName.ToLower());
+                    updatedAdmin.LastName = textInfo.ToTitleCase(updatedAdmin.LastName.ToLower());
                     AdminOutputDto edited = _repo.EditAdmin(updatedAdmin);
                     return Ok(edited);
                 }
@@ -486,7 +491,8 @@ namespace OTTER.Controllers
         {
             if(_repo.GetUserByEmail(user.UserEmail) == null)
             {
-                User newUser = new User { FirstName = user.FirstName, LastName = user.LastName, UserEmail = user.UserEmail, Organization = _repo.GetOrganizationByID(user.OrganizationID), Role = _repo.GetRoleByID(user.RoleID) };
+                TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+                User newUser = new User { FirstName = textInfo.ToTitleCase(user.FirstName.ToLower()), LastName = textInfo.ToTitleCase(user.LastName.ToLower()), UserEmail = user.UserEmail, Organization = _repo.GetOrganizationByID(user.OrganizationID), Role = _repo.GetRoleByID(user.RoleID) };
                 _repo.AddUser(newUser);
                 _repo.SendEmail(newUser.UserEmail, $"Welcome to the VERIFY Study!", $"Hi {newUser.FirstName},<br><br>Welcome to the VERIFY Study's Online TMS Training Experience Reboot. We're so glad you've joined us in our quest to better" +
                     $"understand the effects of a stroke on a patient, and also help to improve the recovery process for them.<Br>To become fully certified in the study, you must first pass the final quiz for each module, followed by the practical test. " +
@@ -518,7 +524,8 @@ namespace OTTER.Controllers
             {
                 if (_repo.GetUserByEmail(user.UserEmail) == null || _repo.GetUserByEmail(user.UserEmail).UserEmail == _repo.GetUserByID(user.UserID).UserEmail)
                 {
-                    User editUser = new User { FirstName = user.FirstName, LastName = user.LastName, UserEmail = user.UserEmail, Organization = _repo.GetOrganizationByID(user.OrganizationID), Role = _repo.GetRoleByID(user.RoleID) };
+                    TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+                    User editUser = new User { FirstName = textInfo.ToTitleCase(user.FirstName.ToLower()), LastName = textInfo.ToTitleCase(user.LastName.ToLower()), UserEmail = user.UserEmail, Organization = _repo.GetOrganizationByID(user.OrganizationID), Role = _repo.GetRoleByID(user.RoleID) };
                     _repo.EditUser(user.UserID, editUser);
                     return Ok(_repo.GetUserByID(user.UserID));
                 }
@@ -572,7 +579,8 @@ namespace OTTER.Controllers
         {
             if (_repo.GetOrganizationByNameLower(orgInput.OrgName) == null)
             {
-                return Ok(_repo.AddOrganization(new Organization { OrgName = orgInput.OrgName }));
+                TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+                return Ok(_repo.AddOrganization(new Organization { OrgName = textInfo.ToTitleCase(orgInput.OrgName.ToLower()) }));
             }
             else
             {
@@ -601,6 +609,8 @@ namespace OTTER.Controllers
             {
                 return BadRequest("Cannot edit 'Other' organisation.");
             }
+            TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+            org.OrgName = textInfo.ToTitleCase(org.OrgName.ToLower());
             _repo.EditOrganization(org);
             return Ok("Organization updated.");
         }
@@ -646,7 +656,8 @@ namespace OTTER.Controllers
         {
             if (_repo.GetRoleByNameLower(roleInput.RoleName) == null)
             {
-                return Ok(_repo.AddRole(new Role{ RoleName= roleInput.RoleName}));
+                TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+                return Ok(_repo.AddRole(new Role{ RoleName = textInfo.ToTitleCase(roleInput.RoleName.ToLower()) }));
             }
             else
             {
@@ -675,6 +686,8 @@ namespace OTTER.Controllers
             {
                 return BadRequest("Cannot edit 'Other' role.");
             }
+            TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+            role.RoleName = textInfo.ToTitleCase(role.RoleName.ToLower());
             _repo.EditRole(role);
             return Ok("Role updated.");
         }
