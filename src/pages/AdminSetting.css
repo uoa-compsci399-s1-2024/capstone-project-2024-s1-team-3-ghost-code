@@ -1,216 +1,208 @@
-.admin-body-settings{
-    position: fixed;
-    background: #BDDEDE;
-    margin-bottom: 0;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
+.admin-body-settings {
+  position: fixed;
+  background: #bddede;
+  margin-bottom: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
 }
 .settings {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    align-items:center;
-    
-
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
 }
 /* to change the body */
 .container-settings {
-    width: 100%;
-    max-width: 60rem;
-    margin:0 auto;
-    padding: 0 1.5rem;
-    margin-left: 33%;
-  
+  width: 100%;
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  margin-left: 33%;
 }
 
 /* the whole body */
-.accordion-item{
-    background-color: darkgrey;
-    border-radius: 2rem;
-    margin-bottom: 1rem;
-    padding: 0.3rem;
-    box-shadow: .5rem 2px .5rem rgba(0,0,0,.1);
-    position: relative;
-
+.accordion-item {
+  background-color: white;
+  border-radius: 2rem;
+  margin-bottom: 1rem;
+  padding: 0.3rem;
+  box-shadow: 0.5rem 2px 0.5rem rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 /* Title text */
 .accordion-link {
-    font-size: 1.6rem;
-    color: white;
-    text-decoration: none;
-    background-color: darkgrey;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.5rem 2rem;
+  font-size: 1.6rem;
+  color: black;
+  text-decoration: none;
+  background-color: white;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
   align-items: flex-start;
   border-radius: 2rem;
 }
 
 .accordion-link i {
-    color: teal;
-    padding: .5rem;
-    margin-left: 50rem;
+  color: teal;
+  padding: 0.5rem;
+  margin-left: 50rem;
 }
-
 
 .accordion-link .fa-caret-up {
-    display: none;
+  display: none;
 }
 
-.information
- {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    margin-right: 2rem;
+.information {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-right: 2rem;
 
-    max-height: 0;
-    overflow: hidden;
-    position: relative;
-    background-color: darkgrey;
-    
-    margin-left: 100px;
+  max-height: 0;
+  overflow: hidden;
+  position: relative;
+  background-color: white;
 
+  margin-left: 100px;
 }
 
 .information-ro {
-    
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-         margin-left: 1rem; 
-        flex: 1;
-        overflow: hidden;
-        max-height: 0;
-    overflow: hidden;
-    position: relative;
-    background-color: darkgrey;
-    transition: max-height 650ms;
-    /* margin-left: 100px; */
-
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 1rem;
+  flex: 1;
+  overflow: hidden;
+  max-height: 0;
+  overflow: hidden;
+  position: relative;
+  background-color: transparent;
+  transition: max-height 650ms;
+  /* margin-left: 100px; */
 }
-.information-container{
-    display: flex;
+.information-container {
+  display: flex;
 }
 
 .input-box-settings {
-    flex: 1; /* Let the input box take up remaining space */
-    margin-right: 10px; /* Add some space between input and button */
-    margin-bottom: 10px;
-  }
+  flex: 1; /* Let the input box take up remaining space */
+  margin-right: 10px; /* Add some space between input and button */
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
-  .input-container{
-    display: flex;
-  }
+.input-container {
+  display: flex;
+  margin-left: 1px;
+}
 
 .information-ro input {
-    font-size: .8rem;
-    color: black;
-    padding: 1.5rem;
+  font-size: 0.8rem;
+  color: black;
+  padding: 1.5rem;
 }
 
-.information-ro li{
-    list-style-type: none;
+.information-ro li {
+  list-style-type: none;
 }
 .information-text {
-    display: flex;
-    flex-direction: column;
-    align-items:flex-start;
-    margin-left:5px;
-    max-height: 0;
-    overflow: hidden;
-    position: relative;
-    background-color: darkgrey;
-    transition: max-height 650ms;
-    font-size: 15px;
-
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 5px;
+  max-height: 0;
+  overflow: hidden;
+  position: relative;
+  background-color: transparent;
+  transition: max-height 650ms;
+  font-size: 15px;
 }
 
 .information input {
-    font-size: .8rem;
-    color: black;
-    padding: 1.5rem;
+  font-size: 0.8rem;
+  color: black;
+  padding: 1.5rem;
 }
 
-.accordion-item:target .information{
-    max-height: 400px;
-
+.accordion-item:target .information {
+  max-height: 400px;
 }
-.accordion-item:target .information-ro{
-    max-height: 20rem;
-
+.accordion-item:target .information-ro {
+  max-height: 20rem;
 }
 
-.accordion-item:target .information-text{
-    max-height: 20rem;
-
+.accordion-item:target .information-text {
+  max-height: 20rem;
 }
 
-.accordion-item:target .accordion-link .fa-caret-down{
-    display: none;
+.accordion-item:target .accordion-link .fa-caret-down {
+  display: none;
 }
 
-.accordion-item:target .accordion-link .fa-caret-up{
-    display: block;
+.accordion-item:target .accordion-link .fa-caret-up {
+  display: block;
 }
 
 .fa-caret-down {
-    margin-right: 2rem;
+  margin-right: 2rem;
 }
 
-.input-box-settings-change{
-    width: 400px;
-    height: 10px; /* Adjust as needed */
-     min-height: 10px;
-    color: #040404;
-    border: none;
-    border-radius: 10px;
-    background: white;
-    backdrop-filter: blur(2px);
-    outline: none;
-    margin-top: 10px;
+.input-box-settings-change {
+  width: 400px;
+  height: 10px; /* Adjust as needed */
+  min-height: 10px;
+  color: #040404;
+  border: none;
+  border-radius: 10px;
+  background: white;
+  backdrop-filter: blur(2px);
+  outline: solid;
+  outline-color: lightgray;
+  outline-width: 1px;
+  margin-top: 10px;
 }
-.input-box-settings{
-    width: 185px;
-    height: 10px; /* Adjust as needed */
-     min-height: 10px;
-    color: #040404;
-    border: none;
-    border-radius: 10px;
-    background: white;
-    backdrop-filter: blur(2px);
-    outline: none;
-    margin-top: 10px;
+.input-box-settings {
+  width: 185px;
+  height: 10px; /* Adjust as needed */
+  min-height: 10px;
+  color: #040404;
+  border: none;
+  border-radius: 10px;
+  background: white;
+  backdrop-filter: blur(2px);
+  outline: solid;
+  outline-color: lightgray;
+  outline-width: 1px;
+  margin-top: 10px;
 }
-
 
 .btn-settings {
-    width: 200px;
-    height: 50px;
-    font-size: .8rem;
-    font-weight: 500;
-   /* align-self: center; */
-   margin-top: 10px;
-   margin-left: auto;
-    border: none;
-    border-radius: 10px;
-    background: #008080;
-    color: #fff;
-    box-shadow: 0px 4px 20px rgba(62, 9, 9, 0.144);
-    cursor: pointer;
-    transition: .4s;
+  width: 200px;
+  height: 50px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  /* align-self: center; */
+  margin-top: 10px;
+  margin-left: auto;
+  border: none;
+  border-radius: 10px;
+  background: #008080;
+  color: #fff;
+  box-shadow: 0px 4px 20px rgba(62, 9, 9, 0.144);
+  cursor: pointer;
+  transition: 0.4s;
 }
 
-.btn-settings:hover{
-    background:  #006464;
-    box-shadow: 0px 4px 20px rgba(62, 9, 9, 0.32);
+.btn-settings:hover {
+  background: #006464;
+  box-shadow: 0px 4px 20px rgba(62, 9, 9, 0.32);
 }
 
-  .admin-search-item {
+.admin-search-item {
   width: 70%; /* Adjust the width as needed */
   margin: 0 auto; /* Center the module boxes horizontally */
   padding: 20px; /* Add padding to the module boxes */
@@ -222,22 +214,25 @@
   display: flex;
   justify-content: space-between; /* Ensure the icon is on the right */
   align-items: center; /* Align items vertically centered */
+  border: lightgray;
+  border-style: solid;
+  border-radius: 10px;
+  border-width: 1px;
 }
-  .admin-search-Container {
-    margin-left: 1%;
-    flex: 1;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 650ms;
+.admin-search-Container {
+  margin-left: 1%;
+  flex: 1;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 650ms;
 }
-.accordion-item:target .admin-search-Container{
-    max-height: 20rem;
-    overflow-y: auto;
+.accordion-item:target .admin-search-Container {
+  max-height: 20rem;
+  overflow-y: auto;
+}
 
-}
-
-  .trash-settings{
-    background-color: transparent; /* Makes the button background transparent */
+.trash-settings {
+  background-color: transparent; /* Makes the button background transparent */
   border: none; /* Removes the border */
   cursor: pointer; /* Changes the cursor to indicate it's clickable */
   padding: 0; /* Removes padding */
@@ -245,10 +240,8 @@
   width: 20px; /* Adjust based on your icon size */
   height: 20px;
   color: red;
-    
-
-  }
-  .trash-settings-admin {
+}
+.trash-settings-admin {
   background-color: transparent; /* Makes the button background transparent */
   border: none; /* Removes the border */
   cursor: pointer; /* Changes the cursor to indicate it's clickable */
@@ -259,86 +252,100 @@
   color: red;
 }
 
-  .card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    margin-bottom: 5px;
-    border-radius: 5px;
-    background-color: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 390px; /* Adjust based on your design needs */
-  }
-  
-  .card-content {
-    flex-grow: 1;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-  .trash-container-admin {
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 390px; /* Adjust based on your design needs */
+  border: lightgray;
+  border-style: solid;
+  border-radius: 10px;
+  border-width: 1px;
+}
+
+.card-content {
+  flex-grow: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.trash-container-admin {
   display: flex;
   justify-content: flex-end;
 }
-  
-.admin-search-details{
+
+.admin-search-details {
   display: flex;
   flex-direction: column;
 }
-  .trash-container {
-    display: flex;
-    justify-content: flex-end;
-  }
-  .scrollable-list {
-    max-height: 300px; /* Adjust based on your design needs */
-    overflow-y: auto; /* Enables vertical scrolling */
-    margin-bottom: 20px; /* Adds some spacing between lists */
-  }
+.trash-container {
+  display: flex;
+  justify-content: flex-end;
+}
+.scrollable-list {
+  max-height: 300px; /* Adjust based on your design needs */
+  overflow-y: auto; /* Enables vertical scrolling */
+  margin-bottom: 20px; /* Adds some spacing between lists */
+}
 
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollable-list::-webkit-scrollbar {
+  display: none;
+}
 
-  /* Styles for the confirmation modal */
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollable-list {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Styles for the confirmation modal */
 .modalSettings {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    z-index: 1000; /* Ensure it appears above other elements */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  z-index: 1000; /* Ensure it appears above other elements */
 }
 
 .modal-contentSettings {
-    text-align: center;
+  text-align: center;
 }
 
 .modal-contentSettings h2 {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .modal-contentSettings button {
-    margin: 5px;
+  margin: 5px;
 }
 
 .modal-contentSettings button.confirm-button {
-    background-color: #f44336;
-    color: white;
+  background-color: #f44336;
+  color: white;
 }
 
 .modal-contentSettings button.confirm-button:hover {
-    background-color: #da190b;
+  background-color: #da190b;
 }
 
 .modal-contentSettings button.cancel-button {
-    background-color: #A3A3A3; /* Green */
-    color: white;
+  background-color: #a3a3a3; /* Green */
+  color: white;
 }
 
 .modal-contentSettings button.cancel-button:hover {
-    background-color: #808080;
+  background-color: #808080;
 }
