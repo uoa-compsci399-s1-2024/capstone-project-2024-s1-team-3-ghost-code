@@ -155,7 +155,7 @@ function Presurvey() {
             </p>
             <p className="info-text">
               Need Help? If you have any questions or need assistance with the
-              registration process, please us at{" "}
+              registration process, please email us at{" "}
               <b>verify.study.tms@gmail.com</b>.
             </p>
           </div>

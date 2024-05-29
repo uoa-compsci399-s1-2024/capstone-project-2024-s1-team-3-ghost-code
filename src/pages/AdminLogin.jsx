@@ -3,17 +3,22 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export function BackToHomeLink() {
+  const navigate = useNavigate();
+
+  const handleClickBackToHome = () => {
+    navigate("/home");
+  };
   return (
     <>
       <div className="back-to-home">
-        <i className="fa-solid fa-arrow-left" id="back-arrow"></i>
-        <Link
-          className="back-to-home-text"
+        <button
+          className="back-to-home-btn"
           style={{ textDecoration: "none", color: "black" }}
-          to="/home"
+          onClick={handleClickBackToHome}
         >
-          Back to Home
-        </Link>
+          <i className="fa-solid fa-arrow-left" id="back-arrow"></i>
+          <div className="back-to-home-text">Back To Home</div>
+        </button>
       </div>
     </>
   );

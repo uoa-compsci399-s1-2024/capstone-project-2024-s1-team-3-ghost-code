@@ -1,8 +1,13 @@
 import "./Landing.css";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Landing() {
+  const navigate = useNavigate();
+
+  const handleClickToAdminLogin = () => {
+    navigate("/adminlogin");
+  };
   return (
     <>
       <div>
@@ -11,13 +16,14 @@ function Landing() {
         <div className="wave"></div>
       </div>
       <div className="to-admin-login">
-        <i className="fa-solid fa-arrow-right" id="forward-arrow"></i>
-        <Link
+        <button
+          className="to-admin-login-btn"
+          onClick={handleClickToAdminLogin}
           style={{ textDecoration: "none", color: "white" }}
-          to="/adminlogin"
         >
           <div className="admin-login-text">Admin Login</div>
-        </Link>
+          <i className="fa-solid fa-arrow-right" id="forward-arrow"></i>
+        </button>
       </div>
       <div className="welcome-page">
         <h2>VERIFY TMS Quizzes</h2>

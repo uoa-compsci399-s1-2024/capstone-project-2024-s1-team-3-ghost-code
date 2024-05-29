@@ -359,20 +359,25 @@ export default function CreatingQuiz() {
     }
   };
 
+  const handleClickBackToQuestions = () => {
+    navigate(`/createquiz/${moduleID}`);
+  };
+
   return (
     <div className="flex-questions">
       <div className="dashboard-container-create-quiz">
         <AdminDashboard />
       </div>
       <div className="to-admin-login">
-        <i className="fa-solid fa-arrow-right" id="forward-arrow-cq"></i>
-        <Link
+        <button
+          className="to-admin-login-btn"
           style={{ textDecoration: "none", color: "black" }}
           key={moduleID}
-          to={`/createquiz/${moduleID}`}
+          onClick={handleClickBackToQuestions}
         >
-          <div className="admin-login-text">Back To Questions</div>
-        </Link>
+          <div className="admin-login-text">Back To Questions</div>{" "}
+          <i className="fa-solid fa-arrow-right" id="forward-arrow-cq"></i>
+        </button>
       </div>
       <div className="make-a-new-question-container">
         <div className="new-question"></div>
