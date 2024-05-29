@@ -350,7 +350,7 @@ const Quiz = () => {
     );
   }
 
-  const { title, answers } = questions[activeQuestion];
+  const { title, answers, questionType} = questions[activeQuestion];
 
   const onClickPrevious = () => {
     if (activeQuestion !== 0) {
@@ -453,10 +453,12 @@ const isQuestionPartiallyCorrect = (questionIndex) => {
                       className="question-image"
                     />
                     <h2>{title}</h2>
+                    {questionType === 2 && <p>Select all that apply</p>}
                   </>
                 ) : (
                   <>
                     <h2>{title}</h2>
+                    {questionType === 2 && <p>Select all that apply</p>}
                     <img
                       src={currentImage}
                       alt="Question Image"
@@ -484,6 +486,7 @@ const isQuestionPartiallyCorrect = (questionIndex) => {
           ) : (
             <>
               <h2>{title}</h2>
+              {questionType === 2 && <p>Select all that apply</p>}
               <ul>
                 {answers.map((answer, index) => (
                   <li
@@ -573,10 +576,12 @@ const isQuestionPartiallyCorrect = (questionIndex) => {
                       className="question-image"
                     />
                     <h2>{questions[activeQuestion].title}</h2>
+                    {questionType === 2 && <p>Select all that apply</p>}
                   </>
                 ) : (
                   <>
                     <h2>{questions[activeQuestion].title}</h2>
+                    {questionType === 2 && <p>Select all that apply</p>}
                     <img
                       src={currentImage}
                       alt="Question Image"
@@ -616,6 +621,7 @@ const isQuestionPartiallyCorrect = (questionIndex) => {
           ) : (
             <>
               <h2>{questions[activeQuestion].title}</h2>
+              {questionType === 2 && <p>Select all that apply</p>}
               <ul className="feedback-options">
                       {questions[activeQuestion].answers.map((answer) => (
                         <li
@@ -651,7 +657,7 @@ const isQuestionPartiallyCorrect = (questionIndex) => {
               </div>
 
               {/*IDK which part of the code is displaying the answered question, I want to remove it and ONLY show the feedback, but I think they depend on each other? I'm not too sure about what I can remove.*/}
-              <div className="cont-feedback" style={{backgroundColor: isQuestionFullyCorrect(activeQuestion) ? '#AEEE95' : isQuestionPartiallyCorrect(activeQuestion) ? '#FFFF85' : '#E27891 '}}>
+              <div className="cont-feedback" style={{backgroundColor: isQuestionFullyCorrect(activeQuestion) ? '#AEEE95' : '#E27891 '}}>
                 <div className="cont-feedback-writing">
                   <ul>
                     {selectedAnswersLists[activeQuestion]?.map(
