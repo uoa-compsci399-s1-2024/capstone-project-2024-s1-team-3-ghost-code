@@ -156,7 +156,13 @@ function Presurvey() {
             <p className="info-text">
               Need Help? If you have any questions or need assistance with the
               registration process, please email us at{" "}
-              <b>verify.study.tms@gmail.com</b>.
+              <a
+                style={{ textDecoration: "none", color: "white" }}
+                href="mailto:verify.study.tms@gmail.com"
+              >
+                <b>verify.study.tms@gmail.com</b>
+              </a>
+              .
             </p>
           </div>
         </div>
