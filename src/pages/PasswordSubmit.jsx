@@ -152,14 +152,12 @@ export function PasswordSubmit() {
           <p className="info-text">
             Make sure your password is strong and matches each other! You will be redirected to the login page on success.
             <br />
-                <p classname = "passinfo">Please Ensure the following is inclded in your password: <br />
+            <br />
+                Please Ensure the following is inclded in your password: <br />
                 Has minimum 8 characters in length. <br />
                 At least one uppercase English letter. <br />
                 At least one lowercase English letter. <br />
                 At least one digit. <br />
-                </p>
-            <br />
-            <br />
             <br />
             If you have trouble logging in, please contact
             techsupportverify@gmail.com
