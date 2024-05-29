@@ -106,18 +106,8 @@ export default function AdminSetting() {
   //TO UPDATE ADMIN INFORMATION - works
   const handleSubmit = async (event) => {
     
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-  function validateEmail(email) {
-    return emailRegex.test(email);
-  }
-
-  if (!validateEmail(adminEmail)) {
-    alert("Please ensure the email is valid.")
-  }
-
-
     event.preventDefault();
+
     const requestBody = {
       adminID: adminID,
       firstName: adminfirstName,
@@ -168,10 +158,7 @@ export default function AdminSetting() {
     return passwordRegex.test(password);
   }
 
-  if (!validatePassword(password)) {
-    alert("Please ensure the password follows the guidlines: Has minimum 8 characters in length. At least one uppercase English letter. At least one lowercase English letter. At least one digit. ");
-    return; 
-  }
+ 
 
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -179,13 +166,20 @@ export default function AdminSetting() {
     return emailRegex.test(email);
   }
 
-  if (!validateEmail(email)) {
-    alert("Please ensure the email is valid.")
-  }
-
 
   const handleSubmitNewAdmin = async (event) => {
     event.preventDefault();
+
+    if (!validateEmail(email)) {
+      alert("Please ensure the email is valid.")
+    }
+
+    if (!validatePassword(password)) {
+      alert("Please ensure the password follows the guidlines: Has minimum 8 characters in length. At least one uppercase English letter. At least one lowercase English letter. At least one digit. ");
+      return; 
+    }
+    
+
 
     const data = {
       firstName,
