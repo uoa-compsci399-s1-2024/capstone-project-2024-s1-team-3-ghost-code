@@ -176,7 +176,8 @@ function Presurvey() {
               </div>
               <div className="input-group">
                 <div className="next-to-group">
-                  <div className="input-field next-to">
+                  <div className="input-field next-to"
+                      style={{marginRight: "20px"}}>
                     <input
                       type="text"
                       className="input-box"
