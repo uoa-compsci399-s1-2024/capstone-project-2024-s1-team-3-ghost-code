@@ -114,8 +114,17 @@ namespace OTTER.Data
 
         public string CreateCertitificate(Certification certification, Module module)
         {
+            string templateFilename;
+            if (module.ModuleID == 7)
+            {
+                templateFilename = "recerttemplate.pdf";
+            }
+            else
+            {
+                templateFilename = "certtemplate.pdf";
+            }
             // Load the template PDF
-            using (var reader = new PdfReader(_bucketURL + "certtemplate.pdf"))
+            using (var reader = new PdfReader(_bucketURL + templateFilename))
             {
                 using (var stream = new MemoryStream())
                 {
