@@ -205,6 +205,14 @@ namespace OTTER.Controllers
         [HttpGet("GetModules")]
         public ActionResult<IEnumerable<Module>> GetModules()
         {
+            if (User.IsInRole("User"))
+            {
+                if (!_repo.GetUserByEmail(User.FindFirstValue(ClaimTypes.Email)).SurveyComplete)
+                {
+                    IEnumerable<Module> emptyArray = new List<Module>();
+                    return Ok(emptyArray);
+                }
+            }
             return Ok(_repo.GetModules());
         }
 
@@ -492,7 +500,8 @@ namespace OTTER.Controllers
             if(_repo.GetUserByEmail(user.UserEmail) == null)
             {
                 TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
-                User newUser = new User { FirstName = textInfo.ToTitleCase(user.FirstName.ToLower()), LastName = textInfo.ToTitleCase(user.LastName.ToLower()), UserEmail = user.UserEmail, Organization = _repo.GetOrganizationByID(user.OrganizationID), Role = _repo.GetRoleByID(user.RoleID) };
+                User newUser = new User { FirstName = textInfo.ToTitleCase(user.FirstName.ToLower()), LastName = textInfo.ToTitleCase(user.LastName.ToLower()), UserEmail = user.UserEmail, Organization = _repo.GetOrganizationByID(user.OrganizationID), Role = _repo.GetRoleByID(user.RoleID), SurveyComplete = false };
+                newUser.SurveyComplete = _repo.CheckSurveyEmailTable(user.UserEmail, true);
                 _repo.AddUser(newUser);
                 return Ok(_repo.GetUserByEmail(newUser.UserEmail));
             } else
@@ -848,6 +857,17 @@ namespace OTTER.Controllers
             {
                 return BadRequest(uploadOutcome);
             }
+        }
+
+        [SwaggerOperation(
+            Summary = "Marks user email as having completed the pre-training survey",
+            Tags = new[] { "ExternalEndpoints" }
+        )]
+        [HttpPost("ClinicianSurveyCompletion")]
+        public ActionResult ClinicianSurveyComplete(EmailInputDto emailInput)
+        {
+            _repo.AddEmailToSurveyEmailTable(emailInput.Email);
+            return Ok();
         }
     }
 }

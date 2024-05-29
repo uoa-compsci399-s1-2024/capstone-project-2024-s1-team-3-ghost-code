@@ -17,6 +17,7 @@ namespace OTTER.Data
         public DbSet<Question> Questions { get; set; }
         public DbSet<Quiz> Quizzes { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<SurveyEmail> SurveyEmails { get; set; }
         public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

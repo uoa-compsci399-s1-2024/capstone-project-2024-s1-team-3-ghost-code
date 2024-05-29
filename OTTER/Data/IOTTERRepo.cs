@@ -69,6 +69,7 @@ namespace OTTER.Data
         bool SubmitPasswordReset(PasswordResetDto passwordResetDto);
         void SetLastAdminLogin(int id);
         AdminDeleteRequest GetAdminDeleteRequest(string token);
-
+        void AddEmailToSurveyEmailTable(string email);
+        bool CheckSurveyEmailTable(string email, bool removeValue = false);
     }
 }

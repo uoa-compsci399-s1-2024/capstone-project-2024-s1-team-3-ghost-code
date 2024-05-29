@@ -893,5 +893,43 @@ namespace OTTER.Data
         {
             return _dbContext.AdminDeleteRequests.Include(e => e.Admin).Include(e => e.Requestor).FirstOrDefault(e => e.Token == token);
         }
+
+        public void AddEmailToSurveyEmailTable(string email)
+        {
+            User user = _dbContext.Users.FirstOrDefault(e => e.UserEmail == email);
+            if (user == null)
+            {
+                SurveyEmail s = _dbContext.SurveyEmails.FirstOrDefault(e => e.Email == email);
+                if (s == null)
+                {
+                    s = new SurveyEmail { Email = email };
+                    _dbContext.SurveyEmails.Add(s);
+                    _dbContext.SaveChanges();
+                }
+            }
+            else
+            {
+                user.SurveyComplete = true;
+                _dbContext.SaveChanges();
+            }
+        }
+
+        public bool CheckSurveyEmailTable(string email, bool removeValue = false)
+        {
+            SurveyEmail s = _dbContext.SurveyEmails.FirstOrDefault(e => e.Email == email);
+            if (s == null)
+            {
+                return false;
+            }
+            else
+            {
+                if (removeValue)
+                {
+                    _dbContext.Remove(s);
+                    _dbContext.SaveChanges();
+                }
+                return true;
+            }
+        }
     }
 }

@@ -365,6 +365,23 @@ namespace OTTER.Migrations
                     b.ToTable("Roles");
                 });
 
+            modelBuilder.Entity("OTTER.Models.SurveyEmail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SurveyEmails");
+                });
+
             modelBuilder.Entity("OTTER.Models.User", b =>
                 {
                     b.Property<int>("UserID")
@@ -386,6 +403,9 @@ namespace OTTER.Migrations
 
                     b.Property<int>("RoleID")
                         .HasColumnType("int");
+
+                    b.Property<bool>("SurveyComplete")
+                        .HasColumnType("bit");
 
                     b.Property<string>("UserEmail")
                         .IsRequired()

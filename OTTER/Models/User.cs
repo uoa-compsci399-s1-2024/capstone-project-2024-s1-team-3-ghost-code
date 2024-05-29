@@ -16,5 +16,7 @@ namespace OTTER.Models
         public Role Role { get; set; }
         [Required]
         public Organization Organization { get; set; }
+        [Required]
+        public bool SurveyComplete { get; set; }
     }
 }
