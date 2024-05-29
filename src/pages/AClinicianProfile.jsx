@@ -583,12 +583,15 @@ function AClinicianProfile() {
                               Date Issued:{" "}
                               {new Date(cert.dateTime).toLocaleDateString()}
                             </p>
+                            {!cert.type.toLowerCase().includes("module") && ( 
                             <p>
+
                               Expiry Date:{" "}
                               {new Date(
                                 cert.expiryDateTime
                               ).toLocaleDateString()}
                             </p>
+                            )}
                           </a>
                         </li>
                       ))}

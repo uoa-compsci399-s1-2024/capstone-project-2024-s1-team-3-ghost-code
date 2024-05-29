@@ -125,6 +125,7 @@ function QuizDashboard() {
                     "Authorization": `Bearer ${clinicianToken}` // Include token in headers
                 }
             });
+            
             const practiceQuizID = response.data[0]?.quizID;
             if (practiceQuizID) {
                 navigateToQuizPage(practiceQuizID);
