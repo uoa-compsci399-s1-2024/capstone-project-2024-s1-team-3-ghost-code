@@ -273,3 +273,8 @@
     border: 1px solid teal;
   }
   
+  .status-button:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+    
+  }

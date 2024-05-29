@@ -31,6 +31,8 @@ function AClinicianProfile() {
   const [certifications, setCertifications] = useState([]);
   const [showStats, setShowStats] = useState(true);
 
+  const [surveyComplete, setSurveyComplete] = useState(false);
+
   const adminToken = sessionStorage.getItem("adminToken");
   const navigate = useNavigate();
 
@@ -63,11 +65,14 @@ function AClinicianProfile() {
         );
         if (response.ok) {
           const data = await response.json();
+          console.log(data);
           setClinicianDetails(data[0]);
           setEmail(data[0].userEmail || "");
           setOrganization(data[0].organization.orgName);
           setPosition(data[0].role.roleName);
-        } else if (response.status === 401) {
+          setSurveyComplete(data[0].surveyComplete);
+          console.log(surveyComplete);
+        } else if (response.status === 401) { 
           sessionStorage.removeItem("adminToken");
           navigate("/adminlogin");
         }
@@ -132,6 +137,7 @@ function AClinicianProfile() {
           );
           if (certResponse.ok) {
             const certData = await certResponse.json();
+            console.log(certData);
 
             // Check if certification has expired
             const expiryDateTime = new Date(
@@ -329,6 +335,41 @@ function AClinicianProfile() {
     fetchCertifications();
   }, [clinicianDetails, adminToken]);
 
+  const handleOverrideClick = async () => {
+    const userConfirmed = window.confirm("Are you sure you want to bypass the pre-survey?");
+
+    if (userConfirmed) {
+      // Call the ClincianSurveyCompletion API
+      const url = "https://api.tmstrainingquizzes.com/webapi/ClinicianSurveyCompletion";
+      const requestBody = {
+        email: clinicianId,
+      };
+      const requestOptions = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      };
+
+      try {
+        const response = await fetch(url, requestOptions);
+        if (response.ok) {
+          // Update the surveyComplete status to true
+          setSurveyComplete(true);
+          alert("Survey completion status overridden successfully!");
+        } else {
+          throw new Error("Failed to override survey completion status");
+        }
+      } catch (error) {
+        console.error("Error overriding survey completion status:", error);
+        alert(error.message);
+      }
+    }
+  };
+
+
+
   return (
     <div className="flex">
       <div className="dashboard-container">
@@ -389,15 +430,35 @@ function AClinicianProfile() {
                     <label className="details-title">
                       TMS Training Status:
                     </label>
-                    <select
-                      className="input-box-profile"
-                      value={status}
-                      onChange={(e) => setStatus(e.target.value)}
+                    <button
+                      className={`status-button ${status === "Certified" ? "certified" : "not-certified"}`}
+                      onClick={async () => {
+                        if (status === "Not Certified") {
+                          const confirmCertification = window.confirm(
+                            "Are you sure you wish to certify this clinician? This should only be completed following practical TMS training. The clinician will be sent a certificate valid for 1 year."
+                          );
+                          if (confirmCertification) {
+                            await setClinicianCertificationStatus();
+                          }
+                        }
+                      }}
+                      disabled={status === "Certified"}
                     >
-                      <option value="Not Certified">Not Certified</option>
-                      <option value="Certified">Certified</option>
-                    </select>
+                      {status === "Certified" ? "Certified" : "Not Certified"}
+                   </button>
                   </div>
+                  
+                  {!surveyComplete && (
+                    <div className="each-detail">
+                      <label className="details-title">
+                      Pre-training survey not completed.
+                      </label>
+                      <button onClick={handleOverrideClick}>Override</button>
+                    </div>
+                  )}
+
+
+                  
 
                   <button onClick={handleSaveChanges}>Save Changes</button>
                 </div>
