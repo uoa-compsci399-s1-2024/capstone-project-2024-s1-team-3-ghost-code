@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { Link, useNavigate } from "react-router-dom";
 import ClientDashboard from "../components/Dashboards/CDashboard";
 import "./ClinicianMyProfile.css";
+import ClientInfo from "../components/ClientComponent/clientInfo";
 
 function AClinicianMyProfile() {
   const navigate = useNavigate();
@@ -70,6 +71,7 @@ function AClinicianMyProfile() {
           <ClientDashboard />
         </div>
         <div className="client-profile-contianer">
+        <ClientInfo />
           <div className="client-profile">
             <div className="client-details">
               <div className="client-label">First Name:</div>
