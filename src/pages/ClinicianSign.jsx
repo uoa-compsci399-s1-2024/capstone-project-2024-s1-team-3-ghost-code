@@ -58,7 +58,7 @@ export function ClinicianLoginForm() {
   const handleErrorResponse = (status) => {
     if (status === 401) {
       console.log("Email does not exist");
-      navigate("/presurvey");
+      navigate("/registration");
     }
   };
 

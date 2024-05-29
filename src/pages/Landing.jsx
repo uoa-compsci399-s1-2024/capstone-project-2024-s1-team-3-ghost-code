@@ -28,7 +28,7 @@ function Landing() {
           the Continue Quizzes button.
         </p>
         <div className="button-next-to">
-          <Link to="/presurvey">
+          <Link to="/registration">
             <button className="start-quiz">Start Quizzes</button>
           </Link>
           <Link to="/cliniciansign">
