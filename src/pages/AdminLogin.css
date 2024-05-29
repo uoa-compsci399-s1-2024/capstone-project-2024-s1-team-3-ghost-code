@@ -195,31 +195,33 @@ i{
 }
 
 .back-to-home {
-    display: flex;
-    align-items: center;
-    font-size: 16px; /* Adjust font size as needed */
-    /* text-align: center; */
-    left: 0;
-    /* width: 40%; */
     position: fixed;
-    /* z-index: 1; */
-    top: 0;
-    padding-left: 20px;
-    
+    top: 10px;
+    left: 10px;
+    z-index: 1000; /* Ensure it is on top of other elements */
   }
   
-  #back-arrow {
-    /* width: 25px; */
-    /* stroke-width: 2px; */
-    padding-top: 27px;
-    padding-left: 0px; /* Adjust margin as needed */
+  .back-to-home button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: black;
   }
   
   .back-to-home-text {
-    padding-top: 26px;
-    padding-left: 25px;
-
+    font-size: 16px;
+    margin-left: 20px;
   }
+  
+  #back-arrow {
+    font-size: 16px;
+    margin-right: 5px;
+    color: black;
+  }
+  
+  
   
   .split {
     height: 100%;
