@@ -32,7 +32,7 @@ namespace OTTER.Data
             _dbContext = dbContext;
         }
 
-        public void SendEmail(string requestEmail, string requestSubject, string requestBody)
+        public void SendEmail(string requestEmail, string requestSubject, string requestBody, bool ccAdmin = false)
         {
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production") // Only sends if the environment is production to get accurate AWS credentials
             {
@@ -48,27 +48,56 @@ namespace OTTER.Data
                 var credentials = new InstanceProfileAWSCredentials();
                 using (var client = new AmazonSimpleEmailServiceClient(credentials, RegionEndpoint.APSoutheast2))
                 {
-                    var sendRequest = new SendEmailRequest
+                    var sendRequest = new SendEmailRequest { };
+                    if (ccAdmin)
                     {
-                        Source = $"{senderName} <{senderEmail}>",
-                        ReplyToAddresses = new List<string> { _adminEmail },
-                        Destination = new Destination
+                        sendRequest = new SendEmailRequest
                         {
-                            ToAddresses = new List<string> { requestEmail }
-                        },
-                        Message = new Message
-                        {
-                            Subject = new Content(requestSubject),
-                            Body = new Body
+                            Source = $"{senderName} <{senderEmail}>",
+                            ReplyToAddresses = new List<string> { _adminEmail },
+                            Destination = new Destination
                             {
-                                Html = new Content
+                                ToAddresses = new List<string> { requestEmail },
+                                CcAddresses = new List<string> { _adminEmail }
+                            },
+                            Message = new Message
+                            {
+                                Subject = new Content(requestSubject),
+                                Body = new Body
                                 {
-                                    Charset = "UTF-8",
-                                    Data = htmlBody
+                                    Html = new Content
+                                    {
+                                        Charset = "UTF-8",
+                                        Data = htmlBody
+                                    }
                                 }
                             }
-                        }
-                    };
+                        };
+                    }
+                    else
+                    {
+                        sendRequest = new SendEmailRequest
+                        {
+                            Source = $"{senderName} <{senderEmail}>",
+                            ReplyToAddresses = new List<string> { _adminEmail },
+                            Destination = new Destination
+                            {
+                                ToAddresses = new List<string> { requestEmail }
+                            },
+                            Message = new Message
+                            {
+                                Subject = new Content(requestSubject),
+                                Body = new Body
+                                {
+                                    Html = new Content
+                                    {
+                                        Charset = "UTF-8",
+                                        Data = htmlBody
+                                    }
+                                }
+                            }
+                        };
+                    }
 
                     try
                     {
