@@ -11,6 +11,8 @@ export default function AdminSetting() {
   const navigate = useNavigate();
   const adminToken = sessionStorage.getItem("adminToken");
 
+  
+
   const [adminSearch, setAdminSearch] = useState([]);
 
   const fetchAdmin = async () => {
@@ -103,6 +105,18 @@ export default function AdminSetting() {
 
   //TO UPDATE ADMIN INFORMATION - works
   const handleSubmit = async (event) => {
+    
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  function validateEmail(email) {
+    return emailRegex.test(email);
+  }
+
+  if (!validateEmail(adminEmail)) {
+    alert("Please ensure the email is valid.")
+  }
+
+
     event.preventDefault();
     const requestBody = {
       adminID: adminID,
@@ -147,6 +161,28 @@ export default function AdminSetting() {
   const [message, setMessage] = useState("");
   const [showDeleteAdminModal, setShowDeleteAdminModal] = useState(false);
   const [adminToDeleteId, setAdminToDeleteId] = useState(null);
+
+  const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
+
+  function validatePassword(password) {
+    return passwordRegex.test(password);
+  }
+
+  if (!validatePassword(password)) {
+    alert("Please ensure the password follows the guidlines: Has minimum 8 characters in length. At least one uppercase English letter. At least one lowercase English letter. At least one digit. ");
+    return; 
+  }
+
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  function validateEmail(email) {
+    return emailRegex.test(email);
+  }
+
+  if (!validateEmail(email)) {
+    alert("Please ensure the email is valid.")
+  }
+
 
   const handleSubmitNewAdmin = async (event) => {
     event.preventDefault();
