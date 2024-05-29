@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./PracQuiz.css";
+import "./Quiz.css";
 import redaxios from "redaxios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
@@ -659,46 +659,38 @@ const isQuestionPartiallyCorrect = (questionIndex) => {
 
               {/*IDK which part of the code is displaying the answered question, I want to remove it and ONLY show the feedback, but I think they depend on each other? I'm not too sure about what I can remove.*/}
               <div className="cont-feedback" style={{backgroundColor: isQuestionFullyCorrect(activeQuestion) ? '#AEEE95' : '#E27891 '}}>
-                <div className="cont-feedback-writing">
-                  <ul>
-                    {selectedAnswersLists[activeQuestion]?.map(
-                      (selectedAnswerID, index) => (
-                        <li key={selectedAnswerID} style={{ color: "#808080" }}>
-                          {
-                            questions[activeQuestion].answers.find(
-                              (answer) => answer.answerID === selectedAnswerID
-                            )?.answerText
-                          }
-                          {Array.isArray(
-                            submissionResult.selectedFeedback[activeQuestion]?.[
-                              index
-                            ]
-                          ) && (
-                            <ul>
-                              {submissionResult.selectedFeedback[
-                                activeQuestion
-                              ]?.[index]?.map((feedback, feedbackIndex) => (
-                                <li key={feedbackIndex}>{feedback}</li>
-                              ))}
-                            </ul>
-                          )}
-                          {typeof submissionResult.selectedFeedback[
-                            activeQuestion
-                          ]?.[index] === "string" && (
-                            <div>
-                              {
-                                submissionResult.selectedFeedback[
-                                  activeQuestion
-                                ]?.[index]
-                              }
-                            </div>
-                          )}
-                        </li>
-                      )
-                    )}
-                  </ul>
-                </div>
-              </div>
+  <div className="cont-feedback-writing">
+    <ul>
+      {selectedAnswersLists[activeQuestion]?.map((selectedAnswerID, index) => (
+        <li key={selectedAnswerID} style={{ color: "#808080" }}>
+          <strong>
+            {
+              questions[activeQuestion].answers.find(
+                (answer) => answer.answerID === selectedAnswerID
+              )?.answerText
+            }
+          </strong>
+          {Array.isArray(
+            submissionResult.selectedFeedback[activeQuestion]?.[index]
+          ) && (
+            <ul>
+              {submissionResult.selectedFeedback[activeQuestion]?.[index]?.map(
+                (feedback, feedbackIndex) => (
+                  <li key={feedbackIndex}>{feedback}</li>
+                )
+              )}
+            </ul>
+          )}
+          {typeof submissionResult.selectedFeedback[activeQuestion]?.[index] === "string" && (
+            <div>
+              {submissionResult.selectedFeedback[activeQuestion]?.[index]}
+            </div>
+          )}
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>
             </div>
           </div>
         )}
