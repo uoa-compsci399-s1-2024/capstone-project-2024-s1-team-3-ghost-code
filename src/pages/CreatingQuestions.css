@@ -68,6 +68,7 @@ input[name="Question"] {
   padding: 5px 10px;
   cursor: pointer;
   width: 200px;
+  height: 40px;
 }
 
 .remove-answer-button{
@@ -113,7 +114,10 @@ input[name="Question"] {
 
 .feedback-box {
   margin-left: 10px;
-  resize: none; /* Disable manual resizing */
+  resize: none;
+  padding-left: 10px;
+  padding-top: 2px; 
+  height: 50px;/* Disable manual resizing */
   
 }
 
