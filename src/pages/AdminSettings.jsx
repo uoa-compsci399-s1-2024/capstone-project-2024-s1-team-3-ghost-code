@@ -11,8 +11,6 @@ export default function AdminSetting() {
   const navigate = useNavigate();
   const adminToken = sessionStorage.getItem("adminToken");
 
-  
-
   const [adminSearch, setAdminSearch] = useState([]);
 
   const fetchAdmin = async () => {
@@ -62,6 +60,7 @@ export default function AdminSetting() {
   const [adminEmail, setAdminEmail] = useState("");
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const dropdownRef = useRef(null); // Reference to the admin info box
+  const [activeSection, setActiveSection] = useState(null);
 
   // Function to fetch admin information from backend API
   useEffect(() => {
@@ -105,7 +104,6 @@ export default function AdminSetting() {
 
   //TO UPDATE ADMIN INFORMATION - works
   const handleSubmit = async (event) => {
-    
     event.preventDefault();
 
     const requestBody = {
@@ -158,28 +156,25 @@ export default function AdminSetting() {
     return passwordRegex.test(password);
   }
 
- 
-
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   function validateEmail(email) {
     return emailRegex.test(email);
   }
 
-
   const handleSubmitNewAdmin = async (event) => {
     event.preventDefault();
 
     if (!validateEmail(email)) {
-      alert("Please ensure the email is valid.")
+      alert("Please ensure the email is valid.");
     }
 
     if (!validatePassword(password)) {
-      alert("Please ensure the password follows the guidlines: Has minimum 8 characters in length. At least one uppercase English letter. At least one lowercase English letter. At least one digit. ");
-      return; 
+      alert(
+        "Please ensure the password follows the guidlines: Has minimum 8 characters in length. At least one uppercase English letter. At least one lowercase English letter. At least one digit. "
+      );
+      return;
     }
-    
-
 
     const data = {
       firstName,
@@ -489,7 +484,8 @@ export default function AdminSetting() {
           <div className="accordion">
             <div className="accordion-item" id="adminprofile">
               <a className="accordion-link" href="#adminprofile">
-                Profile <i className="fa-solid fa-caret-down"></i>
+                <span>Profile</span>
+                <i className="fa-solid fa-caret-down"></i>
                 <i className="fa-solid fa-caret-up"></i>
               </a>
               <div className="information-text">
@@ -531,7 +527,8 @@ export default function AdminSetting() {
             {/* ADD NEW ADMIN */}
             <div className="accordion-item" id="addnewadmin">
               <a className="accordion-link" href="#addnewadmin">
-                Add New Admin <i className="fa-solid fa-caret-down"></i>
+                Add New Admin
+                <i className="fa-solid fa-caret-down"></i>
                 <i className="fa-solid fa-caret-up"></i>
               </a>
               <div className="information-text">

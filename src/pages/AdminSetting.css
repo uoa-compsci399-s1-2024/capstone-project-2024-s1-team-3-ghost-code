@@ -134,6 +134,7 @@
   padding: 1.5rem;
 }
 
+/* TARGET IS USED FOR EXPANDING THE ACCORDIONS */
 .accordion-item:target .information {
   max-height: 400px;
 }
