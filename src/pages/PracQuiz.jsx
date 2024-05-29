@@ -3,12 +3,11 @@ import "./PracQuiz.css";
 import redaxios from "redaxios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
+
 const PracQuiz = () => {
   const { quizID, moduleID } = useParams();
-
   const [questions, setQuestions] = useState([]);
   const [activeQuestion, setActiveQuestion] = useState(0);
-
   const [showResult, setShowResult] = useState(false);
   const [selectedAnswerIndexes, setSelectedAnswerIndexes] = useState([]);
   const cliniciantoken = sessionStorage.getItem("cliniciantoken");
@@ -17,19 +16,15 @@ const PracQuiz = () => {
     correctAnswers: 0,
     wrongAnswers: 0,
   });
-  const [attemptID, setattemptID] = useState();
 
+  const [attemptID, setattemptID] = useState();
   const [selectedAnswersList, setSelectedAnswersList] = useState([]);
   const [questionIDs, setQuestionIDs] = useState([]);
   const [sequence, setSequence] = useState([]);
-
   const [moduleName, setmoduleName] = useState("");
-
   const [submissionResult, setSubmissionResult] = useState([]);
-
   const [questionImages, setQuestionImages] = useState([]);
   const [imageDimensions, setImageDimensions] = useState({});
-
   const [userID, setUserID] = useState(null);
   const navigate = useNavigate();
 
@@ -85,7 +80,7 @@ const PracQuiz = () => {
           handleErrorResponse(error.status);
         } else {
           console.error("Error fetching practice quiz ID:", error);
-          console.log(error.status);
+          
         }
       }
     };
@@ -138,18 +133,15 @@ const PracQuiz = () => {
           throw new Error("Failed to fetch questions");
         }
         const data = response.data;
-        console.log(response.data);
-
         // Extract question IDs from the response data
         const IDs = data.map((question) => question.questionID);
         setQuestionIDs(IDs);
-
         const imageurls = data.map((question) => question.imageURL);
         setQuestionImages(imageurls);
-
         setQuestions(data);
         setattemptID(data[0].attemptID);
-      } catch (error) {
+      }
+      catch (error) {
         if (error.status) {
           handleErrorResponse(error.status);
         } else {
@@ -265,7 +257,7 @@ const PracQuiz = () => {
 
   const onClickNext = async () => {
     const currentQuestion = questions[activeQuestion];
-
+    //WHY TF IS IT GREYED OUT MAYNNN
     if (activeQuestion !== questions.length - 1) {
       const nextQuestionIndex = activeQuestion + 1;
       setActiveQuestion(nextQuestionIndex);
@@ -298,7 +290,7 @@ const PracQuiz = () => {
         const score = submissionResult.score;
         //const correctAnswers = submissionResult.missedCorrectAID.filter(answer => answer.length === 0).length;
         //const wrongAnswers = submissionResult.missedCorrectAID.filter(answer => answer.length > 0).length;
-        console.log(submissionResult);
+       
 
         let correctCount = 0;
         let wrongCount = 0;
@@ -316,6 +308,13 @@ const PracQuiz = () => {
 
         const correctAnswers = correctCount;
         const wrongAnswers = wrongCount;
+
+        if (quizID % 2 == 0) {
+          submissionResult.selectedFeedback = [];
+          console.log(submissionResult.selectedFeedback);
+        }
+
+        
 
         setActiveQuestion(0);
         
@@ -367,16 +366,12 @@ const PracQuiz = () => {
       const prevSelectedIndexes =
         selectedAnswersLists[activeQuestion - 1] || [];
       setSelectedAnswerIndexes(prevSelectedIndexes);
-      console.log(activeQuestion);
+     
     }
   };
 
-  console.log(questionImages);
 
-  const currentImage = questionImages[activeQuestion];
-  const currentImageDimensions = imageDimensions[activeQuestion] || {};
-
-  // Inside your component
+   // Inside your component
 const isQuestionFullyCorrect = (questionIndex) => {
   // Assuming submissionResult.selectedCorrect tracks whether each selected answer is correct
   return (
@@ -393,6 +388,9 @@ const isQuestionPartiallyCorrect = (questionIndex) => {
     !isQuestionFullyCorrect(questionIndex)
   );
 };
+
+  const currentImage = questionImages[activeQuestion];
+  const currentImageDimensions = imageDimensions[activeQuestion] || {};
 
   return (
     <div className="quiz-body">
@@ -659,8 +657,8 @@ const isQuestionPartiallyCorrect = (questionIndex) => {
                 </div>
               </div>
 
-              {/*IDK which part of the code is displaying the answered question, I want to remove it GREEN: #AEEE95 RED: '#E27891 and ONLY show the feedback, but I think they depend on each other? I'm not too sure about what I can remove.*/}
-              <div className="cont-feedback" style={{backgroundColor: isQuestionFullyCorrect(activeQuestion) ? '#AEEE95' : isQuestionPartiallyCorrect(activeQuestion) ? '#FFFF85' : '#E27891 '}}>
+              {/*IDK which part of the code is displaying the answered question, I want to remove it and ONLY show the feedback, but I think they depend on each other? I'm not too sure about what I can remove.*/}
+              <div className="cont-feedback" style={{backgroundColor: isQuestionFullyCorrect(activeQuestion) ? '#AEEE95' : '#E27891 '}}>
                 <div className="cont-feedback-writing">
                   <ul>
                     {selectedAnswersLists[activeQuestion]?.map(
