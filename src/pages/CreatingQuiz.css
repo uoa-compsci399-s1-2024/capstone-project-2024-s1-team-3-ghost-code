@@ -1,5 +1,6 @@
 /* Styles for the question container */
 .question-container {
+    display: flex;
     background-color: grey;
     height: 100vh;
     border-radius: 10px;
@@ -50,7 +51,7 @@
     border: 2px dashed #008080;
     background-color: rgba(0, 0, 0, 0);
     color: #008080;
-    width: 900px;
+    width: 70%;
     padding: 15px;
     margin-top: 40px;
     cursor: pointer;
@@ -133,10 +134,13 @@ button.delete-button:hover {
     background-color: #808080;
 }
 
+.AdminClientSearchInputQuiz{
+    width: 100%;
+}
+
 /* Optional: Styling the search input */
 .AdminClientSearchInputQuiz input {
-    width: 950px;
-    max-width: 950px;
+    width: 70%;
     padding: 1rem 1rem;
     border: 2px solid #ddd;
     border-radius: 1rem;
@@ -168,8 +172,7 @@ button.delete-button:hover {
 }
 
 .AdminClientSearchResultsQuiz {
-    width: 900px;
-    max-width: 950px;
+    width: 70%;
     margin-top: 1rem;
     padding-top: 20px;
 }
@@ -198,4 +201,31 @@ button.delete-button:hover {
 .search-iconQuiz {
     color: #555;
     font-size: 2rem;
+    margin-right: 10px;
+}
+
+.CreateQuizFilter{
+    display: flex;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.AEditDropdown{
+    position: relative;
+    display: inline-block;
+    padding: 1%;
+    border-radius: 15px;
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #adadad;
+    cursor: pointer;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+option{
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
 }
