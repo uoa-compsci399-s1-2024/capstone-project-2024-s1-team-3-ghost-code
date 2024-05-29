@@ -6,7 +6,7 @@ namespace OTTER.Data
 {
     public interface IOTTERRepo
     {
-        void SendEmail(string email, string subject, string body);
+        void SendEmail(string email, string subject, string body, bool ccAdmin = false);
         string CreateCertitificate(Certification certification, Module module);
         string UploadQuestionImage(IFormFile file, Question question);
         IEnumerable<Module> GetModules();

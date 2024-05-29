@@ -509,13 +509,13 @@ namespace OTTER.Data
                     SendEmail(cert.User.UserEmail, $"Passed {GetAttemptByID(submission.AttemptID).Quiz.Name} quiz", $"Hi {cert.User.FirstName},<br><br>Congratulations on passing the " +
                     $"{GetAttemptByID(submission.AttemptID).Quiz.Name} quiz. To view your certificate for this module, <a href = '{cert.CertificateURL}'>click here</a>." +
                     $"<Br>It appears you have passed every final quiz for all available modules. You should now register to complete the practical test to become fully qualified in the VERIFY study." +
-                    $"<Br><Br>Thanks,<Br>The VERIFY Team");
+                    $"<Br><Br>Thanks,<Br>The VERIFY Team", true);
                 }
                 else if (cert.Type.Contains("Final")) {
                     SendEmail(cert.User.UserEmail, $"Passed {GetAttemptByID(submission.AttemptID).Quiz.Name} quiz", $"Hi {cert.User.FirstName},<br><br>Congratulations on passing the " +
                     $"{GetAttemptByID(submission.AttemptID).Quiz.Name} quiz. To view your certificate for this module, <a href = '{cert.CertificateURL}'>click here</a>." +
                     $"<Br>You should now move on to another module." +
-                    $"<Br><Br>Thanks,<Br>The VERIFY Team");
+                    $"<Br><Br>Thanks,<Br>The VERIFY Team", true);
                 } 
             } 
             else if (GetAttemptByID(submission.AttemptID).Quiz.Stage == "Practice" && mark/count >= 0.7)
@@ -535,7 +535,7 @@ namespace OTTER.Data
                 SendEmail(cert.User.UserEmail, $"Passed {GetAttemptByID(submission.AttemptID).Quiz.Name} quiz", $"Hi {cert.User.FirstName},<br><br>Congratulations on passing the " +
                     $"{GetAttemptByID(submission.AttemptID).Quiz.Name} quiz.<Br>You are now recertified until {cert.ExpiryDateTime.ToString("dd/MM/yyyy")}. " +
                     $"To view your certificate for this module, <a href = '{cert.CertificateURL}'>click here</a>." +
-                    $"<Br><Br>Thanks,<Br>The VERIFY Team");
+                    $"<Br><Br>Thanks,<Br>The VERIFY Team", true);
             }
 
             output.Score = (int)(Math.Floor((mark / count) * 100));
@@ -628,7 +628,7 @@ namespace OTTER.Data
                     $"practical test.<Br>An admin has already entered you certifcation status and you are now certified until {certification.ExpiryDateTime.ToString("dd/MM/yyyy")}." +
                     $"<Br><Br>To view your certificate for this module, <a href = '{certification.CertificateURL}'>click here</a>" +
                     $"<Br><Br>To remain certified, you must complete the Recertification Quiz which is now accessible via the quiz dashboard." +
-                    $"<Br><Br>Thanks,<Br>The VERIFY Team");
+                    $"<Br><Br>Thanks,<Br>The VERIFY Team", true);
             }
             EntityEntry<Certification> c = _dbContext.Certifications.Add(certification);
             _dbContext.SaveChanges();
