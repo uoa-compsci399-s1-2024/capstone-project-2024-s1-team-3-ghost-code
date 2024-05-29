@@ -1,0 +1,54 @@
+.admin-info {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  color: #333;
+  cursor: pointer;
+
+  background-color: #f9f9f9;
+  padding: 8px 15px; /* Top and bottom padding, larger left and right padding */
+  border-radius: 20px; /* Rounded edges */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for 3D effect */
+  align-items: center;
+}
+
+.admin-name {
+  margin-right: 10px;
+}
+
+/* maybe get rid of */
+
+.admin-dropdown {
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  width: 135px;
+  z-index: 100;
+  right: 0;
+  top: 100%;
+  border-radius: 10px;
+
+}
+
+
+.last-login-time {
+  padding: 10px;
+  font-size: 14px;
+  color: #555;
+  text-align: center; /* Center the text */
+  cursor: default;
+}
+
+.Admindropdown-item {
+  padding: 10px;
+  display: block;
+  color: #333;
+  text-decoration: none;
+  border-radius: 10px; /* Rounded edges */
+}
+
+.Admindropdown-item:hover {
+  background-color: #f1f1f1;
+}

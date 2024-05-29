@@ -1,0 +1,80 @@
+.clientDashboardContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  /* padding: 11px 10px; */
+  background-color: #008080;
+  color: white;
+  text-align: center;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.clientLogoContainer {
+  background-color: white;
+  padding: 20px;
+  overflow: hidden;
+  border-top-right-radius: 20px;
+  margin-bottom:50%;
+
+}
+
+.clientLogo {
+  width: 100%;
+  object-fit: contain;
+}
+
+img.clientLogo {
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+}
+
+.CDashButtons {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center; /* Ensure buttons are centered within their container */
+}
+
+.ClientLink {
+  width: 100%; /* Ensure the link takes up the full width of the parent container */
+  text-decoration: none;
+  color: white;
+  display: flex; /* Flex display to allow the button to fill the link */
+}
+
+.clientButton {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* Ensure the button takes up the full width of the link */
+  padding: 15px;
+  margin-top: 20px;
+  background-color: #008080;
+  border: none;
+  border-radius: 0px;
+  cursor: pointer;
+  color: white;
+  font-size: 1.6rem;
+  text-align: center;
+}
+
+.clientButton:hover {
+  background-color: #027575;
+}
+
+.clientButton.active {
+  background-color: #006666;
+  transform: translateY(2px); /* Slightly moves button down on click */
+}

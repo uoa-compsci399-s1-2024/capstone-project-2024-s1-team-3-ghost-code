@@ -1,0 +1,106 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.flex {
+  display: flex;
+  height: 100%; /* Ensure the flex container covers the entire height */
+  padding: 0; /* Remove padding to ensure full height */
+  background-color: #BDDEDE;  
+}
+
+
+.AdminClientSearchContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 5rem;
+  margin: 0;
+  background-color: #BDDEDE;
+  border-left: 15px solid #BDDEDE;
+  margin-left: 20%;
+  min-height: max-content;
+  max-height: max-content;
+  /* margin-bottom: auto; */
+  overflow: auto;
+
+}
+
+.AdminClientSearchInput input[type="text"] {
+  width: 950px;
+  max-width: 950px;
+  padding: 1rem 1rem;
+  border: 2px solid #ddd;
+  border-radius: 1rem;
+  font-size: 1.5rem;
+  background: #ffffff;
+  transition: border-color 0.3s;
+  padding-left: 40px;
+    
+}
+
+.AdminClientSearchInput input[type="text"]:focus {
+  border-color: #0056b3;
+  outline: none;
+  
+}
+
+.AdminClientSearchResults {
+  width: 900px;
+  max-width: 950px;
+  margin-top: 1rem;
+  padding-top: 20px;
+ 
+ 
+  
+}
+
+.adminClientSearchResultItem {
+  background: #ffffff;
+  margin: 0.5rem 0;
+  padding: 1.3rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.adminClientSearchResultItem:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+
+.AdminClientSearchResultName,
+.result-email {
+  font-size: 1.5rem;
+}
+
+.result-email {
+  color: #555;
+}
+
+.AdminClientSearchInput {
+    position: relative;
+  }
+  
+  .search-icon {
+    position: absolute;
+    top: 50%;
+    left: -50px; /* Adjust the left position as needed */
+    transform: translateY(-40%);
+    color: #555; /* Adjust the color of the icon */
+    font-size: 2rem;
+  
+  }
+  
+  .AdminClientSearchInput input[type="text"] {
+    padding-left: 30px; /* Adjust padding to make space for the icon */
+  }
+  
+  
