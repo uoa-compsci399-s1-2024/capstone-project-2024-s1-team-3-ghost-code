@@ -54,8 +54,10 @@ export function QuestionsDisplay() {
         })
         .then((data) => {
           console.log(data);
-          setQuestions(data);
-          setSearchResults(data);
+          const sortedData = data.sort((a, b) => a.topic - b.topic);
+
+          setQuestions(sortedData);
+          setSearchResults(sortedData);
         })
         .catch((error) => {
           handleErrorResponse(error.status);
@@ -177,6 +179,7 @@ export function QuestionsDisplay() {
             {searchResults.map((result) => (
               <div key={result.questionID} className="AdminClientSearchResultsItemQuiz">
                 <div className="AdminClientSearchResultName">{result.title}</div>
+                <div className="AdminClientSearchResultTopic">Topic: {result.topic}</div>
                 <div className="buttons">
                   <button className="edit-button" onClick={() => handleEditQuestion(result.questionID)}>
                     Edit Question
