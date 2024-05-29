@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import "./PracQuiz.css";
+import "./Quiz.css";
 import redaxios from "redaxios";
 import { Link, useNavigate, useParams } from "react-router-dom";
-
 
 const Quiz = () => {
   const { quizID, moduleID } = useParams();
@@ -27,8 +26,6 @@ const Quiz = () => {
   const [imageDimensions, setImageDimensions] = useState({});
   const [userID, setUserID] = useState(null);
   const navigate = useNavigate();
-
-  
 
   useEffect(() => {
     const fetchModuleAccessStatus = async () => {
@@ -80,7 +77,6 @@ const Quiz = () => {
           handleErrorResponse(error.status);
         } else {
           console.error("Error fetching practice quiz ID:", error);
-          
         }
       }
     };
@@ -140,8 +136,7 @@ const Quiz = () => {
         setQuestionImages(imageurls);
         setQuestions(data);
         setattemptID(data[0].attemptID);
-      }
-      catch (error) {
+      } catch (error) {
         if (error.status) {
           handleErrorResponse(error.status);
         } else {
@@ -290,7 +285,6 @@ const Quiz = () => {
         const score = submissionResult.score;
         //const correctAnswers = submissionResult.missedCorrectAID.filter(answer => answer.length === 0).length;
         //const wrongAnswers = submissionResult.missedCorrectAID.filter(answer => answer.length > 0).length;
-       
 
         let correctCount = 0;
         let wrongCount = 0;
@@ -314,10 +308,8 @@ const Quiz = () => {
           console.log(submissionResult.selectedFeedback);
         }
 
-        
-
         setActiveQuestion(0);
-        
+
         // Show result with score
         setResult((prev) => ({
           ...prev,
@@ -366,28 +358,26 @@ const Quiz = () => {
       const prevSelectedIndexes =
         selectedAnswersLists[activeQuestion - 1] || [];
       setSelectedAnswerIndexes(prevSelectedIndexes);
-     
     }
   };
 
+  // Inside your component
+  const isQuestionFullyCorrect = (questionIndex) => {
+    // Assuming submissionResult.selectedCorrect tracks whether each selected answer is correct
+    return (
+      submissionResult.selectedCorrect[questionIndex]?.every((val) => val) &&
+      submissionResult.missedCorrectAID[questionIndex]?.length === 0
+    );
+  };
 
-   // Inside your component
-const isQuestionFullyCorrect = (questionIndex) => {
-  // Assuming submissionResult.selectedCorrect tracks whether each selected answer is correct
-  return (
-    submissionResult.selectedCorrect[questionIndex]?.every((val) => val) &&
-    submissionResult.missedCorrectAID[questionIndex]?.length === 0
-  );
-};
-
-const isQuestionPartiallyCorrect = (questionIndex) => {
-  const selectedAnswers = selectedAnswersList[questionIndex];
-  const correctAnswers =  submissionResult.selectedCorrect[questionIndex];
-  return (
-    submissionResult.selectedCorrect[questionIndex]?.some((val) => val) &&
-    !isQuestionFullyCorrect(questionIndex)
-  );
-};
+  const isQuestionPartiallyCorrect = (questionIndex) => {
+    const selectedAnswers = selectedAnswersList[questionIndex];
+    const correctAnswers = submissionResult.selectedCorrect[questionIndex];
+    return (
+      submissionResult.selectedCorrect[questionIndex]?.some((val) => val) &&
+      !isQuestionFullyCorrect(questionIndex)
+    );
+  };
 
   const currentImage = questionImages[activeQuestion];
   const currentImageDimensions = imageDimensions[activeQuestion] || {};
@@ -433,82 +423,92 @@ const isQuestionPartiallyCorrect = (questionIndex) => {
                 </button>
               </div>
 
-          <div className="question-body">
-          <div className="question-stage">
-            <span className="active-question-no">
-              {addLeadingZero(activeQuestion + 1)}
-            </span>
-            <span className="total-question">
-              /{addLeadingZero(questions.length)}
-            </span>
-          </div>
+              <div className="question-body">
+                <div className="question-stage">
+                  <span className="active-question-no">
+                    {addLeadingZero(activeQuestion + 1)}
+                  </span>
+                  <span className="total-question">
+                    /{addLeadingZero(questions.length)}
+                  </span>
+                </div>
 
-          {currentImage ? (
-            <div
-              className={`question-with-image ${
-                currentImageDimensions.width > currentImageDimensions.height
-                  ? "image-above"
-                  : "image-right"
-              }`}
-            >
-              <div className="content">
-                {currentImageDimensions.width > currentImageDimensions.height ? (
-                  <>
-                    <img
-                      src={currentImage}
-                      alt="Question Image"
-                      className="question-image"
-                    />
-                    <h2>{title}</h2>
-                  </>
+                {currentImage ? (
+                  <div
+                    className={`question-with-image ${
+                      currentImageDimensions.width >
+                      currentImageDimensions.height
+                        ? "image-above"
+                        : "image-right"
+                    }`}
+                  >
+                    <div className="content">
+                      {currentImageDimensions.width >
+                      currentImageDimensions.height ? (
+                        <>
+                          <img
+                            src={currentImage}
+                            alt="Question Image"
+                            className="question-image"
+                          />
+                          <h2>{title}</h2>
+                        </>
+                      ) : (
+                        <>
+                          <h2>{title}</h2>
+                          <img
+                            src={currentImage}
+                            alt="Question Image"
+                            className="question-image"
+                          />
+                        </>
+                      )}
+                    </div>
+                    <ul className="answer-list">
+                      {answers.map((answer, index) => (
+                        <li
+                          onClick={() =>
+                            onAnswerSelected(answer.answerID, index)
+                          }
+                          key={answer.answerID}
+                          className={
+                            selectedAnswersLists[activeQuestion]?.includes(
+                              answer.answerID
+                            )
+                              ? "selected-answer"
+                              : null
+                          }
+                        >
+                          {answer.answerText}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 ) : (
                   <>
                     <h2>{title}</h2>
-                    <img
-                      src={currentImage}
-                      alt="Question Image"
-                      className="question-image"
-                    />
+                    <ul>
+                      {answers.map((answer, index) => (
+                        <li
+                          onClick={() =>
+                            onAnswerSelected(answer.answerID, index)
+                          }
+                          key={answer.answerID}
+                          className={
+                            selectedAnswersLists[activeQuestion]?.includes(
+                              answer.answerID
+                            )
+                              ? "selected-answer"
+                              : null
+                          }
+                        >
+                          {answer.answerText}
+                        </li>
+                      ))}
+                    </ul>
                   </>
                 )}
               </div>
-              <ul className="answer-list">
-                {answers.map((answer, index) => (
-                  <li
-                    onClick={() => onAnswerSelected(answer.answerID, index)}
-                    key={answer.answerID}
-                    className={
-                      selectedAnswersLists[activeQuestion]?.includes(answer.answerID)
-                        ? "selected-answer"
-                        : null
-                    }
-                  >
-                    {answer.answerText}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : (
-            <>
-              <h2>{title}</h2>
-              <ul>
-                {answers.map((answer, index) => (
-                  <li
-                    onClick={() => onAnswerSelected(answer.answerID, index)}
-                    key={answer.answerID}
-                    className={
-                      selectedAnswersLists[activeQuestion]?.includes(answer.answerID)
-                        ? "selected-answer"
-                        : null
-                    }
-                  >
-                    {answer.answerText}
-                  </li>
-                ))}
-              </ul>
-            </>
-          )}
-        </div>
             </div>
           </div>
         ) : (
@@ -560,105 +560,110 @@ const isQuestionPartiallyCorrect = (questionIndex) => {
               >
                 <div className="question-answer-wrapper">
                   <div className="sep-qs">
-
-
-
-                  {currentImage ? (
-            <div
-              className={`question-with-image ${
-                currentImageDimensions.width > currentImageDimensions.height
-                  ? "image-above"
-                  : "image-right"
-              }`}
-            >
-              <div className="content">
-                {currentImageDimensions.width > currentImageDimensions.height ? (
-                  <>
-                    <img
-                      src={currentImage}
-                      alt="Question Image"
-                      className="question-image"
-                    />
-                    <h2>{questions[activeQuestion].title}</h2>
-                  </>
-                ) : (
-                  <>
-                    <h2>{questions[activeQuestion].title}</h2>
-                    <img
-                      src={currentImage}
-                      alt="Question Image"
-                      className="question-image"
-                    />
-                  </>
-                )}
-              </div>
-              <ul className="feedback-options">
-                      {questions[activeQuestion].answers.map((answer) => (
-                        <li
-                          key={answer.answerID}
-                          style={{
-                            color: selectedAnswersLists[
-                              activeQuestion
-                            ]?.includes(answer.answerID)
-                              ? submissionResult.selectedCorrect[
+                    {currentImage ? (
+                      <div
+                        className={`question-with-image ${
+                          currentImageDimensions.width >
+                          currentImageDimensions.height
+                            ? "image-above"
+                            : "image-right"
+                        }`}
+                      >
+                        <div className="content">
+                          {currentImageDimensions.width >
+                          currentImageDimensions.height ? (
+                            <>
+                              <img
+                                src={currentImage}
+                                alt="Question Image"
+                                className="question-image"
+                              />
+                              <h2>{questions[activeQuestion].title}</h2>
+                            </>
+                          ) : (
+                            <>
+                              <h2>{questions[activeQuestion].title}</h2>
+                              <img
+                                src={currentImage}
+                                alt="Question Image"
+                                className="question-image"
+                              />
+                            </>
+                          )}
+                        </div>
+                        <ul className="feedback-options">
+                          {questions[activeQuestion].answers.map((answer) => (
+                            <li
+                              key={answer.answerID}
+                              style={{
+                                color: selectedAnswersLists[
                                   activeQuestion
-                                ].every((val) => val) &&
-                                submissionResult.missedCorrectAID[
+                                ]?.includes(answer.answerID)
+                                  ? submissionResult.selectedCorrect[
+                                      activeQuestion
+                                    ].every((val) => val) &&
+                                    submissionResult.missedCorrectAID[
+                                      activeQuestion
+                                    ].length === 0
+                                    ? "green"
+                                    : "red"
+                                  : submissionResult.missedCorrectAID[
+                                      activeQuestion
+                                    ].includes(answer.answerID)
+                                  ? ""
+                                  : "",
+                              }}
+                            >
+                              {answer.answerText}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : (
+                      <>
+                        <h2>{questions[activeQuestion].title}</h2>
+                        <ul className="feedback-options">
+                          {questions[activeQuestion].answers.map((answer) => (
+                            <li
+                              key={answer.answerID}
+                              style={{
+                                color: selectedAnswersLists[
                                   activeQuestion
-                                ].length === 0
-                                ? "green"
-                                : "red"
-                              : submissionResult.missedCorrectAID[
-                                  activeQuestion
-                                ].includes(answer.answerID)
-                              ? ""
-                              : "",
-                          }}
-                        >
-                          {answer.answerText}
-                        </li>
-                      ))}
-                    </ul>
-            </div>
-          ) : (
-            <>
-              <h2>{questions[activeQuestion].title}</h2>
-              <ul className="feedback-options">
-                      {questions[activeQuestion].answers.map((answer) => (
-                        <li
-                          key={answer.answerID}
-                          style={{
-                            color: selectedAnswersLists[
-                              activeQuestion
-                            ]?.includes(answer.answerID)
-                              ? submissionResult.selectedCorrect[
-                                  activeQuestion
-                                ].every((val) => val) &&
-                                submissionResult.missedCorrectAID[
-                                  activeQuestion
-                                ].length === 0
-                                ? "green"
-                                : "red"
-                              : submissionResult.missedCorrectAID[
-                                  activeQuestion
-                                ].includes(answer.answerID)
-                              ? ""
-                              : "",
-                          }}
-                        >
-                          {answer.answerText}
-                        </li>
-                      ))}
-                    </ul>
-            </>
-          )}
-          
+                                ]?.includes(answer.answerID)
+                                  ? submissionResult.selectedCorrect[
+                                      activeQuestion
+                                    ].every((val) => val) &&
+                                    submissionResult.missedCorrectAID[
+                                      activeQuestion
+                                    ].length === 0
+                                    ? "green"
+                                    : "red"
+                                  : submissionResult.missedCorrectAID[
+                                      activeQuestion
+                                    ].includes(answer.answerID)
+                                  ? ""
+                                  : "",
+                              }}
+                            >
+                              {answer.answerText}
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
 
               {/*IDK which part of the code is displaying the answered question, I want to remove it and ONLY show the feedback, but I think they depend on each other? I'm not too sure about what I can remove.*/}
-              <div className="cont-feedback" style={{backgroundColor: isQuestionFullyCorrect(activeQuestion) ? '#AEEE95' : '#E27891 '}}>
+              <div
+                className="cont-feedback"
+                style={{
+                  backgroundColor: isQuestionFullyCorrect(activeQuestion)
+                    ? "#AEEE95"
+                    : "#E27891 ",
+                }}
+              >
                 <div className="cont-feedback-writing">
                   <ul>
                     {selectedAnswersLists[activeQuestion]?.map(
