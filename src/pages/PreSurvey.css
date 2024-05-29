@@ -94,6 +94,7 @@
     backdrop-filter: blur(2px);
     outline: none;
 }
+
 .input-field label{
     position: absolute;
     left: 20px;
