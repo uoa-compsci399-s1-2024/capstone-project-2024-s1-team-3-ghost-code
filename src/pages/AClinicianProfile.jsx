@@ -386,7 +386,9 @@ function AClinicianProfile() {
 
                   <div className="each-detail">
                     {" "}
-                    <label className="details-title">Status:</label>
+                    <label className="details-title">
+                      TMS Training Status:
+                    </label>
                     <select
                       className="input-box-profile"
                       value={status}

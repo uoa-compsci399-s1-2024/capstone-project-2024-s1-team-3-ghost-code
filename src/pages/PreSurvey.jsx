@@ -146,16 +146,16 @@ function Presurvey() {
         <div className="split-survey left-survey">
           <div className="centered-survey">
             <p className="info-text">
-              Join our platform to take your first steps and completing your
-              certification for TMS.
+              Please enter the following information to get access to the VERIFY
+              TMS quizzes. 
             </p>
             <p className="info-text">
-              If you've already filled in the registration quiz click the
-              "continue here" prompt.
+              If you’ve already entered this information, click the “continue
+              here" prompt.
             </p>
             <p className="info-text">
               Need Help? If you have any questions or need assistance with the
-              registration process, please contact our support team at{" "}
+              registration process, please us at{" "}
               <b>verify.study.tms@gmail.com</b>.
             </p>
           </div>
@@ -266,7 +266,7 @@ function Presurvey() {
                   <Link to="/cliniciansign">
                     <font color="#485696">
                       <strong>
-                        <u>Already did the registration? continue here</u>
+                        <u>Already registered? continue here</u>
                       </strong>
                     </font>
                   </Link>
