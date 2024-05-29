@@ -65,6 +65,7 @@ function AClinicianProfile() {
         if (response.ok) {
         
           const data = await response.json();
+          console.log(data);
           
           setClinicianDetails(data[0]);
           setEmail(data[0].userEmail || "");
