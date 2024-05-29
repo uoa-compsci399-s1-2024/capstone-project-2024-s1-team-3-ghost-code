@@ -113,6 +113,8 @@ input[name="Question"] {
 
 .feedback-box {
   margin-left: 10px;
+  resize: none; /* Disable manual resizing */
+  
 }
 
 .select-stage{

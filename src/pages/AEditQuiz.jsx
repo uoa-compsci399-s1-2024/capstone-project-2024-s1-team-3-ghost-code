@@ -47,7 +47,7 @@ function EditQuiz() {
         <AdminDashboard />
       </div>
       <div className="quizModuleContainer">
-      <AdminInfo />
+        <AdminInfo />
         <div className="quizModuleresults">
           {modules.map((module) => (
             <Link
@@ -55,10 +55,9 @@ function EditQuiz() {
               to={`/createquiz/${module.moduleID}`}
               className="module-link"
             >
-                <div className="moduleId">{"Module " + module.sequence}</div>
-                <div className="moduleName">{module.name}</div>
-                <div className="moduleDescription">{module.description}</div>
-
+              <div className="moduleId">{"Module " + module.sequence}</div>
+              <div className="moduleName">{module.name}</div>
+              <div className="moduleDescription">{module.description}</div>
             </Link>
           ))}
         </div>
