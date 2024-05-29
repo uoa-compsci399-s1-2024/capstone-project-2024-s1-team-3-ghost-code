@@ -450,7 +450,7 @@ function AClinicianProfile() {
                   
                   {!surveyComplete && (
                     <div className="each-detail">
-                      <label className="details-title">
+                      <label className="details-title"  style={{ color: "red" }}>
                       Pre-training survey not completed.
                       </label>
                       <button onClick={handleOverrideClick}>Override</button>
