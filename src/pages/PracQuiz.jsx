@@ -4,7 +4,7 @@ import redaxios from "redaxios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 
-const PracQuiz = () => {
+const Quiz = () => {
   const { quizID, moduleID } = useParams();
   const [questions, setQuestions] = useState([]);
   const [activeQuestion, setActiveQuestion] = useState(0);
@@ -357,7 +357,7 @@ const PracQuiz = () => {
     );
   }
 
-  const { title, answers } = questions[activeQuestion];
+  const { title, answers, questionType } = questions[activeQuestion];
 
   const onClickPrevious = () => {
     if (activeQuestion !== 0) {
@@ -460,10 +460,12 @@ const isQuestionPartiallyCorrect = (questionIndex) => {
                       className="question-image"
                     />
                     <h2>{title}</h2>
+                    {questionType === 2 && <p>Select all that apply</p>}
                   </>
                 ) : (
                   <>
                     <h2>{title}</h2>
+                    {questionType === 2 && <p>Select all that apply</p>}
                     <img
                       src={currentImage}
                       alt="Question Image"
@@ -491,6 +493,7 @@ const isQuestionPartiallyCorrect = (questionIndex) => {
           ) : (
             <>
               <h2>{title}</h2>
+              {questionType === 2 && <p>Select all that apply</p>}
               <ul>
                 {answers.map((answer, index) => (
                   <li
@@ -580,10 +583,12 @@ const isQuestionPartiallyCorrect = (questionIndex) => {
                       className="question-image"
                     />
                     <h2>{questions[activeQuestion].title}</h2>
+                    {questionType === 2 && <p>Select all that apply</p>}
                   </>
                 ) : (
                   <>
                     <h2>{questions[activeQuestion].title}</h2>
+                    {questionType === 2 && <p>Select all that apply</p>}
                     <img
                       src={currentImage}
                       alt="Question Image"
@@ -623,6 +628,7 @@ const isQuestionPartiallyCorrect = (questionIndex) => {
           ) : (
             <>
               <h2>{questions[activeQuestion].title}</h2>
+              {questionType === 2 && <p>Select all that apply</p>}
               <ul className="feedback-options">
                       {questions[activeQuestion].answers.map((answer) => (
                         <li
@@ -707,4 +713,4 @@ const isQuestionPartiallyCorrect = (questionIndex) => {
   );
 };
 
-export default PracQuiz;
+export default Quiz;
