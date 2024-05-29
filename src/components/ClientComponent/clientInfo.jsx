@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from 'react-router-dom';
 import "./clientInfo.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 
 function ClientInfo() {
 const [clientName, setClientName] = useState("");
@@ -60,6 +62,7 @@ useEffect(() => {
   return (
     <div className="client-info" ref={dropdownRef} onClick={toggleDropdown}>
     <span className="client-name">{clientName}</span>
+    <FontAwesomeIcon icon={faCaretDown} className="info-dropdown" style={{margin:0}}/>
     {isDropdownVisible && (
     <div className="client-dropdown">
         <Link to="/cliniciansign" className="clientdropdown-item" onClick={handleSignOut}>
