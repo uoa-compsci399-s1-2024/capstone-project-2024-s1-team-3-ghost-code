@@ -231,8 +231,8 @@ export default function CreatingQuiz() {
   }
 
    // Check if stage is selected
-   if (!stage.trim()) {
-    alert("Please select a stage.");
+   if (stage == "") {
+    alert("Please select a topic.");
     return;
   }
 
@@ -247,6 +247,7 @@ export default function CreatingQuiz() {
     alert("Please select at least one correct answer.");
     return;
   }
+
 
 
 
@@ -273,7 +274,13 @@ export default function CreatingQuiz() {
         alert("This question is only MCQ, please add another correct answer.")
         return;
         }
+
+    
+      
       }
+
+  
+    
 
       
   
@@ -316,6 +323,9 @@ export default function CreatingQuiz() {
 
         // Determine the question type based on the number of correct answers
         const questionTypeV = numCorrectAnswers > 1 ? 2 : 1;
+
+  
+    
 
         const newQuestion = {
             modID: moduleID,
@@ -373,7 +383,8 @@ export default function CreatingQuiz() {
       console.error("Error publishing question", error);
     }
   };
-  
+
+ 
   return (
     <div className="flex-questions">
       <div className="dashboard-container">
