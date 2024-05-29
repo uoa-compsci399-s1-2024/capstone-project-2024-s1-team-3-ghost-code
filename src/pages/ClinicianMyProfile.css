@@ -17,25 +17,24 @@
 }
 
 /* Dashboard Container */
-.dashboard-container {
-    /* No specific styling applied */
-}
 
 /* Profile Content Container */
-.client-profile-contianer {
+.client-profile-container {
     display: flex;
     flex-direction: column; /* Stack children vertically */
     gap: 2px; /* Space between profile details */
     background-color: white;
-    padding: 20px;
-   
+    padding: 10%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 25px;
 }
 
 /* Individual Profile Details */
 .client-profile {
     display: flex;
     flex-direction: column; /* Stack details vertically */
-    gap: 5px; /* Space between label and information */
+    gap: 20px;
+    font-size: 24px; /* Space between label and information */
 }
 
 /* Detail Containers */
@@ -44,7 +43,7 @@
     justify-content: space-between; /* Space between label and information */
     align-items: center; /* Align items vertically */
     gap: 10px; /* Optional: Add space between label and information */
-    width: 500px
+    width: 575px
 }
 
 /* Labels */
@@ -60,7 +59,7 @@
 .clientEM,
 .clientsite,
 .clientrole {
-    font-size: 14px; /* Adjust font size as needed */
+    font-size: 16px; /* Adjust font size as needed */
 }
 
 /* Contact Message */

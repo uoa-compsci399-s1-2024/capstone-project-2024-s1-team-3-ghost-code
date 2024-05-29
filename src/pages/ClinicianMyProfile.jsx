@@ -70,7 +70,7 @@ function AClinicianMyProfile() {
         <div className="dashboard-container">
           <ClientDashboard />
         </div>
-        <div className="client-profile-contianer">
+        <div className="client-profile-container">
         <ClientInfo />
           <div className="client-profile">
             <div className="client-details">
@@ -94,7 +94,7 @@ function AClinicianMyProfile() {
               <div className="client-label">Discipline:</div>
               <div className="clientrole">{userRole}</div>
             </div>
-            <p>
+            <p style = {{fontSize: "16px"}}>
               Please contact <b>verify.study.tms@gmail.com</b> if you would like
               to make changes to your profile.
             </p>
