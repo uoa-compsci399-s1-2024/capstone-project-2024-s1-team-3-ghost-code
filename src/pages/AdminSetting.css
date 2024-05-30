@@ -21,6 +21,18 @@
   padding: 0 1.5rem;
   margin-left: 33%;
 }
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+  padding: 0 1rem;
+}
+
+.accordion-item.active .accordion-content {
+  max-height: 400px; /* Adjust this value based on your content */
+  transition: max-height 0.4s ease-in, padding 0.4s ease-in;
+  padding: 1rem;
+}
 
 /* the whole body */
 .accordion-item {
@@ -61,24 +73,18 @@
   flex-direction: column;
   align-items: flex-end;
   margin-right: 2rem;
-
-  max-height: 0;
-  overflow: hidden;
   position: relative;
   background-color: white;
 
   margin-left: 100px;
 }
-
 .information-ro {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   margin-left: 1rem;
   flex: 1;
-  overflow: hidden;
-  max-height: 0;
-  overflow: hidden;
+  
   position: relative;
   background-color: transparent;
   transition: max-height 650ms;
@@ -120,8 +126,7 @@
   flex-direction: column;
   align-items: flex-start;
   margin-left: 5px;
-  max-height: 0;
-  overflow: hidden;
+  
   position: relative;
   background-color: transparent;
   transition: max-height 650ms;
@@ -236,12 +241,7 @@
 .admin-search-Container {
   margin-left: 1%;
   flex: 1;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 650ms;
-}
-.accordion-item:target .admin-search-Container {
-  max-height: 20rem;
+  max-height: 200ms;
   overflow-y: auto;
 }
 
