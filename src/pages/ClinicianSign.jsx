@@ -4,13 +4,21 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export function BackToHomeLink() {
+  const navigate = useNavigate();
+  const handleClickBackToHome = () => {
+    navigate("/home");
+  };
   return (
     <>
       <div className="back-to-home">
-        <i className="fa-solid fa-arrow-left" id="back-arrow"></i>
-        <Link style={{ textDecoration: "none", color: "black" }} to="/home">
-          <div className="back-to-home-text">Back to Home</div>
-        </Link>
+        <button
+          className="back-to-home-btn"
+          style={{ textDecoration: "none", color: "black" }}
+          onClick={handleClickBackToHome}
+        >
+          <i className="fa-solid fa-arrow-left" id="back-arrow"></i>
+          <div className="back-to-home-text">Back To Home</div>
+        </button>
       </div>
     </>
   );
@@ -127,11 +135,11 @@ export function ClinicianLoginInfo() {
             If you have any questions or need assistance with the registration
             process, please contact our support team at{" "}
             <a
-                style={{ textDecoration: "none", color: "white" }}
-                href="mailto:verify.study.tms@gmail.com"
-              >
-                <b>verify.study.tms@gmail.com</b>
-              </a>
+              style={{ textDecoration: "none", color: "white" }}
+              href="mailto:verify.study.tms@gmail.com"
+            >
+              <b>verify.study.tms@gmail.com</b>
+            </a>
           </p>
         </div>
       </div>

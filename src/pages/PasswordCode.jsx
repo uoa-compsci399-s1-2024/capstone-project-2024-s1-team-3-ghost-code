@@ -2,10 +2,11 @@ import "./AdminLogin.css";
 import "./PasswordReset.css";
 import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { BackToHomeLink } from "./ClinicianSign";
 
 export function PasswordCodeForm() {
-  const [code, setCode] = useState('');
-  const [error, setError] = useState('');
+  const [code, setCode] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
   const email = location.state?.email;
@@ -23,7 +24,7 @@ export function PasswordCodeForm() {
 
       if (response.status === 200) {
         // Store the code in sessionStorage
-        sessionStorage.setItem('resetCode', code);
+        sessionStorage.setItem("resetCode", code);
 
         // Navigate to the SubmitPasswordReset page
         navigate("/passwordsubmit", { state: { email } });
@@ -38,12 +39,7 @@ export function PasswordCodeForm() {
 
   return (
     <>
-      <div className="back-to-home">
-        <i className="fa-solid fa-arrow-left" id="back-arrow"></i>
-        <Link style={{ textDecoration: "none" }} to="/home">
-          <div className="back-to-home-text">Back to Home</div>
-        </Link>
-      </div>
+      <BackToHomeLink />
 
       <form onSubmit={handleCodeVerification}>
         <div className="container-password split left">
@@ -81,19 +77,20 @@ export function PasswordCodeForm() {
 
       <div className="admin-login-info split right">
         <div className="info-content">
-     
           <p className="info-text">
-            Please note your code will be valid for 30 minutes from when you requested it. Check your junk folder as well!
+            Please note your code will be valid for 30 minutes from when you
+            requested it. Check your junk folder as well!
             <br />
             <br />
             <br />
             <br />
-            If you have trouble logging in, please contact <a
-                style={{ textDecoration: "none", color: "white" }}
-                href="mailto:verify.study.tms@gmail.com"
-              >
-                <b>verify.study.tms@gmail.com</b>
-              </a>
+            If you have trouble logging in, please contact{" "}
+            <a
+              style={{ textDecoration: "none", color: "white" }}
+              href="mailto:verify.study.tms@gmail.com"
+            >
+              <b>verify.study.tms@gmail.com</b>
+            </a>
           </p>
         </div>
       </div>
