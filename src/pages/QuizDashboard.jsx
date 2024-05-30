@@ -215,7 +215,7 @@ function QuizDashboard() {
                 className="module-item"
                 onClick={() => handleModuleClick(module)}
               >
-                <div className="moduleId">{module.name + " Module"}</div>
+                <div className="moduleId">  {module.sequence === 7 ? module.name : `${module.name} Module`}</div>
                 <div className="moduleName">{/*module.name*/}</div>
                 <div className="moduleDescription">{module.description}</div>
                 <FontAwesomeIcon
