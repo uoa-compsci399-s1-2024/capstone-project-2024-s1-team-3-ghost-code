@@ -247,15 +247,27 @@ function AClinicianProfile() {
       return;
     }
 
-    const formattedStartDate =
-      new Date(startDate).toISOString().split("T")[0] + "T00:00:00.000Z";
-    const formattedEndDate =
-      new Date(endDate).toISOString().split("T")[0] + "T23:59:59.999Z";
+
+    const formattedStartDate = new Date(startDate);
+    const formattedEndDate = new Date(endDate);
+
+    formattedStartDate.setHours(0);
+    formattedStartDate.setMinutes(0);
+    formattedStartDate.setSeconds(0);
+
+    formattedEndDate.setHours(23);
+    formattedEndDate.setMinutes(59);
+    formattedEndDate.setSeconds(59);
+
+    const UTCStartDate = formattedStartDate.toISOString();
+    const UTCEndDate = formattedEndDate.toISOString();
+
+
 
     const url = "https://api.tmstrainingquizzes.com/webapi/GetStats";
     const params = {
-      searchStart: formattedStartDate,
-      searchEnd: formattedEndDate,
+      searchStart: UTCStartDate,
+      searchEnd: UTCEndDate,
       quizID: null, // Assuming that this logic will be handled elsewhere or isn't needed as per your current setup
       userID: clinicianDetails.userID,
       complete: null,
