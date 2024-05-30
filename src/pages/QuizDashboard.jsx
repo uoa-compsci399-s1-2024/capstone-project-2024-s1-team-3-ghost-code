@@ -182,6 +182,7 @@ function QuizDashboard() {
     // Navigate to the quiz page with the retrieved quiz ID
     navigate(`/quiz/${quizID}/${selectedModule.moduleID}`);
   };
+  console.log(modules)
 
   return (
     <div className="flex">
@@ -191,7 +192,7 @@ function QuizDashboard() {
       <div className="quizModuleContainer">
         <ClientInfo />
         <div className="quizModuleresults">
-          {modules.length === 0 ? (
+          {modules.length === 1 ? (
             <div className="module-item">
               <div className="moduleId" style = {{ fontSize: "30px" }}>
                 Notice
@@ -199,7 +200,11 @@ function QuizDashboard() {
               <div className="moduleDescription">
               <b><span className="pre-train-text">
                   You have not yet completed the pre-training survey.
-                </span> You can do so by following this <a href="https://forms.gle/SoRVCtU2Xia6oeYs5"target="_blank" rel="noopener noreferrer">link</a>.
+                  <br></br>
+                  <br></br>
+
+
+                </span> <button className="start-quiz"> <a href="https://forms.gle/SoRVCtU2Xia6oeYs5"target="_blank" rel="noopener noreferrer">Complete Survey</a> </button>
                 <br />
                 <br />
                 After completing the survey please refresh the page.
