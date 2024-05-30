@@ -209,8 +209,9 @@ namespace OTTER.Controllers
             {
                 if (!_repo.GetUserByEmail(User.FindFirstValue(ClaimTypes.Email)).SurveyComplete)
                 {
-                    IEnumerable<Module> emptyArray = new List<Module>();
-                    return Ok(emptyArray);
+                    Module incomplete = new Module { Name = "Pre-training Survey Incomplete" };
+                    IEnumerable<Module> surveyIncompleteArray = new List<Module> { incomplete };
+                    return Ok(surveyIncompleteArray);
                 }
             }
             return Ok(_repo.GetModules());

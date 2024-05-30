@@ -112,7 +112,7 @@ namespace OTTER.Data
             }
         }
 
-        public string CreateCertitificate(Certification certification, Module module)
+        public string CreateCertificate(Certification certification, Module module)
         {
             string templateFilename;
             if (module.ModuleID == 7)
@@ -510,7 +510,7 @@ namespace OTTER.Data
                 
                 _dbContext.Attempts.FirstOrDefault(e => e.AttemptID == submission.AttemptID).Completed = "PASS";
                 Certification cert = new Certification { User = GetUserByID(submission.UserID), Type = GetAttemptByID(submission.AttemptID).Quiz.Name, DateTime = DateTime.UtcNow, ExpiryDateTime = DateTime.UtcNow.AddYears(1)};
-                string certificateURL = CreateCertitificate(cert, GetQuestionByID(submission.QuestionID.ElementAt(0)).Module);
+                string certificateURL = CreateCertificate(cert, GetQuestionByID(submission.QuestionID.ElementAt(0)).Module);
                 cert.CertificateURL = certificateURL;
                 AddCertification(cert);
                 SendEmail(cert.User.UserEmail, $"Passed {GetAttemptByID(submission.AttemptID).Quiz.Name} Quiz", $"Hi {cert.User.FirstName},<br><br>Thank you for completing the " +
@@ -553,8 +553,8 @@ namespace OTTER.Data
             else if (GetAttemptByID(submission.AttemptID).Quiz.Stage == "Recert" && mark / count >= 0.8) //PASS RECERT
             {
                 _dbContext.Attempts.FirstOrDefault(e => e.AttemptID == submission.AttemptID).Completed = "PASS";
-                Certification cert = new Certification { User = GetUserByID(submission.UserID), Type = GetAttemptByID(submission.AttemptID).Quiz.Name, DateTime = DateTime.UtcNow, ExpiryDateTime = DateTime.UtcNow.AddYears(1) };
-                string certificateURL = CreateCertitificate(cert, GetQuestionByID(submission.QuestionID.ElementAt(0)).Module);
+                Certification cert = new Certification { User = GetUserByID(submission.UserID), Type = "TMS Training Recertification", DateTime = DateTime.UtcNow, ExpiryDateTime = DateTime.UtcNow.AddYears(1) };
+                string certificateURL = CreateCertificate(cert, GetQuestionByID(submission.QuestionID.ElementAt(0)).Module);
                 cert.CertificateURL = certificateURL;
                 SendEmail(cert.User.UserEmail, $"Passed {GetAttemptByID(submission.AttemptID).Quiz.Name} Quiz", $"Hi {cert.User.FirstName},<br><br>Thank you for completing the " +
                     $"TMS Recertification Quiz. To view your certificate please <a href = '{cert.CertificateURL}'>click here.</a>" +
@@ -565,7 +565,7 @@ namespace OTTER.Data
             else if (GetAttemptByID(submission.AttemptID).Quiz.Stage == "Recert" && mark / count < 0.8) //FAIL RECERT
             {
                 _dbContext.Attempts.FirstOrDefault(e => e.AttemptID == submission.AttemptID).Completed = "PASS";
-                Certification cert = new Certification { User = GetUserByID(submission.UserID), Type = GetAttemptByID(submission.AttemptID).Quiz.Name, DateTime = DateTime.UtcNow, ExpiryDateTime = DateTime.UtcNow.AddYears(1) };
+                Certification cert = new Certification { User = GetUserByID(submission.UserID), Type = "TMS Training Recertification", DateTime = DateTime.UtcNow, ExpiryDateTime = DateTime.UtcNow.AddYears(1) };
                 SendEmail(cert.User.UserEmail, $"Failed {GetAttemptByID(submission.AttemptID).Quiz.Name} Quiz", $"Hi {cert.User.FirstName},<br><br>Thank you for attempting the " +
                     $"TMS Recertification Quiz. Unfortunately you did not score 80% or above in the quiz. Please revisit the training materials and attempt the recertification quiz again when you feel ready. " +
                     $"There is no limit to the number of times this quiz can be attempted." +
@@ -657,7 +657,7 @@ namespace OTTER.Data
             
             if (certification.Type == "InitCertification")
             {
-                string certificateURL = CreateCertitificate(certification, new Module {ModuleID = 8, Name = "Final Certification"});
+                string certificateURL = CreateCertificate(certification, new Module {ModuleID = 8, Name = "Complete TMS Training Certification"});
                 certification.CertificateURL = certificateURL;
                 SendEmail(certification.User.UserEmail, $"You are now fully certified with the VERIFY study!", $"Hi {certification.User.FirstName},<br><br>Thank you for completing the " +
                     $"TMS Practical Test. An admin has already entered your certification status and you are now certified until {certification.ExpiryDateTime.ToString("dd/MMMM/yyyy")}." +
