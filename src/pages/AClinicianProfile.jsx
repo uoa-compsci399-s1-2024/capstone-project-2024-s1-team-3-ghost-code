@@ -571,7 +571,7 @@ function AClinicianProfile() {
                         {attempt.quiz.module.name} {attempt.quiz.stage} -{" "}
                         {attempt.completed}
                       </h4>
-                      <p>Date: {new Date(attempt.dateTime).toLocaleString()}</p>
+                      <p>Date: {new Date(attempt.dateTime.concat("z")).toLocaleString("en-NZ")}</p>
                     </div>
                   ))}
                 </div>
@@ -596,7 +596,7 @@ function AClinicianProfile() {
 
                             <p>
                               Date Issued:{" "}
-                              {new Date(cert.dateTime).toLocaleDateString()}
+                              {new Date(cert.dateTime).toLocaleDateString("en-NZ")}
                             </p>
                             {!cert.type.toLowerCase().includes("module") && ( 
                             <p>
@@ -604,7 +604,7 @@ function AClinicianProfile() {
                               Expiry Date:{" "}
                               {new Date(
                                 cert.expiryDateTime
-                              ).toLocaleDateString()}
+                              ).toLocaleDateString("en-NZ")}
                             </p>
                             )}
                           </a>
