@@ -7,12 +7,12 @@ const PrivDiscM = ({ show, handleClose }) => {
       <div className="PrivDiscM-content" onClick={(e) => e.stopPropagation()}>
         <p>
           By providing your email address, you expressly consent to the
-          collection and use of your personal information by TMS Training Quiz.
+          collection and use of your personal information by the VERIFY TMS Quizzes website.
           This may include disclosing your full name, organization details, and
           quiz progress to other users who hold just your email address within
-          the TMS Training Quiz platform. We prioritize the protection and
+          the VERIFY TMS Quizzes website. We prioritize the protection and
           privacy of your data and will only disclose it for legitimate purposes
-          consistent with our Privacy Policy. You have the right to withdraw
+          within the VERIFY study. You have the right to withdraw
           your consent or update your preferences at any time.
         </p>
         <button className="priv-close-button" onClick={handleClose}>
