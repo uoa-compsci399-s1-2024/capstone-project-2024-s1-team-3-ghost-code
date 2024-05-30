@@ -39,6 +39,10 @@ export function ClinicianLoginForm() {
       // Example handling of the response text
       if (!text.includes("Email does not exist")) {
         sessionStorage.setItem("cliniciantoken", text); // Store the token// Store token (or whatever the response indicates)
+        if (sessionStorage.getItem("adminToken")) {
+          sessionStorage.removeItem("adminToken");
+        }
+
         navigate("/quizDashboard"); // Redirect using navigate instead of updating state
       } else {
         if (text.includes("Email does not exist")) {
@@ -122,7 +126,12 @@ export function ClinicianLoginInfo() {
             <br />
             If you have any questions or need assistance with the registration
             process, please contact our support team at{" "}
-            <b>verify.study.tms@gmail.com</b>.
+            <a
+                style={{ textDecoration: "none", color: "white" }}
+                href="mailto:verify.study.tms@gmail.com"
+              >
+                <b>verify.study.tms@gmail.com</b>
+              </a>
           </p>
         </div>
       </div>

@@ -88,7 +88,12 @@ export function PasswordCodeForm() {
             <br />
             <br />
             <br />
-            If you have trouble logging in, please contact techsupportverify@gmail.com
+            If you have trouble logging in, please contact <a
+                style={{ textDecoration: "none", color: "white" }}
+                href="mailto:verify.study.tms@gmail.com"
+              >
+                <b>verify.study.tms@gmail.com</b>
+              </a>
           </p>
         </div>
       </div>
