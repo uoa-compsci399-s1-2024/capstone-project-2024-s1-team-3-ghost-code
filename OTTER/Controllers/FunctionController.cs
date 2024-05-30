@@ -783,15 +783,15 @@ namespace OTTER.Controllers
                         DateTime issueDate = current.DateTime;
                         if (current != null && DateTime.Compare(issueDate.AddMonths(11), DateTime.UtcNow) <= 0)
                         {
-                            return Ok(new QuizAccessDto { PracticePassed = true, FinalPassed = true, Description = "You have passed the final quiz from each module. The recertification quiz is available to complete." });
+                            return Ok(new QuizAccessDto { PracticePassed = true, FinalPassed = true, Description = "You will be emailed a certificate of completion for the recertification quiz if you score at least 80%." });
                         }
                         else
                         {
-                            return Ok(new QuizAccessDto { PracticePassed = true, FinalPassed = false, Description = "It is not within 1 month until your certification expires. The recertification quiz is not available to complete." });
+                            return Ok(new QuizAccessDto { PracticePassed = true, FinalPassed = false, Description = "The recertification quiz will be available within 1 month of your existing certification expiring." });
                         }
                     } else
                     {
-                        return Ok(new QuizAccessDto { PracticePassed = true, FinalPassed = false, Description = "You have not been previously certified. The recertification quiz is not available to complete." });
+                        return Ok(new QuizAccessDto { PracticePassed = true, FinalPassed = false, Description = "The recertification quiz will be available within 1 month of your Complete TMS Training Certification expiring." });
                     }
                    
                 } else
@@ -805,16 +805,16 @@ namespace OTTER.Controllers
                     {
                         if (finalAttempts.Count() == 0)
                         {
-                            return Ok(new QuizAccessDto { PracticePassed = true, FinalPassed = false, Description = "You have passed the practice quiz, but not a final quiz. The final quiz is available." });
+                            return Ok(new QuizAccessDto { PracticePassed = true, FinalPassed = false, Description = "You will be emailed a certificate of completion for this module if you score at least 80% on this final quiz." });
                         }
                         else
                         {
-                            return Ok(new QuizAccessDto { PracticePassed = true, FinalPassed = true, Description = "You have already passed the final quiz. The final quiz is unavailable." });
+                            return Ok(new QuizAccessDto { PracticePassed = true, FinalPassed = true, Description = "You have already passed the final quiz for this module." });
                         }
                     }
                     else
                     {
-                        return Ok(new QuizAccessDto { PracticePassed = false, FinalPassed = false, Description = "You have not passed a practice quiz. The final quiz is unavailable." });
+                        return Ok(new QuizAccessDto { PracticePassed = false, FinalPassed = false, Description = "The final quiz for this module will be unlocked when you score at least 70% on the practice quiz." });
                     }
                 }
                 
