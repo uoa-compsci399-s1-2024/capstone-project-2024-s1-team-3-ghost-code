@@ -139,9 +139,22 @@ function Presurvey() {
       alert("Error submitting the form. Please try again.");
     }
   };
+  const handleClickBacktoHome = () => {
+    navigate("/home");
+  };
 
   return (
     <>
+      <div className="back-to-home">
+        <button
+          className="back-to-home-btn"
+          style={{ textDecoration: "none", color: "white" }}
+          onClick={handleClickBacktoHome}
+        >
+          <i className="fa-solid fa-arrow-left" id="back-arrow-ps"></i>
+          <div className="back-to-home-text">Back To Home</div>
+        </button>
+      </div>
       <form onSubmit={handleSubmit}>
         <div className="split-survey left-survey">
           <div className="centered-survey">
@@ -176,8 +189,10 @@ function Presurvey() {
               </div>
               <div className="input-group">
                 <div className="next-to-group">
-                  <div className="input-field next-to"
-                      style={{marginRight: "20px"}}>
+                  <div
+                    className="input-field next-to"
+                    style={{ marginRight: "20px" }}
+                  >
                     <input
                       type="text"
                       className="input-box"
