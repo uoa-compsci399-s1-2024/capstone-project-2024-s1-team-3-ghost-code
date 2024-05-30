@@ -287,10 +287,10 @@ function Presurvey() {
                     required
                   />
                 </div>
-                <div class="or-section">
-                  <div class="line"></div>
-                  <div class="or-text">OR</div>
-                  <div class="line"></div>
+                <div className="or-section">
+                  <div className="line"></div>
+                  <div className="or-text">OR</div>
+                  <div className="line"></div>
                 </div>
                 <button
                   className="continue-here-clincian"
