@@ -16,7 +16,7 @@ function Presurvey() {
   const [showModal, setShowModal] = useState(true); // State to manage modal visibility
   const navigate = useNavigate();
 
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   function validateEmail(email) {
     return emailRegex.test(email);

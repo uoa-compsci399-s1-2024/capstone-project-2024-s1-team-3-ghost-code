@@ -106,6 +106,10 @@ export default function AdminSetting() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    if (!validateEmail(adminEmail)) {
+      alert("Please ensure the email is valid.");
+    }
+
     const requestBody = {
       adminID: adminID,
       firstName: adminfirstName,
@@ -156,7 +160,7 @@ export default function AdminSetting() {
     return passwordRegex.test(password);
   }
 
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   function validateEmail(email) {
     return emailRegex.test(email);
