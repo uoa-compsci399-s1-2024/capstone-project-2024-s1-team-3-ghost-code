@@ -590,7 +590,10 @@ function AClinicianProfile() {
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                            <p>Certification Name: {cert.type}</p>
+                           <p>
+                            Certification Name: {cert.type === "InitCertification" ? "Complete TMS Training Certification" : cert.type}
+                          </p>
+
                             <p>
                               Date Issued:{" "}
                               {new Date(cert.dateTime).toLocaleDateString()}
