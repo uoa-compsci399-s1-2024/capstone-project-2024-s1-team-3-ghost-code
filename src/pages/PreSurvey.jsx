@@ -143,6 +143,10 @@ function Presurvey() {
     navigate("/home");
   };
 
+  const handleClickGottoClinicianSignin = () => {
+    navigate("/cliniciansign");
+  };
+
   return (
     <>
       <div className="back-to-home">
@@ -259,7 +263,6 @@ function Presurvey() {
                     ))}
                   </select>
                 </div>
-
                 <div className="tc ">
                   <input type="checkbox" className="cb" required />
                   By ticking the box, you agree to the
@@ -276,7 +279,6 @@ function Presurvey() {
                   </span>
                   of the Verify Quiz Platform.
                 </div>
-
                 <div className="input-field">
                   <input
                     type="submit"
@@ -285,16 +287,17 @@ function Presurvey() {
                     required
                   />
                 </div>
-                
-                <div className="forgot">
-                  <Link to="/cliniciansign">
-                    <font color="#485696">
-                      <strong>
-                        <u>Already registered? continue here</u>
-                      </strong>
-                    </font>
-                  </Link>
+                <div class="or-section">
+                  <div class="line"></div>
+                  <div class="or-text">OR</div>
+                  <div class="line"></div>
                 </div>
+                <button
+                  className="continue-here-clincian"
+                  onClick={handleClickGottoClinicianSignin}
+                >
+                  Continue Here
+                </button>
               </div>
             </div>
           </div>
