@@ -206,7 +206,7 @@ function Presurvey() {
                       onChange={(e) => setFirstName(e.target.value)}
                       required
                     />
-                    <label htmlFor="logEmail">First Name</label>
+                    <label htmlFor="survey-firstName">First Name</label>
                   </div>
                   <div className="input-field next-to">
                     <input
@@ -218,7 +218,7 @@ function Presurvey() {
                       onChange={(e) => setLastName(e.target.value)}
                       required
                     />
-                    <label htmlFor="logEmail">Last Name</label>
+                    <label htmlFor="survey-lastName">Last Name</label>
                   </div>
                 </div>
 
@@ -232,7 +232,7 @@ function Presurvey() {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                   />
-                  <label htmlFor="logEmail">Email Address</label>
+                  <label htmlFor="survey-email">Email Address</label>
                 </div>
                 <div className="input-field">
                   <select
