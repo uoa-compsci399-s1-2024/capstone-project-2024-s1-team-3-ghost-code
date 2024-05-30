@@ -776,7 +776,7 @@ namespace OTTER.Controllers
                 {
                     IEnumerable<Certification> certifications = _repo.GetCertifications().ToList<Certification>();
                     IEnumerable<Certification> userCerts = certifications.Where(e => e.User.UserEmail == User.FindFirstValue(ClaimTypes.Email)).ToList<Certification>();
-                    IEnumerable<Certification> validCerts = userCerts.Where(e => e.Type == "InitCertification" || e.Type == "Recert").ToList<Certification>();
+                    IEnumerable<Certification> validCerts = userCerts.Where(e => e.Type == "InitCertification" || e.Type == "Recertification Final").ToList<Certification>();
                     if (validCerts.Count() > 0)
                     {
                         Certification current = certifications.ElementAt(validCerts.Count() - 1);
