@@ -53,6 +53,10 @@ export function AdminLoginForm() {
       // Example handling of the response text
       if (!text.includes("Email or Password invalid.")) {
         sessionStorage.setItem("adminToken", text); // Store token (or whatever the response indicates)
+        if (sessionStorage.getItem("clinciantoken")) {
+          sessionStorage.removeItem("clinciantoken");
+        }
+        
         navigate("/adminsearch"); // Redirect using navigate instead of updating state
       } else {
         alert("Login failed!");
@@ -135,7 +139,12 @@ export function AdminLoginInfo() {
             <br />
             If you have any questions or need assistance with the registration
             process, please contact our support team at{" "}
-            <b>verify.study.tms@gmail.com</b>.
+            <a
+                style={{ textDecoration: "none", color: "white" }}
+                href="mailto:verify.study.tms@gmail.com"
+              >
+                <b>verify.study.tms@gmail.com</b>
+              </a>
           </p>
         </div>
       </div>

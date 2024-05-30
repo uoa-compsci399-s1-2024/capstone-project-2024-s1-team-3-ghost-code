@@ -70,12 +70,17 @@ export function PasswordResetForm() {
       <div className="admin-login-info split right">
         <div className="info-content">
           <p className="info-text">
-            Forgot password? If this email address is valid, a 6 digit code has been sent. This may take up to 10 minutes.
+            Forgot password? If the email address you enter is valid, a 6 digit code will be sent.
             <br />
             <br />
             <br />
             <br />
-            If you have trouble logging in, please contact techsupportverify@gmail.com
+            If you have trouble logging in, please contact <a
+                style={{ textDecoration: "none", color: "white" }}
+                href="mailto:verify.study.tms@gmail.com"
+              >
+                <b>verify.study.tms@gmail.com</b>
+              </a>
           </p>
         </div>
       </div>

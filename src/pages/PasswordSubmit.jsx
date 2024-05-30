@@ -36,7 +36,7 @@ export function PasswordSubmit() {
     }
 
     if (!validatePassword(newPassword)) {
-      alert("Please Ensure your password follows ");
+      alert("Please Ensure your password follows the guidlines");
       return; 
     }
 
@@ -158,8 +158,13 @@ export function PasswordSubmit() {
                 At least one lowercase English letter. <br />
                 At least one digit. <br />
             <br />
-            If you have trouble logging in, please contact
-            techsupportverify@gmail.com
+            If you have trouble logging in, please contact 
+            <a
+                style={{ textDecoration: "none", color: "white" }}
+                href="mailto:verify.study.tms@gmail.com"
+              >
+                <b>verify.study.tms@gmail.com</b>
+              </a>
           </p>
         </div>
       </div>
