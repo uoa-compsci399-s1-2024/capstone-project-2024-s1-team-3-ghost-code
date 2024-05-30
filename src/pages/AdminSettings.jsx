@@ -482,10 +482,21 @@ export default function AdminSetting() {
       <section className="settings">
         <div className="container-settings">
           <div className="accordion">
+            <div className="accordion-item">
+              <div className="accordion-title">
+                <div>Test title</div>
+                <div>
+                  <i className="fa-solid fa-caret-down"></i>
+                </div>
+              </div>
+              <div className="accordion-content">Test Content</div>
+            </div>
+          </div>
+          <div className="accordion">
             <div className="accordion-item" id="adminprofile">
               <a className="accordion-link" href="#adminprofile">
                 <span>Profile</span>
-                <i className="fa-solid fa-caret-down"></i>
+
                 <i className="fa-solid fa-caret-up"></i>
               </a>
               <div className="information-text">
