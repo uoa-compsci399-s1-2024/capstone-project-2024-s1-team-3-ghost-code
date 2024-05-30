@@ -28,6 +28,9 @@ const Quiz = () => {
   const [userID, setUserID] = useState(null);
   const navigate = useNavigate();
 
+  const [passed, setPassed] = useState(null);
+  const [feedbackMessage, setFeedbackMessage] = useState('');
+
   
 
   useEffect(() => {
@@ -291,6 +294,7 @@ const Quiz = () => {
         //const correctAnswers = submissionResult.missedCorrectAID.filter(answer => answer.length === 0).length;
         //const wrongAnswers = submissionResult.missedCorrectAID.filter(answer => answer.length > 0).length;
        
+        setFeedbackMessage(calculateFeedback(submissionResult.score));
 
         let correctCount = 0;
         let wrongCount = 0;
@@ -392,12 +396,14 @@ const isQuestionPartiallyCorrect = (questionIndex) => {
    
 
     const emailLink = '<a href="mailto:verify.study.tms@gmail.com">verify.study.tms@gmail.com</a>';
-  
+
     if (score >= threshold) {
+      setPassed(true);
       return quizType === "practice"
         ? `Congratulations you have passed the practice quiz, please complete the final quiz to receive a certificate for this module. Feedback is provided below for all of your answers. Please note that this feedback will not be available once you leave this page. Please email us on ${emailLink} if you have any feedback regarding the VERIFY TMS training website or quizzes.`
         : `Congratulations you have passed the final quiz, and you should receive an email with your certificate of completion for this module shortly. Feedback is provided below for all of your answers. Please note that this feedback will not be available once you leave this page. Please email us on ${emailLink} if you have any feedback regarding the VERIFY TMS training website or quizzes.`;
     } else {
+      setPassed(false);
       return quizType === "practice"
         ? `Unfortunately you did not score 70% or above in the quiz. Please revisit the training materials and attempt the practice quiz again when you feel ready. There is no limit to the number of times the practice quiz can be attempted. Feedback is provided below for all of your answers. Please note that this feedback will not be available once you leave this page. Please email us on ${emailLink} if you have any feedback regarding the VERIFY TMS training website or quizzes.`
         : `Unfortunately you did not score 80% or above in the quiz. Please revisit the training materials and attempt the practice quiz again when you feel ready. There is no limit to the number of times the practice quiz can be attempted. Feedback is provided below for all of your answers. Please note that this feedback will not be available once you leave this page. Please email us on ${emailLink} if you have any feedback regarding the VERIFY TMS training website or quizzes.`;
@@ -407,7 +413,7 @@ const isQuestionPartiallyCorrect = (questionIndex) => {
 
   
 
-  const feedbackMessage = calculateFeedback(submissionResult.score);
+
   
  
 
@@ -541,9 +547,19 @@ const isQuestionPartiallyCorrect = (questionIndex) => {
               </Link>
             </div>
 
-          <div className="bigFeedbackMessage">
-          <p dangerouslySetInnerHTML={{ __html: feedbackMessage }}></p>
-          </div>
+
+            <div class={`popup-feedback ${passed ? 'popup-success' : 'popup-fail'}`}>
+              <div class="popup-header-feedback">
+
+                <div className="bigFeedbackMessage">
+                  <p dangerouslySetInnerHTML={{ __html: feedbackMessage }}></p>
+                </div>
+
+                <button class="close-btn-feedback" onclick="closePopup()">×</button>
+              </div>
+            </div>
+
+
 
             <div className="result">
               <h3>Result</h3>
