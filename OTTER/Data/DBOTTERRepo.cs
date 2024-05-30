@@ -549,7 +549,7 @@ namespace OTTER.Data
             else if (GetAttemptByID(submission.AttemptID).Quiz.Stage == "Recert" && mark / count >= 0.8) //PASS RECERT
             {
                 _dbContext.Attempts.FirstOrDefault(e => e.AttemptID == submission.AttemptID).Completed = "PASS";
-                Certification cert = new Certification { User = GetUserByID(submission.UserID), Type = "TMS Training Recertification", DateTime = DateTime.UtcNow, ExpiryDateTime = DateTime.UtcNow.AddYears(1) };
+                Certification cert = new Certification { User = GetUserByID(submission.UserID), Type = GetAttemptByID(submission.AttemptID).Quiz.Name, DateTime = DateTime.UtcNow, ExpiryDateTime = DateTime.UtcNow.AddYears(1) };
                 string certificateURL = CreateCertificate(cert, GetQuestionByID(submission.QuestionID.ElementAt(0)).Module);
                 cert.CertificateURL = certificateURL;
                 AddCertification(cert);
