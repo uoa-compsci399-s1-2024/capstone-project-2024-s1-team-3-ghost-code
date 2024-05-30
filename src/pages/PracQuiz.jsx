@@ -4,7 +4,7 @@ import redaxios from "redaxios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 
-const Quiz = () => {
+const PracQuiz = () => {
   const { quizID, moduleID } = useParams();
   const [questions, setQuestions] = useState([]);
   const [activeQuestion, setActiveQuestion] = useState(0);
@@ -309,13 +309,6 @@ const Quiz = () => {
         const correctAnswers = correctCount;
         const wrongAnswers = wrongCount;
 
-        if (quizID % 2 == 0) {
-          submissionResult.selectedFeedback = [];
-          console.log(submissionResult.selectedFeedback);
-        }
-
-        
-
         setActiveQuestion(0);
         
         // Show result with score
@@ -357,7 +350,7 @@ const Quiz = () => {
     );
   }
 
-  const { title, answers, questionType } = questions[activeQuestion];
+  const { title, answers, questionType} = questions[activeQuestion];
 
   const onClickPrevious = () => {
     if (activeQuestion !== 0) {
@@ -391,6 +384,32 @@ const isQuestionPartiallyCorrect = (questionIndex) => {
 
   const currentImage = questionImages[activeQuestion];
   const currentImageDimensions = imageDimensions[activeQuestion] || {};
+
+  const calculateFeedback = (score) => {
+    const quizType = quizID % 2 === 0 ? "final" : "practice";
+  
+    const threshold = quizType === "practice" ? 70 : 80;
+   
+
+    const emailLink = '<a href="mailto:verify.study.tms@gmail.com">verify.study.tms@gmail.com</a>';
+  
+    if (score >= threshold) {
+      return quizType === "practice"
+        ? `Congratulations you have passed the practice quiz, please complete the final quiz to receive a certificate for this module. Feedback is provided below for all of your answers. Please note that this feedback will not be available once you leave this page. Please email us on ${emailLink} if you have any feedback regarding the VERIFY TMS training website or quizzes.`
+        : `Congratulations you have passed the final quiz, and you should receive an email with your certificate of completion for this module shortly. Feedback is provided below for all of your answers. Please note that this feedback will not be available once you leave this page. Please email us on ${emailLink} if you have any feedback regarding the VERIFY TMS training website or quizzes.`;
+    } else {
+      return quizType === "practice"
+        ? `Unfortunately you did not score 70% or above in the quiz. Please revisit the training materials and attempt the practice quiz again when you feel ready. There is no limit to the number of times the practice quiz can be attempted. Feedback is provided below for all of your answers. Please note that this feedback will not be available once you leave this page. Please email us on ${emailLink} if you have any feedback regarding the VERIFY TMS training website or quizzes.`
+        : `Unfortunately you did not score 80% or above in the quiz. Please revisit the training materials and attempt the practice quiz again when you feel ready. There is no limit to the number of times the practice quiz can be attempted. Feedback is provided below for all of your answers. Please note that this feedback will not be available once you leave this page. Please email us on ${emailLink} if you have any feedback regarding the VERIFY TMS training website or quizzes.`;
+    }
+  };
+  
+
+  
+
+  const feedbackMessage = calculateFeedback(submissionResult.score);
+  
+ 
 
   return (
     <div className="quiz-body">
@@ -521,6 +540,10 @@ const isQuestionPartiallyCorrect = (questionIndex) => {
                 <button className="btn return-button">Back to Modules</button>
               </Link>
             </div>
+
+          <div className="bigFeedbackMessage">
+          <p dangerouslySetInnerHTML={{ __html: feedbackMessage }}></p>
+          </div>
 
             <div className="result">
               <h3>Result</h3>
@@ -670,11 +693,19 @@ const isQuestionPartiallyCorrect = (questionIndex) => {
                     {selectedAnswersLists[activeQuestion]?.map(
                       (selectedAnswerID, index) => (
                         <li key={selectedAnswerID} style={{ color: "#808080" }}>
+
                           {
                             questions[activeQuestion].answers.find(
                               (answer) => answer.answerID === selectedAnswerID
-                            )?.answerText
+                            )?.answerText && (
+                              <span style={{fontWeight: 'bold'}}>
+                                {questions[activeQuestion].answers.find(
+                                  (answer) => answer.answerID === selectedAnswerID
+                                )?.answerText}
+                              </span>
+                            )
                           }
+
                           {Array.isArray(
                             submissionResult.selectedFeedback[activeQuestion]?.[
                               index
@@ -713,4 +744,4 @@ const isQuestionPartiallyCorrect = (questionIndex) => {
   );
 };
 
-export default Quiz;
+export default PracQuiz;
