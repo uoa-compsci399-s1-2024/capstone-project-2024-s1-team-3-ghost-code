@@ -94,9 +94,17 @@ function AClinicianMyProfile() {
               <div className="client-label">Discipline:</div>
               <div className="clientrole">{userRole}</div>
             </div>
-            <p style = {{fontSize: "16px"}}>
-              Please contact <b>verify.study.tms@gmail.com</b> if you would like
-              to make changes to your profile.
+            <p style={{ fontSize: "16px" }}>
+              Please contact{" "}
+              <b>
+                <a
+                  style={{ textDecoration: "underline", color: "black" }}
+                  href="mailto:verify.study.tms@gmail.com"
+                >
+                  verify.study.tms@gmail.com
+                </a>
+              </b>{" "}
+              if you would like to make changes to your profile.
             </p>
           </div>
         </div>
