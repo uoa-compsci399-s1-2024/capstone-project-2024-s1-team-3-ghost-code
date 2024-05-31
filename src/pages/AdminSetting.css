@@ -41,6 +41,7 @@
   overflow: hidden;
   transition: max-height 0.4s ease-out, padding 0.4s ease-out;
   padding: 0 1rem;
+
 }
 
 .accordion-item.active .accordion-content {
@@ -71,6 +72,7 @@
   padding: 1.5rem 2rem;
   align-items: flex-start;
   border-radius: 2rem;
+  cursor: pointer;
 }
 
 .accordion-link i {
