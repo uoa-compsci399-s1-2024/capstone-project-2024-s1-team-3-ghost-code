@@ -31,6 +31,8 @@ const Quiz = () => {
   const [passed, setPassed] = useState(null);
   const [feedbackMessage, setFeedbackMessage] = useState('');
 
+  const [showPopup, setShowPopup] = useState(true); 
+
   
 
   useEffect(() => {
@@ -414,7 +416,9 @@ const isQuestionPartiallyCorrect = (questionIndex) => {
   
 
 
-  
+  const closePopup = () => {
+    setShowPopup(false); // Update the state to hide the popup
+  };
  
 
   return (
@@ -547,7 +551,7 @@ const isQuestionPartiallyCorrect = (questionIndex) => {
               </Link>
             </div>
 
-
+            {showPopup && ( 
             <div class={`popup-feedback ${passed ? 'popup-success' : 'popup-fail'}`}>
               <div class="popup-header-feedback">
 
@@ -555,9 +559,10 @@ const isQuestionPartiallyCorrect = (questionIndex) => {
                   <p dangerouslySetInnerHTML={{ __html: feedbackMessage }}></p>
                 </div>
 
-                <button class="close-btn-feedback" onclick="closePopup()">×</button>
+                <button class="close-btn-feedback" onClick={closePopup}>×</button>
               </div>
             </div>
+            )}
 
 
 
@@ -701,7 +706,7 @@ const isQuestionPartiallyCorrect = (questionIndex) => {
                   </div>
                 </div>
               </div>
-
+          
               {/*IDK which part of the code is displaying the answered question, I want to remove it and ONLY show the feedback, but I think they depend on each other? I'm not too sure about what I can remove.*/}
               <div className="cont-feedback" style={{backgroundColor: isQuestionFullyCorrect(activeQuestion) ? '#AEEE95' : isQuestionPartiallyCorrect(activeQuestion) ? '#FFFF85' : '#E27891 '}}>
               <div className="yellowfeedback">  {isQuestionPartiallyCorrect(activeQuestion) ? 'Your answer is partially correct' : ``}</div>
