@@ -54,8 +54,10 @@ export function QuestionsDisplay() {
         })
         .then((data) => {
           console.log(data);
-          setQuestions(data);
-          setSearchResults(data);
+          const sortedData = data.sort((a, b) => a.topic - b.topic);
+
+          setQuestions(sortedData);
+          setSearchResults(sortedData);
         })
         .catch((error) => {
           handleErrorResponse(error.status);
@@ -155,6 +157,8 @@ export function QuestionsDisplay() {
           <AdminDashboard />
         </div>
         <div className="AdminClientSearchContainerQuiz">
+        <div className="side-by-side">
+
           <div className="AdminClientSearchInputQuiz">
             <FontAwesomeIcon icon={faSearch} className="search-iconQuiz" />
             <input
@@ -164,19 +168,27 @@ export function QuestionsDisplay() {
               placeholder="Search..."
             />
           </div>
-          <div className="AdminClientSearchInputQuiz">
-            <select value={selectedTopic} onChange={handleTopicChange}>
+
+          <div className="CreateQuizFilter">
+            <select value={selectedTopic} onChange={handleTopicChange} className="AEditDropdown" style={{fontSize:"1.3rem"}}>
               <option value="">All Topics</option>
               <option value="1">Topic 1</option>
               <option value="2">Topic 2</option>
               <option value="3">Topic 3</option>
             </select>
           </div>
+
+          </div>
+
+
           <button className="add-question" onClick={handleAddQuestion}> + </button>
           <div className="AdminClientSearchResultsQuiz">
             {searchResults.map((result) => (
               <div key={result.questionID} className="AdminClientSearchResultsItemQuiz">
-                <div className="AdminClientSearchResultName">{result.title}</div>
+                <div className="titleandtopic">
+                  <div className="AdminClientSearchResultName">{result.title}</div>
+                  <div className="AdminClientSearchResultTopic">Topic: {result.topic}</div>
+                </div>
                 <div className="buttons">
                   <button className="edit-button" onClick={() => handleEditQuestion(result.questionID)}>
                     Edit Question

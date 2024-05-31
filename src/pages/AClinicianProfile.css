@@ -272,8 +272,17 @@
     color: #fff;
     border: 1px solid teal;
   }
+<<<<<<< HEAD
 
   .details-title{
     color: red
   }
   
+=======
+  
+  .status-button:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+    
+  }
+>>>>>>> main

@@ -60,6 +60,7 @@ export default function AdminSetting() {
   const [adminEmail, setAdminEmail] = useState("");
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const dropdownRef = useRef(null); // Reference to the admin info box
+  const [activeSection, setActiveSection] = useState(null);
 
   // Function to fetch admin information from backend API
   useEffect(() => {
@@ -104,6 +105,11 @@ export default function AdminSetting() {
   //TO UPDATE ADMIN INFORMATION - works
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (!validateEmail(adminEmail)) {
+      alert("Please ensure the email is valid.");
+    }
+
     const requestBody = {
       adminID: adminID,
       firstName: adminfirstName,
@@ -148,8 +154,31 @@ export default function AdminSetting() {
   const [showDeleteAdminModal, setShowDeleteAdminModal] = useState(false);
   const [adminToDeleteId, setAdminToDeleteId] = useState(null);
 
+  const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
+
+  function validatePassword(password) {
+    return passwordRegex.test(password);
+  }
+
+  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  function validateEmail(email) {
+    return emailRegex.test(email);
+  }
+
   const handleSubmitNewAdmin = async (event) => {
     event.preventDefault();
+
+    if (!validateEmail(email)) {
+      alert("Please ensure the email is valid.");
+    }
+
+    if (!validatePassword(password)) {
+      alert(
+        "Please ensure the password follows the guidlines: Has minimum 8 characters in length. At least one uppercase English letter. At least one lowercase English letter. At least one digit. "
+      );
+      return;
+    }
 
     const data = {
       firstName,
@@ -447,307 +476,366 @@ export default function AdminSetting() {
     org.orgName.toLowerCase().includes(searchOrg.toLowerCase())
   );
 
+  const [isActive, setIsActive] = useState(false);
+  const [isActiveProfile, setIsActiveProfile] = useState(false);
+  const [isActiveAddNewAdmin, setIsActiveAddNewAdmin] = useState(false);
+  const [isActiveAdmins, setIsActiveAdmins] = useState(false);
+
   return (
     <>
-      <div className="admin-body-settings"></div>
-      <AdminInfo />
-      <div className="dashboard-container">
-        <AdminDashboard />
-      </div>
-      <section className="settings">
-        <div className="container-settings">
-          <div className="accordion">
-            <div className="accordion-item" id="adminprofile">
-              <a className="accordion-link" href="#adminprofile">
-                Profile <i className="fa-solid fa-caret-down"></i>
-                <i className="fa-solid fa-caret-up"></i>
-              </a>
-              <div className="information-text">
-                <p className="information-text">Edit your details.</p>
-              </div>
-              <form className="information" onSubmit={handleSubmit}>
-                <input
-                  type="text"
-                  className="input-box-settings-change"
-                  id="firstname"
-                  value={adminfirstName}
-                  placeholder="First Name"
-                  onChange={(e) => setAdminFirstName(e.target.value)}
-                  required
-                />
-                <input
-                  type="text"
-                  className="input-box-settings-change"
-                  id="lastname"
-                  value={adminlastName}
-                  placeholder="Last Name"
-                  onChange={(e) => setAdminLastName(e.target.value)}
-                  required
-                />
-                <input
-                  type="email"
-                  className="input-box-settings-change"
-                  id="email"
-                  value={adminEmail}
-                  placeholder="Email"
-                  onChange={(e) => setAdminEmail(e.target.value)}
-                  required
-                />
-                <button type="submit" className="btn-settings">
-                  Save Changes
-                </button>
-              </form>
-            </div>
-            {/* ADD NEW ADMIN */}
-            <div className="accordion-item" id="addnewadmin">
-              <a className="accordion-link" href="#addnewadmin">
-                Add New Admin <i className="fa-solid fa-caret-down"></i>
-                <i className="fa-solid fa-caret-up"></i>
-              </a>
-              <div className="information-text">
-                <p className="information-text">
-                  Once you submit this information, please contact the recipient
-                  with their login information and prompt them to reset their
-                  password.
-                </p>
-              </div>
-              <form onSubmit={handleSubmitNewAdmin} className="information">
-                <input
-                  type="text"
-                  className="input-box-settings-change"
-                  id="firstname"
-                  placeholder="First Name"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  required
-                />
-                <input
-                  type="text"
-                  className="input-box-settings-change"
-                  id="lastname"
-                  placeholder="Last Name"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  required
-                />
-                <input
-                  type="text"
-                  className="input-box-settings-change"
-                  id="email"
-                  placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-                <input
-                  type="text"
-                  className="input-box-settings-change"
-                  id="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-                <button type="submit" className="btn-settings">
-                  Submit
-                </button>
-              </form>
-              {message && <p>{message}</p>}
-            </div>
-            {/* SHOWS A LIST OF ADMINS */}
-            <div className="accordion-item" id="admins">
-              <a className="accordion-link" href="#admins">
-                Admins <i className="fa-solid fa-caret-down"></i>
-                <i className="fa-solid fa-caret-up"></i>
-              </a>
-
-              <div className="admin-search-Container">
-                <div className="quizModuleresults">
-                  {adminSearch.map((adminSearchs) => (
-                    <div
-                      key={adminSearchs.adminID}
-                      className="admin-search-item"
-                    >
-                      <div className="admin-search-details">
-                        <div className="adminName">
-                          {adminSearchs.firstName} {adminSearchs.lastName}
-                        </div>
-                        <div className="adminEmail">{adminSearchs.email}</div>
+      <div className="flex">
+        <AdminInfo />
+        <div className="dashboard-container">
+          <AdminDashboard />
+        </div>
+        <div className="admin-body-settings">
+          <section className="settings">
+            <div className="container-settings">
+              <div className="accordion">
+                <div
+                  className={`accordion-item ${
+                    isActiveProfile ? "active" : ""
+                  }`}
+                >
+                  <div
+                    className="accordion-link"
+                    onClick={() => setIsActiveProfile(!isActiveProfile)}
+                  >
+                    <div>Profile</div>
+                    <div>{isActiveProfile ? "-" : "+"}</div>
+                  </div>
+                  {isActiveProfile && (
+                    <div className="accordion-content">
+                      <div className="information-text">
+                        <p className="information-text">Edit your details.</p>
                       </div>
-                      <div className="trash-container-admin">
-                        <button
-                          className="trash-settings-admin"
-                          onClick={() =>
-                            handleDeleteAdmin(adminSearchs.adminID)
-                          }
-                        >
-                          <FontAwesomeIcon icon={faTrash} className="fa-lg" />
+                      <form className="information" onSubmit={handleSubmit}>
+                        <input
+                          type="text"
+                          className="input-box-settings-change"
+                          id="firstname"
+                          value={adminfirstName}
+                          placeholder="First Name"
+                          onChange={(e) => setAdminFirstName(e.target.value)}
+                          required
+                        />
+                        <input
+                          type="text"
+                          className="input-box-settings-change"
+                          id="lastname"
+                          value={adminlastName}
+                          placeholder="Last Name"
+                          onChange={(e) => setAdminLastName(e.target.value)}
+                          required
+                        />
+                        <input
+                          type="email"
+                          className="input-box-settings-change"
+                          id="email"
+                          value={adminEmail}
+                          placeholder="Email"
+                          onChange={(e) => setAdminEmail(e.target.value)}
+                          required
+                        />
+                        <button type="submit" className="btn-settings">
+                          Save Changes
                         </button>
+                      </form>
+                    </div>
+                  )}
+                </div>
+                <div
+                  className={`accordion-item ${
+                    isActiveAddNewAdmin ? "active" : ""
+                  }`}
+                >
+                  <div
+                    className="accordion-link"
+                    onClick={() => setIsActiveAddNewAdmin(!isActiveAddNewAdmin)}
+                  >
+                    <div>Add New Admin</div>
+                    <div>{isActiveAddNewAdmin ? "-" : "+"}</div>
+                  </div>
+                  {isActiveAddNewAdmin && (
+                    <div className="accordion-content">
+                      <div className="information-text">
+                        <p className="information-text">
+                          Once you submit this information, please contact the
+                          recipient with their login information and prompt them
+                          to reset their password.
+                        </p>
+                      </div>
+                      <form
+                        onSubmit={handleSubmitNewAdmin}
+                        className="information"
+                      >
+                        <input
+                          type="text"
+                          className="input-box-settings-change"
+                          id="firstname"
+                          placeholder="First Name"
+                          value={firstName}
+                          onChange={(e) => setFirstName(e.target.value)}
+                          required
+                        />
+                        <input
+                          type="text"
+                          className="input-box-settings-change"
+                          id="lastname"
+                          placeholder="Last Name"
+                          value={lastName}
+                          onChange={(e) => setLastName(e.target.value)}
+                          required
+                        />
+                        <input
+                          type="text"
+                          className="input-box-settings-change"
+                          id="email"
+                          placeholder="Email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          required
+                        />
+                        <input
+                          type="password"
+                          className="input-box-settings-change"
+                          id="password"
+                          placeholder="Password"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          required
+                        />
+                        <button type="submit" className="btn-settings">
+                          Submit
+                        </button>
+                      </form>
+                      {message && <p>{message}</p>}
+                    </div>
+                  )}
+                </div>
+                <div
+                  className={`accordion-item ${isActiveAdmins ? "active" : ""}`}
+                >
+                  <div
+                    className="accordion-link"
+                    onClick={() => setIsActiveAdmins(!isActiveAdmins)}
+                  >
+                    <div>Admins</div>
+                    <div>{isActiveAdmins ? "-" : "+"}</div>
+                  </div>
+                  {isActiveAdmins && (
+                    <div className="accordion-content">
+                      <div className="admin-search-Container">
+                        <div className="quizModuleresults scrollable-list">
+                          {adminSearch.map((adminSearchs) => (
+                            <div
+                              key={adminSearchs.adminID}
+                              className="admin-search-item"
+                            >
+                              <div className="admin-search-details">
+                                <div className="adminName">
+                                  {adminSearchs.firstName}{" "}
+                                  {adminSearchs.lastName}
+                                </div>
+                                <div className="adminEmail">
+                                  {adminSearchs.email}
+                                </div>
+                              </div>
+                              <div className="trash-container-admin">
+                                <button
+                                  className="trash-settings-admin"
+                                  onClick={() =>
+                                    handleDeleteAdmin(adminSearchs.adminID)
+                                  }
+                                >
+                                  <FontAwesomeIcon
+                                    icon={faTrash}
+                                    className="fa-lg"
+                                  />
+                                </button>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  ))}
+                  )}
+                </div>
+                <div className={`accordion-item ${isActive ? "active" : ""}`}>
+                  <div
+                    className="accordion-link"
+                    onClick={() => setIsActive(!isActive)}
+                  >
+                    <div>Sites & Disciplines</div>
+                    <div>{isActive ? "-" : "+"}</div>
+                  </div>
+                  {isActive && (
+                    <div className="accordion-content">
+                      <div className="information-text">
+                        <p className="information-text">
+                          You may add new Sites and Disciplines by entering
+                          relevant information in the boxes below and submitting
+                          it.
+                        </p>
+                      </div>
+                      <div className="information-container">
+                        <div className="information-ro">
+                          <h3>Disciplines</h3>
+                          <div className="input-container">
+                            <input
+                              type="text"
+                              className="input-box-settings"
+                              placeholder="Search or Add Disciplines"
+                              value={searchRole}
+                              onChange={(e) => setSearchRole(e.target.value)}
+                            />
+                            <button
+                              className="btn-settings"
+                              onClick={() => handleRoleSubmit()}
+                              disabled={filteredRoles.length > 0}
+                            >
+                              Add Discipline
+                            </button>
+                          </div>
+                          {showRoleMessage && <p>{roleMessage}</p>}
+                          <ul className="scrollable-list">
+                            {filteredRoles.map((role) => (
+                              <li key={role.roleID}>
+                                <div className="card">
+                                  <div className="card-content">
+                                    {role.roleName}
+                                  </div>
+                                  <div className="trash-container">
+                                    <button
+                                      className="trash-settings"
+                                      onClick={() =>
+                                        handleDeleteRole(role.roleID)
+                                      }
+                                    >
+                                      <FontAwesomeIcon
+                                        icon={faTrash}
+                                        className="fa-lg"
+                                      />
+                                    </button>
+                                  </div>
+                                </div>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        <div className="information-ro">
+                          <h3>Sites</h3>
+                          <div className="input-container">
+                            <input
+                              type="text"
+                              className="input-box-settings"
+                              placeholder="Search or Add Sites"
+                              value={searchOrg}
+                              onChange={(e) => setSearchOrg(e.target.value)}
+                            />
+                            <button
+                              className="btn-settings"
+                              onClick={() => handleOrgSubmit()}
+                              disabled={filteredOrganizations.length > 0}
+                            >
+                              Add Site
+                            </button>
+                          </div>
+                          {showOrganizationMessage && (
+                            <p>{organizationMessage}</p>
+                          )}
+                          <ul className="scrollable-list">
+                            {filteredOrganizations.map((org) => (
+                              <li key={org.orgID}>
+                                <div className="card">
+                                  <div className="card-content">
+                                    {org.orgName}
+                                  </div>
+                                  <div className="trash-container">
+                                    <button
+                                      className="trash-settings"
+                                      onClick={() => handleDeleteOrg(org.orgID)}
+                                    >
+                                      <FontAwesomeIcon
+                                        icon={faTrash}
+                                        className="fa-lg"
+                                      />
+                                    </button>
+                                  </div>
+                                </div>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
-            {/* SITES AND DISCIPLINES */}
-            <div className="accordion-item" id="changeRegistration">
-              <a className="accordion-link" href="#changeRegistration">
-                Sites & Disciplines
-                <i className="fa-solid fa-caret-down"></i>
-                <i className="fa-solid fa-caret-up"></i>
-              </a>
-              <div className="information-text">
-                <p className="information-text">
-                  You may add new Sites and Disciplines by entering relevant
-                  information in the boxes below and submitting it.
+          </section>
+          {/* Role Deletion Modal */}
+          {showDeleteRoleModal && (
+            <div className="modalSettings">
+              <div className="modal-contentSettings">
+                <h2>Confirm Deletion</h2>
+                <p>Are you sure you want to delete this role?</p>
+                <button className="confirm-button" onClick={confirmDeleteRole}>
+                  Yes, delete
+                </button>
+                <button
+                  className="cancel-button"
+                  onClick={() => setShowDeleteRoleModal(false)}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Organization Deletion Modal */}
+          {showDeleteOrgModal && (
+            <div className="modalSettings">
+              <div className="modal-contentSettings">
+                <h2>Confirm Deletion</h2>
+                <p>Are you sure you want to delete this organization?</p>
+                <button className="confirm-button" onClick={confirmDeleteOrg}>
+                  Yes, delete
+                </button>
+                <button
+                  className="cancel-button"
+                  onClick={() => setShowDeleteOrgModal(false)}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          )}
+          {/* ADMIN DELETE MODAL */}
+          {showDeleteAdminModal && (
+            <div className="modalSettings">
+              <div className="modal-contentSettings">
+                <h2>Confirm Deletion</h2>
+                <p>Are you sure you want to delete this admin?</p>
+                <p>
+                  Once you click request, a VERIFY study manager will approve or
+                  deny your request.
                 </p>
-              </div>
-              <div className="information-container">
-                <div className="information-ro">
-                  <h3>Disciplines</h3>
-                  <div className="input-container">
-                    <input
-                      type="text"
-                      className="input-box-settings"
-                      placeholder="Search or Add Disciplines"
-                      value={searchRole}
-                      onChange={(e) => setSearchRole(e.target.value)}
-                    />
-                    <button
-                      className="btn-settings"
-                      onClick={() => handleRoleSubmit()}
-                      disabled={filteredRoles.length > 0}
-                    >
-                      Add Discipline
-                    </button>
-                  </div>
-                  {showRoleMessage && <p>{roleMessage}</p>}
-                  <ul className="scrollable-list">
-                    {filteredRoles.map((role) => (
-                      <li key={role.roleID}>
-                        <div className="card">
-                          <div className="card-content">{role.roleName}</div>
-                          <div className="trash-container">
-                            <button
-                              className="trash-settings"
-                              onClick={() => handleDeleteRole(role.roleID)}
-                            >
-                              <FontAwesomeIcon
-                                icon={faTrash}
-                                className="fa-lg"
-                              />
-                            </button>
-                          </div>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="information-ro">
-                  <h3>Sites</h3>
-                  <div className="input-container">
-                    <input
-                      type="text"
-                      className="input-box-settings"
-                      placeholder="Search or Add Sites"
-                      value={searchOrg}
-                      onChange={(e) => setSearchOrg(e.target.value)}
-                    />
-                    <button
-                      className="btn-settings"
-                      onClick={() => handleOrgSubmit()}
-                      disabled={filteredOrganizations.length > 0}
-                    >
-                      Add Site
-                    </button>
-                  </div>
-                  {showOrganizationMessage && <p>{organizationMessage}</p>}
-                  <ul className="scrollable-list">
-                    {filteredOrganizations.map((org) => (
-                      <li key={org.orgID}>
-                        <div className="card">
-                          <div className="card-content">{org.orgName}</div>
-                          <div className="trash-container">
-                            <button
-                              className="trash-settings"
-                              onClick={() => handleDeleteOrg(org.orgID)}
-                            >
-                              <FontAwesomeIcon
-                                icon={faTrash}
-                                className="fa-lg"
-                              />
-                            </button>
-                          </div>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <button className="confirm-button" onClick={confirmDeleteAdmin}>
+                  Yes, request deletion
+                </button>
+                <button
+                  className="cancel-button"
+                  onClick={() => setShowDeleteAdminModal(false)}
+                >
+                  Cancel
+                </button>
               </div>
             </div>
-          </div>
+          )}
         </div>
-      </section>
-      {/* Role Deletion Modal */}
-      {showDeleteRoleModal && (
-        <div className="modalSettings">
-          <div className="modal-contentSettings">
-            <h2>Confirm Deletion</h2>
-            <p>Are you sure you want to delete this role?</p>
-            <button className="confirm-button" onClick={confirmDeleteRole}>
-              Yes, delete
-            </button>
-            <button
-              className="cancel-button"
-              onClick={() => setShowDeleteRoleModal(false)}
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Organization Deletion Modal */}
-      {showDeleteOrgModal && (
-        <div className="modalSettings">
-          <div className="modal-contentSettings">
-            <h2>Confirm Deletion</h2>
-            <p>Are you sure you want to delete this organization?</p>
-            <button className="confirm-button" onClick={confirmDeleteOrg}>
-              Yes, delete
-            </button>
-            <button
-              className="cancel-button"
-              onClick={() => setShowDeleteOrgModal(false)}
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      )}
-      {/* ADMIN DELETE MODAL */}
-      {showDeleteAdminModal && (
-        <div className="modalSettings">
-          <div className="modal-contentSettings">
-            <h2>Confirm Deletion</h2>
-            <p>Are you sure you want to delete this admin?</p>
-            <p>
-              Once you click request, a VERIFY study manager will approve or
-              deny your request.
-            </p>
-            <button className="confirm-button" onClick={confirmDeleteAdmin}>
-              Yes, request deletion
-            </button>
-            <button
-              className="cancel-button"
-              onClick={() => setShowDeleteAdminModal(false)}
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      )}
+      </div>
     </>
   );
 }

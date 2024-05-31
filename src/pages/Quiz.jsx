@@ -28,6 +28,9 @@ const Quiz = () => {
   const [userID, setUserID] = useState(null);
   const navigate = useNavigate();
 
+  const [passed, setPassed] = useState(null);
+  const [feedbackMessage, setFeedbackMessage] = useState('');
+
   
 
   useEffect(() => {
@@ -291,6 +294,7 @@ const Quiz = () => {
         //const correctAnswers = submissionResult.missedCorrectAID.filter(answer => answer.length === 0).length;
         //const wrongAnswers = submissionResult.missedCorrectAID.filter(answer => answer.length > 0).length;
        
+        setFeedbackMessage(calculateFeedback(submissionResult.score));
 
         let correctCount = 0;
         let wrongCount = 0;
@@ -350,7 +354,7 @@ const Quiz = () => {
     );
   }
 
-  const { title, answers } = questions[activeQuestion];
+  const { title, answers, questionType} = questions[activeQuestion];
 
   const onClickPrevious = () => {
     if (activeQuestion !== 0) {
@@ -384,6 +388,34 @@ const isQuestionPartiallyCorrect = (questionIndex) => {
 
   const currentImage = questionImages[activeQuestion];
   const currentImageDimensions = imageDimensions[activeQuestion] || {};
+
+  const calculateFeedback = (score) => {
+    const quizType = quizID % 2 === 0 ? "final" : "practice";
+  
+    const threshold = quizType === "practice" ? 70 : 80;
+   
+
+    const emailLink = '<a href="mailto:verify.study.tms@gmail.com">verify.study.tms@gmail.com</a>';
+
+    if (score >= threshold) {
+      setPassed(true);
+      return quizType === "practice"
+        ? `Congratulations you have passed the practice quiz, please complete the final quiz to receive a certificate for this module. Feedback is provided below for all of your answers. Please note that this feedback will not be available once you leave this page. Please email us on ${emailLink} if you have any feedback regarding the VERIFY TMS training website or quizzes.`
+        : `Congratulations you have passed the final quiz, and you should receive an email with your certificate of completion for this module shortly. Feedback is provided below for all of your answers. Please note that this feedback will not be available once you leave this page. Please email us on ${emailLink} if you have any feedback regarding the VERIFY TMS training website or quizzes.`;
+    } else {
+      setPassed(false);
+      return quizType === "practice"
+        ? `Unfortunately you did not score 70% or above in the quiz. Please revisit the training materials and attempt the practice quiz again when you feel ready. There is no limit to the number of times the practice quiz can be attempted. Feedback is provided below for all of your answers. Please note that this feedback will not be available once you leave this page. Please email us on ${emailLink} if you have any feedback regarding the VERIFY TMS training website or quizzes.`
+        : `Unfortunately you did not score 80% or above in the quiz. Please revisit the training materials and attempt the practice quiz again when you feel ready. There is no limit to the number of times the practice quiz can be attempted. Feedback is provided below for all of your answers. Please note that this feedback will not be available once you leave this page. Please email us on ${emailLink} if you have any feedback regarding the VERIFY TMS training website or quizzes.`;
+    }
+  };
+  
+
+  
+
+
+  
+ 
 
   return (
     <div className="quiz-body">
@@ -453,10 +485,12 @@ const isQuestionPartiallyCorrect = (questionIndex) => {
                       className="question-image"
                     />
                     <h2>{title}</h2>
+                    {questionType === 2 && <p>Select all that apply</p>}
                   </>
                 ) : (
                   <>
                     <h2>{title}</h2>
+                    {questionType === 2 && <p>Select all that apply</p>}
                     <img
                       src={currentImage}
                       alt="Question Image"
@@ -484,6 +518,7 @@ const isQuestionPartiallyCorrect = (questionIndex) => {
           ) : (
             <>
               <h2>{title}</h2>
+              {questionType === 2 && <p>Select all that apply</p>}
               <ul>
                 {answers.map((answer, index) => (
                   <li
@@ -511,6 +546,20 @@ const isQuestionPartiallyCorrect = (questionIndex) => {
                 <button className="btn return-button">Back to Modules</button>
               </Link>
             </div>
+
+
+            <div class={`popup-feedback ${passed ? 'popup-success' : 'popup-fail'}`}>
+              <div class="popup-header-feedback">
+
+                <div className="bigFeedbackMessage">
+                  <p dangerouslySetInnerHTML={{ __html: feedbackMessage }}></p>
+                </div>
+
+                <button class="close-btn-feedback" onclick="closePopup()">×</button>
+              </div>
+            </div>
+
+
 
             <div className="result">
               <h3>Result</h3>
@@ -573,10 +622,12 @@ const isQuestionPartiallyCorrect = (questionIndex) => {
                       className="question-image"
                     />
                     <h2>{questions[activeQuestion].title}</h2>
+                    {questionType === 2 && <p>Select all that apply</p>}
                   </>
                 ) : (
                   <>
                     <h2>{questions[activeQuestion].title}</h2>
+                    {questionType === 2 && <p>Select all that apply</p>}
                     <img
                       src={currentImage}
                       alt="Question Image"
@@ -616,6 +667,7 @@ const isQuestionPartiallyCorrect = (questionIndex) => {
           ) : (
             <>
               <h2>{questions[activeQuestion].title}</h2>
+              {questionType === 2 && <p>Select all that apply</p>}
               <ul className="feedback-options">
                       {questions[activeQuestion].answers.map((answer) => (
                         <li
@@ -652,6 +704,7 @@ const isQuestionPartiallyCorrect = (questionIndex) => {
 
               {/*IDK which part of the code is displaying the answered question, I want to remove it and ONLY show the feedback, but I think they depend on each other? I'm not too sure about what I can remove.*/}
               <div className="cont-feedback" style={{backgroundColor: isQuestionFullyCorrect(activeQuestion) ? '#AEEE95' : isQuestionPartiallyCorrect(activeQuestion) ? '#FFFF85' : '#E27891 '}}>
+              <div className="yellowfeedback">  {isQuestionPartiallyCorrect(activeQuestion) ? 'Your answer is partially correct' : ``}</div>
                 <div className="cont-feedback-writing">
                   <ul>
                     {selectedAnswersLists[activeQuestion]?.map(

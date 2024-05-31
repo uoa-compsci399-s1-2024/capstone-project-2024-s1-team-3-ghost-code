@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import redaxios from "redaxios";
 import ClientDashboard from "../components/Dashboards/CDashboard"; // Assuming this sidebar is appropriate
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleCheck } from "@fortawesome/free-solid-svg-icons"; // Icon for module completion
+import {
+  faCircleCheck,
+  faCircleXmark,
+} from "@fortawesome/free-solid-svg-icons"; // Icon for module completion
 import { Link, useNavigate } from "react-router-dom";
-import ClientInfo from "../components/ClientComponent/clientInfo"; 
+import ClientInfo from "../components/ClientComponent/clientInfo";
 import "./QuizDashboard.css";
 
 function QuizDashboard() {
@@ -96,7 +99,6 @@ function QuizDashboard() {
       setFinalPassed(false);
       setpractisePassed(false);
       setCurrentAccessDescription(""); // Clear description when deselecting
-      
     } else {
       // Otherwise, select the clicked module
       setSelectedModule(module);
@@ -104,7 +106,6 @@ function QuizDashboard() {
       setFinalPassed(access.finalPassed);
       setpractisePassed(access.practicePassed);
       setCurrentAccessDescription(access.description); // Set new description
-     
     }
   };
 
@@ -182,6 +183,7 @@ function QuizDashboard() {
     // Navigate to the quiz page with the retrieved quiz ID
     navigate(`/quiz/${quizID}/${selectedModule.moduleID}`);
   };
+  console.log(modules);
 
   return (
     <div className="flex">
@@ -191,6 +193,7 @@ function QuizDashboard() {
       <div className="quizModuleContainer">
         <ClientInfo />
         <div className="quizModuleresults">
+<<<<<<< HEAD
           {modules.length === 0 ? (
             <div className="module-item">
               <div className="moduleId" style = {{ fontSize: "30px" }}>
@@ -206,6 +209,38 @@ function QuizDashboard() {
                 <br />
                 <br />
                 If you have completed the survey and this issue persists, please contact verify.study.tms@gmail.com for help.</b>
+=======
+          {modules.length === 1 ? (
+            <div className="module-item">
+              <div className="moduleId" style={{ fontSize: "30px" }}>
+                Notice
+              </div>
+              <div className="moduleDescription">
+                <b>
+                  <span className="pre-train-text">
+                    You have not yet completed the pre-training survey.
+                    <br></br>
+                    <br></br>
+                  </span>{" "}
+                  <button className="start-quiz">
+                    {" "}
+                    <a
+                      href="https://forms.gle/SoRVCtU2Xia6oeYs5"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Complete Survey
+                    </a>{" "}
+                  </button>
+                  <br />
+                  <br />
+                  After completing the survey please refresh the page.
+                  <br />
+                  <br />
+                  If you have completed the survey and this issue persists,
+                  please contact verify.study.tms@gmail.com for help.
+                </b>
+>>>>>>> main
               </div>
             </div>
           ) : (
@@ -215,6 +250,7 @@ function QuizDashboard() {
                 className="module-item"
                 onClick={() => handleModuleClick(module)}
               >
+<<<<<<< HEAD
                 <div className="moduleId">{module.name + " Module"}</div>
                 <div className="moduleName">{/*module.name*/}</div>
                 <div className="moduleDescription">{module.description}</div>
@@ -232,6 +268,44 @@ function QuizDashboard() {
                 {selectedModule &&
                   selectedModule.moduleID === module.moduleID && (
                     <div className="module-buttons">
+=======
+                <div className="next-to" style={{ display: "flex" }}>
+                  <div className="moduleId">
+                    {" "}
+                    {module.sequence === 7
+                      ? module.name
+                      : `${module.name} Module`}
+                  </div>
+                  {module.sequence !== 7 && (
+                  <FontAwesomeIcon
+                    icon={
+                      moduleAccessStatusList[module.sequence - 1]
+                        ?.finalPassed === true
+                        ? faCircleCheck
+                        : faCircleXmark
+                    }
+                    style={{
+                      fontSize: "24px",
+                      margin: "auto 20",
+                      color:
+                        moduleAccessStatusList[module.sequence - 1]
+                          ?.finalPassed === true
+                          ? "#4CAF50"
+                          : "#ccc",
+                    }}
+                  />
+                  )}
+                </div>
+                <div className="moduleName">{/*module.name*/}</div>
+                <div className="moduleDescription">{module.description}</div>
+
+                {selectedModule &&
+                  selectedModule.moduleID === module.moduleID && (
+                    <div
+                      className="module-buttons"
+                      style={{ paddingTop: "30px" }}
+                    >
+>>>>>>> main
                       {module.sequence !== 7 && (
                         <button
                           className="module-button practice"

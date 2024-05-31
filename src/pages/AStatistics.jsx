@@ -166,12 +166,13 @@ function AdminStatsReview() {
                 <div className="dropdown">
                   <span className="amr-span">Filter by Topic</span>
                   <div className="dropdown-content">
+                  <p onClick={() => handleTopicFilterChange(null)}>All</p>
                     {topics.map((topic, index) => (
                       <p key={index} onClick={() => handleTopicFilterChange(topic)}>
                         {topic}
                       </p>
                     ))}
-                    <p onClick={() => handleTopicFilterChange(null)}>All Topics</p>
+                    
                   </div>
                 </div>
               </div>
