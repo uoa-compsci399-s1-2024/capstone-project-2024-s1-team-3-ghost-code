@@ -14,5 +14,6 @@ namespace OTTER.Dtos
         public int RoleID { get; set; }
         [Required]
         public int OrganizationID { get; set; }
+        public string? OtherRole { get; set; }
     }
 }

@@ -34,7 +34,7 @@ namespace OTTER.Data
         User GetUserByEmail(string email);
         User GetUserByID(int id);
         IEnumerable<User> GetUserBySearch(string search);
-        User AddUser(User user);
+        User AddUser(User user, string otherRole);
         void DeleteUser(string email);
         User EditUser(int id, User user);
         IEnumerable<Certification> GetAllCertificationsByUser(int id);

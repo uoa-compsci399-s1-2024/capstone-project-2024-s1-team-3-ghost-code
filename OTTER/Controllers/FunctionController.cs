@@ -503,7 +503,7 @@ namespace OTTER.Controllers
                 TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
                 User newUser = new User { FirstName = textInfo.ToTitleCase(user.FirstName.ToLower()), LastName = textInfo.ToTitleCase(user.LastName.ToLower()), UserEmail = user.UserEmail, Organization = _repo.GetOrganizationByID(user.OrganizationID), Role = _repo.GetRoleByID(user.RoleID), SurveyComplete = false };
                 newUser.SurveyComplete = _repo.CheckSurveyEmailTable(user.UserEmail, true);
-                _repo.AddUser(newUser);
+                _repo.AddUser(newUser, user.OtherRole ?? "");
                 return Ok(_repo.GetUserByEmail(newUser.UserEmail));
             } else
             {

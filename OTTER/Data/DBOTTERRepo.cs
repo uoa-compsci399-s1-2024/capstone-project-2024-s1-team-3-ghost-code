@@ -592,17 +592,31 @@ namespace OTTER.Data
             return _dbContext.Users.Include(e => e.Role).Include(e => e.Organization).Where(e => e.UserEmail.ToLower().Contains(search.ToLower()) || e.FirstName.ToLower().Contains(search.ToLower()) || e.LastName.ToLower().Contains(search.ToLower()) || e.Role.RoleName.ToLower().Contains(search.ToLower()) || e.Organization.OrgName.ToLower().Contains(search.ToLower())).OrderBy(e => e.FirstName);
         }
 
-        public User AddUser(User user)
+        public User AddUser(User user, string otherRole)
         {
             EntityEntry<User> u = _dbContext.Users.Add(user);
             _dbContext.SaveChanges();
-            if (user.Role == GetRoleByID(1) || user.Organization == GetOrganizationByID(1))
+            if (user.Role == GetRoleByID(1) && user.Organization == GetOrganizationByID(1))
             {
-                SendEmail(_adminEmail, "New Clinician Registered with 'Other' Discipline or Site", $"Hi Admin,<br><br>" +
-                    $"A new clinician has registered on the site and has selected the 'Other' option for either their Discipline or Site. " +
-                    $"You should contact them to find out what option they wanted to select, and manually add the option to the list of Disciplines or Sites." +
-                    $"<br><br>Clinician Name: {user.FirstName} {user.LastName}<br>Clinician Email: {user.UserEmail}<br>Discipline: {user.Role.RoleName}<br>" +
-                    $"Site: {user.Organization.OrgName}<br><br>This is a system generated email.");
+                SendEmail(_adminEmail, "New Clinician Registered with 'Other' Discipline and Site", $"Hi Admin,<br><br>" +
+                    $"A new clinician has registered on the website and has selected the 'Other' option for both their Discipline and Site.<br><br>" +
+                    $"They entered '{otherRole}' for their Discipline. If you wish to add this as a new Discipline, you should do this in the admin settings.<br><br>" +
+                    $"You should contact them to find out what option they wanted to select for Site, and manually add the option to the list of Sites in the admin settings." +
+                    $"<br><br>Clinician Name: {user.FirstName} {user.LastName}<br>Clinician Email: {user.UserEmail}<br><br>This is a system generated email.");
+            }
+            else if (user.Role == GetRoleByID(1))
+            {
+                SendEmail(_adminEmail, "New Clinician Registered with 'Other' Discipline", $"Hi Admin,<br><br>" +
+                    $"A new clinician has registered on the website and has selected the 'Other' option for their Discipline, and manually entered '{otherRole}'.<br><br>" +
+                    $"If you wish to add this as a new Discipline, you should do this in the admin settings." +
+                    $"<br><br>Clinician Name: {user.FirstName} {user.LastName}<br>Clinician Email: {user.UserEmail}<br><br>This is a system generated email.");
+            }
+            else if (user.Organization == GetOrganizationByID(1))
+            {
+                SendEmail(_adminEmail, "New Clinician Registered with 'Other' Site", $"Hi Admin,<br><br>" +
+                    $"A new clinician has registered on the website and has selected the 'Other' option for their Site.<br><br>" +
+                    $"You should contact them to find out what option they wanted to select for Site, and manually add the option to the list of Sites in the admin settings." +
+                    $"<br><br>Clinician Name: {user.FirstName} {user.LastName}<br>Clinician Email: {user.UserEmail}<br><br>This is a system generated email.");
             }
             return u.Entity;
         }
