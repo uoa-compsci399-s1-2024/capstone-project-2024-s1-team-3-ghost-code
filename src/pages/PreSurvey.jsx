@@ -256,6 +256,7 @@ function Presurvey() {
                 <div className="input-field">
                   <select
                     className="input-box"
+                    id="survey-role"
                     value={position}
                     onChange={handlePositionChange}
                     required
@@ -266,6 +267,7 @@ function Presurvey() {
                       </option>
                     ))}
                   </select>
+                  <label htmlFor="survey-role">Discipline</label>
                 </div>
 
                 {position === "Other" && (
@@ -278,13 +280,16 @@ function Presurvey() {
                       onChange={(e) => setOtherRole(e.target.value)}
                       required={isOtherRoleRequired}
                     />
-                    <label htmlFor="survey-otherRole">Specify Your Role</label>
+                    <label htmlFor="survey-otherRole">
+                      Specify Your Discipline
+                    </label>
                   </div>
                 )}
 
                 <div className="input-field">
                   <select
                     className="input-box"
+                    id="survey-organisation"
                     value={organisation}
                     onChange={(e) => setOrganisation(e.target.value)}
                     required
@@ -295,6 +300,7 @@ function Presurvey() {
                       </option>
                     ))}
                   </select>
+                  <label htmlFor="survey-organisation">Site</label>
                 </div>
                 <div className="tc ">
                   <input type="checkbox" className="cb" required />
