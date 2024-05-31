@@ -31,9 +31,18 @@ body {
 
 }
 
+.AdminClientSearchInput{
+  width: 70%;
+
+  margin-top: 1rem;
+  padding-top: 20px;
+ 
+ 
+}
+
 .AdminClientSearchInput input[type="text"] {
-  width: 950px;
-  max-width: 950px;
+  width: 100%;
+
   padding: 1rem 1rem;
   border: 2px solid #ddd;
   border-radius: 1rem;
@@ -51,8 +60,8 @@ body {
 }
 
 .AdminClientSearchResults {
-  width: 900px;
-  max-width: 950px;
+  width: 70%;
+
   margin-top: 1rem;
   padding-top: 20px;
  
