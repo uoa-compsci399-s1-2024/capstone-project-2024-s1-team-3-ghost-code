@@ -13,6 +13,9 @@ function Presurvey() {
   const [organisations, setOrganisations] = useState([]);
   const [orgIDs, setOrgsID] = useState([]);
   const [roleIDs, setRolesID] = useState([]);
+  const [otherRole, setOtherRole] = useState(""); // State for the other role input
+  const [isOtherRoleRequired, setIsOtherRoleRequired] = useState(false); // State to manage requirement of other role input
+
   const [showModal, setShowModal] = useState(true); // State to manage modal visibility
   const navigate = useNavigate();
 
@@ -76,6 +79,11 @@ function Presurvey() {
       return; // Stop the submission
     }
 
+    if (position === "Other" && !otherRole) {
+      alert("Please specify your role.");
+      return; // Stop the submission
+    }
+
     // Get the index of the selected position and organization
     const positionIndex = positions.findIndex((pos) => pos === position);
     const organisationIndex = organisations.findIndex(
@@ -93,6 +101,7 @@ function Presurvey() {
       lastName: lastName,
       roleID: roleID,
       organizationID: organisationID,
+      otherRole: position === "Other" ? otherRole : null, // Add otherRole if selected
     };
 
     try {
@@ -139,12 +148,22 @@ function Presurvey() {
       alert("Error submitting the form. Please try again.");
     }
   };
+
   const handleClickBacktoHome = () => {
     navigate("/home");
   };
 
   const handleClickGottoClinicianSignin = () => {
     navigate("/cliniciansign");
+  };
+
+  const handlePositionChange = (e) => {
+    const selectedPosition = e.target.value;
+    setPosition(selectedPosition);
+    setIsOtherRoleRequired(selectedPosition === "Other");
+    if (selectedPosition !== "Other") {
+      setOtherRole("");
+    }
   };
 
   return (
@@ -237,8 +256,9 @@ function Presurvey() {
                 <div className="input-field">
                   <select
                     className="input-box"
+                    id="survey-role"
                     value={position}
-                    onChange={(e) => setPosition(e.target.value)}
+                    onChange={handlePositionChange}
                     required
                   >
                     {positions.map((pos) => (
@@ -247,11 +267,29 @@ function Presurvey() {
                       </option>
                     ))}
                   </select>
+                  <label htmlFor="survey-role">Discipline</label>
                 </div>
+
+                {position === "Other" && (
+                  <div className="input-field">
+                    <input
+                      type="text"
+                      className="input-box"
+                      id="survey-otherRole"
+                      value={otherRole}
+                      onChange={(e) => setOtherRole(e.target.value)}
+                      required={isOtherRoleRequired}
+                    />
+                    <label htmlFor="survey-otherRole">
+                      Specify Your Discipline
+                    </label>
+                  </div>
+                )}
 
                 <div className="input-field">
                   <select
                     className="input-box"
+                    id="survey-organisation"
                     value={organisation}
                     onChange={(e) => setOrganisation(e.target.value)}
                     required
@@ -262,6 +300,7 @@ function Presurvey() {
                       </option>
                     ))}
                   </select>
+                  <label htmlFor="survey-organisation">Site</label>
                 </div>
                 <div className="tc ">
                   <input type="checkbox" className="cb" required />
