@@ -223,17 +223,19 @@ function QuizDashboard() {
                 <div className="moduleId">  {module.sequence === 7 ? module.name : `${module.name} Module`}</div>
                 <div className="moduleName">{/*module.name*/}</div>
                 <div className="moduleDescription">{module.description}</div>
-                <FontAwesomeIcon
-                  icon={faCircleCheck}
-                  style={{
-                    fontSize: "24px",
-                    color:
-                      moduleAccessStatusList[module.sequence - 1]?.finalPassed ===
-                      true
-                        ? "#4CAF50"
-                        : "#ccc",
-                  }}
-                />
+                {module.sequence !== 7 && (
+                  <FontAwesomeIcon
+                    icon={faCircleCheck}
+                    style={{
+                      fontSize: "24px",
+                      color:
+                        moduleAccessStatusList[module.sequence - 1]?.finalPassed === true
+                          ? "#4CAF50"
+                          : "#ccc",
+                    }}
+                  />
+                )}
+
                 {selectedModule &&
                   selectedModule.moduleID === module.moduleID && (
                     <div className="module-buttons">
