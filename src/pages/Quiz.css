@@ -235,6 +235,7 @@
 
 .cont-feedback-writing {
   padding: 2%;
+  padding-top: 0;
 }
 
 .cont-results {
@@ -501,4 +502,9 @@
 
 .cont-results p{
   font-size: medium;
+}
+
+.yellowfeedback{
+  padding: 2%;
+  padding-bottom: 0;
 }
