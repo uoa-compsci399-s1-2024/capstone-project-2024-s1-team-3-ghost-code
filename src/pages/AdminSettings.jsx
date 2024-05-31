@@ -483,11 +483,13 @@ export default function AdminSetting() {
 
   return (
     <>
-      <div className="admin-body-settings"></div>
+    <div className="flex">
+      
       <AdminInfo />
       <div className="dashboard-container">
         <AdminDashboard />
       </div>
+      <div className="admin-body-settings">
       <section className="settings">
         <div className="container-settings">
           <div className="accordion">
@@ -818,6 +820,8 @@ export default function AdminSetting() {
           </div>
         </div>
       )}
+      </div>
+      </div>
     </>
   );
 }
