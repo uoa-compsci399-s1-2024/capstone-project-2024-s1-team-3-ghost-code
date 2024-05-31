@@ -89,12 +89,18 @@ function AClinicianSearch() {
               className="link"
             >
               <div className="adminClientSearchResultItem">
-                <div className="AdminClientSearchResultName">
-                  {result.firstName} {result.lastName}
+                <div className="up-below">
+                  <div className="AdminClientSearchResultName">
+                    {result.firstName} {result.lastName}
+                  </div>
+                  <div className="AdminClientSearchResultRoleOrg">
+                    {result.role.roleName} - {result.organization.orgName}
+                  </div>
                 </div>
                 <div className="AdminClientSearchResultEmail">
                   {result.userEmail}
                 </div>
+
               </div>
             </Link>
           ))}
