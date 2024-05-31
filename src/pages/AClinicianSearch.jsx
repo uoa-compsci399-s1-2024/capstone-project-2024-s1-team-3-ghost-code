@@ -89,7 +89,7 @@ function AClinicianSearch() {
               className="link"
             >
               <div className="adminClientSearchResultItem">
-                <div className="up-below">
+                <div className="up-below-cliniciansearch" style={{width: "60%"}}>
                   <div className="AdminClientSearchResultName">
                     {result.firstName} {result.lastName}
                   </div>
