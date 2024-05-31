@@ -31,21 +31,22 @@ function AClinicianProfile() {
   const [certifications, setCertifications] = useState([]);
   const [showStats, setShowStats] = useState(true);
 
+  const [surveyComplete, setSurveyComplete] = useState(false);
 
   const adminToken = sessionStorage.getItem("adminToken");
   const navigate = useNavigate();
 
   const handleErrorResponse = (status) => {
     if (status === 401) {
-      if (sessionStorage.getItem('cliniciantoken')) {
-        sessionStorage.removeItem('cliniciantoken');
-        console.log('Token found and removed due to 401 Unauthorized status.');
+      if (sessionStorage.getItem("cliniciantoken")) {
+        sessionStorage.removeItem("cliniciantoken");
+        console.log("Token found and removed due to 401 Unauthorized status.");
       } else {
-        console.log('No token found when handling 401 status.');
+        console.log("No token found when handling 401 status.");
       }
-      navigate('/cliniciansign');
+      navigate("/cliniciansign");
     } else if (status === 403) {
-      navigate('/quizDashboard');
+      navigate("/quizDashboard");
     }
   };
 
@@ -64,11 +65,14 @@ function AClinicianProfile() {
         );
         if (response.ok) {
           const data = await response.json();
+          console.log(data);
           setClinicianDetails(data[0]);
           setEmail(data[0].userEmail || "");
           setOrganization(data[0].organization.orgName);
           setPosition(data[0].role.roleName);
-        } else if (response.status === 401) {
+          setSurveyComplete(data[0].surveyComplete);
+          console.log(surveyComplete);
+        } else if (response.status === 401) { 
           sessionStorage.removeItem("adminToken");
           navigate("/adminlogin");
         }
@@ -133,13 +137,13 @@ function AClinicianProfile() {
           );
           if (certResponse.ok) {
             const certData = await certResponse.json();
-            
+            console.log(certData);
 
             // Check if certification has expired
             const expiryDateTime = new Date(
               certData[certData.length - 1].expiryDateTime
             );
-       
+
             const currentDateTime = new Date();
 
             if (currentDateTime > expiryDateTime) {
@@ -184,7 +188,7 @@ function AClinicianProfile() {
         throw new Error("Failed to update certification status");
 
       const result = await response.json();
-     
+
       setStatus("Certified");
       setInitialStatus("Certified");
     } catch (error) {
@@ -196,7 +200,6 @@ function AClinicianProfile() {
     // Find the selected role and organization IDs
     const selectedRole = positions.find((role) => role.name === position);
     const selectedOrg = organizations.find((org) => org.name === organization);
- 
 
     const requestBody = {
       userID: clinicianDetails.userID,
@@ -244,15 +247,27 @@ function AClinicianProfile() {
       return;
     }
 
-    const formattedStartDate =
-      new Date(startDate).toISOString().split("T")[0] + "T00:00:00.000Z";
-    const formattedEndDate =
-      new Date(endDate).toISOString().split("T")[0] + "T23:59:59.999Z";
+
+    const formattedStartDate = new Date(startDate);
+    const formattedEndDate = new Date(endDate);
+
+    formattedStartDate.setHours(0);
+    formattedStartDate.setMinutes(0);
+    formattedStartDate.setSeconds(0);
+
+    formattedEndDate.setHours(23);
+    formattedEndDate.setMinutes(59);
+    formattedEndDate.setSeconds(59);
+
+    const UTCStartDate = formattedStartDate.toISOString();
+    const UTCEndDate = formattedEndDate.toISOString();
+
+
 
     const url = "https://api.tmstrainingquizzes.com/webapi/GetStats";
     const params = {
-      searchStart: formattedStartDate,
-      searchEnd: formattedEndDate,
+      searchStart: UTCStartDate,
+      searchEnd: UTCEndDate,
       quizID: null, // Assuming that this logic will be handled elsewhere or isn't needed as per your current setup
       userID: clinicianDetails.userID,
       complete: null,
@@ -287,7 +302,6 @@ function AClinicianProfile() {
     }
   };
 
-
   useEffect(() => {
     const filtered = attempts.filter((attempt) => {
       return (
@@ -320,7 +334,10 @@ function AClinicianProfile() {
             console.log(certsData);
             setCertifications(certsData);
           } else {
-            console.error("Failed to fetch certifications:", response.statusText);
+            console.error(
+              "Failed to fetch certifications:",
+              response.statusText
+            );
           }
         } catch (error) {
           console.error("Failed to fetch certifications:", error);
@@ -330,8 +347,41 @@ function AClinicianProfile() {
     fetchCertifications();
   }, [clinicianDetails, adminToken]);
 
-  
- 
+  const handleOverrideClick = async () => {
+    const userConfirmed = window.confirm("Are you sure you want to bypass the pre-survey?");
+
+    if (userConfirmed) {
+      // Call the ClincianSurveyCompletion API
+      const url = "https://api.tmstrainingquizzes.com/webapi/ClinicianSurveyCompletion";
+      const requestBody = {
+        email: clinicianId,
+      };
+      const requestOptions = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      };
+
+      try {
+        const response = await fetch(url, requestOptions);
+        if (response.ok) {
+          // Update the surveyComplete status to true
+          setSurveyComplete(true);
+          alert("Survey completion status overridden successfully!");
+        } else {
+          throw new Error("Failed to override survey completion status");
+        }
+      } catch (error) {
+        console.error("Error overriding survey completion status:", error);
+        alert(error.message);
+      }
+    }
+  };
+
+
+
   return (
     <div className="flex">
       <div className="dashboard-container">
@@ -389,143 +439,189 @@ function AClinicianProfile() {
 
                   <div className="each-detail">
                     {" "}
-                    <label className="details-title">Status:</label>
-                    <select
-                      className="input-box-profile"
-                      value={status}
-                      onChange={(e) => setStatus(e.target.value)}
+                    <label className="details-title">
+                      TMS Training Status:
+                    </label>
+                    <button
+                      className={`status-button ${status === "Certified" ? "certified" : "not-certified"}`}
+                      onClick={async () => {
+                        if (status === "Not Certified") {
+                          const confirmCertification = window.confirm(
+                            "Are you sure you wish to certify this clinician? This should only be completed following practical TMS training. The clinician will be sent a certificate valid for 1 year."
+                          );
+                          if (confirmCertification) {
+                            await setClinicianCertificationStatus();
+                          }
+                        }
+                      }}
+                      disabled={status === "Certified"}
                     >
-                      <option value="Not Certified">Not Certified</option>
-                      <option value="Certified">Certified</option>
-                    </select>
+                      {status === "Certified" ? "Certified" : "Not Certified"}
+                   </button>
                   </div>
+                  
+                  {!surveyComplete && (
+                    <div className="each-detail">
+                      <label className="details-title"  style={{ color: "red" }}>
+                      Pre-training survey not completed.
+                      </label>
+                      <button onClick={handleOverrideClick}>Override</button>
+                    </div>
+                  )}
+
+
+                  
 
                   <button onClick={handleSaveChanges}>Save Changes</button>
                 </div>
               </div>
               <div className="togglebuttons-container">
-                <button className="togglebuttons" onClick={() => setShowStats(true)}>Show Stats</button>
-                <button className="togglebuttons" onClick={() => setShowStats(false)}>Show Certifications</button>
+                <button
+                  className={`togglebuttons ${showStats ? "active" : ""}`}
+                  onClick={() => setShowStats(true)}
+                >
+                  Show Stats
+                </button>
+                <button
+                  className={`togglebuttons ${!showStats ? "active" : ""}`}
+                  onClick={() => setShowStats(false)}
+                >
+                  Show Certifications
+                </button>
               </div>
 
               {showStats ? (
-              <div className="stats-container">
-                <h3>User Results</h3>
-                <div className="date-filter-container">
-                  <div className="date-filter">
-                    <label>Start Date:</label>
-                    <input
-                      type="date"
-                      value={startDate}
-                      onChange={(e) => setStartDate(e.target.value)}
-                    />
+                <div className="stats-container">
+                  <h3>User Results</h3>
+                  <div className="date-filter-container">
+                    <div className="date-filter">
+                      <label>Start Date:</label>
+                      <input
+                        type="date"
+                        value={startDate}
+                        onChange={(e) => setStartDate(e.target.value)}
+                      />
+                    </div>
+                    <div className="date-filter">
+                      {" "}
+                      <label>End Date:</label>
+                      <input
+                        type="date"
+                        value={endDate}
+                        onChange={(e) => setEndDate(e.target.value)}
+                      />
+                    </div>
+                    <button className="get-stats-btn" onClick={handleGetStats}>
+                      Get Stats
+                    </button>
                   </div>
-                  <div className="date-filter">
-                    {" "}
-                    <label>End Date:</label>
-                    <input
-                      type="date"
-                      value={endDate}
-                      onChange={(e) => setEndDate(e.target.value)}
-                    />
-                  </div>
-                  <button className="get-stats-btn" onClick={handleGetStats}>
-                    Get Stats
-                  </button>
-                </div>
-                <br></br>
-                <div className="filters-container">
-                  <div className="stats-filter">
-                    <label>Module:</label>
-                    <select
-                      value={selectedModule}
-                      onChange={(e) => setSelectedModule(e.target.value)}
-                    >
-                      <option value="">All Modules</option>
-                      {modules.map((module) => (
-                        <option key={module.id} value={module.id}>
-                          {module.name}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                  <br></br>
+                  <div className="filters-container">
+                    <div className="stats-filter">
+                      <label>Module:</label>
+                      <select
+                        value={selectedModule}
+                        onChange={(e) => setSelectedModule(e.target.value)}
+                      >
+                        <option value="">All Modules</option>
+                        {modules.map((module) => (
+                          <option key={module.id} value={module.id}>
+                            {module.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
 
-                  <div className="stats-filter">
-                    <label>Quiz Type:</label>
-                    <select
-                      value={quizType}
-                      onChange={(e) => setQuizType(e.target.value)}
-                    >
-                      <option value="">All Types</option>
-                      <option value="final">Final</option>
-                      <option value="practice">Practice</option>
-                    </select>
-                  </div>
-                  <div className="stats-filter">
-                    <label>Completion Status:</label>
-                    <select
-                      value={completionStatus}
-                      onChange={(e) => setCompletionStatus(e.target.value)}
-                    >
-                      <option value="">All Statuses</option>
-                      <option value="PASS">PASS</option>
-                      <option value="FAIL">FAIL</option>
-                    </select>
-                  </div>
-                </div>
-                <br></br>
-
-                <br></br>
-                <br></br>
-
-                {filteredAttempts.map((attempt) => (
-                  <div
-                    key={attempt.attemptID}
-                    className={`stats-result ${
-                      attempt.completed === "PASS" ? "pass" : "fail"
-                    }`}
-                  >
-                    <h4>
-                      {attempt.quiz.module.name} {attempt.quiz.stage} - {attempt.completed}
-                    </h4>
-                    <p>Date: {new Date(attempt.dateTime).toLocaleString()}</p>
-                  </div>
-                ))}
-              </div>
-                         ) : (
-                            <div className="certifications-container">
-                              <h3>Certifications</h3>
-                              {certifications.length > 0 ? (
-                                <ul>
-                                  {certifications.map((cert, index) => (
-                                    <li key={index}>
-                                    <a href={cert.certificateURL} target="_blank" rel="noopener noreferrer">
-                                      <p>Certification Name: {cert.type}</p>
-                                      <p>
-                                        Date Issued:{" "}
-                                        {new Date(cert.dateTime).toLocaleDateString()}
-                                      </p>
-                                      <p>
-                                        Expiry Date:{" "}
-                                        {new Date(cert.expiryDateTime).toLocaleDateString()}
-                                      </p>
-                                    </a>
-                                    </li>
-                                  ))}
-                                </ul>
-                              ) : (
-                                <p>No certifications found for this clinician.</p>
-                              )}
-                            </div>
-                          )}
-                        </div>
-                      )}
+                    <div className="stats-filter">
+                      <label>Quiz Type:</label>
+                      <select
+                        value={quizType}
+                        onChange={(e) => setQuizType(e.target.value)}
+                      >
+                        <option value="">All Types</option>
+                        <option value="final">Final</option>
+                        <option value="practice">Practice</option>
+                      </select>
+                    </div>
+                    <div className="stats-filter">
+                      <label>Completion Status:</label>
+                      <select
+                        value={completionStatus}
+                        onChange={(e) => setCompletionStatus(e.target.value)}
+                      >
+                        <option value="">All Statuses</option>
+                        <option value="PASS">PASS</option>
+                        <option value="FAIL">FAIL</option>
+                      </select>
                     </div>
                   </div>
+                  <br></br>
+
+                  <br></br>
+                  <br></br>
+
+                  {filteredAttempts.map((attempt) => (
+                    <div
+                      key={attempt.attemptID}
+                      className={`stats-result ${
+                        attempt.completed === "PASS" ? "pass" : "fail"
+                      }`}
+                    >
+                      <h4>
+                        {attempt.quiz.module.name} {attempt.quiz.stage} -{" "}
+                        {attempt.completed}
+                      </h4>
+                      <p>Date: {new Date(attempt.dateTime).toLocaleString()}</p>
+                    </div>
+                  ))}
                 </div>
-              );
-            }
-            
-       
+              ) : (
+                <div className="certifications-container">
+                  <h3>Certifications</h3>
+                  <p className="click-on-cert-text">
+                    click on a certificate to view
+                  </p>
+                  {certifications.length > 0 ? (
+                    <ul>
+                      {certifications.map((cert, index) => (
+                        <li key={index}>
+                          <a
+                            href={cert.certificateURL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                           <p>
+                            Certification Name: {cert.type === "InitCertification" ? "Complete TMS Training Certification" : cert.type}
+                          </p>
+
+                            <p>
+                              Date Issued:{" "}
+                              {new Date(cert.dateTime).toLocaleDateString()}
+                            </p>
+                            {!cert.type.toLowerCase().includes("module") && ( 
+                            <p>
+
+                              Expiry Date:{" "}
+                              {new Date(
+                                cert.expiryDateTime
+                              ).toLocaleDateString()}
+                            </p>
+                            )}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p>No certifications found for this clinician.</p>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default AClinicianProfile;

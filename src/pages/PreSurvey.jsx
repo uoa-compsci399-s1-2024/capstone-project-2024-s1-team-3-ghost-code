@@ -16,7 +16,7 @@ function Presurvey() {
   const [showModal, setShowModal] = useState(true); // State to manage modal visibility
   const navigate = useNavigate();
 
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   function validateEmail(email) {
     return emailRegex.test(email);
@@ -139,24 +139,47 @@ function Presurvey() {
       alert("Error submitting the form. Please try again.");
     }
   };
+  const handleClickBacktoHome = () => {
+    navigate("/home");
+  };
+
+  const handleClickGottoClinicianSignin = () => {
+    navigate("/cliniciansign");
+  };
 
   return (
     <>
+      <div className="back-to-home">
+        <button
+          className="back-to-home-btn"
+          style={{ textDecoration: "none", color: "white" }}
+          onClick={handleClickBacktoHome}
+        >
+          <i className="fa-solid fa-arrow-left" id="back-arrow-ps"></i>
+          <div className="back-to-home-text">Back To Home</div>
+        </button>
+      </div>
       <form onSubmit={handleSubmit}>
         <div className="split-survey left-survey">
           <div className="centered-survey">
             <p className="info-text">
-              Join our platform to take your first steps and completing your
-              certification for TMS.
+              Please enter the following information to get access to the VERIFY
+              TMS quizzes. 
             </p>
             <p className="info-text">
-              If you've already filled in the registration quiz click the
-              "continue here" prompt.
+              If you’ve already entered this information, click the “continue
+              here" prompt.
             </p>
             <p className="info-text">
               Need Help? If you have any questions or need assistance with the
-              registration process, please contact our support team at{" "}
-              <b>verify.study.tms@gmail.com</b>.
+              registration process, please email us at{" "}
+              <a
+                style={{ textDecoration: "none", color: "white" }}
+                href="mailto:verify.study.tms@gmail.com"
+              >
+                <b>verify.study.tms@gmail.com</b>
+              </a>
+              .
             </p>
           </div>
         </div>
@@ -170,7 +193,10 @@ function Presurvey() {
               </div>
               <div className="input-group">
                 <div className="next-to-group">
-                  <div className="input-field next-to">
+                  <div
+                    className="input-field next-to"
+                    style={{ marginRight: "20px" }}
+                  >
                     <input
                       type="text"
                       className="input-box"
@@ -180,7 +206,7 @@ function Presurvey() {
                       onChange={(e) => setFirstName(e.target.value)}
                       required
                     />
-                    <label htmlFor="logEmail">First Name</label>
+                    <label htmlFor="survey-firstName">First Name</label>
                   </div>
                   <div className="input-field next-to">
                     <input
@@ -192,7 +218,7 @@ function Presurvey() {
                       onChange={(e) => setLastName(e.target.value)}
                       required
                     />
-                    <label htmlFor="logEmail">Last Name</label>
+                    <label htmlFor="survey-lastName">Last Name</label>
                   </div>
                 </div>
 
@@ -206,7 +232,7 @@ function Presurvey() {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                   />
-                  <label htmlFor="logEmail">Email Address</label>
+                  <label htmlFor="survey-email">Email Address</label>
                 </div>
                 <div className="input-field">
                   <select
@@ -237,15 +263,6 @@ function Presurvey() {
                     ))}
                   </select>
                 </div>
-
-                <div className="input-field">
-                  <input
-                    type="submit"
-                    className="input-submit"
-                    value="Submit"
-                    required
-                  />
-                </div>
                 <div className="tc ">
                   <input type="checkbox" className="cb" required />
                   By ticking the box, you agree to the
@@ -262,15 +279,25 @@ function Presurvey() {
                   </span>
                   of the Verify Quiz Platform.
                 </div>
-                <div className="forgot">
-                  <Link to="/cliniciansign">
-                    <font color="#485696">
-                      <strong>
-                        <u>Already did the registration? continue here</u>
-                      </strong>
-                    </font>
-                  </Link>
+                <div className="input-field">
+                  <input
+                    type="submit"
+                    className="input-submit"
+                    value="Submit"
+                    required
+                  />
                 </div>
+                <div className="or-section">
+                  <div className="line"></div>
+                  <div className="or-text">OR</div>
+                  <div className="line"></div>
+                </div>
+                <button
+                  className="continue-here-clincian"
+                  onClick={handleClickGottoClinicianSignin}
+                >
+                  Continue Here
+                </button>
               </div>
             </div>
           </div>

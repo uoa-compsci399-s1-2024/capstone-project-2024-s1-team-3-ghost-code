@@ -27,11 +27,11 @@ function AdminDashboard() {
         </a>
       </div>
       <div className="ADashButtons">
-        <Link className="AdminLink" to="/EditQuiz">
-          <button className={`Adminbutton ${isActive(["/EditQuiz", "/createquiz/", "/createquestion/"])}`}>Edit Quiz</button>
-        </Link>
         <Link className="AdminLink" to="/adminsearch">
           <button className={`Adminbutton ${isActive(["/adminsearch", "/clinician/"])}`}>Clinicians</button>
+        </Link>
+        <Link className="AdminLink" to="/EditQuiz">
+          <button className={`Adminbutton ${isActive(["/EditQuiz", "/createquiz/", "/createquestion/"])}`}>Edit Quiz</button>
         </Link>
         <Link className="AdminLink" to="/adminStats">
           <button className={`Adminbutton ${isActive("/adminStats")}`}>Statistics</button>

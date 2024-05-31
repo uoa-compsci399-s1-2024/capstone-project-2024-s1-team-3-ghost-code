@@ -3,6 +3,7 @@ import "./AStatistics.css";
 import redaxios from "redaxios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import AdminDashboard from "../components/Dashboards/ADashboard";
+import AdminInfo from "../components/AdminComponent/adminInfo";
 
 function AdminStatsReview() {
   const navigate = useNavigate();
@@ -124,6 +125,7 @@ function AdminStatsReview() {
     <div className="flex">
       <div className="dashboard-container">
         <AdminDashboard />
+        <AdminInfo />
       </div>
       <div className="amr-container">
         <div className="amr-results">
@@ -164,12 +166,13 @@ function AdminStatsReview() {
                 <div className="dropdown">
                   <span className="amr-span">Filter by Topic</span>
                   <div className="dropdown-content">
+                  <p onClick={() => handleTopicFilterChange(null)}>All</p>
                     {topics.map((topic, index) => (
                       <p key={index} onClick={() => handleTopicFilterChange(topic)}>
                         {topic}
                       </p>
                     ))}
-                    <p onClick={() => handleTopicFilterChange(null)}>All Topics</p>
+                    
                   </div>
                 </div>
               </div>

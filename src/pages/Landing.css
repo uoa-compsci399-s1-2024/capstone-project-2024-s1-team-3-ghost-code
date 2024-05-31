@@ -50,26 +50,38 @@
     background:  #006464;
     box-shadow: 0px 4px 20px rgba(62, 9, 9, 0.32);
 }
-
-  .to-admin-login {
+.to-admin-login {
     position: absolute;
-    top: 20px;
-    right: 1px;
-    font-size: 16px;
-    display: inline-block;
-    color: white;
+    top: 10px; /* Adjust as needed */
+    right: 10px; /* Adjust as needed */
   }
-
+  
+  .to-admin-login-btn {
+    display: flex;
+    align-items: center;
+    background-color: transparent; /* Button background color */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+  }
+  
+ 
+  
   .admin-login-text {
-    margin-right: 50px;
+    margin-right: 10px; /* Space between text and icon */
   }
   
   #forward-arrow {
-    width: 25px;
-    right: 15px;
-    margin-top: 4px;
+    font-size: 16px;
+    margin-left:105px;
     color: white;
   }
+  
+  
 
 
 @keyframes gradient {

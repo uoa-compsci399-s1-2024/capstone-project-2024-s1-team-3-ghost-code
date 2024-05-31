@@ -2,13 +2,14 @@ import "./AdminLogin.css";
 import "./PasswordReset.css";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { BackToHomeLink } from "./ClinicianSign";
 
 export function PasswordSubmit() {
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordVisible1, setPasswordVisible1] = useState(false);
   const [passwordVisible2, setPasswordVisible2] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
 
   const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
 
@@ -36,11 +37,11 @@ export function PasswordSubmit() {
     }
 
     if (!validatePassword(newPassword)) {
-      alert("Please Ensure your password follows ");
-      return; 
+      alert("Please Ensure your password follows the guidlines");
+      return;
     }
 
-    const code = sessionStorage.getItem('resetCode'); // Retrieve the code from sessionStorage
+    const code = sessionStorage.getItem("resetCode"); // Retrieve the code from sessionStorage
     console.log(code);
 
     if (!code) {
@@ -73,12 +74,7 @@ export function PasswordSubmit() {
 
   return (
     <>
-      <div className="back-to-home">
-        <i className="fa-solid fa-arrow-left" id="back-arrow"></i>
-        <Link style={{ textDecoration: "none" }} to="/home">
-          <div className="back-to-home-text">Back to Home</div>
-        </Link>
-      </div>
+      <BackToHomeLink />
 
       <form onSubmit={handlePasswordReset}>
         <div className="container-password split left">
@@ -101,13 +97,12 @@ export function PasswordSubmit() {
                   <label htmlFor="newPassword">New password</label>
 
                   <div className="eye-area" onClick={togglePasswordVisibility1}>
-                  {passwordVisible1 ? (
-                    <i className="fa-regular fa-eye-slash" id="eye-slash"></i>
-                  ) : (
-                    <i className="fa-regular fa-eye" id="eye"></i>
-                  )}
-                </div>
-
+                    {passwordVisible1 ? (
+                      <i className="fa-regular fa-eye-slash" id="eye-slash"></i>
+                    ) : (
+                      <i className="fa-regular fa-eye" id="eye"></i>
+                    )}
+                  </div>
                 </div>
                 <div className="input-field">
                   <input
@@ -121,16 +116,15 @@ export function PasswordSubmit() {
                   <label htmlFor="confirmPassword">Re-enter new password</label>
 
                   <div className="eye-area" onClick={togglePasswordVisibility2}>
-                  {passwordVisible2 ? (
-                    <i className="fa-regular fa-eye-slash" id="eye-slash"></i>
-                  ) : (
-                    <i className="fa-regular fa-eye" id="eye"></i>
-                  )}
-                </div>
-
+                    {passwordVisible2 ? (
+                      <i className="fa-regular fa-eye-slash" id="eye-slash"></i>
+                    ) : (
+                      <i className="fa-regular fa-eye" id="eye"></i>
+                    )}
+                  </div>
                 </div>
                 {errorMessage && (
-                  <div className="error-message" style={{ color: 'red' }}>
+                  <div className="error-message" style={{ color: "red" }}>
                     {errorMessage}
                   </div>
                 )}
@@ -150,19 +144,22 @@ export function PasswordSubmit() {
       <div className="admin-login-info split right">
         <div className="info-content">
           <p className="info-text">
-            Make sure your password is strong and matches each other! You will be redirected to the login page on success.
+            Make sure your password is strong and matches each other! You will
+            be redirected to the login page on success. <br />
             <br />
-                <p classname = "passinfo">Please Ensure the following is inclded in your password: <br />
-                Has minimum 8 characters in length. <br />
-                At least one uppercase English letter. <br />
-                At least one lowercase English letter. <br />
-                At least one digit. <br />
-                </p>
-            <br />
-            <br />
+            Please Ensure the following is inclded in your password: <br />
+            Has minimum 8 characters in length. <br />
+            At least one uppercase English letter. <br />
+            At least one lowercase English letter. <br />
+            At least one digit. <br />
             <br />
             If you have trouble logging in, please contact
-            techsupportverify@gmail.com
+            <a
+              style={{ textDecoration: "none", color: "white" }}
+              href="mailto:verify.study.tms@gmail.com"
+            >
+              <b>verify.study.tms@gmail.com</b>
+            </a>
           </p>
         </div>
       </div>

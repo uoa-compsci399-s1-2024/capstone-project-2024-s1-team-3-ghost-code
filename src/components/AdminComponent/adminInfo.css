@@ -24,12 +24,14 @@
   position: absolute;
   background-color: #fff;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  width: 120px;
+  width: 135px;
   z-index: 100;
   right: 0;
   top: 100%;
   border-radius: 10px;
+
 }
+
 
 .last-login-time {
   padding: 10px;

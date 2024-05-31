@@ -182,6 +182,7 @@ function QuizDashboard() {
     // Navigate to the quiz page with the retrieved quiz ID
     navigate(`/quiz/${quizID}/${selectedModule.moduleID}`);
   };
+  console.log(modules)
 
   return (
     <div className="flex">
@@ -189,70 +190,93 @@ function QuizDashboard() {
         <ClientDashboard />
       </div>
       <div className="quizModuleContainer">
-      <ClientInfo />
+        <ClientInfo />
         <div className="quizModuleresults">
-          {modules.map((module) => (
-            <div
-              key={module.moduleID}
-              className="module-item"
-              onClick={() => handleModuleClick(module)}
-            >
-              <div className="moduleId">{module.name + " Module"}</div>
-              <div className="moduleName">{/*module.name*/}</div>
-              <div className="moduleDescription">{module.description}</div>
-              <FontAwesomeIcon
-                icon={faCircleCheck}
-                style={{
-                  fontSize: "24px",
-                  color:
-                    moduleAccessStatusList[module.sequence - 1]?.finalPassed ===
-                    true
-                      ? "#4CAF50"
-                      : "#ccc",
-                }}
-              />
-              {selectedModule &&
-                selectedModule.moduleID === module.moduleID && (
-                  <div className="module-buttons">
-                    {module.sequence !== 7 && (
-                      <button
-                        className="module-button practice"
-                        onClick={() => handlePracticeQuizClick(module)}
-                      >
-                        Practice Quiz
-                      </button>
-                    )}
-                    <div className="tooltip">
-                      <button
-                        className={`module-button final ${
-                          (module.sequence === 7 &&
-                            (!practisePassed || !finalPassed)) ||
-                          (!practisePassed && module.sequence !== 7) ||
-                          finalPassed
-                            ? "disabled-button"
-                            : ""
-                        }`}
-                        onClick={() => handleFinalQuizClick(module)}
-                        disabled={
-                          (module.sequence === 7 &&
-                            (!practisePassed || !finalPassed)) ||
-                          (!practisePassed && module.sequence !== 7) ||
-                          finalPassed
-                        }
-                      >
-                        Final Quiz
-                      </button>
-                      <span className="tooltiptext">
-                        {selectedModule &&
-                        selectedModule.moduleID === module.moduleID
-                          ? currentAccessDescription
-                          : ""}
-                      </span>
-                    </div>
-                  </div>
-                )}
+          {modules.length === 1 ? (
+            <div className="module-item">
+              <div className="moduleId" style = {{ fontSize: "30px" }}>
+                Notice
+                </div>
+              <div className="moduleDescription">
+              <b><span className="pre-train-text">
+                  You have not yet completed the pre-training survey.
+                  <br></br>
+                  <br></br>
+
+
+                </span> <button className="start-quiz"> <a href="https://forms.gle/SoRVCtU2Xia6oeYs5"target="_blank" rel="noopener noreferrer">Complete Survey</a> </button>
+                <br />
+                <br />
+                After completing the survey please refresh the page.
+                <br />
+                <br />
+                If you have completed the survey and this issue persists, please contact verify.study.tms@gmail.com for help.</b>
+              </div>
             </div>
-          ))}
+          ) : (
+            modules.map((module) => (
+              <div
+                key={module.moduleID}
+                className="module-item"
+                onClick={() => handleModuleClick(module)}
+              >
+                <div className="moduleId">  {module.sequence === 7 ? module.name : `${module.name} Module`}</div>
+                <div className="moduleName">{/*module.name*/}</div>
+                <div className="moduleDescription">{module.description}</div>
+                <FontAwesomeIcon
+                  icon={faCircleCheck}
+                  style={{
+                    fontSize: "24px",
+                    color:
+                      moduleAccessStatusList[module.sequence - 1]?.finalPassed ===
+                      true
+                        ? "#4CAF50"
+                        : "#ccc",
+                  }}
+                />
+                {selectedModule &&
+                  selectedModule.moduleID === module.moduleID && (
+                    <div className="module-buttons">
+                      {module.sequence !== 7 && (
+                        <button
+                          className="module-button practice"
+                          onClick={() => handlePracticeQuizClick(module)}
+                        >
+                          Practice Quiz
+                        </button>
+                      )}
+                      <div className="tooltip">
+                        <button
+                          className={`module-button final ${
+                            (module.sequence === 7 &&
+                              (!practisePassed || !finalPassed)) ||
+                            (!practisePassed && module.sequence !== 7) ||
+                            finalPassed
+                              ? "disabled-button"
+                              : ""
+                          }`}
+                          onClick={() => handleFinalQuizClick(module)}
+                          disabled={
+                            (module.sequence === 7 &&
+                              (!practisePassed || !finalPassed)) ||
+                            (!practisePassed && module.sequence !== 7) ||
+                            finalPassed
+                          }
+                        >
+                          Final Quiz
+                        </button>
+                        <span className="tooltiptext">
+                          {selectedModule &&
+                          selectedModule.moduleID === module.moduleID
+                            ? currentAccessDescription
+                            : ""}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+              </div>
+            ))
+          )}
         </div>
       </div>
     </div>

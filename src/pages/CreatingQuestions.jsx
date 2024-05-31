@@ -3,6 +3,7 @@ import AdminDashboard from "../components/Dashboards/ADashboard";
 import { useParams } from "react-router-dom";
 import redaxios from "redaxios";
 import "./CreatingQuestions.css";
+import TextareaAutosize from "react-textarea-autosize";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function CreatingQuiz() {
@@ -70,13 +71,11 @@ export default function CreatingQuiz() {
         );
         setCorrectAnswerIndices(correctIndices);
         if (questionToEdit.imageURL) {
-          const imageUrlSegments = questionToEdit.imageURL.split('-');
-         
+          const imageUrlSegments = questionToEdit.imageURL.split("-");
+
           const imageName = imageUrlSegments[imageUrlSegments.length - 1];
           setFileLabel(imageName);
-        
         }
-
       } else {
         console.error("Question not found");
       }
@@ -122,8 +121,6 @@ export default function CreatingQuiz() {
     setCorrectAnswerIndices(newCorrectAnswerIndices);
   };
 
- 
-
   const handleImageUpload = async (imageFile) => {
     try {
       // Check if an image file is selected
@@ -165,7 +162,6 @@ export default function CreatingQuiz() {
       );
 
       // Optionally, handle response
-      
     } catch (error) {
       console.error("Error uploading image", error);
       // Optionally, handle error
@@ -213,7 +209,6 @@ export default function CreatingQuiz() {
       );
 
       // Optionally, handle response
-
     } catch (error) {
       console.error("Error uploading image", error);
       // Optionally, handle error
@@ -257,7 +252,7 @@ export default function CreatingQuiz() {
 
     if (questionID) {
       const questionType = questionToEdit.questionType;
-     
+
       if (questionType == 1 && correctAnswerIndices.length > 1) {
         alert("This question is only single correct answer");
         return;
@@ -284,7 +279,6 @@ export default function CreatingQuiz() {
         feedback: answer.feedback,
       })),
     };
-   
 
     try {
       let response;
@@ -354,7 +348,6 @@ export default function CreatingQuiz() {
 
       alert("Question uploaded!");
       navigate(`/createquiz/${moduleID}`);
-      
 
       // Reset state after publishing
       // setQuestion("");
@@ -366,20 +359,25 @@ export default function CreatingQuiz() {
     }
   };
 
+  const handleClickBackToQuestions = () => {
+    navigate(`/createquiz/${moduleID}`);
+  };
+
   return (
     <div className="flex-questions">
       <div className="dashboard-container-create-quiz">
         <AdminDashboard />
       </div>
       <div className="to-admin-login">
-        <i className="fa-solid fa-arrow-right" id="forward-arrow-cq"></i>
-        <Link
+        <button
+          className="to-admin-login-btn"
           style={{ textDecoration: "none", color: "black" }}
           key={moduleID}
-          to={`/createquiz/${moduleID}`}
+          onClick={handleClickBackToQuestions}
         >
-          <div className="admin-login-text">Back To Questions</div>
-        </Link>
+          <div className="admin-login-text">Back To Questions</div>{" "}
+          <i className="fa-solid fa-arrow-right" id="forward-arrow-cq"></i>
+        </button>
       </div>
       <div className="make-a-new-question-container">
         <div className="new-question"></div>
@@ -391,7 +389,7 @@ export default function CreatingQuiz() {
           value={question}
           onChange={(event) => setQuestion(event.target.value)}
         />
-          {fileLabel} <br></br>
+        {fileLabel} <br></br>
         <input
           type="file"
           accept=".jpg, .jpeg, .png"
@@ -423,9 +421,9 @@ export default function CreatingQuiz() {
                     : "input-box-createq"
                 }
               />
-              <input
-                contenteditable="true"
-                type="text"
+              <TextareaAutosize
+                // contenteditable="true"
+                // type="text"
                 name="feedback"
                 className="input-box-createq feedback-box"
                 placeholder="Add Feedback (optional)"

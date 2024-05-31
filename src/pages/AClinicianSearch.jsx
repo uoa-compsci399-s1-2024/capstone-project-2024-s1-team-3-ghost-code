@@ -33,33 +33,31 @@ function AClinicianSearch() {
   // Function to fetch search results from backend API
   useEffect(() => {
     const url = searchQuery.trim()
-    ? `https://api.tmstrainingquizzes.com/webapi/ClinicianSearch?term=${searchQuery}`
-    : 'https://api.tmstrainingquizzes.com/webapi/ClinicianSearch'; // Endpoint to fetch all clinicians if no query
-  
-  fetch(url, {
-    headers: {
-      "Authorization": `Bearer ${adminToken}`
-    }
-  })
-  .then(response => {
-    if (!response.ok) {
-      if (response.status === 401) {
-        sessionStorage.removeItem('adminToken');
-        navigate('/adminlogin');
-      }
-      throw new Error('Network response was not ok');
-    }
-    return response.json();
-  })
-  .then(data => {
-    setSearchResults(data);
-  })
-  .catch(error => {
-    console.error("Error fetching search results:", error);
-  });
+      ? `https://api.tmstrainingquizzes.com/webapi/ClinicianSearch?term=${searchQuery}`
+      : "https://api.tmstrainingquizzes.com/webapi/ClinicianSearch"; // Endpoint to fetch all clinicians if no query
+
+    fetch(url, {
+      headers: {
+        Authorization: `Bearer ${adminToken}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          if (response.status === 401) {
+            sessionStorage.removeItem("adminToken");
+            navigate("/adminlogin");
+          }
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setSearchResults(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching search results:", error);
+      });
   }, [searchQuery, adminToken, navigate]);
-   
-  
 
   const handleSearchInputChange = (event) => {
     setSearchQuery(event.target.value);

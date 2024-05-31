@@ -51,7 +51,7 @@ function App() {
           <Route index element={<Landing />} />
           <Route path="/home" element={<Landing />} />
           <Route path="/adminlogin" element={<AdminLoginComponents />} />
-          <Route path="/presurvey" element={<Presurvey />} />
+          <Route path="/registration" element={<Presurvey />} />
           <Route path="/cliniciansign" element={<ClinicianSignComponents />} />
           <Route path="*" element={<NotFoundPage />} />
 

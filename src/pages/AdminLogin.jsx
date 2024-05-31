@@ -1,23 +1,7 @@
 import "./AdminLogin.css";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
-export function BackToHomeLink() {
-  return (
-    <>
-      <div className="back-to-home">
-        <i className="fa-solid fa-arrow-left" id="back-arrow"></i>
-        <Link
-          className="back-to-home-text"
-          style={{ textDecoration: "none", color: "black" }}
-          to="/home"
-        >
-          Back to Home
-        </Link>
-      </div>
-    </>
-  );
-}
+import { BackToHomeLink } from "./ClinicianSign";
 
 export function AdminLoginForm() {
   const [email, setEmail] = useState("");
@@ -48,6 +32,10 @@ export function AdminLoginForm() {
       // Example handling of the response text
       if (!text.includes("Email or Password invalid.")) {
         sessionStorage.setItem("adminToken", text); // Store token (or whatever the response indicates)
+        if (sessionStorage.getItem("cliniciantoken")) {
+          sessionStorage.removeItem("cliniciantoken");
+        }
+
         navigate("/adminsearch"); // Redirect using navigate instead of updating state
       } else {
         alert("Login failed!");
@@ -90,7 +78,7 @@ export function AdminLoginForm() {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
-                <label htmlFor="logEmail">Password</label>
+                <label htmlFor="logPassword">Password</label>
                 <div className="eye-area" onClick={togglePasswordVisibility}>
                   {passwordVisible ? (
                     <i className="fa-regular fa-eye-slash" id="eye-slash"></i>
@@ -130,7 +118,12 @@ export function AdminLoginInfo() {
             <br />
             If you have any questions or need assistance with the registration
             process, please contact our support team at{" "}
-            <b>verify.study.tms@gmail.com</b>.
+            <a
+              style={{ textDecoration: "none", color: "white" }}
+              href="mailto:verify.study.tms@gmail.com"
+            >
+              <b>verify.study.tms@gmail.com</b>
+            </a>
           </p>
         </div>
       </div>
