@@ -50,14 +50,14 @@
   flex-direction: row;
   position: relative;
   padding: 60px 20px 30px 20px;
-  height: 680px;
+  height: 80%;
   width: 515px;
   border-radius: 30px;
   background-color: #bddede;
   -webkit-backdrop-filter: blur(15px);
   backdrop-filter: blur(15px);
   border: 3px solid rgba(255, 255, 255, 0.2);
-  overflow: hidden;
+  overflow-y: auto;
 }
 .box-survey-details {
   position: absolute;
