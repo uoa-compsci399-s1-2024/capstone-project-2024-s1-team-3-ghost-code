@@ -220,23 +220,28 @@ function QuizDashboard() {
                 className="module-item"
                 onClick={() => handleModuleClick(module)}
               >
-                <div className="moduleId">  {module.sequence === 7 ? module.name : `${module.name} Module`}</div>
+                <div className="next-to" style={{display:"flex"}}>
+                  <div className="moduleId">  {module.sequence === 7 ? module.name : `${module.name} Module`}</div>
+                  <FontAwesomeIcon
+                    icon={faCircleCheck}
+                    style={{
+                      fontSize: "24px",
+                      margin: "auto 20",
+                      color:
+                        moduleAccessStatusList[module.sequence - 1]?.finalPassed ===
+                        true
+                          ? "#4CAF50"
+                          : "#ccc",
+                    }}
+                  />
+                </div>
                 <div className="moduleName">{/*module.name*/}</div>
                 <div className="moduleDescription">{module.description}</div>
-                <FontAwesomeIcon
-                  icon={faCircleCheck}
-                  style={{
-                    fontSize: "24px",
-                    color:
-                      moduleAccessStatusList[module.sequence - 1]?.finalPassed ===
-                      true
-                        ? "#4CAF50"
-                        : "#ccc",
-                  }}
-                />
+
+
                 {selectedModule &&
                   selectedModule.moduleID === module.moduleID && (
-                    <div className="module-buttons">
+                    <div className="module-buttons" style={{paddingTop:"30px"}}>
                       {module.sequence !== 7 && (
                         <button
                           className="module-button practice"
