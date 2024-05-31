@@ -239,6 +239,7 @@ function QuizDashboard() {
                       ? module.name
                       : `${module.name} Module`}
                   </div>
+                  {module.sequence !== 7 && (
                   <FontAwesomeIcon
                     icon={
                       moduleAccessStatusList[module.sequence - 1]
@@ -256,6 +257,7 @@ function QuizDashboard() {
                           : "#ccc",
                     }}
                   />
+                  )}
                 </div>
                 <div className="moduleName">{/*module.name*/}</div>
                 <div className="moduleDescription">{module.description}</div>
