@@ -33,7 +33,8 @@ public class Program
                                       "https://www.tmstrainingquizzes.com",
                                       "https://sahil-branch.d1khm46bk5sp3v.amplifyapp.com",
                                       "https://ayesha-branch.d1khm46bk5sp3v.amplifyapp.com",
-                                      "https://angus-testing.d1khm46bk5sp3v.amplifyapp.com"
+                                      "https://angus-testing.d1khm46bk5sp3v.amplifyapp.com",
+                                      "https://emily-branch.d1khm46bk5sp3v.amplifyapp.com"
                                       ) // Specify the allowed origin
                                         .AllowAnyMethod() // Allow all methods, or use .WithMethods("GET", "POST") to specify
                                         .AllowAnyHeader() // Allow all headers, or specify like .WithHeaders("Authorization")
