@@ -602,14 +602,18 @@ namespace OTTER.Data
                     $"A new clinician has registered on the website and has selected the 'Other' option for both their Discipline and Site.<br><br>" +
                     $"They entered '{otherRole}' for their Discipline. If you wish to add this as a new Discipline, you should do this in the admin settings.<br><br>" +
                     $"You should contact them to find out what option they wanted to select for Site, and manually add the option to the list of Sites in the admin settings." +
-                    $"<br><br>Clinician Name: {user.FirstName} {user.LastName}<br>Clinician Email: {user.UserEmail}<br><br>This is a system generated email.");
+                    $"<br><br>Clinician Name: {user.FirstName} {user.LastName}<br>Clinician Email: {user.UserEmail}" +
+                    $"<br><br>After adding the Discipline and/or Site, you should add them to the clinician via their profile." +
+                    $"<br><br>This is a system generated email.");
             }
             else if (user.Role == GetRoleByID(1))
             {
                 SendEmail(_adminEmail, "New Clinician Registered with 'Other' Discipline", $"Hi Admin,<br><br>" +
                     $"A new clinician has registered on the website and has selected the 'Other' option for their Discipline, and manually entered '{otherRole}'.<br><br>" +
                     $"If you wish to add this as a new Discipline, you should do this in the admin settings." +
-                    $"<br><br>Clinician Name: {user.FirstName} {user.LastName}<br>Clinician Email: {user.UserEmail}<br><br>This is a system generated email.");
+                    $"<br><br>Clinician Name: {user.FirstName} {user.LastName}<br>Clinician Email: {user.UserEmail}" +
+                    $"<br><br>After adding the Discipline, you should add it to the clinician via their profile." +
+                    $"<br><br>This is a system generated email.");
             }
             else if (user.Organization == GetOrganizationByID(1))
             {
