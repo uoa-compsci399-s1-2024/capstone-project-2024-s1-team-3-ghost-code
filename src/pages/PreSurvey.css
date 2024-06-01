@@ -191,11 +191,14 @@
 
 .next-to {
   margin-bottom: 2px;
+  display: flex;
+  flex: 1;
+   /* Added margin */
 }
 
 .next-to-group {
   display: flex;
-  justify-content: space-between;
+  gap: 2px; 
 }
 
 .input-field select {
