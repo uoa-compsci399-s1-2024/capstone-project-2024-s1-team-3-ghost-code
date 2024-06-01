@@ -205,16 +205,18 @@ function QuizDashboard() {
                     <br></br>
                     <br></br>
                   </span>{" "}
-                  <button className="start-quiz">
-                    {" "}
-                    <a
-                      href="https://forms.gle/SoRVCtU2Xia6oeYs5"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{ textDecoration: "none", color: "white" }}
-                    >
-                      Complete Survey
-                    </a>{" "}
+                  <button
+                    className="start-quiz"
+                    onClick={() =>
+                      window.open(
+                        "https://forms.gle/SoRVCtU2Xia6oeYs5",
+                        "_blank",
+                        "noopener,noreferrer"
+                      )
+                    }
+                    style={{ textDecoration: "none", color: "white" }}
+                  >
+                    Complete Survey
                   </button>
                   <br />
                   <br />
