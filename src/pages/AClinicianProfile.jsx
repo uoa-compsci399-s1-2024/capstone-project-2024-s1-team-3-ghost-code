@@ -571,7 +571,7 @@ function AClinicianProfile() {
                         {attempt.quiz.module.name} {attempt.quiz.stage} -{" "}
                         {attempt.completed}
                       </h4>
-                      <p>Date: {new Date(attempt.dateTime.concat("z")).toLocaleString("en-NZ")}</p>
+                      <p class="dateTime">Date: {new Date(attempt.dateTime.concat("z")).toLocaleString("en-NZ")}</p>
                     </div>
                   ))}
                 </div>
