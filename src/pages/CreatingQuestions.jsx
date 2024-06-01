@@ -409,7 +409,7 @@ export default function CreatingQuiz() {
         <div className="new-answers">
           {answers.map((answer, index) => (
             <div key={index} className="answer-container">
-              <input
+              <TextareaAutosize
                 type="text"
                 name="answerText"
                 placeholder="Add an Answer"
@@ -417,10 +417,11 @@ export default function CreatingQuiz() {
                 onChange={(event) => handleAnswerChange(index, event)}
                 className={
                   correctAnswerIndices.includes(index)
-                    ? "correct-answer input-box-createq"
-                    : "input-box-createq"
+                    ? "correct-answer input-box-createq-answer no-resize-op"
+                    : "input-box-createq-answer no-resize-op"
                 }
               />
+
               <TextareaAutosize
                 // contenteditable="true"
                 // type="text"
