@@ -407,6 +407,12 @@ export default function CreatingQuiz() {
           <option value="3">Topic Three</option>
         </select>
         <div className="new-answers">
+
+        <div className="answer-titles">
+          <div className="answer-title">Answer Text</div>
+          <div className="feedback-title">Feedback (optional)</div>
+        </div>
+        
           {answers.map((answer, index) => (
             <div key={index} className="answer-container">
               <TextareaAutosize

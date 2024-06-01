@@ -26,7 +26,7 @@
   border-radius: 8px;
   background-color: lightgrey;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 1000px;
+  width: 60%;
 }
 
 /* Styling for the new question input */
@@ -67,7 +67,7 @@ input[name="Question"] {
   margin-left: 5px;
   padding: 5px 10px;
   cursor: pointer;
-  width: 200px;
+  width: 300px;
   min-height: 40px;
   max-height: 60px;
 }
@@ -146,4 +146,20 @@ input[name="Question"] {
   font-size: 16px;
     margin-left:150px;
     color: black;
+}
+
+/* Title styles */
+.answer-titles {
+  display: flex;
+  width: 68%;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.answer-title, .feedback-title {
+  font-weight: bold;
+  padding: 5px 0px;
+  width: 300px;
+  min-height: 40px;
+  max-height: 60px;
 }
