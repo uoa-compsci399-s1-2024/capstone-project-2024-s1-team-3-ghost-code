@@ -804,7 +804,7 @@ namespace OTTER.Data
 
         public IEnumerable<Admin> GetAdmins()
         {
-            return _dbContext.Admins.ToList<Admin>();
+            return _dbContext.Admins.OrderBy(e => e.FirstName).ToList<Admin>();
         }
 
         public IEnumerable<Admin> SearchAdmins(string search)
