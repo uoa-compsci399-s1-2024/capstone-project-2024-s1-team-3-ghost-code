@@ -40,9 +40,10 @@ export function PasswordCodeForm() {
   return (
     <>
       <BackToHomeLink />
-
+      <div className="container">
       <form onSubmit={handleCodeVerification}>
         <div className="container-password split left">
+          
           <div className="box-password">
             <div className="box-password-details" id="password-reset-form">
               <div className="top-header">
@@ -73,8 +74,9 @@ export function PasswordCodeForm() {
             </div>
           </div>
         </div>
+        
       </form>
-
+      </div>
       <div className="admin-login-info split right">
         <div className="info-content">
           <p className="info-text">

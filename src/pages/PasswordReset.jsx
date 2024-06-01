@@ -32,7 +32,7 @@ export function PasswordResetForm() {
   return (
     <>
       <BackToHomeLink />
-
+      <div className="container">
       <form onSubmit={handlePasswordReset}>
         <div className="container-password split left">
           <div className="box-password">
@@ -65,6 +65,7 @@ export function PasswordResetForm() {
           </div>
         </div>
       </form>
+      </div>
 
       <div className="admin-login-info split right">
         <div className="info-content">

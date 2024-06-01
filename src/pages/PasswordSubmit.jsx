@@ -75,7 +75,7 @@ export function PasswordSubmit() {
   return (
     <>
       <BackToHomeLink />
-
+      <div className="container">
       <form onSubmit={handlePasswordReset}>
         <div className="container-password split left">
           <div className="box-password-larger">
@@ -140,7 +140,8 @@ export function PasswordSubmit() {
           </div>
         </div>
       </form>
-
+      </div>
+      
       <div className="admin-login-info split right">
         <div className="info-content">
           <p className="info-text">
