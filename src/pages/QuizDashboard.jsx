@@ -224,7 +224,14 @@ function QuizDashboard() {
                   <br />
                   <br />
                   If you have completed the survey and this issue persists,
-                  please contact verify.study.tms@gmail.com for help.
+                  please contact{" "}
+                  <a
+                    style={{ textDecoration: "underline", color: "black" }}
+                    href="mailto:verify.study.tms@gmail.com"
+                  >
+                    <b>verify.study.tms@gmail.com</b>
+                  </a>{" "}
+                  for help.
                 </b>
               </div>
             </div>
