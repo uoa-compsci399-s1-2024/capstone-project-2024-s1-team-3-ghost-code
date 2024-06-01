@@ -50,6 +50,7 @@
   padding: 60px 20px 30px 20px;
   width: 80%;
   min-height: 730px;
+  max-height: 900px;
   border-radius: 30px;
   background-color: #bddede;
   -webkit-backdrop-filter: blur(15px);
