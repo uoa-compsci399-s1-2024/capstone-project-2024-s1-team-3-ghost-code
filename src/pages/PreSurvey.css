@@ -48,7 +48,7 @@
   flex-direction: column; /* Ensure elements are arranged in a column */
   position: relative;
   padding: 60px 20px 30px 20px;
-  width: 60%;
+  width: 80%;
   border-radius: 30px;
   background-color: #bddede;
   -webkit-backdrop-filter: blur(15px);
