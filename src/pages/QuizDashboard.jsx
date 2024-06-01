@@ -211,6 +211,7 @@ function QuizDashboard() {
                       href="https://forms.gle/SoRVCtU2Xia6oeYs5"
                       target="_blank"
                       rel="noopener noreferrer"
+                      style={{ textDecoration: "none", color: "white" }}
                     >
                       Complete Survey
                     </a>{" "}
@@ -240,23 +241,23 @@ function QuizDashboard() {
                       : `${module.name} Module`}
                   </div>
                   {module.sequence !== 7 && (
-                  <FontAwesomeIcon
-                    icon={
-                      moduleAccessStatusList[module.sequence - 1]
-                        ?.finalPassed === true
-                        ? faCircleCheck
-                        : faCircleXmark
-                    }
-                    style={{
-                      fontSize: "24px",
-                      margin: "auto 20",
-                      color:
+                    <FontAwesomeIcon
+                      icon={
                         moduleAccessStatusList[module.sequence - 1]
                           ?.finalPassed === true
-                          ? "#4CAF50"
-                          : "#ccc",
-                    }}
-                  />
+                          ? faCircleCheck
+                          : faCircleXmark
+                      }
+                      style={{
+                        fontSize: "24px",
+                        margin: "auto 20",
+                        color:
+                          moduleAccessStatusList[module.sequence - 1]
+                            ?.finalPassed === true
+                            ? "#4CAF50"
+                            : "#ccc",
+                      }}
+                    />
                   )}
                 </div>
                 <div className="moduleName">{/*module.name*/}</div>
