@@ -13,7 +13,7 @@ function ClientDashboard() {
   return (
     <div className="clientDashboardContainer">
       <div className="clientLogoContainer">
-        <a href="/quizDashboard ">
+        <a href="/home ">
           <img
             className="clientLogo"
             loading="lazy"

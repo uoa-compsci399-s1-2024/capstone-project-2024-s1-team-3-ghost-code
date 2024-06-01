@@ -1,4 +1,4 @@
-/* Split the screen in half */
+/* Updated CSS */
 .split-survey {
   height: 100%;
   width: 50%;
@@ -9,18 +9,15 @@
   padding-top: 20px;
 }
 
-/* Control the left side */
 .left-survey {
   left: 0;
   background-color: #008080;
 }
 
-/* Control the right side */
 .right-survey {
   right: 0;
 }
 
-/* If you want the content centered horizontally and vertically */
 .centered-survey {
   position: absolute;
   top: 50%;
@@ -30,56 +27,56 @@
   color: white;
 }
 
-/* Style the image inside the centered container, if needed */
 .centered img {
   width: 150px;
   border-radius: 50%;
 }
 
 .container-survey {
-  justify-content: center; /* Vertically center items */
-  align-items: flex-start;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start; /* Align items at the top */
+  align-items: center; /* Center items horizontally */
   min-height: 100vh;
   padding-bottom: 50px;
   padding-left: 125px;
+  overflow: auto; /* Allow the container to grow and scroll if needed */
 }
+
 .box-survey {
-  position: relative;
   display: flex;
-  flex-direction: row;
+  flex-direction: column; /* Ensure elements are arranged in a column */
   position: relative;
   padding: 60px 20px 30px 20px;
-  height: 80%;
   width: 60%;
   border-radius: 30px;
   background-color: #bddede;
   -webkit-backdrop-filter: blur(15px);
   backdrop-filter: blur(15px);
   border: 3px solid rgba(255, 255, 255, 0.2);
-  overflow-y: auto;
+  overflow: visible; /* Ensure overflow is visible */
   margin: auto;
-  left: 25%;
-  transform: translateX(-50%);
 }
+
 .box-survey-details {
-  position: absolute;
-  width: 90%;
-  left: 27px;
+  width: 100%;
   transition: 0.5s ease-in-out;
 }
+
 .top-header {
   text-align: center;
   margin: 15px 0;
 }
+
 .top-header h3 {
   font-size: 35px;
   font-weight: 600;
 }
+
 .input-group {
   width: 100%;
 }
+
 .input-field {
   margin: 12px 0;
   position: relative;
@@ -106,6 +103,7 @@
   transition: 0.3s ease-in-out;
   cursor: text;
 }
+
 .input-box:focus ~ label,
 .input-box:valid ~ label {
   top: 2px;
@@ -233,7 +231,6 @@ section .terms-header {
   font-size: 2rem;
   margin: 1rem 0 4rem;
   text-align: center;
-  display: hidden;
 }
 
 .terms {
@@ -292,8 +289,9 @@ p {
 }
 
 .btn-terms-accept:focus {
-  outline: 3px solid blue;
+  /* Add necessary styles */
 }
+
 
 .btn-terms-message {
   position: absolute;
