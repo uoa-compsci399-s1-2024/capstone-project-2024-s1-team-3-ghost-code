@@ -477,7 +477,7 @@ namespace OTTER.Data
                 output.SelectedFeedback.Add(feedback);
                 output.Sequence.Add(sequence);
             }
-            _dbContext.Attempts.FirstOrDefault(e => e.AttemptID == submission.AttemptID).Completed = "FAIL";
+            _dbContext.Attempts.First(e => e.AttemptID == submission.AttemptID).Completed = "FAIL";
             _dbContext.SaveChanges();
             double mark = 0.0;
             double count = 0.0;
@@ -507,8 +507,7 @@ namespace OTTER.Data
 
             if (GetAttemptByID(submission.AttemptID).Quiz.Stage == "Final" && mark /count >= 0.8) //PASS FINAL
             {
-                
-                _dbContext.Attempts.FirstOrDefault(e => e.AttemptID == submission.AttemptID).Completed = "PASS";
+                _dbContext.Attempts.First(e => e.AttemptID == submission.AttemptID).Completed = "PASS";
                 Certification cert = new Certification { User = GetUserByID(submission.UserID), Type = GetAttemptByID(submission.AttemptID).Quiz.Name, DateTime = DateTime.UtcNow, ExpiryDateTime = DateTime.UtcNow.AddYears(1)};
                 string certificateURL = CreateCertificate(cert, GetQuestionByID(submission.QuestionID.ElementAt(0)).Module);
                 cert.CertificateURL = certificateURL;
@@ -521,15 +520,15 @@ namespace OTTER.Data
             else if (GetAttemptByID(submission.AttemptID).Quiz.Stage == "Final" && mark / count < 0.8) //FAIL FINAL
             {
                 Certification cert = new Certification { User = GetUserByID(submission.UserID), Type = GetAttemptByID(submission.AttemptID).Quiz.Name, DateTime = DateTime.UtcNow, ExpiryDateTime = DateTime.UtcNow.AddYears(1) };
-                SendEmail(cert.User.UserEmail, $"Failed {GetAttemptByID(submission.AttemptID).Quiz.Name} Quiz", $"Hi {cert.User.FirstName},<br><br>Thank you for attempting the" +
-                    $"{GetAttemptByID(submission.AttemptID).Quiz.Name} Quiz.<br>Unfortunately you did not score 80% or above in the quiz. Please revisit the training materials and attempt the final quiz again when you feel ready. " +
-                    $"There is no limit to the number of times the final quiz can be attempted." +
-                    $"<br><br>Once you have successfully passed the final quiz feel free to email verify.study.tms@gmail.com to receive feedback regarding what questions you got correct and incorrect." +
-                    $"<br><br>Thank you,<br>VERIFY Team");
+                //SendEmail(cert.User.UserEmail, $"Failed {GetAttemptByID(submission.AttemptID).Quiz.Name} Quiz", $"Hi {cert.User.FirstName},<br><br>Thank you for attempting the" +
+                //    $"{GetAttemptByID(submission.AttemptID).Quiz.Name} Quiz.<br>Unfortunately you did not score 80% or above in the quiz. Please revisit the training materials and attempt the final quiz again when you feel ready. " +
+                //    $"There is no limit to the number of times the final quiz can be attempted." +
+                //    $"<br><br>Once you have successfully passed the final quiz feel free to email verify.study.tms@gmail.com to receive feedback regarding what questions you got correct and incorrect." +
+                //    $"<br><br>Thank you,<br>VERIFY Team");
             }
             else if (GetAttemptByID(submission.AttemptID).Quiz.Stage == "Practice" && mark/count >= 0.7) //PASS PRACTICE
             {
-                _dbContext.Attempts.FirstOrDefault(e => e.AttemptID == submission.AttemptID).Completed = "PASS";
+                _dbContext.Attempts.First(e => e.AttemptID == submission.AttemptID).Completed = "PASS";
                 Certification cert = new Certification { User = GetUserByID(submission.UserID), Type = GetAttemptByID(submission.AttemptID).Quiz.Name, DateTime = DateTime.UtcNow, ExpiryDateTime = DateTime.UtcNow.AddYears(1) };
                 AddCertification(cert);
                 SendEmail(cert.User.UserEmail, $"Passed {GetAttemptByID(submission.AttemptID).Quiz.Name} Quiz", $"Hi {cert.User.FirstName},<br><br>Thank you for completing the " +
@@ -540,15 +539,15 @@ namespace OTTER.Data
             else if (GetAttemptByID(submission.AttemptID).Quiz.Stage == "Practice" && mark / count < 0.7) //FAIL PRACTICE
             {
                 Certification cert = new Certification { User = GetUserByID(submission.UserID), Type = GetAttemptByID(submission.AttemptID).Quiz.Name, DateTime = DateTime.UtcNow, ExpiryDateTime = DateTime.UtcNow.AddYears(1) };
-                SendEmail(cert.User.UserEmail, $"Failed {GetAttemptByID(submission.AttemptID).Quiz.Name} Quiz", $"Hi {cert.User.FirstName},<br><br>Thank you for attempting the " +
-                    $"{GetAttemptByID(submission.AttemptID).Quiz.Name} Quiz.<br>Unfortunately you did not score 70% or above in the quiz. Please revisit the training materials and attempt the practice quiz again when you feel ready. " +
-                    $"There is no limit to the number of times the practice quiz can be attempted." +
-                    $"<br><br>Please email us at verify.study.tms@gmail.com if you have any feedback regarding the VERIFY TMS training website or quizzes." +
-                    $"<br><br>Thank you,<br>VERIFY Team");
+                //SendEmail(cert.User.UserEmail, $"Failed {GetAttemptByID(submission.AttemptID).Quiz.Name} Quiz", $"Hi {cert.User.FirstName},<br><br>Thank you for attempting the " +
+                //    $"{GetAttemptByID(submission.AttemptID).Quiz.Name} Quiz.<br>Unfortunately you did not score 70% or above in the quiz. Please revisit the training materials and attempt the practice quiz again when you feel ready. " +
+                //    $"There is no limit to the number of times the practice quiz can be attempted." +
+                //    $"<br><br>Please email us at verify.study.tms@gmail.com if you have any feedback regarding the VERIFY TMS training website or quizzes." +
+                //    $"<br><br>Thank you,<br>VERIFY Team");
             }
             else if (GetAttemptByID(submission.AttemptID).Quiz.Stage == "Recert" && mark / count >= 0.8) //PASS RECERT
             {
-                _dbContext.Attempts.FirstOrDefault(e => e.AttemptID == submission.AttemptID).Completed = "PASS";
+                _dbContext.Attempts.First(e => e.AttemptID == submission.AttemptID).Completed = "PASS";
                 Certification cert = new Certification { User = GetUserByID(submission.UserID), Type = GetAttemptByID(submission.AttemptID).Quiz.Name, DateTime = DateTime.UtcNow, ExpiryDateTime = DateTime.UtcNow.AddYears(1) };
                 string certificateURL = CreateCertificate(cert, GetQuestionByID(submission.QuestionID.ElementAt(0)).Module);
                 cert.CertificateURL = certificateURL;
@@ -562,11 +561,11 @@ namespace OTTER.Data
             else if (GetAttemptByID(submission.AttemptID).Quiz.Stage == "Recert" && mark / count < 0.8) //FAIL RECERT
             {
                 Certification cert = new Certification { User = GetUserByID(submission.UserID), Type = "TMS Training Recertification", DateTime = DateTime.UtcNow, ExpiryDateTime = DateTime.UtcNow.AddYears(1) };
-                SendEmail(cert.User.UserEmail, $"Failed {GetAttemptByID(submission.AttemptID).Quiz.Name} Quiz", $"Hi {cert.User.FirstName},<br><br>Thank you for attempting the " +
-                    $"TMS Recertification Quiz. Unfortunately you did not score 80% or above in the quiz. Please revisit the training materials and attempt the recertification quiz again when you feel ready. " +
-                    $"There is no limit to the number of times this quiz can be attempted." +
-                    $"<br><br>Please email us at verify.study.tms@gmail.com if you have any feedback regarding the VERIFY TMS training website or quizzes." +
-                    $"<br><br>Thank you,<br>VERIFY Team");
+                //SendEmail(cert.User.UserEmail, $"Failed {GetAttemptByID(submission.AttemptID).Quiz.Name} Quiz", $"Hi {cert.User.FirstName},<br><br>Thank you for attempting the " +
+                //    $"TMS Recertification Quiz. Unfortunately you did not score 80% or above in the quiz. Please revisit the training materials and attempt the recertification quiz again when you feel ready. " +
+                //    $"There is no limit to the number of times this quiz can be attempted." +
+                //    $"<br><br>Please email us at verify.study.tms@gmail.com if you have any feedback regarding the VERIFY TMS training website or quizzes." +
+                //    $"<br><br>Thank you,<br>VERIFY Team");
             }
 
             output.Score = (int)(Math.Floor((mark / count) * 100));
