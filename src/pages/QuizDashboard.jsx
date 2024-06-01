@@ -205,15 +205,18 @@ function QuizDashboard() {
                     <br></br>
                     <br></br>
                   </span>{" "}
-                  <button className="start-quiz">
-                    {" "}
-                    <a
-                      href="https://forms.gle/SoRVCtU2Xia6oeYs5"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Complete Survey
-                    </a>{" "}
+                  <button
+                    className="start-quiz"
+                    onClick={() =>
+                      window.open(
+                        "https://forms.gle/SoRVCtU2Xia6oeYs5",
+                        "_blank",
+                        "noopener,noreferrer"
+                      )
+                    }
+                    style={{ textDecoration: "none", color: "white" }}
+                  >
+                    Complete Survey
                   </button>
                   <br />
                   <br />
@@ -221,7 +224,14 @@ function QuizDashboard() {
                   <br />
                   <br />
                   If you have completed the survey and this issue persists,
-                  please contact verify.study.tms@gmail.com for help.
+                  please contact{" "}
+                  <a
+                    style={{ textDecoration: "underline", color: "black" }}
+                    href="mailto:verify.study.tms@gmail.com"
+                  >
+                    <b>verify.study.tms@gmail.com</b>
+                  </a>{" "}
+                  for help.
                 </b>
               </div>
             </div>
@@ -240,23 +250,23 @@ function QuizDashboard() {
                       : `${module.name} Module`}
                   </div>
                   {module.sequence !== 7 && (
-                  <FontAwesomeIcon
-                    icon={
-                      moduleAccessStatusList[module.sequence - 1]
-                        ?.finalPassed === true
-                        ? faCircleCheck
-                        : faCircleXmark
-                    }
-                    style={{
-                      fontSize: "24px",
-                      margin: "auto 20",
-                      color:
+                    <FontAwesomeIcon
+                      icon={
                         moduleAccessStatusList[module.sequence - 1]
                           ?.finalPassed === true
-                          ? "#4CAF50"
-                          : "#ccc",
-                    }}
-                  />
+                          ? faCircleCheck
+                          : faCircleXmark
+                      }
+                      style={{
+                        fontSize: "24px",
+                        margin: "auto 20",
+                        color:
+                          moduleAccessStatusList[module.sequence - 1]
+                            ?.finalPassed === true
+                            ? "#4CAF50"
+                            : "#ccc",
+                      }}
+                    />
                   )}
                 </div>
                 <div className="moduleName">{/*module.name*/}</div>
