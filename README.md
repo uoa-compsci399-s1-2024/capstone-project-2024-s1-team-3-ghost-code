@@ -1,43 +1,31 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/t8qno6SJ)
 
+# OTTER: Online TMS Training Experience Reboot
+
+> ### [Project Management Tool]()
+
 ## Contributors
+* Lucas Fernandes Tavares (Team Leader, Front-end)
+* Ayesha Essop (Co-Leader, Front-end)
+* Sahil Kumar (Back-end, Front-end)
+* Emily Zhao (Front-end)
+* Bailey Alexander (Back-end)
+* Angus Wright (Back-end)
 
-- Sahil - Back End, Database, Front End & Github Caretaker
-- Ayesha (Co-Leader, Front End)
-- Emily (Front-end)
-- Bailey (Back-end)
-- Angus (Back-end)
-- Lucas (Front-end)
-
-OTTER: Online TMS Training Experience Reboot
-
-## A link to your Project Management tool.
-
-## A short description of what the project is about. (You may put a link to your final report here, after it has been completed).
-This project was created as a website for VERIFY in order to train clinicians on TMS. Previously, Google Forms were used by the clients but it proved to be hard to manage clinicians individually and providing feedback after questions were submitted. 
-Our website ___(idk the appropriate word) paid features needed for Google Forms and allows individual informative feedback for each question based on practice or final quizzes. Admins are able to change questions and feedback with ease from their dashboard, along with other features such as managing clinician information and other admins with approval. Clinicians have an one time pre-survey which would save their information for the future and have their own profile. An easy login is provided for clinicians to suit their busy lifestyle, taking them directly to continue with their quizzes. 
+## Project Description
+The OTTER project has been to develop a new learning platform for clinicians using TMS (Transcranial Magnetic Stimulation) on stroke patients. The platform allows clinicians to take quizzes and become certified when using TMS. It allows for practice and final attempts over 6 modules and a recertification module for each clinician to complete each year. Previously clinicians have been completing these quizzes on Google Forms, but the client wanted a dedicated solution for the quizzes to provide better insights into the quiz attempts and automatic certifications. Following an attempt, clinicians are able to view feedback about specific answers, and what they should revise before attempting the quiz again. Admins can add and edit quiz questions and can upload images to support the question. They can also view statistics about quiz attempts, and view results from each clinician's profile including their certifications and certificates.
 
 
-## Technologies that are used to build the project (include the languages used, the libraries and their versions).
-ASP.NET
-.NET8 in C# with Visual Studio 2022
-SQL database using EntityFramework ORM
-Swagger for API endpoints.
-Javascript React  in Visual Studio Code
-Figma to design
-Uizard wireframe
-Amazon AWS services with their Elastic Beanstalk tool.
+## Technologies Used
+* .NET 8
+* Microsoft SQL Server
+* React JS
+* Figma
+* Amazon Web Services
+* GitHub
+* Jira
 
-React library:
+### React library
 ```
 
   "dependencies": {
@@ -70,19 +58,37 @@ React library:
 
   ```
 
-## Instructions on how to install and setup the project (specify all dependencies).
-Install Visual Studio Code and Node.js. Ensure Node.js is correctly pathed. Open this project in Visual Studio Code. In a new terminal type in 'npm start'.
+## Project Installation Instructions
 
-## Usage Examples (if available).
+### Front End
+Install Visual Studio Code and Node.js. Ensure Node.js is correctly pathed. Open this project in Visual Studio Code. In a new terminal type in `npm start`. You may need to install vite by running command `npm install vite`
 
-## URL of the website where the project has been deployed (if applicable).
-https://www.tmstrainingquizzes.com/home
+### Back End
+* Install .NET 8
+* Install Visual Studio 2022
+> **_NOTE:_**  After opening the project in Visual Studio, you can run the program in a developer environment, however you may not have access to any services through AWS such as S3, Simple Email Service, or Database.
+* To deploy, use AWS Explorer plug-in in Visual Studio and deploy to Elastic Beanstalk. You may also deploy to your own server.
 
-## Future Plan (Ideas for future releases)
--Add option for drag and drop along with short/long answers for quiz questions. 
--AI marking for text answers could be used to reduce workload on admins with an option to contact an admin for remarking if clinician feels the AI is wrong. 
--Better scaling for smaller devices.
--Ablility to recall answers from previous attempts.
--Reminder email to clinicians to remind them to recertify.
+## Usage Examples
+Our platform is designed for use by clinicians training on how to use TMS on stroke patients. It is not intended for public use.
 
-## Acknowledgements (if any) - You can list tutorials used, projects referred to, people consulted etc.
+The clinicians can sign up and complete the quizzes for each module.
+
+Admins can login and view clinicians, their statistics, edit quizzes, and edit settings.
+
+## Website URL
+[TMS Training Quizzes (tmstrainingquizzes.com)](https://www.tmstrainingquizzes.com/)
+
+## Future Release Ideas
+* Recalling Attempt Feedback and Better Statistics
+  * Ability for clinicians and admins to go back and see what they got wrong
+* Automatic Quiz Reminder Emails
+  * 11 month reminder to get re-certified
+* Screen Size Adaptability
+  * Ability to attempt the quizzes on your phone or tablet
+* Advanced Answer Types
+  * Drag and drop answers onto a sentence or image
+* Survey Integration
+  * Complete pre or post training surveys on our platform
+
+## Acknowledgements
