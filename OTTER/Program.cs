@@ -79,7 +79,14 @@ public class Program
 
         /*builder.Services.AddAuthentication().AddScheme<AuthenticationSchemeOptions, AdminHandler>("Authentication", null);*/
 
-        builder.Services.AddDbContext<OTTERDBContext>(options => options.UseSqlServer(builder.Configuration["OTTERConnection"]));
+        var dbCredentials = builder.Configuration.GetSection("DbCredentials");
+        var dbServer = dbCredentials["server"];
+        var dbDatabase = dbCredentials["database"];
+        var dbUsername = dbCredentials["username"];
+        var dbPassword = dbCredentials["password"];
+        var dbConnectionString = $"Server={dbServer};Database={dbDatabase};User Id={dbUsername};Password={dbPassword};TrustServerCertificate=True;";
+
+        builder.Services.AddDbContext<OTTERDBContext>(options => options.UseSqlServer(dbConnectionString));
 
         builder.Services.AddControllers();
 
