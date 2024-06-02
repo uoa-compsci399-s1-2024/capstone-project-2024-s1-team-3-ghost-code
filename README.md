@@ -83,7 +83,7 @@ For pre-training survey to send email address to backend upon submission
 * Copy the contents of the [PreSurveyFormSubmissionAppsScript.gs](PreSurveyFormSubmissionAppsScript.gs) file
 * Open a new Google Apps Script project
 * Paste the contents of the PreSurveyFormSubmissionAppsScript.gs file into the Code.gs file in the project
-* Add the Google Form ID for the pre-training survey into the openById parameter when setting var surveyForm
+* Add the Google Form ID for the pre-training survey into the formID variable
 * Run the setTriggers function in Apps Script to set the responseReceived function to run on form on form submit
 
 When a form submission is received, the responseReceived function will send the email address to the TMS Training Quizzes back end to mark user as completing the pre-training survey.
