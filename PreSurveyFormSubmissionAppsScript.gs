@@ -1,10 +1,12 @@
 // Deployment steps
 // 1. Paste this code into a new Google Apps Script project under Code.gs file.
-// 2. Add the Google Form ID for the pre-training survey into the openById parameter when setting var surveyForm below.
+// 2. Add the Google Form ID for the pre-training survey into the formID variable.
 // 3. Run the setTriggers function in Apps Script to set the responseReceived function to run on form on form submit.
 // When a form submission is received, the responseReceived function will send the email address to the TMS Training Quizzes website to mark user as completing the pre-training survey.
 
-var surveyForm = FormApp.openById(""); // Add the Form ID into the openById paramter
+var formID = ""; // Add the Form ID here
+
+var surveyForm = FormApp.openById(formID);
 
 function setTriggers() {
   var triggers = ScriptApp.getProjectTriggers();
