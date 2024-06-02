@@ -2,7 +2,7 @@
 
 # OTTER: Online TMS Training Experience Reboot
 
-> ### [Project Management Tool]()
+> ### [Project Management Tool](https://lucasfetavares.atlassian.net/jira/core/projects/GC/board)
 
 ## Contributors
 * Lucas Fernandes Tavares (Team Leader, Front-end)
