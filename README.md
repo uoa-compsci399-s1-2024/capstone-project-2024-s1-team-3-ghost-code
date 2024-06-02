@@ -59,6 +59,26 @@ The OTTER project has been to develop a new learning platform for clinicians usi
 
   ```
 
+### .NET NuGet Packages
+```
+AWSSDK.Core - v3.7.304.5
+AWSSDK.S3 - v3.7.308.4
+AWSSDK.SimpleEmail - v3.7.300.95
+BCrypt.Net-Next - v4.0.3
+iTextSharp - v5.5.13.3
+Kralizek.Extensions.Configuration.AWSSecretsManager - v1.7.0
+Microsoft.AspNetCore.Authentication.JwtBearer - v8.0.5
+Microsoft.AspNetCore.OpenApi - v8.0.5
+Microsoft.EntityFrameworkCore.Design - v8.0.5
+Microsoft.EntityFrameworkCore.SqlServer - v8.0.5
+Microsoft.EntityFrameworkCore.Tools - v8.0.5">
+Microsoft.IdentityModel.Tokens - v7.5.2
+Swashbuckle.AspNetCore - v6.6.2
+Swashbuckle.AspNetCore.Annotations - v6.6.2
+Swashbuckle.AspNetCore.Filters - v8.0.2
+System.IdentityModel.Tokens.Jwt - v7.5.2
+```
+
 ## Project Installation Instructions
 
 ### Front End
