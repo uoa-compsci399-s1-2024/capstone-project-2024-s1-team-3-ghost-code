@@ -1,13 +1,15 @@
-<img src="verifybanner.png">
+<img src="README_assets/verifybanner.png">
 
 # OTTER: Online TMS Training Experience Reboot
 
-> ### [Project Management Tool (Jira)](https://lucasfetavares.atlassian.net/jira/core/projects/GC/board)
+TMS Training Quizzes is an innovative quiz platform that facilitates the learning experience of clinicians who are a part of the VERIFY study handling TMS equipment to determine the prognosis of stroke patients.
 
 ## Project Description
 The OTTER project has been to develop a new learning platform for clinicians using TMS (Transcranial Magnetic Stimulation) on stroke patients. The platform allows clinicians to take quizzes and become certified when using TMS. It allows for practice and final attempts over 6 modules and a recertification module for each clinician to complete each year. Previously clinicians have been completing these quizzes on Google Forms, but the client wanted a dedicated solution for the quizzes to provide better insights into the quiz attempts and automatic certifications. Following an attempt, clinicians are able to view feedback about specific answers, and what they should revise before attempting the quiz again. Admins can add and edit quiz questions and can upload images to support the question. They can also view statistics about quiz attempts, and view results from each clinician's profile including their certifications and certificates.
 
-[Demonstration Video](https://youtu.be/IDDmtNcA6Jw)
+> [Demonstration Video](https://youtu.be/IDDmtNcA6Jw)
+
+> [Project Management Tool (Jira)](https://lucasfetavares.atlassian.net/jira/core/projects/GC/board)
 
 ## Technologies Used
 * .NET 8
@@ -111,16 +113,26 @@ Admins can login and view clinicians, their statistics, edit quizzes, and edit s
 [TMS Training Quizzes (tmstrainingquizzes.com)](https://www.tmstrainingquizzes.com/)
 
 ## Future Release Ideas
-* Recalling Attempt Feedback and Better Statistics
-  * Ability for clinicians and admins to go back and see what they got wrong
-* Automatic Quiz Reminder Emails
-  * 11 month reminder to get re-certified
-* Screen Size Adaptability
-  * Ability to attempt the quizzes on your phone or tablet
-* Advanced Answer Types
-  * Drag and drop answers onto a sentence or image
-* Survey Integration
-  * Complete pre or post training surveys on our platform
+
+### Recalling Attempt Feedback and Better Statistics
+
+Adding the ability for admins and clinicians to go back and see past attempts, including the specific answers they got right and wrong. Currently the only data that is stored is whether the attempt was pass or fail.
+
+### Automatic Quiz Reminder Emails
+
+At the moment, clinicians and admins would have to login to check if they need to take the recertification quiz or make a note of the current expiry date elsewhere to remember to come back. This can be resolved by adding an automatic reminder email that is sent 11 months after their existing certification expiring alerting them to come back and attempt the recertification quiz.
+
+### Screen Size Adaptability
+
+Accessing the site at the moment is best done via a computer, as some pages do not scale correctly or collapse menus nicely when viewing the site on a mobile device. Adding mobile and tablet support will give clinicians and admins more freedom to access the site on whatever device they would like.
+
+### Advanced Answer Types
+
+As part of our initial design ideas, we thought about adding a drag-and-drop question type, which would allow clinicians to answer a question by dragging possible answers onto an image or template sentence. This was not a feature we were able to build with the time constraints we had, but it would potentially be a good addition to the site at a later point.
+
+### Survey Integration
+
+Clinicians currently have to complete their pre and post-training surveys on Google Forms, and then return to our site. In the future, integrating these surveys into the website would mean that the whole learning assessment process would be hosted from TMS Training Quizzes.
 
 ## Acknowledgments
 
