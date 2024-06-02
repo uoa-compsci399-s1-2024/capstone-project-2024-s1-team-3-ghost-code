@@ -12,8 +12,6 @@ The OTTER project has been to develop a new learning platform for clinicians usi
 
 > [Demonstration Video](https://youtu.be/IDDmtNcA6Jw)
 
-> [Project Management Tool (Jira)](https://lucasfetavares.atlassian.net/jira/core/projects/GC/board)
-
 ## Technologies Used
 * .NET 8
 * Microsoft SQL Server
@@ -78,6 +76,12 @@ System.IdentityModel.Tokens.Jwt - v7.5.2
 
 ## Project Installation Instructions
 
+Our project has already been deployed to a live site.
+
+> [TMS Training Quizzes Website (tmstrainingquizzes.com)](https://www.tmstrainingquizzes.com/)
+
+The Front End and Back End instructions below will guide you to setup and run each program within a development environment.
+
 ### Front End
 * Install Visual Studio Code
 * Install Node.js (https://nodejs.org/en)
@@ -134,6 +138,14 @@ As part of our initial design ideas, we thought about adding a drag-and-drop que
 ### Survey Integration
 
 Clinicians currently have to complete their pre and post-training surveys on Google Forms, and then return to our site. In the future, integrating these surveys into the website would mean that the whole learning assessment process would be hosted from TMS Training Quizzes.
+
+## Project Management Tool
+
+> [Project Management Tool (Jira)](https://lucasfetavares.atlassian.net/jira/core/projects/GC/board)
+
+### Gantt Chart
+
+<img src="README_assets/ganttchart.png" width=600>
 
 ## Acknowledgments
 
