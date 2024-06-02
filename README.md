@@ -62,7 +62,13 @@ The OTTER project has been to develop a new learning platform for clinicians usi
 ## Project Installation Instructions
 
 ### Front End
-Install Visual Studio Code and Node.js. Ensure Node.js is correctly pathed. Open this project in Visual Studio Code. In a new terminal type in `npm start`. You may need to install vite by running command `npm install vite`
+* Install Visual Studio Code
+* Install Node.js (https://nodejs.org/en)
+* Open project in Visual Studio Code
+* In a new terminal do `cd (location of where this project is stored in your computer)`
+* do `npm install` in the terminal. This will download all of the dependencies stated in the package.json file.
+* do `npm run dev` in the terminal. This will then run the code on your local device and give a link which you can put in your browser to view the project. 
+
 
 ### Back End
 * Install .NET 8
