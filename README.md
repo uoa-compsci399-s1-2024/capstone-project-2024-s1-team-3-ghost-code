@@ -1,16 +1,8 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/t8qno6SJ)
+<img src="verifybanner.png">
 
 # OTTER: Online TMS Training Experience Reboot
 
-> ### [Project Management Tool](https://lucasfetavares.atlassian.net/jira/core/projects/GC/board)
-
-## Contributors
-* Lucas Fernandes Tavares (Team Leader, Front-end)
-* Ayesha Essop (Co-Leader, Front-end)
-* Sahil Kumar (Back-end, Front-end)
-* Emily Zhao (Front-end)
-* Bailey Alexander (Back-end)
-* Angus Wright (Back-end)
+> ### [Project Management Tool (Jira)](https://lucasfetavares.atlassian.net/jira/core/projects/GC/board)
 
 ## Project Description
 The OTTER project has been to develop a new learning platform for clinicians using TMS (Transcranial Magnetic Stimulation) on stroke patients. The platform allows clinicians to take quizzes and become certified when using TMS. It allows for practice and final attempts over 6 modules and a recertification module for each clinician to complete each year. Previously clinicians have been completing these quizzes on Google Forms, but the client wanted a dedicated solution for the quizzes to provide better insights into the quiz attempts and automatic certifications. Following an attempt, clinicians are able to view feedback about specific answers, and what they should revise before attempting the quiz again. Admins can add and edit quiz questions and can upload images to support the question. They can also view statistics about quiz attempts, and view results from each clinician's profile including their certifications and certificates.
@@ -130,4 +122,19 @@ Admins can login and view clinicians, their statistics, edit quizzes, and edit s
 * Survey Integration
   * Complete pre or post training surveys on our platform
 
-## Acknowledgements
+## Acknowledgments
+
+Thank you to our clients Cathy Stinear, Harry Jordan, and Ben Scrivener for the opportunity to work with them on this innovative solution.
+
+## Contributors
+
+<img src="README_assets/ghostotter.png" width=250>
+
+Brought to you by Ghost Code (Team 3) | University of Auckland - Computer Science Capstone (Semester 1, 2024)
+
+* Lucas Fernandes Tavares - Team Leader/Front-end
+* Ayesha Essop - Co-Leader/Front-end
+* Sahil Kumar - Front-end/Back-end
+* Angus Wright - Back-end
+* Bailey Alexander - Back-end
+* Emily Zhao - Front-end
