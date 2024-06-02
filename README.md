@@ -7,6 +7,8 @@ TMS Training Quizzes is an innovative quiz platform that facilitates the learnin
 ## Project Description
 The OTTER project has been to develop a new learning platform for clinicians using TMS (Transcranial Magnetic Stimulation) on stroke patients. The platform allows clinicians to take quizzes and become certified when using TMS. It allows for practice and final attempts over 6 modules and a recertification module for each clinician to complete each year. Previously clinicians have been completing these quizzes on Google Forms, but the client wanted a dedicated solution for the quizzes to provide better insights into the quiz attempts and automatic certifications. Following an attempt, clinicians are able to view feedback about specific answers, and what they should revise before attempting the quiz again. Admins can add and edit quiz questions and can upload images to support the question. They can also view statistics about quiz attempts, and view results from each clinician's profile including their certifications and certificates.
 
+> [Final Report](README_assets/finalreport.pdf)
+
 ## Useful Links
 > [TMS Training Quizzes Website (tmstrainingquizzes.com)](https://www.tmstrainingquizzes.com/)
 
@@ -141,7 +143,7 @@ Clinicians currently have to complete their pre and post-training surveys on Goo
 
 ## Project Management Tool
 
-> [Project Management Tool (Jira)](https://lucasfetavares.atlassian.net/jira/core/projects/GC/board)
+[Project Management Tool (Jira)](https://lucasfetavares.atlassian.net/jira/core/projects/GC/board)
 
 ### Gantt Chart
 
