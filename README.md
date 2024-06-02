@@ -65,16 +65,28 @@ The OTTER project has been to develop a new learning platform for clinicians usi
 * Install Visual Studio Code
 * Install Node.js (https://nodejs.org/en)
 * Open project in Visual Studio Code
-* In a new terminal do `cd (location of where this project is stored in your computer)`
-* do `npm install` in the terminal. This will download all of the dependencies stated in the package.json file.
-* do `npm run dev` in the terminal. This will then run the code on your local device and give a link which you can put in your browser to view the project. 
+* In a new terminal, run `cd (path to Front End folder)`
+* Run `npm install` in the terminal. This will download all of the dependencies stated in the package.json file.
+* Run `npm run dev` in the terminal. This will then run the code on your local device and give a link which you can put in your browser to view the project. 
 
 
 ### Back End
 * Install .NET 8
 * Install Visual Studio 2022
+* Open `OTTER.sln` file from within `Back End/OTTER`
 > **_NOTE:_**  After opening the project in Visual Studio, you can run the program in a developer environment, however you may not have access to any services through AWS such as S3, Simple Email Service, or Database.
 * To deploy, use AWS Explorer plug-in in Visual Studio and deploy to Elastic Beanstalk. You may also deploy to your own server.
+
+### Google Apps Script
+For pre-training survey to send email address to backend upon submission
+
+* Copy the contents of the [PreSurveyFormSubmissionAppsScript.gs](PreSurveyFormSubmissionAppsScript.gs) file
+* Open a new Google Apps Script project
+* Paste the contents of the PreSurveyFormSubmissionAppsScript.gs file into the Code.gs file in the project
+* Add the Google Form ID for the pre-training survey into the openById parameter when setting var surveyForm
+* Run the setTriggers function in Apps Script to set the responseReceived function to run on form on form submit
+
+When a form submission is received, the responseReceived function will send the email address to the TMS Training Quizzes back end to mark user as completing the pre-training survey.
 
 ## Usage Examples
 Our platform is designed for use by clinicians training on how to use TMS on stroke patients. It is not intended for public use.
