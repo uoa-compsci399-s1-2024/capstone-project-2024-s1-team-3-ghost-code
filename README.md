@@ -98,7 +98,7 @@ The Front End and Back End instructions below will guide you to setup and run ea
 * Install .NET 8
 * Install Visual Studio 2022
 * Open `OTTER.sln` file from within `Back End/OTTER`
-> **_NOTE:_**  After opening the project in Visual Studio, you can run the program in a developer environment, however you may not have access to any services through AWS such as S3, Simple Email Service, or Database.
+> **_NOTE:_**  After opening the project in Visual Studio, you can run the program in a developer environment, however, without an AWS IAM role on your machine you may not have access to any services through AWS such as S3, Simple Email Service, or Secrets Manager (used for Database credentials and JWT token).
 * To deploy, use AWS Explorer plug-in in Visual Studio and deploy to Elastic Beanstalk. You may also deploy to your own server.
 
 ### Google Apps Script
@@ -159,9 +159,9 @@ Thank you to our clients Cathy Stinear, Harry Jordan, and Ben Scrivener for the 
 
 Brought to you by Ghost Code (Team 3) | University of Auckland - Computer Science Capstone (Semester 1, 2024)
 
-* Lucas Fernandes Tavares - Team Leader/Front-end
-* Ayesha Essop - Co-Leader/Front-end
-* Sahil Kumar - Front-end/Back-end
-* Angus Wright - Back-end
-* Bailey Alexander - Back-end
-* Emily Zhao - Front-end
+* Lucas Fernandes Tavares - Team Leader/Front-end - ltav228@aucklanduni.ac.nz
+* Ayesha Essop - Co-Leader/Front-end - aess332@aucklanduni.ac.nz
+* Sahil Kumar - Front-end/Back-end - skmu545@aucklanduni.ac.nz
+* Angus Wright - Back-end/Deployment - awri813@aucklanduni.ac.nz
+* Bailey Alexander - Back-end - bale901@aucklanduni.ac.nz
+* Emily Zhao - Front-end - ezha943@aucklanduni.ac.nz
