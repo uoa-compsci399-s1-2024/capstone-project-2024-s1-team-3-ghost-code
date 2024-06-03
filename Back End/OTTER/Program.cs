@@ -65,8 +65,7 @@ public class Program
             options.OperationFilter<SecurityRequirementsOperationFilter>();
         });
 
-        if (!builder.Environment.IsDevelopment()) {
-            builder.Configuration.AddSecretsManager(region: RegionEndpoint.APSoutheast2,
+        builder.Configuration.AddSecretsManager(region: RegionEndpoint.APSoutheast2,
             configurator: options =>
             {
                 options.SecretFilter = entry => entry.Name.StartsWith($"{appName}_");
@@ -75,7 +74,6 @@ public class Program
                     .Replace("__", ":");
                 options.PollingInterval = TimeSpan.FromSeconds(10);
             });
-        }
 
         /*builder.Services.AddAuthentication().AddScheme<AuthenticationSchemeOptions, AdminHandler>("Authentication", null);*/
 

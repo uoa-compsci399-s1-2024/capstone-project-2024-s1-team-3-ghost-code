@@ -98,7 +98,7 @@ The Front End and Back End instructions below will guide you to setup and run ea
 * Install .NET 8
 * Install Visual Studio 2022
 * Open `OTTER.sln` file from within `Back End/OTTER`
-> **_NOTE:_**  After opening the project in Visual Studio, you can run the program in a developer environment, however, without an AWS IAM role on your machine you may not have access to any services through AWS such as S3, Simple Email Service, or Secrets Manager (used for Database credentials and JWT token).
+> **_NOTE:_**  You will need to add AWS credentials on your machine to have access to services through AWS such as S3, Simple Email Service, or Secrets Manager (used for Database credentials and JWT token).
 * To deploy, use AWS Explorer plug-in in Visual Studio and deploy to Elastic Beanstalk. You may also deploy to your own server.
 
 ### Google Apps Script
