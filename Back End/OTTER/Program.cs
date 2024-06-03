@@ -109,7 +109,7 @@ public class Program
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
-        /*if (app.Environment.IsDevelopment())
+        if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -117,14 +117,7 @@ public class Program
                 c.DocumentTitle = "OTTER Swagger UI";
                 c.DefaultModelsExpandDepth(-1);
             });
-        }*/
-
-        app.UseSwagger();
-        app.UseSwaggerUI(c =>
-        {
-            c.DocumentTitle = "OTTER Swagger UI";
-            c.DefaultModelsExpandDepth(-1);
-        });
+        }
 
         app.UseHttpsRedirection();
 
